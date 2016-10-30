@@ -37,7 +37,7 @@ public class NoticeDaoTest {
 	public void testGetNoticeMessage() {
 		int groupId = 3;
 		List<Notice> list = noticeDao.getNoticeMessage(groupId);
-		/*logger.info("list = {}" + list);*/
+		logger.info("list = {}" + list);
 	}
 	
 	@Test
@@ -51,6 +51,6 @@ public class NoticeDaoTest {
 	public void testDeleteNoticeMessage() {
 		int noticeId = 3;
 		int affectRows = noticeDao.deleteNoticeMessage(noticeId);
-		logger.info("影响的行数:" + affectRows);
+		logger.info("影响的行数 :" + affectRows);
 	}
 }

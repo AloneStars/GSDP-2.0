@@ -9,7 +9,7 @@
 	<sql id="columns">
 		activity_id,activity_title,activity_content,beginTime,
 		endTime,activitier,sponsor,activity_number,activity_address,
-		publishTime,permission
+		publishTime,permission,visitors
 	</sql>
 
 	<select id="getAllActivityMessage" resultType="Activity">
@@ -30,9 +30,9 @@
 	
 	<insert id="addActivityMessage" keyProperty="activityId">
 		insert ignore activity(activity_title,activity_content,beginTime,endTime,activity_number,
-				activitier,sponsor,activity_address,permission,publishTime) 
+				activitier,sponsor,activity_address,permission,publishTime,visitors)
 		values(#{activityTitle},#{activityContent},#{beginTime},#{endTime},#{activityNumber},
-		       #{activitier},#{sponsor},#{activityAddress},#{permission},#{publishTime});
+		       #{activitier},#{sponsor},#{activityAddress},#{permission},#{publishTime},#{visitors});
 	</insert>
 	
 	
@@ -69,6 +69,7 @@
 			<if test="publishTime != null and !publishTime.equals('')">
 				publishTime = #{publishTime},
 			</if>
+			visitors = #{visitors}
 		</set>
 		<where>
 			activity_id = #{activityId};
@@ -76,7 +77,7 @@
 	</update>
 	
 	
-	<select id="queryAvitvityMessage" resultType="Activity">
+	<select id="queryActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>
 		from activity

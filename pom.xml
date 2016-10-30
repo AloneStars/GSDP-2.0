@@ -39,7 +39,7 @@
   </dependencyManagement>
 
   <dependencies>
-    <!-- 引入junit单元测试 -->
+    <!-- 引入junit单元测试   -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>

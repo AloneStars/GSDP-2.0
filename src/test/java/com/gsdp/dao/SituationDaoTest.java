@@ -45,14 +45,15 @@ public class SituationDaoTest {
 		int publisher = 1;
 		String publishTime = "2016-10-27";
 		int groupId = 3;
-		Situation situation = new Situation(situationTitle, situationContent, publisher, publishTime, groupId);
+		int visitors = 111;
+		Situation situation = new Situation(situationTitle, situationContent, publisher, publishTime, groupId, visitors);
 		int affectRows = situationDao.addSitutationMessage(situation);
 		logger.info("影响的行数:" + affectRows + "返回的自增id:" + situation.getSituationId());
 	}
 	
 	@Test
 	public void testDeleteSituationMessage() {
-		int situationId = 4;
+		int situationId = 5;
 		int affectRows = situationDao.deleteSituationMessage(situationId);
 		logger.info("影响的行数:" + affectRows);
 	}

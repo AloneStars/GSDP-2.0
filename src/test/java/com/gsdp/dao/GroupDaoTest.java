@@ -71,14 +71,15 @@ public class GroupDaoTest {
 		String groupAddress = "16A-310";
 		int groupType = 4;
 		int owner = 2;
-		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner);
+		int visitors = 456;
+		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors);
 		int affectRows = groupDao.addGroup(group);
 		logger.info("影响的行数:" + affectRows + "返回的自增id为:" + group.getGroupId());
 	}
 	
 	@Test
 	public void testUpdateGroup() {
-		int groupId = 6;
+		int groupId = 8;
 		String groupIcon = "image/GroupIcon/ACG.jpg";
 		String groupName = "高冷社团";
 		String groupDec = "我们很高冷，并且我们也很帅";
@@ -86,14 +87,15 @@ public class GroupDaoTest {
 		String groupAddress = "16A-310";
 		int groupType = 4;
 		int owner = 2;
-		Group group = new Group(groupId, groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner);
+		int visitors = 111111;
+		Group group = new Group(groupId, groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors);
 		int affectRows = groupDao.updateGroup(group);
 		logger.info("影响的行数:" + affectRows);
 	}
 	
 	@Test
 	public void testGetGroupMessage() {
-		int groupId = 6;
+		int groupId = 3;
 		Group group = groupDao.getGroupMessage(groupId);
 		logger.info("group = {}", group);
 	}

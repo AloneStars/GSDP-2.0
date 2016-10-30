@@ -6,7 +6,7 @@
 <mapper namespace="com.gsdp.dao.GroupDao">
     
     <sql id="columns">
-    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner
+    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors
     </sql>
     
     <insert id="addAdmin">
@@ -47,8 +47,8 @@
     
     
     <insert id="addGroup" keyProperty="groupId">
-    	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner) 
-    	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner});
+    	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors)
+    	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors});
     </insert>
     
     
@@ -73,7 +73,8 @@
     			group_contact = #{groupContact},
     		</if>
     			group_type = #{groupType},
-    			owner = #{owner}
+    			owner = #{owner},
+				visitors = #{visitors}
     	</set>
     	<where>
     		group_id = #{groupId};

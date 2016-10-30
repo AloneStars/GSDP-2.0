@@ -25,12 +25,15 @@ public class Group {
 	
 	//团体创建者
 	private int owner;
+
+	//社团访问人数统计
+	private int visitors;
 	
-	public Group() {};
+	public Group() {}
 	
 
 	public Group(String groupIcon, String groupName, String groupDec,
-			String groupContact, String groupAddress, int groupType, int owner) {
+			String groupContact, String groupAddress, int groupType, int owner, int visitors) {
 		this.groupIcon = groupIcon;
 		this.groupName = groupName;
 		this.groupDec = groupDec;
@@ -38,13 +41,14 @@ public class Group {
 		this.groupAddress = groupAddress;
 		this.groupType = groupType;
 		this.owner = owner;
+		this.visitors = visitors;
 	}
 	
 
 	public Group(int groupId, String groupIcon, String groupName,
 			String groupDec, String groupContact, String groupAddress,
-			int groupType, int owner) {
-		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner);
+			int groupType, int owner, int visitors) {
+		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors);
 		this.groupId = groupId;
 	}
 
@@ -113,15 +117,26 @@ public class Group {
 		this.owner = owner;
 	}
 
-	//----------------------
-	
+	public int getVisitors() {
+		return visitors;
+	}
+
+	public void setVisitors(int visitors) {
+		this.visitors = visitors;
+	}
+
 	@Override
 	public String toString() {
-		return "Group [groupId=" + groupId + ", groupIcon=" + groupIcon
-				+ ", groupName=" + groupName + ", groupDec=" + groupDec
-				+ ", groupContact=" + groupContact + ", groupAddress="
-				+ groupAddress + ", groupType=" + groupType + ", owner="
-				+ owner + "]";
+		return "Group{" +
+				"groupId=" + groupId +
+				", groupIcon='" + groupIcon + '\'' +
+				", groupName='" + groupName + '\'' +
+				", groupDec='" + groupDec + '\'' +
+				", groupContact='" + groupContact + '\'' +
+				", groupAddress='" + groupAddress + '\'' +
+				", groupType=" + groupType +
+				", owner=" + owner +
+				", visitors=" + visitors +
+				'}';
 	}
-	
 }
