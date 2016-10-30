@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="GSDP:war exploded">
+  <artifact type="exploded-war" name="GSDP-2.0:war exploded">
     <output-path>$PROJECT_DIR$/target/GSDP</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">

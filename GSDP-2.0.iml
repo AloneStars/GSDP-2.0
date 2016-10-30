@@ -65,6 +65,6 @@
     <orderEntry type="library" name="Maven: javax.servlet.jsp.jstl:jstl-api:1.2" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet.jsp:jsp-api:2.1" level="project" />
-    <orderEntry type="library" exported="" scope="PROVIDED" name="Tomcat 7.0.47" level="application_server_libraries" />
+    <orderEntry type="library" scope="PROVIDED" name="tomcat 7.0" level="application_server_libraries" />
   </component>
 </module>

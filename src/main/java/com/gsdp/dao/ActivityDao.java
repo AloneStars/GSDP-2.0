@@ -50,6 +50,6 @@ public interface ActivityDao {
 	 * @param activityId
 	 * @return
 	 */
-	Activity queryAvitvityMessage(int activityId);
+	Activity queryActivityMessage(int activityId);
 
 }

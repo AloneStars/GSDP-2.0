@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="GSDP" />
+        <module name="GSDP-2.0" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="GSDP" target="1.7" />
+      <module name="GSDP-2.0" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

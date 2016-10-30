@@ -37,7 +37,7 @@ public class NoticeDaoTest {
 	public void testGetNoticeMessage() {
 		int groupId = 3;
 		List<Notice> list = noticeDao.getNoticeMessage(groupId);
-		/*logger.info("list = {}" + list);*/
+		logger.info("list = {}" + list);
 	}
 	
 	@Test

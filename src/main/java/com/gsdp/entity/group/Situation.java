@@ -21,19 +21,23 @@ public class Situation {
 	
 	//该条动态发到那个团体中
 	private int groupId;
+
+	//统计该动态点击的人数
+	private int visitors;
 	
 	//一个动态的所有回复
 	private List<Reply> replies;
 	
-	public Situation() {};
+	public Situation() {}
 	
 	public Situation(String situationTitle, String situationContent,
-			int publisher, String publishTime, int groupId) {
+			int publisher, String publishTime, int groupId, int visitors) {
 		this.situationTitle = situationTitle;
 		this.situationContent = situationContent;
 		this.publisher = publisher;
 		this.publishTime = publishTime;
 		this.groupId = groupId;
+		this.visitors = visitors;
 	}
 
 	public int getSituationId() {
@@ -83,8 +87,15 @@ public class Situation {
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-	
-	
+
+	public int getVisitors() {
+		return visitors;
+	}
+
+	public void setVisitors(int visitors) {
+		this.visitors = visitors;
+	}
+
 	public List<Reply> getNotices() {
 		return replies;
 	}
@@ -92,15 +103,18 @@ public class Situation {
 	public void setNotices(List<Reply> replies) {
 		this.replies = replies;
 	}
-	
-	//------------------------
 
 	@Override
 	public String toString() {
-		return "Situation [situationId=" + situationId + ", situationTitle="
-				+ situationTitle + ", situationContent=" + situationContent
-				+ ", publisher=" + publisher + ", publishTime=" + publishTime
-				+ ", groupId=" + groupId + ", replies=" + replies + "]";
+		return "Situation{" +
+				"situationId=" + situationId +
+				", situationTitle='" + situationTitle + '\'' +
+				", situationContent='" + situationContent + '\'' +
+				", publisher=" + publisher +
+				", publishTime='" + publishTime + '\'' +
+				", groupId=" + groupId +
+				", visitors=" + visitors +
+				", replies=" + replies +
+				'}';
 	}
-
 }

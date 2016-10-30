@@ -46,7 +46,8 @@ public class ActivityDaoTest {
 		String activityAddress = "A7-319";
 		String publishTime = "2016-10-12";
 		int permission = 0;
-		Activity activity = new Activity(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission);
+		int visitors = 10;
+		Activity activity = new Activity(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
 		int insertCount = activityDao.addActivityMessage(activity);
 		logger.info("影响的行数" + insertCount + ";返回的自增id:" + activity.getActivityId());
 	}
@@ -54,14 +55,14 @@ public class ActivityDaoTest {
 	
 	@Test
 	public void testDeleteActivityMessage() {
-		int activityId = 6;
+		int activityId = 9;
 		int affectRows = activityDao.deleteActivityMessage(activityId);
 		logger.info("被影响行数:" + affectRows);
 	}
 	
 	@Test
 	public void testUpdateActivityMessage() {
-		int activityId = 8;
+		int activityId = 9;
 		String activityTitle = "ACM比赛";
 		String activityContent = "关于一场东软的ACM比赛(fighting)";
 		String beginTime = "2016-10-27";
@@ -72,7 +73,8 @@ public class ActivityDaoTest {
 		String activityAddress = "A7-319";
 		String publishTime = "2016-10-26";
 		int permission = 1;
-		Activity activity = new Activity(activityId,activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission);
+		int visitors = 999;
+		Activity activity = new Activity(activityId,activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
 		int affectRows = activityDao.updateActivityMessage(activity);
 		logger.info("被影响行数:" + affectRows);
 	}
@@ -80,7 +82,7 @@ public class ActivityDaoTest {
 	@Test
 	public void testQueryAvitvityMessage() {
 		int activityId = 2;
-		Activity activity = activityDao.queryAvitvityMessage(activityId);
+		Activity activity = activityDao.queryActivityMessage(activityId);
 		logger.info("activity={}",activity);
 	}
 }

@@ -34,13 +34,16 @@ public class Activity {
 	
 	//开放权限
 	private int permission;
+
+	//活动访问人数统计
+	private int visitors;
 	
 	public Activity() {}
 	
 	public Activity(String activityTitle, String activityContent,
 			String beginTime, String endTime, int activitier, int sponsor,
 			int activityNumber, String activityAddress, String publishTime,
-			int permission) {
+			int permission, int visitors) {
 		this.activityTitle = activityTitle;
 		this.activityContent = activityContent;
 		this.beginTime = beginTime;
@@ -51,14 +54,15 @@ public class Activity {
 		this.activityAddress = activityAddress;
 		this.publishTime = publishTime;
 		this.permission = permission;
+		this.visitors = visitors;
 	}
 	
 	public Activity(int activityId, String activityTitle, String activityContent,
 			String beginTime, String endTime, int activitier, int sponsor,
 			int activityNumber, String activityAddress, String publishTime,
-			int permission) {
+			int permission, int visitors) {
 
-			this(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission);
+			this(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
 			this.activityId = activityId;
 	}
 
@@ -151,18 +155,33 @@ public class Activity {
 	public void setPermission(int permission) {
 		this.permission = permission;
 	}
-	
+
+	public int getVisitors() {
+		return visitors;
+	}
+
+	public void setVisitors(int visitors) {
+		this.visitors = visitors;
+	}
+
 	//---------------------------------
+
 
 	@Override
 	public String toString() {
-		return "Activity [activityId=" + activityId + ", activityTitle="
-				+ activityTitle + ", activityContent=" + activityContent
-				+ ", beginTime=" + beginTime + ", endTime=" + endTime
-				+ ", activitier=" + activitier + ", sponsor=" + sponsor
-				+ ", activityNumber=" + activityNumber + ", activityAddress="
-				+ activityAddress + ", publishTime=" + publishTime
-				+ ", permission=" + permission + "]";
+		return "Activity{" +
+				"activityId=" + activityId +
+				", activityTitle='" + activityTitle + '\'' +
+				", activityContent='" + activityContent + '\'' +
+				", beginTime='" + beginTime + '\'' +
+				", endTime='" + endTime + '\'' +
+				", activitier=" + activitier +
+				", sponsor=" + sponsor +
+				", activityNumber=" + activityNumber +
+				", activityAddress='" + activityAddress + '\'' +
+				", publishTime='" + publishTime + '\'' +
+				", permission=" + permission +
+				", visitors=" + visitors +
+				'}';
 	}
-	
 }
