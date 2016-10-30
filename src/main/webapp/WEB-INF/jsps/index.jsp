@@ -4,7 +4,7 @@
   <head>
     <title>My JSP 'index.jsp' starting page</title>
   </head>
-  
+
   <body>
     This is my JSP page. <br>
   </body>
