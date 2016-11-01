@@ -29,6 +29,19 @@ public class GroupDaoTest {
 		int affectRows = groupDao.addAdmin(userId, groupId);
 		logger.info("影响的行数" + affectRows);
 	}
+
+	@Test
+	public void testChangeMemberNumber(){
+
+		int groupId = 3;
+
+		int number = -1;
+
+		int affectRows = groupDao.changeMemberNumber(number,groupId);
+
+		logger.info("影响的行数" + affectRows);
+
+	}
 	
 	@Test
 	public void testDeleteAdmin() {
@@ -72,7 +85,8 @@ public class GroupDaoTest {
 		int groupType = 4;
 		int owner = 2;
 		int visitors = 456;
-		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors);
+		int groupMembers = 100;
+		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
 		int affectRows = groupDao.addGroup(group);
 		logger.info("影响的行数:" + affectRows + "返回的自增id为:" + group.getGroupId());
 	}
@@ -88,7 +102,8 @@ public class GroupDaoTest {
 		int groupType = 4;
 		int owner = 2;
 		int visitors = 111111;
-		Group group = new Group(groupId, groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors);
+		int groupMembers = 100;
+		Group group = new Group(groupId, groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
 		int affectRows = groupDao.updateGroup(group);
 		logger.info("影响的行数:" + affectRows);
 	}

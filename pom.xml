@@ -89,6 +89,12 @@
       <version>${mybatis-spring.version}</version>
     </dependency>
 
+    <!--gson相关的依赖-->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.6.2</version>
+    </dependency>
 
     <!-- jackson的相关依赖，当我们在使用json的时候 -->
     <dependency>
@@ -147,6 +153,23 @@
   <build>
     <finalName>GSDP</finalName>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.12.4</version>
+        <configuration>
+          <forkMode>once</forkMode>
+          <argLine>-Dfile.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>2.3.2</version>

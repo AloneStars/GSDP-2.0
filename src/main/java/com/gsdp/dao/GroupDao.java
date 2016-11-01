@@ -52,6 +52,14 @@ public interface GroupDao {
 	 * @return
 	 */
 	int deleteMember(@Param("userId") int userId, @Param("groupId") int groupId);
+
+	/**
+	 * 更改成员数量
+	 * @param number
+	 * @param groupId
+	 * @return
+     */
+	int changeMemberNumber(@Param("number") int number , @Param("groupId") int groupId);
 	
 	/**
 	 * 增加一个团体
@@ -59,6 +67,13 @@ public interface GroupDao {
 	 * @return
 	 */
 	int addGroup(Group group);
+
+	/**
+	 * 删除一个团体
+	 * @param groupId
+	 * @return
+	 */
+	int deleteGroup(int groupId);
 	
 	/**
 	 * 更新组织信息

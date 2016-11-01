@@ -6,7 +6,7 @@
 <mapper namespace="com.gsdp.dao.GroupDao">
     
     <sql id="columns">
-    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors
+    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_members
     </sql>
     
     <insert id="addAdmin">
@@ -36,6 +36,16 @@
     <insert id="addMember">
     	insert ignore member values(#{userId},#{groupId});
     </insert>
+
+	<update id="changeMemberNumber">
+		UPDATE  `group`
+		<set>
+            group_members = group_members + #{number}
+		</set>
+		<where>
+			group_id = #{groupId};
+		</where>
+	</update>
     
     
     <delete id="deleteMember">
@@ -106,4 +116,12 @@
     	<include refid="columns"/>
     	from `group`;
     </select>
+
+	<delete id="deleteGroup">
+		DELETE FROM `group`
+		<where>
+			group_id = #{groupId};
+		</where>
+	</delete>
+
 </mapper>

@@ -27,7 +27,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GSDP" target="1.7" />
       <module name="GSDP-2.0" target="1.7" />
     </bytecodeTargetLevel>
   </component>
