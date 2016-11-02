@@ -83,9 +83,15 @@ public class GroupController {
 
         List<Activity> activityList = activityDao.getActivityMessage(groupId);
 
-       /* List<Situation> situationList =
+        List<Situation> situationList = situationDao.getSituationMessage(groupId);
 
-        model.addAttribute("group",group);*/
+        /**
+         * 资源部分的功能还待设计样式和初始化方式
+         */
+
+        model.addAttribute("group",group);
+        model.addAttribute("activityList",activityList);
+        model.addAttribute("situationList",situationList);
 
         logger.info(gson.toJson(group));
 

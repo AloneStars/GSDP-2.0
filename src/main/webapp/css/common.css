@@ -116,8 +116,8 @@ a:focus {
 	position: absolute;
 	width: 430px;
 	height: 150px;
-	left: 50%;
-	margin-left: -767px;
+	/*left: 50%;
+	margin-left: -767px;*/
 	background: url("../image/logo.png");
 }
 
@@ -128,26 +128,25 @@ a:focus {
 	left: 50%;
 	margin-left: -350px;
 }
-
 .user {
 	position: absolute;
 	width: 250px;
 	margin-top: 10px;
 	height: 130px;
-	left: 50%;
-	margin-left: 390px;
+	right: 120px;
 	padding: 10px;
 	border: 1px solid #fff;
 	transition: 0.8s;
 	transform: translateX(50px);
 	opacity: 0;
+
 }
 
 .HP {
 	position: absolute;
 	width: 80px;
 	height: 80px;
-	left: 50%;
+	right:20px;
 	margin-top: 35px;
 	margin-left: 660px;
 	border: 2px solid #fff;

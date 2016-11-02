@@ -144,6 +144,7 @@
 
             <!--内容左部-->
             <div id="content-left">
+
                 <div id="content-left-top" class="shadow">
 						<span> <b class="content-title"><i>关于我们:</i></b><br>
 							<p id="groupDec">${group.groupDec}</p>
@@ -168,7 +169,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="SL">
-                           <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
+                            <c:forEach items="#{situationList}" var="situation">
+                                <li><a href="index.html"><span class="title">${situation.situationTitle}</span><span class="time">发布时间:&nbsp;<i>${situation.publishTime}</i></span></a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -179,7 +182,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="AL">
-                            <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
+                            <c:forEach items="#{activityList}" var="activity">
+                                <li><a href="index.html"><span class="title">${activity.activityTitle}</span><span class="time">发布时间:&nbsp;<i>${activity.publishTime}</i></span></a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -190,7 +195,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="RL">
-                            <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
+                            <%--<c:forEach items="" var="">
+                                <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
+                            </c:forEach>--%>
                         </ul>
                     </div>
                 </div>
