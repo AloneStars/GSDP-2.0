@@ -22,6 +22,18 @@ public class Reply {
 	//发这条评论的人
 	private User user;
 
+	public Reply(){}
+
+	public Reply(String replyContent, int replyer, String replyTime, int situationId, User user ,int... replyId) {
+		this.replyContent = replyContent;
+		this.replyer = replyer;
+		this.replyTime = replyTime;
+		this.situationId = situationId;
+		this.user = user;
+		if(replyId.length == 1)
+			this.replyId = replyId[0];
+	}
+
 	//-------------------------
 	
 	public int getReplyId() {

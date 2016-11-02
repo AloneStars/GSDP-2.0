@@ -43,6 +43,9 @@ public interface GroupService {
     //添加组织成员
     boolean addMember(int userId, int groupId);
 
+    //删除组织成员
+    boolean deleteMember(int userId, int groupId);
+
     //转让组织
     boolean changeOwner(int userId, int groupId);
 

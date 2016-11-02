@@ -33,10 +33,9 @@ public class Group {
 	private int groupMembers;
 	
 	public Group() {}
-	
 
 	public Group(String groupIcon, String groupName, String groupDec,
-			String groupContact, String groupAddress, int groupType, int owner, int visitors,int groupMembers) {
+			String groupContact, String groupAddress, int groupType, int owner, int visitors,int groupMembers,int... groupId) {
 		this.groupIcon = groupIcon;
 		this.groupName = groupName;
 		this.groupDec = groupDec;
@@ -46,16 +45,9 @@ public class Group {
 		this.owner = owner;
 		this.visitors = visitors;
 		this.groupMembers = groupMembers;
+		if(groupId.length == 1)
+			this.groupId = groupId[0];
 	}
-	
-
-	public Group(int groupId, String groupIcon, String groupName,
-			String groupDec, String groupContact, String groupAddress,
-			int groupType, int owner, int visitors, int groupMembers) {
-		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
-		this.groupId = groupId;
-	}
-
 
 	public int getGroupId() {
 		return groupId;

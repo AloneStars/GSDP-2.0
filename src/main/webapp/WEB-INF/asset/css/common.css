@@ -116,8 +116,8 @@ a:focus {
 	position: absolute;
 	width: 430px;
 	height: 150px;
-	left: 50%;
-	margin-left: -767px;
+	/*left: 50%;
+	margin-left: -767px;*/
 	background: url("../image/logo.png");
 }
 

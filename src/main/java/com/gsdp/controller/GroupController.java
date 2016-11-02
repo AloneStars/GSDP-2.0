@@ -1,7 +1,11 @@
 package com.gsdp.controller;
 
 import com.google.gson.Gson;
+import com.gsdp.dao.ActivityDao;
+import com.gsdp.dao.SituationDao;
+import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
+import com.gsdp.entity.group.Situation;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -29,11 +31,34 @@ public class GroupController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    public static Gson gson = new Gson();
+
     @Autowired
     private GroupService groupService;
 
-    @ResponseBody
-    @RequestMapping(value = "/list/{typeId}", method = RequestMethod.GET)
+    @Autowired
+    private ActivityDao activityDao;
+
+    @Autowired
+    private SituationDao situationDao;
+
+    @RequestMapping(value = "/list")
+    public String getGroupListMsg(Model model){
+
+        logger.info("获取所有组织列表");
+
+        List<Group> groupList = groupService.getAllGroupListMsg();
+
+        Gson gson = new Gson();
+
+        logger.info(gson.toJson(groupList));
+
+        model.addAttribute("groupList",groupList);
+
+        return "GroupList";
+    }
+
+    @RequestMapping(value = "/{typeId}/list")
     public String getGroupListMsg(@PathVariable("typeId") int typeId, Model model){
 
         logger.info("获取组织列表");
@@ -44,8 +69,29 @@ public class GroupController {
 
         logger.info(gson.toJson(groupList));
 
-        //model.addAttribute("groupList",gson.toJson(groupList));
+        model.addAttribute("groupList",groupList);
 
-        return gson.toJson(groupList);
+        return "GroupList";
     }
+
+    @RequestMapping(value = "/{groupId}/detail")
+    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,Model model){
+
+        logger.info("获取组织详细信息");
+
+        Group group = groupService.getGroupMsg(groupId);
+
+        List<Activity> activityList = activityDao.getActivityMessage(groupId);
+
+       /* List<Situation> situationList =
+
+        model.addAttribute("group",group);*/
+
+        logger.info(gson.toJson(group));
+
+        return "GroupMsg";
+
+    }
+
+
 }

@@ -62,19 +62,19 @@ public class ActivityDaoTest {
 	
 	@Test
 	public void testUpdateActivityMessage() {
-		int activityId = 9;
+		int activityId = 7;
 		String activityTitle = "ACM比赛";
 		String activityContent = "关于一场东软的ACM比赛(fighting)";
 		String beginTime = "2016-10-27";
-		String endTime = "2016-10-28";
+		String endTime = "2016-10-29";
 		int activitier = 1;
 		int sponsor = 4;
 		int activityNumber = 999;
-		String activityAddress = "A7-319";
+		String activityAddress = "A7-310";
 		String publishTime = "2016-10-26";
 		int permission = 1;
 		int visitors = 999;
-		Activity activity = new Activity(activityId,activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
+		Activity activity = new Activity(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors,activityId);
 		int affectRows = activityDao.updateActivityMessage(activity);
 		logger.info("被影响行数:" + affectRows);
 	}

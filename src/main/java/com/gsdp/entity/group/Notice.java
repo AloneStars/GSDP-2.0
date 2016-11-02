@@ -21,11 +21,13 @@ public class Notice {
 	public Notice() {};
 	
 	public Notice(String noticeContent, String noticeTime, int noticer,
-			int groupId) {
+			int groupId , int... noticeId) {
 		this.noticeContent = noticeContent;
 		this.noticeTime = noticeTime;
 		this.noticer = noticer;
 		this.groupId = groupId;
+		if(noticeId.length == 1)
+			this.noticeId = noticeId[0];
 	}
 
 	public int getNoticeId() {

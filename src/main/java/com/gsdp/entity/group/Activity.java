@@ -43,7 +43,7 @@ public class Activity {
 	public Activity(String activityTitle, String activityContent,
 			String beginTime, String endTime, int activitier, int sponsor,
 			int activityNumber, String activityAddress, String publishTime,
-			int permission, int visitors) {
+			int permission, int visitors ,int... activityId) {
 		this.activityTitle = activityTitle;
 		this.activityContent = activityContent;
 		this.beginTime = beginTime;
@@ -55,15 +55,8 @@ public class Activity {
 		this.publishTime = publishTime;
 		this.permission = permission;
 		this.visitors = visitors;
-	}
-	
-	public Activity(int activityId, String activityTitle, String activityContent,
-			String beginTime, String endTime, int activitier, int sponsor,
-			int activityNumber, String activityAddress, String publishTime,
-			int permission, int visitors) {
-
-			this(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
-			this.activityId = activityId;
+		if(activityId.length == 1)
+			this.activityId = activityId[0];
 	}
 
 	//----------------------------------

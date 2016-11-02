@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gsdp.dao.FileDao">
+
+    <sql id="columns">
+        file_id,file_name,file_src,file_type,updater,updateTime,group_id,permission
+    </sql>
+
+    <insert id="addFile" keyProperty="fileId">
+        INSERT ignore file(file_name,file_src,file_type,updater,updateTime,group_id,permission)
+        VALUES(#{fileName},#{fileSrc},#{fileType},#{updater},#{updateTime},#{groupId},#{permission})
+    </insert>
+
+    <delete id="deleteFile">
+        DELETE FROM file
+        <where>
+            file_id = #{fileId};
+        </where>
+    </delete>
+
+    <update id="updateFile">
+        UPDATE file
+        <set >
+            <if test="fileName != null and !fileName.equals('')">
+                file_name = #{fileName},
+            </if>
+            <if test="fileSrc != null and !fileSrc.equals('')">
+                file_src = #{fileSrc},
+            </if>
+            <if test="fileType != 0">
+                file_type = #{fileType},
+            </if>
+                updater = #{updater},
+            <if test="updateTime!= null and !updateTime.equals('')">
+                updatetime = #{updateTime},
+            </if>
+                group_id = #{groupId},
+                permission = #{permission}
+        </set>
+        <where>
+            file_id = #{fileId};
+        </where>
+    </update>
+
+    <select id="queryAllFile" resultType="File">
+        SELECT
+        <include refid="columns"/>
+        FROM file
+    </select>
+
+    <select id="queryFileByType" resultType="File">
+        SELECT
+        <include refid="columns"/>
+        FROM file
+        <where>
+            file_type = #{typeId};
+        </where>
+    </select>
+
+    <select id="queryFileByTypeAndGroup" resultType="File">
+        SELECT
+        <include refid="columns"/>
+        FROM file
+        <where>
+            file_type = #{typeId}
+            AND
+            group_id = #{groupId};
+        </where>
+    </select>
+
+</mapper>

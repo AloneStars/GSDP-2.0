@@ -31,13 +31,15 @@ public class Situation {
 	public Situation() {}
 	
 	public Situation(String situationTitle, String situationContent,
-			int publisher, String publishTime, int groupId, int visitors) {
+			int publisher, String publishTime, int groupId, int visitors ,int... situationId) {
 		this.situationTitle = situationTitle;
 		this.situationContent = situationContent;
 		this.publisher = publisher;
 		this.publishTime = publishTime;
 		this.groupId = groupId;
 		this.visitors = visitors;
+		if(situationId.length == 1)
+			this.situationId = situationId[0];
 	}
 
 	public int getSituationId() {

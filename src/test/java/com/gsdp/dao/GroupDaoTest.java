@@ -32,15 +32,10 @@ public class GroupDaoTest {
 
 	@Test
 	public void testChangeMemberNumber(){
-
 		int groupId = 3;
-
 		int number = -1;
-
 		int affectRows = groupDao.changeMemberNumber(number,groupId);
-
 		logger.info("影响的行数" + affectRows);
-
 	}
 	
 	@Test
@@ -103,7 +98,7 @@ public class GroupDaoTest {
 		int owner = 2;
 		int visitors = 111111;
 		int groupMembers = 100;
-		Group group = new Group(groupId, groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
+		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers,groupId);
 		int affectRows = groupDao.updateGroup(group);
 		logger.info("影响的行数:" + affectRows);
 	}

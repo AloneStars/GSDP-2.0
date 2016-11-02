@@ -18,14 +18,28 @@ public class File {
 	private int updater;    
 	
 	//上传时间
-	private int updateTime;
+	private String updateTime;
 	
 	//文件上传到那个组织
 	private int groupId;
 	
 	//浏览权限，只对团体内成员开放，还是对所有人开放
 	private int permission;
-	
+
+	public File(){}
+
+	public File(String fileName, String fileSrc, int fileType, int groupId, int permission, int updater, String updateTime,int... fileId) {
+		this.fileName = fileName;
+		this.fileSrc = fileSrc;
+		this.fileType = fileType;
+		this.groupId = groupId;
+		this.permission = permission;
+		this.updater = updater;
+		this.updateTime = updateTime;
+		if(fileId.length == 1)
+			this.fileId = fileId[0];
+	}
+
 	//---------------------------
 
 	public int getFileId() {
@@ -68,11 +82,11 @@ public class File {
 		this.updater = updater;
 	}
 
-	public int getUpdateTime() {
+	public String getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(int updateTime) {
+	public void setUpdateTime(String updateTime) {
 		this.updateTime = updateTime;
 	}
 

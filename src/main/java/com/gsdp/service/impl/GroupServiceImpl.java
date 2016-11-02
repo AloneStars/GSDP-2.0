@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -131,11 +132,13 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
+    @Transactional
     public boolean addMember(int userId, int groupId) {
 
         int number = groupDao.addMember(userId, groupId);
+        int anoNumber = groupDao.changeMemberNumber(1,groupId);
 
-        if(number == 1) {
+        if((number == 1 )&& (anoNumber ==1)) {
             looger.info("数据库添加组织成员成功");
             return true;
         }
@@ -143,6 +146,24 @@ public class GroupServiceImpl implements GroupService{
             looger.info("数据库添加组织成员数量:{}", number);
             return false;
         }
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteMember(int userId, int groupId) {
+
+        int number = groupDao.deleteMember(userId, groupId);
+        int anoNumber = groupDao.changeMemberNumber(-1,groupId);
+
+        if((number == 1 )&& (anoNumber ==1)) {
+            looger.info("数据库删除组织成员成功");
+            return true;
+        }
+        else {
+            looger.info("数据库删除组织成员数量:{}", number);
+            return false;
+        }
+
     }
 
     @Override

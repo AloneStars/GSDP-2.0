@@ -7,15 +7,15 @@ package com.gsdp.entity.staticData;
 public class FileType {
 	
 	
-	public static int WORD = 0;
+	public static int WORD = 1;
 	
-	public static int EXCEL = 1;
+	public static int EXCEL = 2;
 	
-	public static int PPT = 2;
+	public static int PPT = 3;
 	
-	public static int AUDIO = 3;
+	public static int AUDIO = 4;
 	
-	public static int VIDEO = 4;
+	public static int VIDEO = 5;
 	
 		
 }
