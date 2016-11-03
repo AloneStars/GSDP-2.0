@@ -55,7 +55,7 @@ public class GroupController {
 
         logger.info("获取所有组织列表");
 
-        List<Group> groupList = groupService.getAllGroupListMsg();
+        List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
 
         Gson gson = new Gson();
 
@@ -71,7 +71,7 @@ public class GroupController {
 
         logger.info("获取组织列表");
 
-        List<Group> groupList = groupService.getGroupListMsg(typeId);
+        List<Group> groupList = groupService.getGroupListMsg(typeId,0,0,"visitors",true);
 
         Gson gson = new Gson();
 
