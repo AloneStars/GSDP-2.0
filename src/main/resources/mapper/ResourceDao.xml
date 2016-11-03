@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gsdp.dao.ResourceDao">
+
+    <sql id="columns">
+        resource_id,resource_name,resource_src,resource_type,updater,updateTime,group_id,permission
+    </sql>
+
+    <insert id="addResource" keyProperty="resourceId">
+        INSERT ignore resource(resource_name,resource_src,resource_type,updater,updateTime,group_id,permission)
+        VALUES(#{resourceName},#{resourceSrc},#{resourceType},#{updater},#{updateTime},#{groupId},#{permission})
+    </insert>
+
+    <delete id="deleteResource">
+        DELETE FROM resource
+        <where>
+            resource_id = #{resourcevId};
+        </where>
+    </delete>
+
+    <update id="updateResource">
+        UPDATE resource
+        <set >
+            <if test="resourceName != null and !resourceName.equals('')">
+                resource_name = #{resourceName},
+            </if>
+            <if test="resourceSrc != null and !resourceSrc.equals('')">
+                resource_src = #{resourceSrc},
+            </if>
+            <if test="resourceType != 0">
+                resource_type = #{resourceType},
+            </if>
+                updater = #{updater},
+            <if test="updateTime!= null and !updateTime.equals('')">
+                updatetime = #{updateTime},
+            </if>
+                group_id = #{groupId},
+                permission = #{permission}
+        </set>
+        <where>
+            resource_id = #{resourceId};
+        </where>
+    </update>
+
+    <select id="queryAllResource" resultType="Resource">
+        SELECT
+        <include refid="columns"/>
+        FROM resource
+    </select>
+
+    <select id="queryResourceByType" resultType="Resource">
+        SELECT
+        <include refid="columns"/>
+        FROM resource
+        <where>
+            resource_type = #{typeId};
+        </where>
+    </select>
+
+    <select id="queryResourceByTypeAndGroup" resultType="Resource">
+        SELECT
+        <include refid="columns"/>
+        FROM resource
+        <where>
+            resource_type = #{typeId}
+            AND
+            group_id = #{groupId};
+        </where>
+    </select>
+
+</mapper>

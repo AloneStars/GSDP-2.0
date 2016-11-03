@@ -88,17 +88,27 @@ public interface GroupDao {
 	 * @return
 	 */
 	Group getGroupMessage(int groupId);
-	
+
 	/**
-	 * 获取组织信息（根据类型）
-	 * @param groupType
-	 * @return
-	 */
-	List<Group> getGroupMessageByType(int groupType);
-	
+	 * 获取组织列表,通过给定的参数获取
+	 * @param groupType 组织类型
+	 * @param offset  偏移量
+	 * @param limited  开始位置
+	 * @param order  排序字段，必须是表中的字段
+     * @return list<Group>
+     */
+	List<Group> getGroupMessageByType(@Param("groupType") int groupType, @Param("offset") int offset,
+									  @Param("limit") int limited, @Param("order") String order,
+									  @Param("type") boolean type);
+
 	/**
-	 * 获取所有的团体信息
-	 * @return
-	 */
-	List<Group> getAllGroupMessage();
+	 * 获取组织列表,通过给定的参数获取
+	 * @param offset 偏移量
+	 * @param limited 开始位置
+	 * @param order  排序字段，必须是表中的字段
+	 * @parma type  是否启用降序排列，true表示采用降序排列
+     * @return lsit<Group>
+     */
+	List<Group> getAllGroupMessage(@Param("offset") int offset,@Param("limit") int limited,
+								   @Param("order") String order,@Param("type") boolean type);
 }

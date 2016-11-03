@@ -50,9 +50,13 @@ public class GroupServiceTest {
 
         int typeId = 1;
 
-        List<Group> groupList = groupService.getGroupListMsg(typeId);
+        List<Group> groupList = groupService.getGroupListMsg(typeId,0,0,"visitors",true);
 
-        logger.info("组织信息列表{}",gson.toJson(groupList));
+        for (Group group: groupList) {
+            System.out.println("人数："+group.getVisitors());
+        }
+
+        logger.info("组织信息列表{}",groupList);
 
     }
 

@@ -28,9 +28,9 @@ public class GroupServiceImpl implements GroupService{
     public GroupDao groupDao;
 
     @Override
-    public List<Group> getGroupListMsg(int typeId) {
+    public List<Group> getGroupListMsg(int typeId,int offset,int limit,String order,boolean type) {
 
-        List<Group> groupList = groupDao.getGroupMessageByType(typeId);
+        List<Group> groupList = groupDao.getGroupMessageByType(typeId,offset,limit,order,type);
 
         return groupList;
     }
@@ -45,9 +45,9 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
-    public List<Group> getAllGroupListMsg() {
+    public List<Group> getAllGroupListMsg(int offset,int limit,String order,boolean type) {
 
-        List<Group> groupList = groupDao.getAllGroupMessage();
+        List<Group> groupList = groupDao.getAllGroupMessage(offset,limit,order,type);
 
         return groupList;
 

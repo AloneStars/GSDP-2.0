@@ -1,66 +1,17 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ include file="common/tag.jsp"%>
 <!doctype html>
 <html>
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>团队大厅</title>
-  <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css"
-        rel="stylesheet">
-  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-  <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-  <script src="${pageContext.request.contextPath}/js/common.js"></script>
+  <%@include file="common/style.jsp"%>
   <link href="${pageContext.request.contextPath}/css/groupList.css" type="text/css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/css/common.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div id="background">
-  <div class="bg1 "></div>
-  <div class="bg2 "></div>
-  <div class="bg3 "></div>
-  <div class="bg4 "></div>
-  <div class="bg5 "></div>
-</div>
+<jsp:include page="common/background.jsp"/>
 <div id="container">
-  <!-- 页眉 -->
-  <div class="banner">
-    <div class="head"></div>
-    <div class="border">
-      <div class="style">
-        <ul>
-          <li class="Group"><a href="GroupList.html"><B>团体大厅</B></a></li>
-          <li class="Activity"><a href="ActivityList.html"><B>活动走廊</B></a></li>
-          <li class="Logo"><a href="index.html"><B>平台首页</B></a></li>
-          <li class="Situation"><a href="SituationList.html"><B>动态展览</B></a></li>
-          <li class="Resource"><a href="ResourceList.html"><B>资源总库</B></a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="end">
-      <div class="user">
-        <div class="user_info">
-          <div class="INFO"></div>
-          <div class="Msg">
-            <div class="NOTICE User_a">
-              <a href="#">通知</a>
-            </div>
-            <div class="NEWS User_a">
-              <a href="#">消息</a>
-            </div>
-          </div>
-        </div>
-        <div class="UserMsg User_a">
-          <a href="#">个人设置</a>
-        </div>
-        <div class="LogoOut User_a">
-          <a href="#">注销/退出</a>
-        </div>
-      </div>
-      <div class="HP">
-        <a href="#"></a>
-      </div>
-    </div>
-  </div>
+  <jsp:include page="common/header.jsp"/>
   <!-- 内容版块 -->
   <div id="content-container">
 
@@ -116,23 +67,11 @@
         </div>
       </div>
     </div>
-
   </div>
   <!-- 页脚 -->
-  <div class="bottom">
-
-    <p>NEUSOFT &nbsp; UNIVERSITY &nbsp;STUDENT &nbsp; GROUP
-      &nbsp;PLATFORM</p>
-
-    <P>联系我们 &nbsp; &nbsp;TEL:15382296658 &nbsp; &nbsp;
-      EMAIL:shetuan@mail.tsinghua.edu.cn</p>
-
-    <p>ADDRESS: 三期教学楼 A7 307室 &nbsp; &nbsp; WORKING TIME: 周一至周五
-      13:00-14:15</p>
-
-  </div>
+  <jsp:include page="common/footer.jsp"/>
 </div>
-<form id="openWin" action="#" target="_blank" method="get"></form>
+  <form id="openWin" action="#" target="_blank" method="get"></form>
 </body>
 </html>
 

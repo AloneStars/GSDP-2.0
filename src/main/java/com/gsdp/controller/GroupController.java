@@ -6,6 +6,7 @@ import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +38,7 @@ public class GroupController {
     private GroupService groupService;
 
     @Autowired
-    private ActivityDao activityDao;
+    private ActivityService activityService;
 
     @Autowired
     private SituationDao situationDao;
@@ -47,7 +48,7 @@ public class GroupController {
 
         logger.info("获取所有组织列表");
 
-        List<Group> groupList = groupService.getAllGroupListMsg();
+        List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
 
         Gson gson = new Gson();
 
@@ -63,7 +64,7 @@ public class GroupController {
 
         logger.info("获取组织列表");
 
-        List<Group> groupList = groupService.getGroupListMsg(typeId);
+        List<Group> groupList = groupService.getGroupListMsg(typeId,0,0,"visitors",true);
 
         Gson gson = new Gson();
 
@@ -81,17 +82,18 @@ public class GroupController {
 
         Group group = groupService.getGroupMsg(groupId);
 
-        List<Activity> activityList = activityDao.getActivityMessage(groupId);
+        List<Activity> activityList = activityService.getGeneralActivityMessage(groupId,0,0,"publishTime",true);
 
         List<Situation> situationList = situationDao.getSituationMessage(groupId);
 
-        /**
-         * 资源部分的功能还待设计样式和初始化方式
-         */
+        List<Group> groupList = groupService.getAllGroupListMsg(0,10,"visitors",true);
+
+        // TODO: 2016/11/3 资源部分的功能还待设计样式和初始化方式 
 
         model.addAttribute("group",group);
         model.addAttribute("activityList",activityList);
         model.addAttribute("situationList",situationList);
+        model.addAttribute("groupList",groupList);
 
         logger.info(gson.toJson(group));
 
