@@ -112,14 +112,14 @@ public class GroupDaoTest {
 	
 	@Test
 	public void testGetGroupMessageByType() {
-		int groupType = 4;
-		List<Group> list = groupDao.getGroupMessageByType(groupType);
+		int groupType = 1;
+		List<Group> list = groupDao.getGroupMessageByType(groupType,0,0,"visitors",true);
 		logger.info("list = {}", list);
 	}
 	
 	@Test
 	public void testGetAllGroupMessage() {
-		List<Group> list = groupDao.getAllGroupMessage();
+		List<Group> list = groupDao.getAllGroupMessage(0,0,"visitors",true);
 		logger.info("list = {}", list);
 	}
 

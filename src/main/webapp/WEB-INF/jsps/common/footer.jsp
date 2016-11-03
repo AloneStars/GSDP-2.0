@@ -12,5 +12,4 @@
 
     <p>ADDRESS: 三期教学楼 A7 307室 &nbsp; &nbsp; WORKING TIME: 周一至周五
         13:00-14:15</p>
-
 </div>

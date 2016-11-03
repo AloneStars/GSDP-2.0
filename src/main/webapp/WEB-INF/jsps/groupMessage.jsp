@@ -1,26 +1,25 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ include file="common/tag.jsp"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: ViolentStone
+  Date: 2016/11/1
+  Time: 22:18
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>团队信息</title>
-    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css"
-          rel="stylesheet">
-    <link href="/GSDP/css/groupMsg.css" type="text/css" rel="stylesheet">
-    <link href="/GSDP/css/common.css" type="text/css" rel="stylesheet">
+    <title>团队详情</title>
+    <%@include file="common/style.jsp"%>
+    <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<div id="background">
-    <div class="bg1 "></div>
-    <div class="bg2 "></div>
-    <div class="bg3 "></div>
-    <div class="bg4 "></div>
-    <div class="bg5 "></div>
-</div>
+<jsp:include page="common/background.jsp"/>
 <div id="container">
     <!-- 页眉 -->
-    <%@ include file="common/header.jsp"%>
+    <jsp:include page="common/header.jsp"/>
     <!-- 内容版块 -->
     <div id="content-container">
         <!-- banner版块 -->
@@ -29,21 +28,21 @@
             <!-- 左部 -->
             <div id="banner-left" class="shadow">
                 <div id="banner-left-top">
-                    <img id="groupIcon" src="" />
+                    <img id="groupIcon" src="${pageContext.request.contextPath}/${group.groupIcon}" />
                 </div>
 
                 <div id="banner-left-bottom">
                     <div class="groupName">
-                        <span><b id="groupName"></b></span>
+                        <span><b id="groupName">${group.groupName}</b></span>
                     </div>
                     <div class="Intro">
-                        成员人数：<span id="member_num">100</span>
+                        成员人数：<span id="member_num">${group.groupMembers}</span>
                     </div>
                     <div class="Intro">
-                        联系方式：<span id="groupContact"></span>
+                        联系方式：<span id="groupContact">${group.groupContact}</span>
                     </div>
                     <div class="Intro">
-                        办公地点：<span id="groupAddress"></span>
+                        办公地点：<span id="groupAddress">${group.groupAddress}</span>
                     </div>
                     <div class="Intro">
                         <input type="button" value="申请加入">
@@ -97,17 +96,19 @@
 
             <!--内容左部-->
             <div id="content-left">
+
                 <div id="content-left-top" class="shadow">
 						<span> <b class="content-title"><i>关于我们:</i></b><br>
-							<p id="groupDec"></p>
+							<p id="groupDec">${group.groupDec}</p>
 						</span>
                 </div>
 
                 <div id="content-left-bottom" class="shadow">
 						<span> <b class="content-title"><i>更多团体:</i></b><br>
 							<ul class="content-list">
-								<li><a href="index.html">新闻社</a></li>
-								<li><a href="index.html">大学生艺术团</a></li>
+                                <c:forEach items="#{groupList}" var="group">
+                                    <li><a href="${pageContext.request.contextPath}/group/${group.groupId}/detail">${group.groupName}</a></li>
+                                </c:forEach>
 							</ul>
 						</span>
                 </div>
@@ -121,7 +122,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="SL">
-                            <!-- <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li> -->
+                            <c:forEach items="#{situationList}" var="situation">
+                                <li><a href="index.html"><span class="title">${situation.situationTitle}</span><span class="time">发布时间:&nbsp;<i>${situation.publishTime}</i></span></a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -132,6 +135,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="AL">
+                            <c:forEach items="#{activityList}" var="activity">
+                                <li><a href="index.html"><span class="title">${activity.activityTitle}</span><span class="time">发布时间:&nbsp;<i>${activity.publishTime}</i></span></a></li>
+                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -142,6 +148,9 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="RL">
+                            <%--<c:forEach items="" var="">
+                                <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
+                            </c:forEach>--%>
                         </ul>
                     </div>
                 </div>
@@ -150,14 +159,11 @@
 
         </div>
 
-
     </div>
     <!-- 页脚 -->
-    <%@ include file="common/footer.jsp"%>
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="/GSDP/js/common.js"></script>
-    <script src="/GSDP/js/groupMsg.js"></script>
+    <jsp:include page="common/footer.jsp"/>
 </div>
 </body>
 </html>
+
+

@@ -23,13 +23,13 @@ import java.util.List;
 public interface GroupService {
 
     //根据typeId获取相应的组织列表
-    List<Group> getGroupListMsg(int typeId);
+    List<Group> getGroupListMsg(int typeId,int offset,int limit,String order,boolean type);
 
     //根据groupId获取相应的组织信息
     Group getGroupMsg(int groupId);
 
     //获取所有的组织信息
-    List<Group> getAllGroupListMsg();
+    List<Group> getAllGroupListMsg(int offset,int limit,String order,boolean type);
 
     //添加组织信息
     boolean addGroup(Group group);

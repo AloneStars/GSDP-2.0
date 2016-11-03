@@ -100,21 +100,37 @@
     	</where>
     </select>
     
-    
+    <!--简单来说#{} 解析的是占位符？可以防止SQL注入，
+     比如打印出来的语句 select *　from table where id=?,
+     然而${} 则是不能防止SQL注入,打印出来的语句
+      select *　from table where id=2  实实在在的参数-->
     <select id="getGroupMessageByType" resultType="Group">
     	select
     	<include refid="columns"/>
     	from `group`
     	<where>
-    		group_type = #{groupType};
+    		group_type = #{groupType}
     	</where>
+		<if test="order != null and !order.equals('')">
+            ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+            limit #{offset},#{limited};
+		</if>
     </select>
     
     
     <select id="getAllGroupMessage" resultType="Group">
     	select
     	<include refid="columns"/>
-    	from `group`;
+    	from `group`
+		<if test="order != null and !order.equals('')">
+			ORDER by ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit};
+		</if>
+
     </select>
 
 	<delete id="deleteGroup">

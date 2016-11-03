@@ -85,4 +85,12 @@ public class ActivityDaoTest {
 		Activity activity = activityDao.queryActivityMessage(activityId);
 		logger.info("activity={}",activity);
 	}
+
+	@Test
+	public void testGetGeneralActivityMessage(){
+
+		List<Activity> activityList = activityDao.getGeneralActivityMessage(3,0,3,"visitors",true);
+		logger.info("activityList={}",activityList);
+
+	}
 }

@@ -7,15 +7,15 @@
     <div class="border">
         <div class="style">
             <ul>
-                <li class="Group"><a href="/GSDP/group/list"><B>团体大厅</B></a></li>
-                <li class="Activity"><a href="/GSDP/activity/list"><B>活动走廊</B></a></li>
-                <li class="Logo"><a href="/GSDP/"><B>平台首页</B></a></li>
-                <li class="Situation"><a href="/GSDP/situation/list"><B>动态展览</B></a></li>
-                <li class="Resource"><a href="/GSDP/resource/list"><B>资源总库</B></a></li>
+                <li class="Group"><a href="${pageContext.request.contextPath}/group/list"><B>团体大厅</B></a></li>
+                <li class="Activity"><a href="${pageContext.request.contextPath}/activity/list"><B>活动走廊</B></a></li>
+                <li class="Logo"><a href="${pageContext.request.contextPath}/index"><B>平台首页</B></a></li>
+                <li class="Situation"><a href="${pageContext.request.contextPath}/situation/list"><B>动态展览</B></a></li>
+                <li class="Resource"><a href="${pageContext.request.contextPath}/resource/list"><B>资源总库</B></a></li>
             </ul>
         </div>
     </div>
-    <div class="end">
+    <div class="end" style="display: none;">
         <div class="user">
             <div class="user_info">
                 <div class="INFO"></div>
@@ -38,5 +38,8 @@
         <div class="HP">
             <a href="#"></a>
         </div>
+    </div>
+    <div id="Login">
+        登陆/注册
     </div>
 </div>

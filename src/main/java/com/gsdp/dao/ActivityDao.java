@@ -3,6 +3,7 @@ package com.gsdp.dao;
 import java.util.List;
 
 import com.gsdp.entity.group.Activity;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 活动的Dao层接口
@@ -51,5 +52,18 @@ public interface ActivityDao {
 	 * @return
 	 */
 	Activity queryActivityMessage(int activityId);
+
+	/**
+	 * 根据所给的条件获取活动列表
+	 * @param sponsor 主板单位
+	 * @param offset 偏移量
+	 * @param limit 查询个数，为0表示不做分页查询
+	 * @param order 排序子段，按照和字段做排序
+	 * @parma type  是否启用降序排列，true表示采用降序排列
+     * @return 活动列表
+     */
+	List<Activity> getGeneralActivityMessage(@Param("sponsor") int sponsor,@Param("offset") int offset,
+											 @Param("limit") int limit,@Param("order") String order,
+											 @Param("type") boolean type);
 
 }
