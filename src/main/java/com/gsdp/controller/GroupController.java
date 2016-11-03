@@ -1,7 +1,6 @@
 package com.gsdp.controller;
 
 import com.google.gson.Gson;
-import com.gsdp.dao.ActivityDao;
 import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
