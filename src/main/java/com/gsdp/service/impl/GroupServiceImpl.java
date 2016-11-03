@@ -2,13 +2,22 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.GroupDao;
 import com.gsdp.entity.group.Group;
+import com.gsdp.exception.group.CreateGroupException;
+import com.gsdp.exception.EmptyFileException;
+import com.gsdp.exception.FormatNotMatchException;
+import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.service.GroupService;
+import com.gsdp.util.GroupUtil;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 /**********************************************************
@@ -179,5 +188,64 @@ public class GroupServiceImpl implements GroupService{
             looger.info("数据库转让组织数量:{}", number);
             return false;
         }
+    }
+
+    /**
+     *
+     * @param group
+     * @param multipartFile
+     * @return
+     */
+    @Override
+    @Transactional
+    public String createGroup(Group group, MultipartFile multipartFile) throws
+    EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException, GroupRepeatException {
+
+        final String UPLOAD_PATH = "";
+        //限制上传的最大字节数,最大可以上传5m的东西。
+        long maxSize = 1024 * 1014 * 5;
+
+        //说明根本没有选择文件，我们要抛出相应的异常，防止用户绕过前端验证
+        if(null == multipartFile) {
+            throw new EmptyFileException("the file is empty");
+        }
+
+       String originalFileName = multipartFile.getOriginalFilename();
+
+        //防止用户传一些非允许的格式的文件
+        if(!GroupUtil.isSpecialFormat(originalFileName)) {
+            throw new FormatNotMatchException("the file format is not allowed upload");
+        }
+        //防止用户上传的文件大小大于指定的文件大小
+        if(multipartFile.getSize() > maxSize) {
+            throw new SizeBeyondException("the file size beyond specified size：" + maxSize);
+        }
+
+        //判断用户输入的团队信息是否全， 如果不全则返回
+        if(!GroupUtil.checkGroupName(group.getGroupName()) || !GroupUtil.checkGroupContact(group.getGroupContact()) ||
+                !GroupUtil.checkGroupAddress(group.getGroupAddress()) || !GroupUtil.checkGroupType(group.getGroupType())) {
+            throw new IllegalArgumentException("user input information is incorrect");
+        }
+
+        //TODO  判断是否有重复的团队名称  有重复的直接返回
+        if(true) {
+            throw new GroupRepeatException("the team repeated");
+        }
+
+        try {
+            //把数据库的操作都要写到try   catch里面，防止数据库抛出免检异常，那样我们spring就不会处理我们的事务
+            String filePath = UPLOAD_PATH + System.currentTimeMillis() + originalFileName;
+
+            //TODO 将一条记录写入数据库
+            group.setGroupEvidence(filePath);
+            groupDao.addGroup(group);
+            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(),new File(filePath));
+            //TODO 服务层传到controller的数据封装
+            return "";
+        } catch (Exception e) {
+            //如果没有发生前面指定的异常，我们这里就把数据库抛出的免检异常和其它异常都统一的用运行期异常抛出去
+                throw new CreateGroupException("failed to create activity");
+        }
+
     }
 }

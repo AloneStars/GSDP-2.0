@@ -74,7 +74,7 @@ public class ActivityDaoTest {
 		String publishTime = "2016-10-26";
 		int permission = 1;
 		int visitors = 999;
-		Activity activity = new Activity(activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors,activityId);
+		Activity activity = new Activity(activityId,activityTitle, activityContent, beginTime, endTime, activitier, sponsor, activityNumber, activityAddress, publishTime, permission, visitors);
 		int affectRows = activityDao.updateActivityMessage(activity);
 		logger.info("被影响行数:" + affectRows);
 	}

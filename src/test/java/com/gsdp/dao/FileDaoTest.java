@@ -41,7 +41,7 @@ public class FileDaoTest {
          int groupId = 3;
          int permission = 1;
 
-         File file = new File(fileName,fileSrc,fileType,groupId,permission,updater,updateTime);
+         File file = new File(fileType,fileName,fileSrc,updater,updateTime,groupId,permission);
 
          int affectRows = fileDao.addFile(file);
 
@@ -72,7 +72,7 @@ public class FileDaoTest {
         int groupId = 3;
         int permission = 1;
 
-        File file = new File(fileName,fileSrc,fileType,groupId,permission,updater,updateTime,fileId);
+        File file = new File(fileId,fileType,fileName,fileSrc,updater,updateTime,groupId,permission);
 
         int affectRows = fileDao.updateFile(file);
 

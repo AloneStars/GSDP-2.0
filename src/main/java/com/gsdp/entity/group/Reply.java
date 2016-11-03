@@ -24,14 +24,17 @@ public class Reply {
 
 	public Reply(){}
 
-	public Reply(String replyContent, int replyer, String replyTime, int situationId, User user ,int... replyId) {
+	public Reply(int replyId, String replyContent, int replyer, String replyTime, int situationId, User user) {
+		this(replyContent,replyer,replyTime,situationId,user);
+		this.replyId = replyId;
+	}
+
+	public Reply(String replyContent, int replyer, String replyTime, int situationId, User user) {
 		this.replyContent = replyContent;
 		this.replyer = replyer;
 		this.replyTime = replyTime;
 		this.situationId = situationId;
 		this.user = user;
-		if(replyId.length == 1)
-			this.replyId = replyId[0];
 	}
 
 	//-------------------------

@@ -26,18 +26,21 @@ public class File {
 	//浏览权限，只对团体内成员开放，还是对所有人开放
 	private int permission;
 
-	public File(){}
+	public File() { }
 
-	public File(String fileName, String fileSrc, int fileType, int groupId, int permission, int updater, String updateTime,int... fileId) {
+	public File(int fileId, int fileType, String fileName, String fileSrc, int updater, String updateTime, int groupId, int permission) {
+		this(fileType,fileName,fileSrc,updater,updateTime,groupId,permission);
+		this.fileId = fileId;
+	}
+
+	public File(int fileType, String fileName, String fileSrc, int updater, String updateTime, int groupId, int permission) {
+		this.fileType = fileType;
 		this.fileName = fileName;
 		this.fileSrc = fileSrc;
-		this.fileType = fileType;
-		this.groupId = groupId;
-		this.permission = permission;
 		this.updater = updater;
 		this.updateTime = updateTime;
-		if(fileId.length == 1)
-			this.fileId = fileId[0];
+		this.groupId = groupId;
+		this.permission = permission;
 	}
 
 	//---------------------------

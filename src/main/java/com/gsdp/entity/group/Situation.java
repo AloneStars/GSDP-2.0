@@ -29,17 +29,20 @@ public class Situation {
 	private List<Reply> replies;
 	
 	public Situation() {}
-	
+
+	public Situation(int situationId, String situationTitle, String situationContent, int publisher, String publishTime, int groupId, int visitors) {
+		this(situationTitle,situationContent,publisher,publishTime,groupId,visitors);
+		this.situationId = situationId;
+	}
+
 	public Situation(String situationTitle, String situationContent,
-			int publisher, String publishTime, int groupId, int visitors ,int... situationId) {
+					 int publisher, String publishTime, int groupId, int visitors) {
 		this.situationTitle = situationTitle;
 		this.situationContent = situationContent;
 		this.publisher = publisher;
 		this.publishTime = publishTime;
 		this.groupId = groupId;
 		this.visitors = visitors;
-		if(situationId.length == 1)
-			this.situationId = situationId[0];
 	}
 
 	public int getSituationId() {

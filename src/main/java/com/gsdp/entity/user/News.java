@@ -17,7 +17,7 @@ public class News {
 	//标记是否已阅读，已读还是未读
 	private int statue;
 	
-	public News() {};
+	public News() {}
 	
 	public News(String newsTitle, String newsContent, int fromAddress,
 			int toAddress, String sendTime, int statue) {

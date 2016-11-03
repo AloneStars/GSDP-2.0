@@ -1,7 +1,13 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Group;
+import com.gsdp.exception.group.CreateGroupException;
+import com.gsdp.exception.EmptyFileException;
+import com.gsdp.exception.FormatNotMatchException;
+import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.group.GroupRepeatException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -48,5 +54,19 @@ public interface GroupService {
 
     //转让组织
     boolean changeOwner(int userId, int groupId);
+
+    /**
+     *
+     * @param group
+     * @param multipartFile
+     * @return
+     * @throws EmptyFileException
+     * @throws SizeBeyondException
+     * @throws FormatNotMatchException
+     * @throws CreateGroupException
+     * @throws IllegalArgumentException
+     */
+    String createGroup(Group group, MultipartFile multipartFile) throws
+            EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException,GroupRepeatException;
 
 }

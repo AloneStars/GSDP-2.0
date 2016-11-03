@@ -98,7 +98,7 @@ public class GroupDaoTest {
 		int owner = 2;
 		int visitors = 111111;
 		int groupMembers = 100;
-		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers,groupId);
+		Group group = new Group(groupId,groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
 		int affectRows = groupDao.updateGroup(group);
 		logger.info("影响的行数:" + affectRows);
 	}

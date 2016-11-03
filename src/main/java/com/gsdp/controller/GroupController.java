@@ -6,6 +6,11 @@ import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.exception.EmptyFileException;
+import com.gsdp.exception.FormatNotMatchException;
+import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.group.CreateGroupException;
+import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -99,5 +107,41 @@ public class GroupController {
 
     }
 
+    /**
+     * TODO 这只是一个测试显示页，到时候删除
+     * @return
+     */
+    @RequestMapping(value = "/showCreation", method = RequestMethod.GET)
+    public String viewGroupCreation() {
+        return "group/createGroup";
+    }
 
+    /**
+     * TODO 返回值是json，但是现在格式还要进一步确定
+     * @param multipartFile
+     * @param group
+     * @return
+     */
+    @RequestMapping(value = "/creation", method = RequestMethod.POST,
+    produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public Object createGroup(Group group, MultipartFile multipartFile) {
+        try {
+            Object result = groupService.createGroup(group, multipartFile);
+            return result;
+        } catch (EmptyFileException e) {
+            return "";
+        } catch (FormatNotMatchException e) {
+            return "";
+        } catch (SizeBeyondException e) {
+            return "";
+        } catch (IllegalArgumentException e) {
+            return "";
+        } catch (GroupRepeatException e) {
+            return "";
+        } catch (CreateGroupException e) {
+            //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
+            return "";
+        }
+    }
 }

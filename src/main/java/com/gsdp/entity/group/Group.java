@@ -31,11 +31,22 @@ public class Group {
 
 	//社团成员数量
 	private int groupMembers;
+
+	//团队状态
+	private int groupStatus;
+
+	//团队佐证材料存放地址
+	private String groupEvidence;
 	
 	public Group() {}
 
+	public Group(int groupId, String groupIcon, String groupName, String groupDec, String groupContact, String groupAddress, int groupType, int owner, int visitors, int groupMembers) {
+		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors, groupMembers);
+		this.groupId = groupId;
+	}
+
 	public Group(String groupIcon, String groupName, String groupDec,
-			String groupContact, String groupAddress, int groupType, int owner, int visitors,int groupMembers,int... groupId) {
+				 String groupContact, String groupAddress, int groupType, int owner, int visitors, int groupMembers) {
 		this.groupIcon = groupIcon;
 		this.groupName = groupName;
 		this.groupDec = groupDec;
@@ -45,8 +56,6 @@ public class Group {
 		this.owner = owner;
 		this.visitors = visitors;
 		this.groupMembers = groupMembers;
-		if(groupId.length == 1)
-			this.groupId = groupId[0];
 	}
 
 	public int getGroupId() {
@@ -129,19 +138,37 @@ public class Group {
 		this.groupMembers = groupMembers;
 	}
 
+	public int getGroupStatus() {
+		return groupStatus;
+	}
+
+	public void setGroupStatus(int groupStatus) {
+		this.groupStatus = groupStatus;
+	}
+
+	public String getGroupEvidence() {
+		return groupEvidence;
+	}
+
+	public void setGroupEvidence(String groupEvidence) {
+		this.groupEvidence = groupEvidence;
+	}
+
 	@Override
 	public String toString() {
 		return "Group{" +
-				"groupAddress='" + groupAddress + '\'' +
-				", groupId=" + groupId +
+				"groupId=" + groupId +
 				", groupIcon='" + groupIcon + '\'' +
 				", groupName='" + groupName + '\'' +
 				", groupDec='" + groupDec + '\'' +
 				", groupContact='" + groupContact + '\'' +
+				", groupAddress='" + groupAddress + '\'' +
 				", groupType=" + groupType +
 				", owner=" + owner +
 				", visitors=" + visitors +
 				", groupMembers=" + groupMembers +
+				", groupStatus=" + groupStatus +
+				", groupEvidence='" + groupEvidence + '\'' +
 				'}';
 	}
 }

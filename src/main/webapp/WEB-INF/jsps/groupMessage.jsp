@@ -1,24 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/1
-  Time: 22:18
-  To change this template use File | Settings | File Templates.
---%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="common/tag.jsp"%>
 <!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>团队详情</title>
+    <title>团队信息</title>
     <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css"
           rel="stylesheet">
-    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
-    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/js/common.js"></script>
-    <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/common.css" type="text/css" rel="stylesheet">
+    <link href="/GSDP/css/groupMsg.css" type="text/css" rel="stylesheet">
+    <link href="/GSDP/css/common.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div id="background">
@@ -30,44 +20,7 @@
 </div>
 <div id="container">
     <!-- 页眉 -->
-    <div class="banner">
-        <div class="head"></div>
-        <div class="border">
-            <div class="style">
-                <ul>
-                    <li class="Group"><a href="GroupList.html"><B>团体大厅</B></a></li>
-                    <li class="Activity"><a href="ActivityList.html"><B>活动走廊</B></a></li>
-                    <li class="Logo"><a href="index.html"><B>平台首页</B></a></li>
-                    <li class="Situation"><a href="SituationList.html"><B>动态展览</B></a></li>
-                    <li class="Resource"><a href="ResourceList.html"><B>资源总库</B></a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="end">
-            <div class="user">
-                <div class="user_info">
-                    <div class="INFO"></div>
-                    <div class="Msg">
-                        <div class="NOTICE User_a">
-                            <a href="#">通知</a>
-                        </div>
-                        <div class="NEWS User_a">
-                            <a href="#">消息</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="UserMsg User_a">
-                    <a href="#">个人设置</a>
-                </div>
-                <div class="LogoOut User_a">
-                    <a href="#">注销/退出</a>
-                </div>
-            </div>
-            <div class="HP">
-                <a href="#"></a>
-            </div>
-        </div>
-    </div>
+    <%@ include file="common/header.jsp"%>
     <!-- 内容版块 -->
     <div id="content-container">
         <!-- banner版块 -->
@@ -76,21 +29,21 @@
             <!-- 左部 -->
             <div id="banner-left" class="shadow">
                 <div id="banner-left-top">
-                    <img id="groupIcon" src="${pageContext.request.contextPath}/${group.groupIcon}" />
+                    <img id="groupIcon" src="" />
                 </div>
 
                 <div id="banner-left-bottom">
                     <div class="groupName">
-                        <span><b id="groupName">${group.groupName}</b></span>
+                        <span><b id="groupName"></b></span>
                     </div>
                     <div class="Intro">
-                        成员人数：<span id="member_num">${group.groupMembers}</span>
+                        成员人数：<span id="member_num">100</span>
                     </div>
                     <div class="Intro">
-                        联系方式：<span id="groupContact">${group.groupContact}</span>
+                        联系方式：<span id="groupContact"></span>
                     </div>
                     <div class="Intro">
-                        办公地点：<span id="groupAddress">${group.groupAddress}</span>
+                        办公地点：<span id="groupAddress"></span>
                     </div>
                     <div class="Intro">
                         <input type="button" value="申请加入">
@@ -144,10 +97,9 @@
 
             <!--内容左部-->
             <div id="content-left">
-
                 <div id="content-left-top" class="shadow">
 						<span> <b class="content-title"><i>关于我们:</i></b><br>
-							<p id="groupDec">${group.groupDec}</p>
+							<p id="groupDec"></p>
 						</span>
                 </div>
 
@@ -169,9 +121,7 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="SL">
-                            <c:forEach items="#{situationList}" var="situation">
-                                <li><a href="index.html"><span class="title">${situation.situationTitle}</span><span class="time">发布时间:&nbsp;<i>${situation.publishTime}</i></span></a></li>
-                            </c:forEach>
+                            <!-- <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li> -->
                         </ul>
                     </div>
                 </div>
@@ -182,9 +132,6 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="AL">
-                            <c:forEach items="#{activityList}" var="activity">
-                                <li><a href="index.html"><span class="title">${activity.activityTitle}</span><span class="time">发布时间:&nbsp;<i>${activity.publishTime}</i></span></a></li>
-                            </c:forEach>
                         </ul>
                     </div>
                 </div>
@@ -195,9 +142,6 @@
                     </div>
                     <div class="content-right-list">
                         <ul class="content-list" id="RL">
-                            <%--<c:forEach items="" var="">
-                                <li><a href="index.html"><span class="title"></span><span class="time">发布时间:&nbsp;<i></i></span></a></li>
-                            </c:forEach>--%>
                         </ul>
                     </div>
                 </div>
@@ -206,23 +150,14 @@
 
         </div>
 
+
     </div>
     <!-- 页脚 -->
-    <div class="bottom">
-
-        <p>NEUSOFT &nbsp; UNIVERSITY &nbsp;STUDENT &nbsp; GROUP
-            &nbsp;PLATFORM</p>
-
-        <P>联系我们 &nbsp; &nbsp;TEL:15382296658 &nbsp; &nbsp;
-            EMAIL:shetuan@mail.tsinghua.edu.cn</p>
-
-        <p>ADDRESS: 三期教学楼 A7 307室 &nbsp; &nbsp; WORKING TIME: 周一至周五
-            13:00-14:15</p>
-
-    </div>
+    <%@ include file="common/footer.jsp"%>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="/GSDP/js/common.js"></script>
+    <script src="/GSDP/js/groupMsg.js"></script>
 </div>
-<form id="openWin" action="#" target="_blank" method="get"></form>
 </body>
 </html>
-
-

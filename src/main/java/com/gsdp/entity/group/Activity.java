@@ -39,11 +39,16 @@ public class Activity {
 	private int visitors;
 	
 	public Activity() {}
-	
+
+	public Activity(int activityId, String activityTitle, String activityContent, String beginTime, String endTime, int activitier, int sponsor, int activityNumber, String activityAddress, String publishTime, int permission, int visitors) {
+		this(activityTitle,activityContent,beginTime,endTime,activitier,sponsor,activityNumber,activityAddress,publishTime,permission,visitors);
+		this.activityId = activityId;
+	}
+
 	public Activity(String activityTitle, String activityContent,
-			String beginTime, String endTime, int activitier, int sponsor,
-			int activityNumber, String activityAddress, String publishTime,
-			int permission, int visitors ,int... activityId) {
+					String beginTime, String endTime, int activitier, int sponsor,
+					int activityNumber, String activityAddress, String publishTime,
+					int permission, int visitors) {
 		this.activityTitle = activityTitle;
 		this.activityContent = activityContent;
 		this.beginTime = beginTime;
@@ -55,8 +60,6 @@ public class Activity {
 		this.publishTime = publishTime;
 		this.permission = permission;
 		this.visitors = visitors;
-		if(activityId.length == 1)
-			this.activityId = activityId[0];
 	}
 
 	//----------------------------------
