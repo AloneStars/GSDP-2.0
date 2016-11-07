@@ -95,6 +95,7 @@ public interface GroupDao {
 	 * @param offset  偏移量
 	 * @param limited  开始位置
 	 * @param order  排序字段，必须是表中的字段
+	 * @param type    是否启用降序排列，true表示采用降序排列
      * @return list<Group>
      */
 	List<Group> getGroupMessageByType(@Param("groupType") int groupType, @Param("offset") int offset,
@@ -111,4 +112,11 @@ public interface GroupDao {
      */
 	List<Group> getAllGroupMessage(@Param("offset") int offset,@Param("limit") int limited,
 								   @Param("order") String order,@Param("type") boolean type);
+
+	/**
+	 * 判断是否有重名的团队名称
+	 * @param groupName
+	 * @return
+	 */
+	int isSameGroupName(@Param("groupName") String groupName);
 }

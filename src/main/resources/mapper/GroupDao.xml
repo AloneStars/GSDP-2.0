@@ -6,7 +6,7 @@
 <mapper namespace="com.gsdp.dao.GroupDao">
     
     <sql id="columns">
-    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_members
+    	group_id,group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_members,group_status,group_evidence
     </sql>
     
     <insert id="addAdmin">
@@ -57,8 +57,8 @@
     
     
     <insert id="addGroup" keyProperty="groupId">
-    	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors)
-    	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors});
+    	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_status,group_evidence)
+    	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors},#{groupStatus},#{groupEvidence});
     </insert>
     
     
@@ -139,5 +139,17 @@
 			group_id = #{groupId};
 		</where>
 	</delete>
+
+	<!--注意我们在传入string类型参数的时候，我们在这里用参数名只能用_parameter
+	来才能获取，但是如果是int类型就不用，但是为了语义表达清楚，这里我们用@param来
+	解决这个问题-->
+	<select id="isSameGroupName" resultType="int">
+		select COUNT(*) from `group`
+		<where>
+			<if test="groupName != null and !groupName.equals('')">
+			group_name = #{groupName};
+			</if>
+		</where>
+	</select>
 
 </mapper>

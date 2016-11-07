@@ -66,7 +66,7 @@ public interface GroupService {
      * @throws CreateGroupException
      * @throws IllegalArgumentException
      */
-    String createGroup(Group group, MultipartFile multipartFile) throws
+    Group createGroup(Group group, MultipartFile multipartFile) throws
             EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException,GroupRepeatException;
 
 }

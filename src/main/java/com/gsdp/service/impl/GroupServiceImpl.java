@@ -198,10 +198,10 @@ public class GroupServiceImpl implements GroupService{
      */
     @Override
     @Transactional
-    public String createGroup(Group group, MultipartFile multipartFile) throws
+    public Group createGroup(Group group, MultipartFile multipartFile) throws
     EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException, GroupRepeatException {
 
-        final String UPLOAD_PATH = "";
+        final String UPLOAD_PATH = "D:/";
         //限制上传的最大字节数,最大可以上传5m的东西。
         long maxSize = 1024 * 1014 * 5;
 
@@ -227,21 +227,18 @@ public class GroupServiceImpl implements GroupService{
             throw new IllegalArgumentException("user input information is incorrect");
         }
 
-        //TODO  判断是否有重复的团队名称  有重复的直接返回
-        if(true) {
+
+        if(groupDao.isSameGroupName(group.getGroupName()) != 0) {
             throw new GroupRepeatException("the team repeated");
         }
 
         try {
             //把数据库的操作都要写到try   catch里面，防止数据库抛出免检异常，那样我们spring就不会处理我们的事务
             String filePath = UPLOAD_PATH + System.currentTimeMillis() + originalFileName;
-
-            //TODO 将一条记录写入数据库
             group.setGroupEvidence(filePath);
             groupDao.addGroup(group);
             FileUtils.copyInputStreamToFile(multipartFile.getInputStream(),new File(filePath));
-            //TODO 服务层传到controller的数据封装
-            return "";
+            return group;
         } catch (Exception e) {
             //如果没有发生前面指定的异常，我们这里就把数据库抛出的免检异常和其它异常都统一的用运行期异常抛出去
                 throw new CreateGroupException("failed to create activity");

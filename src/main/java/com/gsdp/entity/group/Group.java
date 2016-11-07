@@ -40,6 +40,12 @@ public class Group {
 	
 	public Group() {}
 
+	public Group(String groupIcon, String groupName, String groupDec, String groupContact, String groupAddress, int groupType, int owner, int visitors, int groupMembers, int groupStatus, String groupEvidence) {
+		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors, groupMembers);
+		this.groupStatus = groupStatus;
+		this.groupEvidence = groupEvidence;
+	}
+
 	public Group(int groupId, String groupIcon, String groupName, String groupDec, String groupContact, String groupAddress, int groupType, int owner, int visitors, int groupMembers) {
 		this(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors, groupMembers);
 		this.groupId = groupId;

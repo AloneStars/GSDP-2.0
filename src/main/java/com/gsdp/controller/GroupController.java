@@ -2,24 +2,25 @@ package com.gsdp.controller;
 
 import com.google.gson.Gson;
 import com.gsdp.dao.SituationDao;
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.enums.file.FileStatusInfo;
+import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class GroupController {
     private GroupService groupService;
 
     @Autowired
-    private ActivityDao activityDao;
+    private ActivityService activityService;
 
     @Autowired
     private SituationDao situationDao;
@@ -88,7 +89,7 @@ public class GroupController {
 
         Group group = groupService.getGroupMsg(groupId);
 
-        List<Activity> activityList = activityDao.getActivityMessage(groupId);
+        List<Activity> activityList = activityService.getActivityBySponsor(groupId);
 
         List<Situation> situationList = situationDao.getSituationMessage(groupId);
 
@@ -116,31 +117,38 @@ public class GroupController {
     }
 
     /**
-     * TODO 返回值是json，但是现在格式还要进一步确定
+     *参数单独给出，而不给对象，怕用户直接猜后端实体类属性，然后直接拼过来。
+     * @param groupName
+     * @param groupContact
+     * @param groupAddress
+     * @param groupType
+     * @param groupDec
      * @param multipartFile
-     * @param group
-     * @return
+     * @return  在这里有一点非常重要的是，当我们返回的对象是json，但是我们返回的
+     * 实际对象里面没有get和set方法是要报406异常的。
      */
-    @RequestMapping(value = "/creation", method = RequestMethod.POST,
-    produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/creation", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public Object createGroup(Group group, MultipartFile multipartFile) {
+    public JsonData createGroup(String groupName, String groupContact, String groupAddress,
+                              int groupType, String groupDec, @RequestParam("checkFile") MultipartFile multipartFile) {
         try {
-            Object result = groupService.createGroup(group, multipartFile);
-            return result;
+            Group result = groupService.createGroup(new Group(null,groupName,groupDec,groupContact,groupAddress,
+            groupType,1,0,0,0,null), multipartFile);
+            return new JsonData(true, result, GroupStatusInfo.CREATE_GROUP_SUCCESS.getMessage());
         } catch (EmptyFileException e) {
-            return "";
+            return new JsonData(false, FileStatusInfo.EMPTY_FILE.getMessage());
         } catch (FormatNotMatchException e) {
-            return "";
+            return new JsonData(false, FileStatusInfo.FORMAT_NOT_MATCH.getMessage());
         } catch (SizeBeyondException e) {
-            return "";
+            return new JsonData(false, FileStatusInfo.SIZE_BEYOND.getMessage());
         } catch (IllegalArgumentException e) {
-            return "";
+            return new JsonData(false,e.getMessage());
         } catch (GroupRepeatException e) {
-            return "";
+            return new JsonData(false, GroupStatusInfo.GROUP_REPEAT.getMessage());
         } catch (CreateGroupException e) {
             //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
-            return "";
+            return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
         }
     }
+
 }
