@@ -2,7 +2,6 @@
 	margin: 0px;
 	padding: 0px;
 }
-
 body {
 	background-size: cover;
 	font-family: "Micro YaHei";
@@ -31,23 +30,23 @@ body {
 }
 
 .bg1 {
-	background: url("../image/bg_b.jpg");
+	background: url("../image/bg/bg_b.jpg");
 }
 
 .bg2 {
-	background: url("../image/bg_w.jpg");
+	background: url("../image/bg/bg_w.jpg");
 }
 
 .bg3 {
-	background: url("../image/bg_l.jpg");
+	background: url("../image/bg/bg_l.jpg");
 }
 
 .bg4 {
-	background: url("../image/bg_h.jpg");
+	background: url("../image/bg/bg_h.jpg");
 }
 
 .bg5 {
-	background: url("../image/bg_y.jpg");
+	background: url("../image/bg/bg_y.jpg");
 }
 
 #container {
@@ -114,11 +113,12 @@ a:focus {
 
 .head {
 	position: absolute;
-	width: 430px;
+	width: 25%;
 	height: 150px;
 	/*left: 50%;
 	margin-left: -767px;*/
-	background: url("../image/logo.png");
+	background: url("../image/logo.png") no-repeat;
+	background-size:100% 100%;
 }
 
 .style {

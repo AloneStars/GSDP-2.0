@@ -111,4 +111,11 @@ public interface GroupDao {
      */
 	List<Group> getAllGroupMessage(@Param("offset") int offset,@Param("limit") int limited,
 								   @Param("order") String order,@Param("type") boolean type);
+
+	/**
+	 * 获取除了该组织之外的组织对象列表
+	 * @param groupId
+	 * @return
+     */
+	List<Group> getGroupListMessageExpGroup(int groupId);
 }

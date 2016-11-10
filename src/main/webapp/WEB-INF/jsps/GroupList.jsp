@@ -6,6 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>团队大厅</title>
   <%@include file="common/style.jsp"%>
+  <link href="${pageContext.request.contextPath}/css/hover-effects.css" type="text/css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/groupList.css" type="text/css" rel="stylesheet">
 </head>
 <body>
@@ -56,12 +57,22 @@
         </div>
         <div id="group_container">
             <c:forEach items="${groupList}" var="group">
-              <div class='group_list_item'>
+              <%--<div class='group_list_item'>
                 <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" target="_blank">
-                  <div class='group_icon shadow' style="background:url('${pageContext.request.contextPath}/${group.groupIcon}')">
+                  <div class='group_icon shadow' style="background:url('${pageContext.request.contextPath}/${group.groupIcon}') cov">
                   </div>
                   <span class='group_name'>${group.groupName}</span>
                 </a>
+              </div>--%>
+              <div class="group_list_item port-2 effect-1">
+                <div class="image-box">
+                  <img src="${pageContext.request.contextPath}/${group.groupIcon}" alt="Image-1">
+                </div>
+                <div class="text-desc">
+                  <h3>${group.groupName}</h3>
+                  <p>${group.groupDec}</p>
+                  <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                </div>
               </div>
             </c:forEach>
         </div>

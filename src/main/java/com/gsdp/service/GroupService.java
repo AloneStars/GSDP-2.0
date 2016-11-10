@@ -19,7 +19,6 @@ import java.util.List;
  * ********************************************************
  * +描述:组织相关的Service接口
  *********************************************************/
-@Service
 public interface GroupService {
 
     //根据typeId获取相应的组织列表
@@ -54,6 +53,9 @@ public interface GroupService {
 
     //转让组织
     boolean changeOwner(int userId, int groupId);
+
+    //获取除了该组织之后的所有组织列表
+    List<Group> getGroupListMessageExpGroup(int groupId);
 
     /**
      *

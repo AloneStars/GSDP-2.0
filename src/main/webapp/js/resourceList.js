@@ -53,10 +53,10 @@ function play(AudioSrc,ImgSrc){
 	var MP=document.getElementById("myAudio");
 	var PP=document.getElementById("play_pause");
 	var MCD=document.getElementsByClassName("mcd").item(0);	 
-     $("#myAudio").attr("src","file\/music\/"+AudioSrc);
-     $(".mcd").attr("src","image\/music\/"+ImgSrc); 
+     $("#myAudio").attr("src","..\/file\/music\/"+AudioSrc);
+     $(".mcd").attr("src","..\/image\/music\/"+ImgSrc); 
      MP.pause();
-	 PP.style.backgroundImage="url(image/music/MainCont1.png)";
+	 PP.style.backgroundImage="url(../image/music/MainCont1.png)";
 	 MCD.className="mcd bxzhh";
 }
 
@@ -91,16 +91,16 @@ function initMusic(){
 	PP.onclick=function(){
 		if(MP.paused){
 			MP.play();
-			PP.style.backgroundImage="url(image/music/MusicPause1.png)";
+			PP.style.backgroundImage="url(../image/music/MusicPause1.png)";
 			MCD.className="mcd zxhh";
 		}else{
 			MP.pause();
-			PP.style.backgroundImage="url(image/music/MainCont1.png)";
+			PP.style.backgroundImage="url(../image/music/MainCont1.png)";
 			MCD.className="mcd bxzhh";
 		}
 	}
 	MP.addEventListener('ended',function(){
-		PP.style.backgroundImage="url(image/music/MainCont1.png)";
+		PP.style.backgroundImage="url(../image/music/MainCont1.png)";
 		MCD.className="mcd bxzhh";
 		});
 }

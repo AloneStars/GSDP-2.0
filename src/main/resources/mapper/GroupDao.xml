@@ -140,4 +140,13 @@
 		</where>
 	</delete>
 
+	<select id="getGroupListMessageExpGroup" resultType="Group">
+		SELECT
+		<include refid="columns"/>
+		FROM `group`
+		<where>
+			group_id != #{groupId};
+		</where>
+	</select>
+
 </mapper>

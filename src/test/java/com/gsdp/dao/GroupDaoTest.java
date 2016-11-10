@@ -123,4 +123,12 @@ public class GroupDaoTest {
 		logger.info("list = {}", list);
 	}
 
+	@Test
+	public void testGetGroupListMessageExpGroup(){
+
+		List<Group> groupList = groupDao.getGroupListMessageExpGroup(3);
+
+		logger.info("list = {}", groupList);
+	}
+
 }

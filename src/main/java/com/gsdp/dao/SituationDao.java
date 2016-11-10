@@ -15,12 +15,17 @@ import com.gsdp.entity.group.Situation;
 public interface SituationDao {
 
 	/**
-	 * 获取全部的动态消息
-	 * 
-	 * @param groupId
-	 * @return
-	 */
-	List<Situation> getSituationMessage(int groupId);
+	 * 根据所给的信息获取相关的动态列表
+	 * @param groupId 组织Id
+	 * @param offset  偏移量
+	 * @param limit   查询数量
+	 * @param order   查询字段
+	 * @param type    排序类型
+     * @return  List<Situation>
+     */
+	List<Situation> getSituationMessage(@Param("groupId") int groupId,@Param("offset") int offset,
+										@Param("limit") int limit,@Param("order") String order,
+										@Param("type") boolean type);
 
 	/**
 	 * 获得单个动态的消息（包含这个动态所包含的全部回复，并且每条回复都包含了这条回复的用户）

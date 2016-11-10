@@ -40,6 +40,6 @@ public class ActivityController {
         model.addAttribute("newestActivityList",newestActivityList);
         model.addAttribute("hottestActivityList",hottestActivityList);
 
-        return "ActivityList";
+        return "activityList";
     }
 }

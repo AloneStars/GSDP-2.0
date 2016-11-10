@@ -105,4 +105,13 @@ public class GroupServiceTest {
 
     }
 
+    @Test
+    public void getGroupListMessageExpGroup() throws Exception{
+
+        List<Group> groupList =  groupService.getGroupListMessageExpGroup(3);
+
+        logger.info("groupList={}",groupList);
+
+    }
+
 }
