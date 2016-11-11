@@ -66,6 +66,19 @@ var group = {
         }
     },
 
+    //返回当前节点前面指定nodeType类型的节点
+    "getPreviousSibling" : function (node, nodeType) {
+        var preNode = node.previousSibling;
+        while (preNode && preNode.nodeType != nodeType) {
+            preNode = preNode.previousSibling;
+        }
+        if(preNode && preNode.nodeType == nodeType) {
+            return preNode;
+        } else {
+            return null;
+        }
+    },
+
     //还原dialog
     "recoveryDialog"  : function() {
         /*
@@ -75,7 +88,8 @@ var group = {
          */
         $("#group_creation_form div").removeClass("has-error has-success");
         $("div.err-info").html("");
-        $("#profile")[0].previousSibling.nodeValue = "选择文件";
+        group.getPreviousSibling($("#profile")[0], 3).nodeValue = "选择文件";
+        //把所有的表单清空，这里注意如何把jquery对象转化为Dom对象
         $("#group_creation_form")[0].reset();
     },
 

@@ -134,7 +134,11 @@ public class GroupController {
         try {
             Group result = groupService.createGroup(new Group(null,groupName,groupDec,groupContact,groupAddress,
             groupType,1,0,0,0,null), multipartFile);
-            return new JsonData(true, result, GroupStatusInfo.CREATE_GROUP_SUCCESS.getMessage());
+            if(result != null) {
+                return new JsonData(true, result, GroupStatusInfo.CREATE_GROUP_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
+            }
         } catch (EmptyFileException e) {
             return new JsonData(false, FileStatusInfo.EMPTY_FILE.getMessage());
         } catch (FormatNotMatchException e) {

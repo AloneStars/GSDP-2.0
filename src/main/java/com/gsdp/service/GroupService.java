@@ -6,7 +6,6 @@ import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.GroupRepeatException;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -19,7 +18,6 @@ import java.util.List;
  * ********************************************************
  * +描述:组织相关的Service接口
  *********************************************************/
-@Service
 public interface GroupService {
 
     //根据typeId获取相应的组织列表

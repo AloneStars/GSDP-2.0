@@ -22,7 +22,6 @@
             border-radius: 4px;
             padding: 5px 12px;
             overflow: hidden;
-            margin-top: 1px;
             color: #666;
             text-decoration: none;
             text-indent: 0;
@@ -154,10 +153,6 @@
                             </label>
                             <div class="col-sm-7">
                                 <a href="javascript:;" class="file form-control">选择文件
-
-
-
-
                                     <input type="file" name="checkFile" id="profile" accept="image/jpeg,image/jpg,application/msword">
                                 </a>
                                 <div class="err-info"></div>
@@ -188,11 +183,11 @@
             <div class="modal-footer">
 
                 <div class="row">
-                    <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4">
+                    <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="submit-apply-group">
                         确定
                     </button>
                     <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal"
-                            onclick="group.closeCreateGroupDialog()">
+                            onclick="group.closeCreateGroupDialog();">
                         取消
                     </button>
 
@@ -228,20 +223,15 @@
     //实现用户选择文件的效果
     $("#group_creation_form").on("change", "#profile", function () {
         var value = $(this).val();
-        var text = this.previousSibling;
-        while (text && text.nodeType != 3) {
-            text = text.previousSibling;
-        }
-        if (text && text.nodeType == 3) {
-            if(value) {
-                text.nodeValue = value.substring(value.lastIndexOf("\\") + 1);
+        var preNode = group.getPreviousSibling(this, 3);
+            if(preNode && value) {
+                preNode.nodeValue = value.substring(value.lastIndexOf("\\") + 1);
             } else {
-                text.nodeValue = "选择文件";
+                preNode.nodeValue = "选择文件";
             }
-        }
     });
     
-    $("#group_creation_form").on("click",function () {
+    $("#submit-apply-group").on("click",function () {
         group.groupCreation();
     });
 </script>
