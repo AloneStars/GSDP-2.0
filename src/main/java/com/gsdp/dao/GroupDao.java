@@ -114,6 +114,13 @@ public interface GroupDao {
 								   @Param("order") String order,@Param("type") boolean type);
 
 	/**
+	 * 获取除了该组织之外的组织对象列表
+	 * @param groupId
+	 * @return
+     */
+	List<Group> getGroupListMessageExpGroup(int groupId);
+
+	/**
 	 * 判断是否有重名的团队名称
 	 * @param groupName
 	 * @return

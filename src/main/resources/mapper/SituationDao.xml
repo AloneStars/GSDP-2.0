@@ -14,9 +14,18 @@
 		select
 		<include refid="columns"/>
 		from situation
-		<where>
-			group_id = #{groupId};
-		</where>
+		<if test="groupId != 0">
+			<where>
+				group_id = #{groupId}
+			</where>
+		</if>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit};
+		</if>
+
 	</select>
 	
 	<!-- 

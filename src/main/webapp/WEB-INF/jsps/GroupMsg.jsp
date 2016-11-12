@@ -13,13 +13,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>团队详情</title>
     <%@include file="common/style.jsp"%>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/pathMenu.js"></script>
     <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/pathMenu.css" type="text/css" rel="stylesheet" />
+
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
 <div id="container">
     <!-- 页眉 -->
     <jsp:include page="common/header.jsp"/>
+    <jsp:include page="common/rotateMenu.jsp"/>
     <!-- 内容版块 -->
     <div id="content-container">
         <!-- banner版块 -->

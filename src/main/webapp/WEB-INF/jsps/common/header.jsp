@@ -9,7 +9,7 @@
             <ul>
                 <li class="Group"><a href="${pageContext.request.contextPath}/group/list"><B>团体大厅</B></a></li>
                 <li class="Activity"><a href="${pageContext.request.contextPath}/activity/list"><B>活动走廊</B></a></li>
-                <li class="Logo"><a href="${pageContext.request.contextPath}/index"><B>平台首页</B></a></li>
+                <li class="Logo"><a href="${pageContext.request.contextPath}/"><B>平台首页</B></a></li>
                 <li class="Situation"><a href="${pageContext.request.contextPath}/situation/list"><B>动态展览</B></a></li>
                 <li class="Resource"><a href="${pageContext.request.contextPath}/resource/list"><B>资源总库</B></a></li>
             </ul>

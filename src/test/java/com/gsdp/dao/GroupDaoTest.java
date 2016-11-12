@@ -126,6 +126,14 @@ public class GroupDaoTest {
 	}
 
 	@Test
+	public void testGetGroupListMessageExpGroup(){
+
+		List<Group> groupList = groupDao.getGroupListMessageExpGroup(3);
+
+		logger.info("list = {}", groupList);
+	}
+
+	@Test
 	public void isSameGroupName() {
 		String groupName = "动漫社";
 		int affectRows = groupDao.isSameGroupName(groupName);

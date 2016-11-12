@@ -140,6 +140,15 @@
 		</where>
 	</delete>
 
+	<select id="getGroupListMessageExpGroup" resultType="Group">
+		SELECT
+		<include refid="columns"/>
+		FROM `group`
+		<where>
+			group_id != #{groupId};
+		</where>
+	</select>
+
 	<!--注意我们在传入string类型参数的时候，我们在这里用参数名只能用_parameter
 	来才能获取，但是如果是int类型就不用，但是为了语义表达清楚，这里我们用@param来
 	解决这个问题-->

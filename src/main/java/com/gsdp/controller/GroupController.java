@@ -2,25 +2,24 @@ package com.gsdp.controller;
 
 import com.google.gson.Gson;
 import com.gsdp.dao.SituationDao;
-import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
-import com.gsdp.enums.file.FileStatusInfo;
-import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.group.GroupRepeatException;
-import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class GroupController {
     private ActivityService activityService;
 
     @Autowired
-    private SituationDao situationDao;
+    private SituationService situationService;
 
     @RequestMapping(value = "/list")
     public String getGroupListMsg(Model model){
@@ -63,7 +62,7 @@ public class GroupController {
 
         model.addAttribute("groupList",groupList);
 
-        return "GroupList";
+        return "groupList";
     }
 
     @RequestMapping(value = "/{typeId}/list")
@@ -79,7 +78,7 @@ public class GroupController {
 
         model.addAttribute("groupList",groupList);
 
-        return "GroupList";
+        return "groupList";
     }
 
     @RequestMapping(value = "/{groupId}/detail")
@@ -89,9 +88,11 @@ public class GroupController {
 
         Group group = groupService.getGroupMsg(groupId);
 
-        List<Activity> activityList = activityService.getActivityBySponsor(groupId);
+        List<Activity> activityList = activityService.getGeneralActivityMessage(groupId,0,10,"visitors",true);
 
-        List<Situation> situationList = situationDao.getSituationMessage(groupId);
+        List<Situation> situationList = situationService.getSituationMessage(groupId,0,10,"visitors",true);
+
+        List<Group> groupList = groupService.getGroupListMessageExpGroup(groupId);
 
         /**
          * 资源部分的功能还待设计样式和初始化方式
@@ -100,10 +101,11 @@ public class GroupController {
         model.addAttribute("group",group);
         model.addAttribute("activityList",activityList);
         model.addAttribute("situationList",situationList);
+        model.addAttribute("groupList",groupList);
 
         logger.info(gson.toJson(group));
 
-        return "GroupMsg";
+        return "groupMsg";
 
     }
 

@@ -32,7 +32,7 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService{
 
-    private final Logger looger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private GroupDao groupDao;
@@ -72,11 +72,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.addGroup(group);
 
         if(number == 1) {
-            looger.info("数据库插入组织成功");
+            logger.info("数据库插入组织成功");
             return true;
         }
         else {
-            looger.info("数据库插入组织数量:{}", number);
+            logger.info("数据库插入组织数量:{}", number);
             return false;
         }
 
@@ -88,11 +88,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.deleteGroup(groupId);
 
         if(number == 1) {
-            looger.info("数据库删除组织成功");
+            logger.info("数据库删除组织成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织数量:{}", number);
+            logger.info("数据库删除组织数量:{}", number);
             return false;
         }
 
@@ -104,11 +104,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.updateGroup(group);
 
         if(number == 1) {
-            looger.info("数据库更新组织成功");
+            logger.info("数据库更新组织成功");
             return true;
         }
         else {
-            looger.info("数据库更新组织数量:{}", number);
+            logger.info("数据库更新组织数量:{}", number);
             return false;
         }
     }
@@ -119,11 +119,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.addAdmin(userId,groupId);
 
         if(number == 1) {
-            looger.info("数据库添加组织管理员成功");
+            logger.info("数据库添加组织管理员成功");
             return true;
         }
         else {
-            looger.info("数据库添加组织管理员数量:{}", number);
+            logger.info("数据库添加组织管理员数量:{}", number);
             return false;
         }
 
@@ -135,11 +135,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.deleteAdmin(userId,groupId);
 
         if(number == 1) {
-            looger.info("数据库删除组织管理员成功");
+            logger.info("数据库删除组织管理员成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织管理员数量:{}", number);
+            logger.info("数据库删除组织管理员数量:{}", number);
             return false;
         }
     }
@@ -152,11 +152,11 @@ public class GroupServiceImpl implements GroupService{
         int anoNumber = groupDao.changeMemberNumber(1,groupId);
 
         if((number == 1 )&& (anoNumber ==1)) {
-            looger.info("数据库添加组织成员成功");
+            logger.info("数据库添加组织成员成功");
             return true;
         }
         else {
-            looger.info("数据库添加组织成员数量:{}", number);
+            logger.info("数据库添加组织成员数量:{}", number);
             return false;
         }
     }
@@ -169,11 +169,11 @@ public class GroupServiceImpl implements GroupService{
         int anoNumber = groupDao.changeMemberNumber(-1,groupId);
 
         if((number == 1 )&& (anoNumber ==1)) {
-            looger.info("数据库删除组织成员成功");
+            logger.info("数据库删除组织成员成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织成员数量:{}", number);
+            logger.info("数据库删除组织成员数量:{}", number);
             return false;
         }
 
@@ -185,13 +185,24 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.changeOwner(userId, groupId);
 
         if(number == 1) {
-            looger.info("数据库转让组织成功");
+            logger.info("数据库转让组织成功");
             return true;
         }
         else {
-            looger.info("数据库转让组织数量:{}", number);
+            logger.info("数据库转让组织数量:{}", number);
             return false;
         }
+    }
+
+    @Override
+    public List<Group> getGroupListMessageExpGroup(int groupId) {
+
+        List<Group> groupList = groupDao.getGroupListMessageExpGroup(groupId);
+
+        logger.info("groupList={}",groupList);
+
+        return groupList;
+
     }
 
     /**
