@@ -22,7 +22,8 @@ var dialog = {
      */
     closeDialog : function() {
         $("div.hideBack").hide();
-        $("div.dialog").hide("slow");
+        // $("div.dialog").hide("slow");
+        $("div.dialog").hide();
     },
 
     /*
@@ -42,7 +43,7 @@ var dialog = {
         dialog.showHideBack();
         dialog.setDialogWidthAndHeight(width, height);
         dialog.changeDialogPosition(height, width);
-        $("div.dialog").fadeIn("slow");
+         $("div.dialog").fadeIn("slow");
     },
 
     /*
@@ -62,7 +63,12 @@ var dialog = {
         var clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
         console.log("clientHeight =" + clientHeight);
         console.log("clientWidth =" + clientWidth);
-        $dialog.css("top",(clientHeight - height) / 2);
+        if(clientHeight < height) {
+            $dialog.css({"position" : "absolute","top" : "0px"});
+        } else {
+            $dialog.css({"position" : "fixed","top" : (clientHeight - height) / 2});
+        }
+
         $dialog.css("left",(clientWidth - width) / 2);
     },
 

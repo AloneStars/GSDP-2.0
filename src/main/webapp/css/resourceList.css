@@ -76,7 +76,7 @@
 	width: 80px;
 	height: 80px;
 	margin: 0px auto;
-	border: 1px solid #fff !important;
+	border: 2px solid #fff !important;
 	border-radius: 100% !important;
 	margin-bottom: 10px;
 }
@@ -120,6 +120,28 @@
 
 .more b:hover {
 	color: #08c !important;
+}
+
+.video{
+    background: url('../image/easyIcon/video.png')   center no-repeat;
+	background-size: cover;
+}
+.audio{
+	background: url('../image/easyIcon/audio.png')   center no-repeat;
+	background-size: cover;
+}
+.text{
+	background: url('../image/easyIcon/text.png')   center no-repeat;
+	background-size: cover;
+
+}
+.picture{
+	background: url('../image/easyIcon/picture.png') center  no-repeat;
+	background-size: cover;
+}
+.soft{
+	background: url('../image/easyIcon/soft.png')   center no-repeat;
+	background-size: cover;
 }
 
 /************************video*********************/
@@ -310,17 +332,20 @@
 
 .like {
 	text-align: left;
-	background: url("../image/like.png") no-repeat;
+	background: url("../image/easyIcon/like.png") center no-repeat;
+	background-size: 20px 20px;
 }
 
 .hate {
 	text-align: center;
-	background: url("../image/hate.png") no-repeat;
+	background: url("../image/easyIcon/hate.png") center no-repeat;
+	background-size: 20px 20px;
 }
 
 .download {
 	text-align: right;
-	background: url("../image/download.png") no-repeat;
+	background: url("../image/easyIcon/download.png") center no-repeat;
+	background-size: 20px 20px;
 	margin-right: 0px !important;
 }
 

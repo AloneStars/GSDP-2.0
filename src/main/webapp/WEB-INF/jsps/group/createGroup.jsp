@@ -11,12 +11,8 @@
     <link href="/GSDP/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="/GSDP/css/common/myDialog.css" type="text/css" rel="stylesheet">
     <style type="text/css">
-        .group_intro_text {
+        .no-resize {
             resize: none;
-            width: 100%;
-            height: 100px;
-            padding-left: 7px;
-            border-radius: 4px;
         }
 
         .file {
@@ -26,7 +22,6 @@
             border-radius: 4px;
             padding: 5px 12px;
             overflow: hidden;
-            margin-top: 1px;
             color: #666;
             text-decoration: none;
             text-indent: 0;
@@ -46,6 +41,11 @@
             border-color: #78C3F3;
             color: #004974;
             text-decoration: none;
+        }
+        .err-info {
+            color : red;
+            font-size: 10px;
+            font-family: "Micro YaHei";
         }
         .text-red {
             color : red;
@@ -78,7 +78,7 @@
 <div class="dialog shadow">
     <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="dialog.closeDialog();">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="group.closeCreateGroupDialog()">
                 ×
             </button>
             <h4 class="modal-title" id="modal_create_group_title">
@@ -99,7 +99,7 @@
                             </label>
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" name="groupName" id="group_name" placeholder="例如:星空摄影团队"/>
-                                <div class="text-danger"></div>
+                                <div class="err-info"></div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -110,7 +110,7 @@
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" id="contact"
                                         name="groupContact" placeholder="例如:13811111111"/>
-                                <div class="text-danger"></div>
+                                <div class="err-info"></div>
                             </div>
 
                         </div>
@@ -123,7 +123,7 @@
                             <div class="col-sm-7">
                                 <input type="text" class="form-control" id="work_address"
                                        name="groupAddress" placeholder="例如:A7-310"/>
-                                <div class="text-danger"></div>
+                                <div class="err-info"></div>
                             </div>
 
                         </div>
@@ -142,7 +142,6 @@
                                         <option value="5">体育类</option>
                                         <option value="6">素拓类</option>
                                     </select>
-                                <div class="text-danger"></div>
                             </div>
 
                         </div>
@@ -156,7 +155,7 @@
                                 <a href="javascript:;" class="file form-control">选择文件
                                     <input type="file" name="checkFile" id="profile" accept="image/jpeg,image/jpg,application/msword">
                                 </a>
-                                <div class="text-danger"></div>
+                                <div class="err-info"></div>
                             </div>
                         </div>
 
@@ -166,8 +165,8 @@
                                 团队介绍:
                             </label>
                             <div class="col-sm-7">
-                                <textarea name="groupDec" id="group_introduce" class="group_intro_text" placeholder="例如:我们团队是一支摄影团队..."></textarea>
-                                <div class="text-danger"></div>
+                                <textarea name="groupDec" id="group_introduce" class="no-resize form-control" rows="5" placeholder="例如:我们团队是一支摄影团队..."></textarea>
+                                <div class="err-info"></div>
                             </div>
 
                         </div>
@@ -175,7 +174,6 @@
                         <div class="text-center text-red">
                             注意:佐证材料的格式必须是jpg,jpeg,doc.大小不超过5m
                         </div>
-
 
                     </div>
                 </div>
@@ -185,11 +183,11 @@
             <div class="modal-footer">
 
                 <div class="row">
-                    <button type="submit" class="btn btn-primary col-sm-2 col-sm-offset-4">
+                    <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="submit-apply-group">
                         确定
                     </button>
-                    <button type="reset" class="btn btn-default col-sm-2" data-dismiss="modal"
-                            onclick="dialog.closeDialog();">
+                    <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal"
+                            onclick="group.closeCreateGroupDialog();">
                         取消
                     </button>
 
@@ -212,6 +210,7 @@
 <script src="/GSDP/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/GSDP/js/common/myDialog.js" type="text/javascript"></script>
 <script src="/GSDP/js/group.js" type="text/javascript"></script>
+<script src="/GSDP/js/upload/ajaxfileupload.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 
@@ -221,28 +220,19 @@
         dialog.reModify(545, 465);
     });
 
-    $("#group_creation_form").on("change", "input#profile", function () {
+    //实现用户选择文件的效果
+    $("#group_creation_form").on("change", "#profile", function () {
         var value = $(this).val();
-        var text = this.previousSibling;
-        while (text && text.nodeType != 3) {
-            text = text.previousSibling;
-        }
-        if (text && text.nodeType == 3) {
-            if(value) {
-                text.nodeValue = value.substring(value.lastIndexOf("\\") + 1);
+        var preNode = group.getPreviousSibling(this, 3);
+            if(preNode && value) {
+                preNode.nodeValue = value.substring(value.lastIndexOf("\\") + 1);
             } else {
-                text.nodeValue = "选择文件";
+                preNode.nodeValue = "选择文件";
             }
-        }
     });
     
-    $("#group_creation_form").on("submit",function () {
-        if(group.groupCreation()) {
-            this.action = group.url.groupCreation();
-            $(this).submit;
-        } else {
-            return false;
-        }
+    $("#submit-apply-group").on("click",function () {
+        group.groupCreation();
     });
 </script>
 </body>

@@ -7,6 +7,7 @@ import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.GroupUtil;
 import org.apache.commons.io.FileUtils;
@@ -31,10 +32,13 @@ import java.util.List;
 @Service
 public class GroupServiceImpl implements GroupService{
 
-    private final Logger looger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    public GroupDao groupDao;
+    private GroupDao groupDao;
+
+    @Autowired
+    private CommonService commonService;
 
     @Override
     public List<Group> getGroupListMsg(int typeId,int offset,int limit,String order,boolean type) {
@@ -68,11 +72,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.addGroup(group);
 
         if(number == 1) {
-            looger.info("数据库插入组织成功");
+            logger.info("数据库插入组织成功");
             return true;
         }
         else {
-            looger.info("数据库插入组织数量:{}", number);
+            logger.info("数据库插入组织数量:{}", number);
             return false;
         }
 
@@ -84,11 +88,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.deleteGroup(groupId);
 
         if(number == 1) {
-            looger.info("数据库删除组织成功");
+            logger.info("数据库删除组织成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织数量:{}", number);
+            logger.info("数据库删除组织数量:{}", number);
             return false;
         }
 
@@ -100,11 +104,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.updateGroup(group);
 
         if(number == 1) {
-            looger.info("数据库更新组织成功");
+            logger.info("数据库更新组织成功");
             return true;
         }
         else {
-            looger.info("数据库更新组织数量:{}", number);
+            logger.info("数据库更新组织数量:{}", number);
             return false;
         }
     }
@@ -115,11 +119,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.addAdmin(userId,groupId);
 
         if(number == 1) {
-            looger.info("数据库添加组织管理员成功");
+            logger.info("数据库添加组织管理员成功");
             return true;
         }
         else {
-            looger.info("数据库添加组织管理员数量:{}", number);
+            logger.info("数据库添加组织管理员数量:{}", number);
             return false;
         }
 
@@ -131,11 +135,11 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.deleteAdmin(userId,groupId);
 
         if(number == 1) {
-            looger.info("数据库删除组织管理员成功");
+            logger.info("数据库删除组织管理员成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织管理员数量:{}", number);
+            logger.info("数据库删除组织管理员数量:{}", number);
             return false;
         }
     }
@@ -148,11 +152,11 @@ public class GroupServiceImpl implements GroupService{
         int anoNumber = groupDao.changeMemberNumber(1,groupId);
 
         if((number == 1 )&& (anoNumber ==1)) {
-            looger.info("数据库添加组织成员成功");
+            logger.info("数据库添加组织成员成功");
             return true;
         }
         else {
-            looger.info("数据库添加组织成员数量:{}", number);
+            logger.info("数据库添加组织成员数量:{}", number);
             return false;
         }
     }
@@ -165,11 +169,11 @@ public class GroupServiceImpl implements GroupService{
         int anoNumber = groupDao.changeMemberNumber(-1,groupId);
 
         if((number == 1 )&& (anoNumber ==1)) {
-            looger.info("数据库删除组织成员成功");
+            logger.info("数据库删除组织成员成功");
             return true;
         }
         else {
-            looger.info("数据库删除组织成员数量:{}", number);
+            logger.info("数据库删除组织成员数量:{}", number);
             return false;
         }
 
@@ -181,13 +185,24 @@ public class GroupServiceImpl implements GroupService{
         int number = groupDao.changeOwner(userId, groupId);
 
         if(number == 1) {
-            looger.info("数据库转让组织成功");
+            logger.info("数据库转让组织成功");
             return true;
         }
         else {
-            looger.info("数据库转让组织数量:{}", number);
+            logger.info("数据库转让组织数量:{}", number);
             return false;
         }
+    }
+
+    @Override
+    public List<Group> getGroupListMessageExpGroup(int groupId) {
+
+        List<Group> groupList = groupDao.getGroupListMessageExpGroup(groupId);
+
+        logger.info("groupList={}",groupList);
+
+        return groupList;
+
     }
 
     /**
@@ -197,29 +212,14 @@ public class GroupServiceImpl implements GroupService{
      * @return
      */
     @Override
-    @Transactional
-    public String createGroup(Group group, MultipartFile multipartFile) throws
+    public Group createGroup(Group group, MultipartFile multipartFile) throws
     EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException, GroupRepeatException {
 
-        final String UPLOAD_PATH = "";
+        final String PATH = "D:/";
         //限制上传的最大字节数,最大可以上传5m的东西。
-        long maxSize = 1024 * 1014 * 5;
+        final long MAX_SIZE = 1024 * 1014 * 5;
+        final String REGEX = "jpg|jpeg|doc";
 
-        //说明根本没有选择文件，我们要抛出相应的异常，防止用户绕过前端验证
-        if(null == multipartFile) {
-            throw new EmptyFileException("the file is empty");
-        }
-
-       String originalFileName = multipartFile.getOriginalFilename();
-
-        //防止用户传一些非允许的格式的文件
-        if(!GroupUtil.isSpecialFormat(originalFileName)) {
-            throw new FormatNotMatchException("the file format is not allowed upload");
-        }
-        //防止用户上传的文件大小大于指定的文件大小
-        if(multipartFile.getSize() > maxSize) {
-            throw new SizeBeyondException("the file size beyond specified size：" + maxSize);
-        }
 
         //判断用户输入的团队信息是否全， 如果不全则返回
         if(!GroupUtil.checkGroupName(group.getGroupName()) || !GroupUtil.checkGroupContact(group.getGroupContact()) ||
@@ -227,25 +227,28 @@ public class GroupServiceImpl implements GroupService{
             throw new IllegalArgumentException("user input information is incorrect");
         }
 
-        //TODO  判断是否有重复的团队名称  有重复的直接返回
-        if(true) {
+
+        if(groupDao.isSameGroupName(group.getGroupName()) != 0) {
             throw new GroupRepeatException("the team repeated");
         }
 
         try {
-            //把数据库的操作都要写到try   catch里面，防止数据库抛出免检异常，那样我们spring就不会处理我们的事务
-            String filePath = UPLOAD_PATH + System.currentTimeMillis() + originalFileName;
-
-            //TODO 将一条记录写入数据库
-            group.setGroupEvidence(filePath);
-            groupDao.addGroup(group);
-            FileUtils.copyInputStreamToFile(multipartFile.getInputStream(),new File(filePath));
-            //TODO 服务层传到controller的数据封装
-            return "";
+            String evidencePath = commonService.upload(multipartFile, PATH, MAX_SIZE, REGEX);
+            if(evidencePath != null) {
+                group.setGroupEvidence(evidencePath);
+                if(1 == groupDao.addGroup(group)) {
+                    return group;
+                }
+            }
+        } catch (EmptyFileException e) {
+            throw e;
+        } catch (FormatNotMatchException e) {
+            throw e;
+        } catch (SizeBeyondException e) {
+            throw e;
         } catch (Exception e) {
-            //如果没有发生前面指定的异常，我们这里就把数据库抛出的免检异常和其它异常都统一的用运行期异常抛出去
-                throw new CreateGroupException("failed to create activity");
+            throw new CreateGroupException("failed to create group");
         }
-
+        return null;
     }
 }

@@ -81,7 +81,9 @@ public class GroupDaoTest {
 		int owner = 2;
 		int visitors = 456;
 		int groupMembers = 100;
-		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers);
+		int groupStatus = 0;
+		String groupEvidence = "D:/workspace/profile/abc.doc";
+		Group group = new Group(groupIcon, groupName, groupDec, groupContact, groupAddress, groupType, owner, visitors,groupMembers,groupStatus,groupEvidence);
 		int affectRows = groupDao.addGroup(group);
 		logger.info("影响的行数:" + affectRows + "返回的自增id为:" + group.getGroupId());
 	}
@@ -123,4 +125,18 @@ public class GroupDaoTest {
 		logger.info("list = {}", list);
 	}
 
+	@Test
+	public void testGetGroupListMessageExpGroup(){
+
+		List<Group> groupList = groupDao.getGroupListMessageExpGroup(3);
+
+		logger.info("list = {}", groupList);
+	}
+
+	@Test
+	public void isSameGroupName() {
+		String groupName = "动漫社";
+		int affectRows = groupDao.isSameGroupName(groupName);
+		logger.info("影响的行数:" + affectRows);
+	}
 }

@@ -25,7 +25,7 @@ public class SituationDaoTest {
 	@Test
 	public void testGetSituationMessage() {
 		int groupId = 3;
-		List<Situation> list = situationDao.getSituationMessage(groupId);
+		List<Situation> list = situationDao.getSituationMessage(groupId,0,2,"visitors",true);
 		logger.info("list = {}", list);
 	}
 	
