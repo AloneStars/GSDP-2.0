@@ -1,25 +1,26 @@
 package com.gsdp.controller;
 
 import com.google.gson.Gson;
-import com.gsdp.dao.SituationDao;
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.enums.file.FileStatusInfo;
+import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
+import com.gsdp.service.SituationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -132,7 +133,7 @@ public class GroupController {
     @RequestMapping(value = "/creation", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public JsonData createGroup(String groupName, String groupContact, String groupAddress,
-                              int groupType, String groupDec, @RequestParam("checkFile") MultipartFile multipartFile) {
+                                int groupType, String groupDec, @RequestParam("checkFile") MultipartFile multipartFile) {
         try {
             Group result = groupService.createGroup(new Group(null,groupName,groupDec,groupContact,groupAddress,
             groupType,1,0,0,0,null), multipartFile);

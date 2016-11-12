@@ -120,11 +120,11 @@ ul {
     min-height: 90%;
     float: right;
     background:rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
 }
 .nav_content {
     width: 100%;
     min-height:40em;
-    /*border:1px solid red;*/
 }
 /*start basic information style*/
 .modify_headPicture {
