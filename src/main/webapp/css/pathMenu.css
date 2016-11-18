@@ -14,11 +14,13 @@
 	position:absolute;
 	left: 0px;
 	bottom: 0px;
+	/*background:rgba(0,0,225,0.4);*/
 }
 .PathInner a {/* position:absolute; */
 	display:block;
 	background-position:center;
 	background-repeat:no-repeat;
+	background:rgba(225,0,0,0.4);
 
 }
 .PathInner a .item, .rotate {

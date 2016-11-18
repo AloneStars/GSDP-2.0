@@ -2,18 +2,17 @@
  * Created by yizijun on 2016/11/10 0010.
  */
 var user = {
-
     /*
     与用户控制器调用的url
      */
     "url" : {
 
         "changeHead" : function () {
-            return "/GSDP/user/changeHead";
+            return "/gsdp/user/changeHead";
         },
 
         "randomChangeHead" : function () {
-            return "/GSDP/user/randomChangeHead";
+            return "/gsdp/user/randomChangeHead";
         }
     },
 
@@ -61,7 +60,6 @@ var user = {
 };
 
 $(function () {
-
     /*
     注意我们在运用input[type = "file"]来完成change事件的时候，
     我们要注意我们如果不采用冒泡的方式来绑定这个元素的事件的话，其

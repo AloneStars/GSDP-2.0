@@ -5,7 +5,7 @@ var group = {
 
     "url" : {
         "groupCreation" : function () {
-            return "/GSDP/group/creation";
+            return "/gsdp/group/creation";
         }
     },
 

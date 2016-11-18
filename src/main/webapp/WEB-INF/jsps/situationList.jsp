@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>SituationList</title>
+    <title>动态展览</title>
     <%@ include file="common/style.jsp"%>
     <link href="${pageContext.request.contextPath}/css/situationList.css" type="text/css" rel="stylesheet">
 
@@ -30,7 +30,7 @@
                 <ul>
                     <c:forEach items="#{situationList}" var="situation">
                         <li><nobr>
-                            <a href="#"><span class='title' title="${situation.situationTitle}">${situation.situationTitle}</span></a><span
+                            <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title' title="${situation.situationTitle}">${situation.situationTitle}</span></a><span
                                 class='time'>发布时间:&nbsp;<i>${situation.publishTime}</i></span>
                         </nobr></li>
                     </c:forEach>
@@ -50,7 +50,7 @@
                     <ul>
                         <c:forEach items="#{newestSituationList}" var="newSituation">
                             <li><nobr>
-                                <a href="#"><span class='title' title="${newSituation.situationTitle}">${newSituation.situationTitle}</span></a>
+                                <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title' title="${newSituation.situationTitle}">${newSituation.situationTitle}</span></a>
                             </nobr></li>
                         </c:forEach>
                     </ul>
@@ -65,7 +65,7 @@
                     <ul>
                         <c:forEach items="#{hottestSituationList}" var="hotSituation">
                             <li><nobr>
-                                <a href="#"><span class='title' title="${hotSituation.situationTitle}">${hotSituation.situationTitle}</span></a>
+                                <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title' title="${hotSituation.situationTitle}">${hotSituation.situationTitle}</span></a>
                             </nobr></li>
                         </c:forEach>
                     </ul>

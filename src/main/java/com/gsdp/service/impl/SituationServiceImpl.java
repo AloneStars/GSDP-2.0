@@ -38,7 +38,13 @@ public class SituationServiceImpl implements SituationService{
 
     @Override
     public Situation getSingleSituationMessage(int situationId, int offset, int limit) {
-        return null;
+
+       Situation situation = situationDao.getSingleSituationMessage(situationId,offset,limit);
+
+        logger.info("situation={}",situation);
+
+       return situation;
+
     }
 
     @Override

@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>ActivityList</title>
+    <title>平台首页</title>
     <%@ include file="common/style.jsp"%>
     <script src="js/index.js"></script>
     <link href="css/animations.css" type="text/css" rel="stylesheet">
@@ -67,6 +67,7 @@
                 </div>
 
                 <div class="top_right">
+                    <%--优秀社团--%>
                     <div class="top_right_top shadow">
                         <div class="index_banner">
                             <b><i>优秀社团</i></b>
@@ -87,6 +88,7 @@
                             </div>
                         </div>
                     </div>
+                    <%--优秀人物--%>
                     <div class="top_right_bottom shadow">
                         <div class="index_banner">
                             <b><i>优秀人物</i></b>
@@ -125,6 +127,7 @@
 
                 <div class="center_top">
 
+                    <%--最新活动--%>
                     <div class="center_top_left shadow">
                         <div class="index_banner">
                             <b><i>最热活动</i></b>
@@ -134,17 +137,17 @@
                                 <ul>
                                     <c:forEach items="#{activityList}" var="activity" begin="0" end="9">
                                         <li><nobr>
-                                            <a href="#"><span class='title'
+                                            <a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail" target="_blank"><span class='title'
                                                               title="${activity.activityTitle}">${activity.activityTitle}</span></a>
                                         </nobr></li>
                                     </c:forEach>
                                 </ul>
                             </div>
                             <div class="List gap">
-                                <ul>
+                                <ul start="11">
                                     <c:forEach items="#{activityList}" var="activity" begin="10" end="19">
                                         <li><nobr>
-                                            <a href="#"><span class='title'
+                                            <a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail" target="_blank"><span class='title'
                                                               title="${activity.activityTitle}">${activity.activityTitle}</span></a>
                                         </nobr></li>
                                     </c:forEach>
@@ -152,7 +155,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <%--最新动态--%>
                     <div class="center_top_right shadow">
                         <div class="index_banner">
                             <b><i>最新动态</i></b>
@@ -161,7 +164,7 @@
                             <ul>
                                 <c:forEach items="#{situationList}" var="situation">
                                     <li><nobr>
-                                        <a href="#"><span class='title'
+                                        <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title'
                                                           title="${situation.situationTitle}">${situation.situationTitle}</span></a>
                                     </nobr></li>
                                 </c:forEach>
@@ -173,6 +176,7 @@
 
                 <div class="center_bottom">
 
+                    <%--每周最佳活动--%>
                     <div class="center_bottom_left shadow">
                         <div class="index_banner">
                             <b><i>每周最佳活动</i></b>
@@ -184,6 +188,7 @@
                         </a>
                     </div>
 
+                    <%--社团品牌活动--%>
                     <div class="center_bottom_center shadow">
                         <div class="index_banner">
                             <b><i>社团品牌活动</i></b>
@@ -195,6 +200,7 @@
                         </a>
                     </div>
 
+                    <%--团队映像展览--%>
                     <div class="center_bottom_right shadow">
                         <div class="index_banner">
                             <b><i>团体映像</i></b>
@@ -210,6 +216,7 @@
 
             </div>
 
+            <%--常用链接--%>
             <div class="under shadow"></div>
 
         </div>

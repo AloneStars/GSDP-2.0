@@ -13,64 +13,65 @@
         </div>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="详细参数">
+        <a class="link" href="#"  title="1"  onclick="activity.clickActivity()">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="玛百莉官方专卖店地址">
+        <a class="link" href="#" title="2">
+            <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');" onclick="activity.clickActivity()"></span>
+        </a>
+    </div>
+    <div class="PathItem">
+        <a class="link" href="#" title="3" onclick="activity.clickActivity()">
+            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
+        </a>
+    </div>
+    <div class="PathItem">
+        <a class="link" href="#" title="4">
+            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
+        </a>
+    </div>
+    <div class="PathItem">
+        <a class="link" href="#" title="5">
             <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="更多图片">
+        <a class="link" href="#" title="6">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="详细参数">
+        <a class="link" href="#" title="7">
+            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
+        </a>
+    </div>
+    <div class="PathItem">
+        <a class="link" href="#" title="8">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="玛百莉官方专卖店地址">
+        <a class="link" href="#" title="9">
             <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="更多图片">
+        <a class="link" href="#" title="10">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="更多图片">
-            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
-        </a>
-    </div>
-    <div class="PathItem">
-        <a class="link" href="#" title="详细参数">
+        <a class="link" href="#" title="11">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="玛百莉官方专卖店地址">
-            <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
-        </a>
-    </div>
-    <div class="PathItem">
-        <a class="link" href="#" title="更多图片">
-            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
-        </a>
-    </div>
-    <div class="PathItem">
-        <a class="link" href="#" title="详细参数">
+        <a class="link" href="#" title="12">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
-    <div class="PathItem">
-        <a class="link" href="#" title="详细参数">
-            <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
-        </a>
-    </div>
-
 </div>
+
+<%@include file="../group/createActivity.jsp"%>
