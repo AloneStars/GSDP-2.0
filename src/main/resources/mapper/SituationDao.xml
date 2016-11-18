@@ -93,17 +93,15 @@
 	 	u.phone as "replies.user.phone",
 	 	u.lstatue as "replies.user.lstatue"
 	 	from situation as s
-	 	inner join reply as r on s.situation_id = r.situation_id
-	 	inner join user as u on r.replyer = u.user_id
+	 	LEFT join reply as r on s.situation_id = r.situation_id
+	 	LEFT join user as u on r.replyer = u.user_id
 	 	<where>
 	 		s.situation_id = #{situationId} order by r.reply_id desc 
 	 		limit ${offset},${limit};
 	 	</where>
 	 	
 	 </select>
-	 
-	 
-	
+
 	<!-- <select id="getSingleSituationMessage" resultType="Situation">
 		select
 			<include refid="columns"/>
@@ -112,8 +110,7 @@
 				situation_id = #{situationId};
 			</where>
 	</select> -->
-	
-	
+
 	<insert id="addSitutationMessage" keyProperty="situationId">
 		insert ignore situation(situation_title,situation_content,publisher,publishTime,group_id,visitors)
 		values(#{situationTitle},#{situationContent},#{publisher},#{publishTime},#{groupId},#{visitors});

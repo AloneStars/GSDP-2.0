@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>ActivityList</title>
+    <title>平台首页</title>
     <%@ include file="common/style.jsp"%>
     <script src="js/index.js"></script>
     <link href="css/animations.css" type="text/css" rel="stylesheet">
@@ -137,17 +137,17 @@
                                 <ul>
                                     <c:forEach items="#{activityList}" var="activity" begin="0" end="9">
                                         <li><nobr>
-                                            <a href="#"><span class='title'
+                                            <a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail" target="_blank"><span class='title'
                                                               title="${activity.activityTitle}">${activity.activityTitle}</span></a>
                                         </nobr></li>
                                     </c:forEach>
                                 </ul>
                             </div>
                             <div class="List gap">
-                                <ul>
+                                <ul start="11">
                                     <c:forEach items="#{activityList}" var="activity" begin="10" end="19">
                                         <li><nobr>
-                                            <a href="#"><span class='title'
+                                            <a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail" target="_blank"><span class='title'
                                                               title="${activity.activityTitle}">${activity.activityTitle}</span></a>
                                         </nobr></li>
                                     </c:forEach>
@@ -164,7 +164,7 @@
                             <ul>
                                 <c:forEach items="#{situationList}" var="situation">
                                     <li><nobr>
-                                        <a href="#"><span class='title'
+                                        <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title'
                                                           title="${situation.situationTitle}">${situation.situationTitle}</span></a>
                                     </nobr></li>
                                 </c:forEach>

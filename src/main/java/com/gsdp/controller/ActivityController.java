@@ -1,12 +1,15 @@
 package com.gsdp.controller;
 
 import com.gsdp.entity.group.Activity;
+import com.gsdp.entity.group.Group;
 import com.gsdp.service.ActivityService;
+import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,8 +26,12 @@ import java.util.List;
 public class ActivityController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     public ActivityService activityService;
+
+    @Autowired
+    public GroupService groupService;
 
     @RequestMapping("/list")
     public String getActivityListMsg(Model model){
@@ -41,5 +48,30 @@ public class ActivityController {
         model.addAttribute("hottestActivityList",hottestActivityList);
 
         return "activityList";
+    }
+
+    @RequestMapping("/{activityId}/detail")
+    public String getActivityMsg(@PathVariable("activityId") int activityId,Model model){
+
+        Activity activity = activityService.getSingleActivity(activityId);
+
+        Group group = groupService.getGroupMsg(activity.getSponsor());
+
+        System.out.println(group);
+
+        List<Activity> moreActivityList = activityService.getGeneralActivityMessage(0,0,10,"visitors",true);
+
+        model.addAttribute("activity",activity);
+
+        model.addAttribute("group",group);
+
+        model.addAttribute("moreActivityList",moreActivityList);
+
+        return "activityMsg";
+    }
+
+    @RequestMapping("/createActivity")
+    public String CreateActivity(Model model){
+        return "group/createActivity";
     }
 }

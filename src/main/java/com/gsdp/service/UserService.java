@@ -14,7 +14,6 @@ public interface UserService {
     String randomChangeHeadPicture(int userId);
 
     /**
-     *
      * @param userId
      * @param multipartFile
      * @return

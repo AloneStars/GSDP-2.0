@@ -16,7 +16,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/pathMenu.js"></script>
     <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/pathMenu.css" type="text/css" rel="stylesheet" />
-
+    <jsp:include page="dialog/dialogCss.jsp"/>
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -111,7 +111,7 @@
 						<span> <b class="content-title"><i>更多团体:</i></b><br>
 							<ul class="content-list">
                                 <c:forEach items="#{groupList}" var="group">
-                                    <li><a href="${pageContext.request.contextPath}/group/${group.groupId}/detail">${group.groupName}</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" target="_blank">${group.groupName}</a></li>
                                 </c:forEach>
 							</ul>
 						</span>
@@ -127,7 +127,7 @@
                     <div class="content-right-list">
                         <ul class="content-list" id="SL">
                             <c:forEach items="#{situationList}" var="situation">
-                                <li><a href="index.html"><span class="title">${situation.situationTitle}</span><span class="time">发布时间:&nbsp;<i>${situation.publishTime}</i></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class="title">${situation.situationTitle}</span><span class="time">发布时间:&nbsp;<i>${situation.publishTime}</i></span></a></li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -140,7 +140,7 @@
                     <div class="content-right-list">
                         <ul class="content-list" id="AL">
                             <c:forEach items="#{activityList}" var="activity">
-                                <li><a href="index.html"><span class="title">${activity.activityTitle}</span><span class="time">发布时间:&nbsp;<i>${activity.publishTime}</i></span></a></li>
+                                <li><a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail"><span class="title">${activity.activityTitle}</span><span class="time">发布时间:&nbsp;<i>${activity.publishTime}</i></span></a></li>
                             </c:forEach>
                         </ul>
                     </div>
@@ -167,6 +167,9 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
+<jsp:include page="dialog/dialogJs.jsp"/>
+<jsp:include page="dialog/ueditorJs.jsp"/>
 </body>
 </html>
 

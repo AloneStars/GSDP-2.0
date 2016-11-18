@@ -147,6 +147,6 @@
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/js/personalStyle.js"></script>
 <script src="${pageContext.request.contextPath}/js/upload/ajaxfileupload.js"></script>
-<script src="${pageContext.request.contextPath}/js/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>

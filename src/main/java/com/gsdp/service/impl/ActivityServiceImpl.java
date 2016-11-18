@@ -44,7 +44,8 @@ public class ActivityServiceImpl implements ActivityService{
 
     @Override
     public Activity getSingleActivity(int activityId) {
-        return null;
+        Activity activity = activityDao.queryActivityMessage(activityId);
+        return activity;
     }
 
     @Override

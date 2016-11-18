@@ -10,7 +10,7 @@
 <!doctype html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>SituationList</title>
+    <title>资源总库</title>
     <%@include file="common/style.jsp"%>
     <link href="${pageContext.request.contextPath}/css/video-js.min.css" rel="stylesheet">
     <script src="${pageContext.request.contextPath}/js/video.min.js"></script>

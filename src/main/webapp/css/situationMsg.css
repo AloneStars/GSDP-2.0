@@ -1,0 +1,153 @@
+ul li {
+    list-style-type: decimal;
+    height: 30px;
+    line-height: 30px;
+    /*border-bottom:1px dashed #fff;*/
+}
+
+#content-container {
+    width: 1024px;
+    height:1080px;
+    margin: 0px auto;
+    margin-top: 10px;
+    /*background:rgba(225,0,0,0.4);*/
+}
+
+.left {
+    width: 274px;
+    height: 1080px;
+    margin-left: 20px;
+    margin-right: 10px;
+    /*background: rgba(255, 255, 255, 0.5);*/
+    float: left;
+}
+
+.right {
+    width: 700px;
+    height:1080px;
+    margin-right: 20px;
+    float: left;
+    background: rgba(255, 255, 255, 0.5);
+}
+/*******left*************/
+.more-situation{
+    height: 400px;
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.situation-list{
+    height: 320px;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.situationMsg-banner {
+    height: 30px;
+    margin: 10px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    font-size: 20px;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.title {
+    display: block;
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    float: left;
+}
+
+.more-situation ul {
+    width: 100%;
+    height: 100%;
+    padding-left: 30px;
+}
+
+/************right****************/
+.situation-content{
+    height:800px;
+    /*background:rgba(0,225,0,0.4);*/
+}
+.situation-detail{
+    margin:10px;
+    padding:10px;
+    height:760px;
+    /* background:rgba(225,0,0,0.4);*/
+    overflow-y: auto;
+}
+.comments{
+    height:250px;
+}
+.comment-list{
+    margin:10px;
+    height:150px;
+    padding:10px;
+    background:rgba(225,225,225,0.4);
+    overflow-y: auto;
+}
+.comment-list ul{
+    height:100%;
+}
+.comment-list ul li{
+    list-style-type:none;
+    height:50px;
+    /*border:1px solid #fff;*/
+}
+.comment-list ul li img{
+    width:45px;
+    height:45px;
+    border:2px solid #fff;
+    border-radius:100%;
+    margin-left:10px;
+    float:left;
+}
+.comments-msg{
+    width:550px;
+    height:20px;
+    line-height:20px;
+    float:left;
+}
+.comments-msg  span{
+    display: inline-block;
+    width:50%;
+    padding-left:10px;
+}
+.comments-msg p{
+    height:20%;
+    line-height:20px;
+    padding-left:10px;
+}
+.comment{
+    height:60px;
+    padding:10px;
+
+}
+.comment form{
+    height:100%;
+    /*border-radius:5px;*/
+    background:rgba(0,0,0,0.4);
+}
+.message{
+    height:100%;
+    width:90%;
+    padding:10px;
+    color:#fff;
+    background:none;
+    border:none;
+    border-right:1px solid #fff;
+    float:left;
+}
+.submit{
+    height:100%;
+    width:10%;
+    background:rgba(225,225,225,0.6);
+    border:none;
+    float:left;
+}
+
+
+
+

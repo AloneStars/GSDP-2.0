@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -25,7 +26,7 @@ public class SituationController {
     public SituationService situationService;
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String viewSituationList(Model model) {
+    public String getSituationList(Model model) {
 
         List<Situation> situationList = situationService.getSituationMessage(0,0,0,null,true);
 
@@ -38,5 +39,23 @@ public class SituationController {
         model.addAttribute("hottestSituationList",hottestSituationList);
 
         return "situationList";
+    }
+
+    @RequestMapping("/{situationId}/detail")
+    public String getSituationMsg(@PathVariable("situationId") int situationId, Model model){
+
+        Situation situation = situationService.getSingleSituationMessage(situationId,0,5);
+
+        System.out.println(situation);
+
+        List<Situation> moreSituationList = situationService.getSituationMessage(0,0,10,"visitors",true);
+
+        System.out.println(moreSituationList.size());
+
+        model.addAttribute("situation",situation);
+
+        model.addAttribute("moreSituationList",moreSituationList);
+
+        return "situationMsg";
     }
 }
