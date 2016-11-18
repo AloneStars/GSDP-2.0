@@ -27,6 +27,7 @@ public class JsonCode {
         this.errCode = errCode;
     }
 
+
     public String getErrCode() {
         return errCode;
     }

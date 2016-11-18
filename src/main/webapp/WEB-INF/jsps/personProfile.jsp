@@ -125,7 +125,7 @@
                 </div>
 
                 <div class="bind content_basic_div">
-                    <div class="bind_count"><strong>密码</strong> <span>已绑定</span></div>
+                    <div class="bind_count"><strong>密码</strong> <span>已设置</span></div>
                     <div class="bind_intro">用于保护帐号信息和登录安全</div>
                     <div class="change_bind"><a href="javascript:;">更改</a></div>
                 </div>
@@ -146,7 +146,6 @@
 <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/common.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/personalStyle.js"></script>
 <script src="${pageContext.request.contextPath}/js/upload/ajaxfileupload.js"></script>
 <script src="${pageContext.request.contextPath}/js/user.js"></script>
 </body>

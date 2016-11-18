@@ -39,4 +39,9 @@ public class SituationController {
 
         return "situationList";
     }
+
+    @RequestMapping(value = "/createSituation", method = RequestMethod.GET)
+    public String viewCreateSituation() {
+        return "createSituation";
+    }
 }

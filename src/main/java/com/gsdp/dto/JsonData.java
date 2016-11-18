@@ -22,7 +22,7 @@ public class JsonData {
         this.message = message;
     }
 
-    public boolean isSuccess() {
+    public boolean getSuccess() {
         return success;
     }
 

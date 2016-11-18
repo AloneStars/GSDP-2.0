@@ -68,4 +68,11 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/modifyPassword")
+//    @ResponseBody
+    public String modifyPassword(String oldPassword, String nowPassword, String confirmPassword,
+                                   HttpSession session) {
+        return "modifyPassword";
+    }
+
 }

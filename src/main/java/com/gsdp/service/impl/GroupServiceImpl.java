@@ -2,15 +2,16 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.GroupDao;
 import com.gsdp.entity.group.Group;
+import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.GroupUtil;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
 /**********************************************************
@@ -30,7 +30,7 @@ import java.util.List;
  * +描述:GroupService实现类
  *********************************************************/
 @Service
-public class GroupServiceImpl implements GroupService{
+public class GroupServiceImpl implements GroupService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -163,20 +163,20 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     @Transactional
-    public boolean deleteMember(int userId, int groupId) {
+    public String quitGroup(int userId, int groupId) throws GroupException {
 
-        int number = groupDao.deleteMember(userId, groupId);
-        int anoNumber = groupDao.changeMemberNumber(-1,groupId);
-
-        if((number == 1 )&& (anoNumber ==1)) {
-            logger.info("数据库删除组织成员成功");
-            return true;
-        }
-        else {
-            logger.info("数据库删除组织成员数量:{}", number);
-            return false;
+        if(0 == groupDao.deleteMember(userId, groupId)) {
+            return GroupStatusInfo.NOT_IN_THE_GROUP.getMessage();
         }
 
+        try {
+            if(1 == groupDao.changeMemberNumber(-1, groupId)) {
+                return GroupStatusInfo.QUIT_GROUP_SUCCESS.getMessage();
+            }
+        } catch (Exception e) {
+            throw new GroupException("quit the team failed");
+        }
+        return null;
     }
 
     @Override

@@ -11,6 +11,7 @@ import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.CreateGroupException;
+import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
@@ -23,6 +24,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**********************************************************
@@ -111,6 +113,15 @@ public class GroupController {
     }
 
     /**
+     * TODO 这里只是一个测试页面，到时候删除
+     * @return
+     */
+    @RequestMapping(value = "/joinGroup", method = RequestMethod.GET)
+    public String viewJoinGroup() {
+        return "group/joinGroup";
+    }
+
+    /**
      * TODO 这只是一个测试显示页，到时候删除
      * @return
      */
@@ -155,6 +166,20 @@ public class GroupController {
         } catch (CreateGroupException e) {
             //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
             return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/quit", method = RequestMethod.POST,
+    produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData quitGroup(int groupId, HttpSession session) {
+        //TODO userId应该从session里面取出来
+        int userId = 1;
+        try {
+            String message = groupService.quitGroup(userId, groupId);
+            return new JsonData(true, message);
+        } catch (GroupException e) {
+            return new JsonData(false, GroupStatusInfo.QUIT_GROUP_FAIL.getMessage());
         }
     }
 

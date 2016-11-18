@@ -2,8 +2,6 @@ package com.gsdp.service;
 
 import com.google.gson.Gson;
 import com.gsdp.entity.group.Group;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -14,8 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
  * +吾名 "暴力的小石头/ViolentStone",吾乃一Java程序猿
@@ -25,7 +21,8 @@ import static org.junit.Assert.*;
  * +描述:组织服务测试类
  *********************************************************/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-*.xml"})
+@ContextConfiguration({"classpath:spring/spring-dao.xml",
+                        "classpath:spring/spring-service.xml"})
 public class GroupServiceTest {
 
     public final Gson gson = new Gson();
@@ -35,15 +32,6 @@ public class GroupServiceTest {
     @Autowired
     private GroupService groupService;
 
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-    @After
-    public void tearDown() throws Exception {
-
-    }
 
     @Test
     public void getGroupListMsg() throws Exception {
@@ -112,6 +100,14 @@ public class GroupServiceTest {
 
         logger.info("groupList={}",groupList);
 
+    }
+
+    @Test
+    public void quitGroup() throws Exception {
+        int userId = 1;
+        int groupId = 3;
+        String message = groupService.quitGroup(userId, groupId);
+        logger.info("message = {}", message);
     }
 
 }

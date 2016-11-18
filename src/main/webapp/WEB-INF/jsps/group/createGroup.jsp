@@ -8,8 +8,8 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>创建团队申请</title>
-    <link href="/GSDP/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="/GSDP/css/common/myDialog.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" type="text/css" rel="stylesheet">
     <style type="text/css">
         .no-resize {
             resize: none;
@@ -206,8 +206,8 @@
 <!--隐藏背面-->
 <div class="hideBack"></div>
 <!--footer-->
-<script src="/GSDP/js/jquery.js" type="text/javascript"></script>
-<script src="/GSDP/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="/GSDP/js/common/myDialog.js" type="text/javascript"></script>
 <script src="/GSDP/js/group.js" type="text/javascript"></script>
 <script src="/GSDP/js/upload/ajaxfileupload.js" type="text/javascript"></script>

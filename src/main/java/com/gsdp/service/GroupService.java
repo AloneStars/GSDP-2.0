@@ -5,6 +5,7 @@ import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -48,7 +49,7 @@ public interface GroupService {
     boolean addMember(int userId, int groupId);
 
     //删除组织成员
-    boolean deleteMember(int userId, int groupId);
+    String quitGroup(int userId, int groupId) throws GroupException ;
 
     //转让组织
     boolean changeOwner(int userId, int groupId);
