@@ -5,7 +5,7 @@
   Time: 14:45
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <div class="PathInner" id="PathMenu" style=" margin:250px auto;">
     <div class="PathMain">
         <div class="Tmain" onclick="PathRun();">
@@ -74,4 +74,10 @@
     </div>
 </div>
 
-<%@include file="../group/createActivity.jsp"%>
+<!--创建活动的模态框-->
+<%@ include file="../dialog/createActivity.jsp"%>
+<!--发布动态的模态框-->
+<%@ include file="../dialog/createSituation.jsp"%>
+
+<!--隐藏背面所做的事情-->
+<div class="hideBack"></div>

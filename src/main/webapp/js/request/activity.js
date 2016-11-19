@@ -50,7 +50,8 @@ var activity = {
     },
 
     "clickActivity" : function () {
-        dialog.showDialog($(".modal-content").outerHeight(), $(".modal-content").outerWidth());
+        dialog.showDialog(parseInt($(".create-activity-size").css("min-height")),
+            $(".create-activity-size").outerWidth(), "create-activity-dialog");
     },
 
     "activityCreation" : function() {
@@ -91,13 +92,20 @@ $(function(){
             $("#end-time").next(".err-info").html("");
 
             setTimeout(function () {
-                $(".modal-body>div:lt(3)").css("display" , "none");
-                $(".create-activity-size").css("height", 600);
-                $(".modal-body").css("padding", "0");
-                $(".modal-footer button:lt(2)").css("display", "none");
-                $(".modal-footer button:gt(1)").css("display", "inline-block");
-                dialog.reModify($(".modal-content").outerHeight(), $(".modal-content").outerWidth());
-                $(".modal-body>div:eq(3)").css("display", "block");
+                /*
+                 1.隐藏所有的基本信息输入框
+                 2.调整modal-content的高度
+                 3.改变一些基本的样式
+                 4.隐藏和显示modal-footer的一些图标
+                 */
+                $(".create-activity-size .modal-body > div:lt(3)").css("display" , "none");
+                $(".create-activity-size").css("min-height", 600);
+                $(".create-activity-size .modal-body").css("padding", "0");
+                $(".create-activity-size .modal-footer button:lt(2)").css("display", "none");
+                $(".create-activity-size .modal-footer button:gt(1)").css("display", "inline-block");
+                dialog.reModify(parseInt($(".create-activity-size").css("min-height")),
+                    $(".create-activity-size").outerWidth());
+                $(".create-activity-size .modal-body>div:eq(3)").css("display", "block");
             },100);
 
         }
@@ -113,14 +121,13 @@ $(function(){
          4.重写调整弹出框位置
          5.显示基本信息div
          */
-        $(".modal-body>div:eq(3)").css("display", "none");
-        $(".modal-footer button:lt(2)").css("display", "inline-block");
-        $(".modal-footer button:gt(1)").css("display", "none");
-        $(".create-activity-size").css("height", 300);
-        $(".modal-body").removeAttr("style");
-        dialog.reModify($(".modal-content").outerHeight(), $(".modal-content").outerWidth());
-        $(".modal-body>div:lt(3)").css("display","block");
-        dialog.showDialog($(".modal-content").outerHeight(), $(".modal-content").outerWidth());
+        $(".create-activity-size .modal-body > div:eq(3)").css("display", "none");
+        $(".create-activity-size .modal-footer button:lt(2)").css("display", "inline-block");
+        $(".create-activity-size .modal-footer button:gt(1)").css("display", "none");
+        $(".create-activity-size").css("min-height", 300);
+        $(".create-activity-size .modal-body").removeAttr("style");
+        dialog.reModify(parseInt($(".create-activity-size").css("min-height")), $(".create-activity-size").outerWidth());
+        $(".create-activity-size .modal-body>div:lt(3)").css("display","block");
     });
 
 });

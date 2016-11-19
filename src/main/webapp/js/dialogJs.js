@@ -1,44 +1,41 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/17
-  Time: 10:22
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!-- 配置文件 -->
-<script src="${pageContext.request.contextPath}/common/ueditor/ueditor.config.js"></script>
-<!-- 编辑器源码文件 -->
-<script src="${pageContext.request.contextPath}/common/ueditor/ueditor.all.min.js"></script>
-<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-<script src="${pageContext.request.contextPath}/common/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script type="text/javascript">
+/*
+这是是控制所有的模态框的样式
+ */
+$(function () {
 
-    //调整浏览器分辨率做的事情
-    //1.重新覆盖阴影  2.重新调整弹出框的位置
+    //调节分辨率的时候，动态改变弹出框的位置
     $(window).resize(function () {
-        dialog.reModify($(".modal-content").outerHeight(), $(".modal-content").outerWidth());
+        dialog.reModify(parseInt($(".modal-content").css("min-height")),
+            $(".modal-content").outerWidth());
     });
 
-    laydate({
-        elem: '#start-time',
-        format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月日
-        festival: true,//显示节日
-        min: laydate.now(0)
+    //当我们点击关闭模态框所做的事情
+    $(".dialog").on("click", "button.close,.modal-footer button:eq(1)", function () {
+        dialog.closeDialog();
     });
 
-    laydate({
-        elem: '#end-time',
-        format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月日
-        festival: true, //显示节日
-        min: laydate.now(0)
+    //下面是两个input输入框的日期插件调用
+    $("#start-time, #end-time").on("click", function () {
+
+        laydate({
+            format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月日
+            festival: true,//显示节日
+            min: laydate.now(0)
+        });
     });
 
-    //初始化富文本编辑器
-    var editor = UE.getEditor('ueditor-container', {
+
+    //点击发布动态按钮
+    $("#create-situation-nav").on("click", function () {
+        dialog.showDialog(parseInt($(".create-situation-size").css("min-height")),
+            $(".create-situation-size").outerWidth(), "create-situation-dialog");
+    });
+
+
+    //初始化发布活动编辑器
+    var activityEditor = UE.getEditor('activity-container', {
         initialFrameWidth: 698,
-        initialFrameHeight:350,
+        initialFrameHeight:340,
         autoHeightEnabled: false,
         autoFloatEnabled: false,
         toolbars: [
@@ -137,4 +134,15 @@
         ]
     });
 
-</script>
+    //初始化发布动态编辑器
+    var situationEditor = UE.getEditor('situation-container', {
+        initialFrameWidth: 698,
+        initialFrameHeight:340,
+        autoHeightEnabled: false,
+        autoFloatEnabled: false,
+        toolbars: [
+            ['fullscreen', 'source', 'undo', 'redo'],
+            ['bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc']
+        ]
+    });
+});

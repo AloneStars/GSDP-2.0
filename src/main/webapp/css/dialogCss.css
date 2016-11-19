@@ -1,0 +1,25 @@
+@charset "UTF-8";
+/*这是所有弹出框的样式，因为我们弹出框的总体样式大体是一样的*/
+.no-resize {
+    resize: none;
+}
+
+.err-info {
+    color: red;
+    font-size: 10px;
+    font-family: "Micro YaHei";
+}
+
+input.set-height {
+    height: 34px;
+}
+
+.create-activity-size {
+    width: 700px;
+    min-height: 300px;
+}
+
+.create-situation-size {
+    width: 700px;
+    min-height: 600px;
+}

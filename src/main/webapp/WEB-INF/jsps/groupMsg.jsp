@@ -5,8 +5,8 @@
   Time: 22:18
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
 <html>
 <head>
@@ -16,7 +16,8 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/pathMenu.js"></script>
     <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/pathMenu.css" type="text/css" rel="stylesheet" />
-    <jsp:include page="dialog/dialogCss.jsp"/>
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -167,9 +168,19 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/common/datepicker/laydate.dev.js"></script>
+<!-- 配置文件 -->
+<script src="${pageContext.request.contextPath}/common/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script src="${pageContext.request.contextPath}/common/ueditor/ueditor.all.min.js"></script>
+<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+<script src="${pageContext.request.contextPath}/common/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
-<jsp:include page="dialog/dialogJs.jsp"/>
-<jsp:include page="dialog/ueditorJs.jsp"/>
 </body>
 </html>
 

@@ -1,6 +1,7 @@
 package com.gsdp.controller;
 
 import com.gsdp.entity.group.Activity;
+import com.gsdp.entity.group.Group;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
