@@ -169,7 +169,7 @@
     <jsp:include page="common/footer.jsp"/>
 </div>
 
-<script src="${pageContext.request.contextPath}/js/common/myDialog.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/common/datepicker/laydate.dev.js"></script>
 <!-- 配置文件 -->
 <script src="${pageContext.request.contextPath}/common/ueditor/ueditor.config.js"></script>
@@ -181,6 +181,7 @@
 <script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/group.js"></script>
 </body>
 </html>
 

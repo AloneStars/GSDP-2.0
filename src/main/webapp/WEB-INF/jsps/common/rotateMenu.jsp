@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="PathItem">
-        <a class="link" href="#"  title="1"  onclick="activity.clickActivity()">
+        <a class="link" href="#"  title="1">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
@@ -28,7 +28,7 @@
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="4">
+        <a class="link" href="#" title="4" onclick="group.showCreateGroupDialog();">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
@@ -78,6 +78,8 @@
 <%@ include file="../dialog/createActivity.jsp"%>
 <!--发布动态的模态框-->
 <%@ include file="../dialog/createSituation.jsp"%>
+<!--创建组织模态框-->
+<%@ include file="../dialog/createGroup.jsp"%>
 
 <!--隐藏背面所做的事情-->
 <div class="hideBack"></div>

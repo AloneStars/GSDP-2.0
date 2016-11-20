@@ -5,8 +5,15 @@ $(function () {
 
     //调节分辨率的时候，动态改变弹出框的位置
     $(window).resize(function () {
-        dialog.reModify(parseInt($(".modal-content").css("min-height")),
-            $(".modal-content").outerWidth());
+        var $allDialog = $(".dialog");
+        for(var i = 0; i < $allDialog.length; ++i) {
+            if($($allDialog[i]).css("display") === "block") {
+                dialog.reModify(parseInt($($allDialog[i]).css("min-height")),
+                    $($allDialog[i]).outerWidth());
+                break;
+            }
+        }
+
     });
 
     //当我们点击关闭模态框所做的事情

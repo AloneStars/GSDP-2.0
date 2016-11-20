@@ -14,6 +14,39 @@ input.set-height {
     height: 34px;
 }
 
+/*createGroup.jsp所特有的css*/
+.file {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 12px;
+    overflow: hidden;
+    color: #666;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+
+.file input {
+    position: absolute;
+    font-size: 20px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+
+.file:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+.text-red {
+    color : red;
+}
+/*createGroup.jsp所特有的css*/
+
 .create-activity-size {
     width: 700px;
     min-height: 300px;
@@ -22,4 +55,8 @@ input.set-height {
 .create-situation-size {
     width: 700px;
     min-height: 600px;
+}
+.create-group-size {
+    width:465px;
+    min-height: 545px;
 }
