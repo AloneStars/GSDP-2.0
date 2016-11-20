@@ -1,7 +1,7 @@
 <%--
     header(页眉)的通用界面
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <div class="banner">
     <div class="head"></div>
     <div class="border">
@@ -39,7 +39,13 @@
             <a href="#"></a>
         </div>
     </div>
-    <div id="Login">
+    <div id="Login" onclick="user.showLoginDialog();">
         登陆/注册
     </div>
 </div>
+
+<!--登录模态框-->
+<%@ include file="../dialog/login.jsp"%>
+
+<!--隐藏背面所做的事情-->
+<div class="hideBack"></div>

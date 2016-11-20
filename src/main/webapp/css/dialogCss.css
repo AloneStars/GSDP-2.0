@@ -60,3 +60,7 @@ input.set-height {
     width:465px;
     min-height: 545px;
 }
+.login-dialog-size {
+    width: 450px;
+    min-height: 300px;
+}

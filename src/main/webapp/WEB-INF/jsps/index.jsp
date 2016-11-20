@@ -5,8 +5,9 @@
   Time: 11:36
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
+<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -15,6 +16,8 @@
     <script src="js/index.js"></script>
     <link href="css/animations.css" type="text/css" rel="stylesheet">
     <link href="css/index.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -226,6 +229,10 @@
     <jsp:include page="common/footer.jsp"/>
 
 </div>
+
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>
 

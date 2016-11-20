@@ -56,6 +56,11 @@ var user = {
                 }
             });
         }
+    },
+
+    "showLoginDialog" : function () {
+        dialog.showDialog(parseInt($(".login-dialog-size").css("min-height")),
+        $(".login-dialog-size").outerWidth(), "login-dialog");
     }
 };
 
@@ -86,7 +91,7 @@ $(function () {
             $(".navigation_content div[id$='_content']:not(:eq(" + index + "))").css("display", "none");
             $(".navigation_content div[id$='_content']:eq(" + index + ")").css("display", "block");
         }
-        setTimeout(func,500);
+        setTimeout(func,100);
     });
 
     $(".dialog").on("blur", "#old-password,#new-password", function () {
