@@ -12,16 +12,17 @@
 }
 .PathInner .PathItem {
 	position:absolute;
-	left: 0px;
-	bottom: 0px;
-	/*background:rgba(0,0,225,0.4);*/
+	height:40px;
+	width:40px;
+	margin-left:55px;
+	margin-top:55px;
 }
-.PathInner a {/* position:absolute; */
+.PathInner a {
 	display:block;
+	height:40px;
+	width:40px;
 	background-position:center;
 	background-repeat:no-repeat;
-	background:rgba(225,0,0,0.4);
-
 }
 .PathInner a .item, .rotate {
 	width:100%;
@@ -37,7 +38,7 @@
 .PathInner .PathMain {
 	z-index:998;
 	position:absolute;
-	display:block;/* overflow:hidden; */
+	display:block;
 	background-position:center;
 	background-repeat:no-repeat;
 	bottom:0;
@@ -48,7 +49,6 @@
 	height: 150px;
 }
 .PathInner .PathMain .Tmain .rotate {
-	/*background-image: url('../image/menu/icon-2x.png');*/
 	-moz-transform: rotate(0deg);
 	position:absolute;
 	bottom:0;
@@ -73,15 +73,14 @@
 }
 .PathItem .link {
 	opacity: 0;
-	margin-left:45px;
-	margin-bottom: 45px;
-	width: 60px;
-	height: 60px;
+	width: 40px;
+	height: 40px;
 	background-image: url('../image/menu/bg-item-2x.png');
+	background-position: center;
 }
 .PathItem .link .item {
-	width: 60px;
-	height: 60px;
+	width: 40px;
+	height: 40px;
 	background-position:center;
 	background-repeat:no-repeat;
 }

@@ -1,5 +1,6 @@
 package com.gsdp.controller;
 
+import com.gsdp.dto.JsonCode;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.service.ActivityService;
@@ -7,12 +8,15 @@ import com.gsdp.service.GroupService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -27,6 +31,7 @@ import java.util.List;
 public class ActivityController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     public ActivityService activityService;
 
@@ -70,9 +75,22 @@ public class ActivityController {
         return "activityMsg";
     }
 
-    @RequestMapping("/createActivity")
-    public String CreateActivity(Model model){
-        return "group/createActivity";
-    }
+    @RequestMapping(value = "/creation", method = RequestMethod.POST , produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public JsonCode addActivity(HttpServletRequest request,HttpServletResponse response,
+                                String activityName,
+                                int open,
+                                String startTime,
+                                String endTime,
+                                int activityNumber,
+                                String location,
+                                String content){
 
+        Activity activity = new Activity();
+
+        // TODO: 2016/11/19
+        System.out.println(activityName+","+open+","+startTime+","+endTime+","+activityNumber+","+location+","+content);
+
+        return new JsonCode("测试成功",new Date(),"200");
+    }
 }

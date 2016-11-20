@@ -8,7 +8,7 @@ var activity = {
     "url" :{
         //获取发布用户连接
         "activityCreation"  : function() {
-            return "/gsdp/activity/activityCreation";
+            return "/gsdp/activity/creation";
         }
     },
 
@@ -54,6 +54,55 @@ var activity = {
             $(".create-activity-size").outerWidth(), "create-activity-dialog");
     },
 
+    "checkNestStep" : function(activityName,activityMember,location,startTime,endTime){
+
+        if(!activity.checkNull(activityName)){
+            $("#activity-name").next(".err-info").html("活动名称不能为空");
+            return false;
+        }
+        else
+            $("#activity-name").next(".err-info").html("");
+
+        if(startTime == ""){
+            $("#start-time").next(".err-info").html("请选择活动起始时间");
+            return false;
+        }
+        else
+            $("#start-time").next(".err-info").html("");
+
+        if(endTime == ""){
+            $("#end-time").next(".err-info").html("请选择活动结束时间");
+            return false;
+        }
+        else
+            $("#end-time").next(".err-info").html("");
+
+        
+        if(!activity.checkDate(startTime,endTime)){
+            $("#end-time").next(".err-info").html("活动结束日期不能比开始日期早");
+            return false;
+        }
+        else
+            $("#end-time").next(".err-info").html("");
+
+        if(!activity.checkNumber(activityMember)){
+            $("#activity-member").next(".err-info").html("活动人数不能为空，也必须为整数");
+            return false;
+        }
+        else
+            $("#activity-member").next(".err-info").html("");
+
+        if(!activity.checkNull(location)){
+            $("#location").next(".err-info").html("活动地点不能为空");
+            return false;
+        }
+        else
+            $("#location").next(".err-info").html("");
+
+
+        return true;
+    },
+
     "activityCreation" : function() {
 
         var activityName = $("#activity-name").val();
@@ -63,6 +112,29 @@ var activity = {
         var activityNumber = $("#activity-member").val();
         var location = $("#location").val();
         var content = editor.getContent();
+
+        $.ajax({
+            type:"post",
+            url: activity.url.activityCreation(),
+            dataType:"json",
+            data:{
+                "activityName" : activityName,
+                "open" : open,
+                "startTime" : startTime,
+                "endTime" : endTime,
+                "activityNumber" : activityNumber,
+                "location" : location,
+                "content" : content
+            },
+            success:function(msg){
+                //这里使用JSON.parse始终解析不到相应的数据
+                var json = eval(msg);
+                alert(json.context);
+            },
+            error:function(jqXHR){
+                alert("发生错误:"+jqXHR.status);
+            }
+        });
 
     },
 }
@@ -77,20 +149,7 @@ $(function(){
         var startTime = $("#start-time").val();
         var endTime = $("#end-time").val();
 
-        if(!activity.checkNull(activityName))
-            $("#activity-name").next(".err-info").html("活动名称不能为空");
-        else if(!activity.checkDate(startTime,endTime))
-            $("#end-time").next(".err-info").html("活动结束日期不能比开始日期早");
-        else if(!activity.checkNumber(activityMember))
-            $("#activity-member").next(".err-info").html("活动人数不能为空，也必须为整数");
-        else if(!activity.checkNull(location))
-            $("#location").next(".err-info").html("活动地点不能为空");
-        else{
-            $("#activity-name").next(".err-info").html("");
-            $("#activity-member").next(".err-info").html("");
-            $("#location").next(".err-info").html("");
-            $("#end-time").next(".err-info").html("");
-
+        if(activity.checkNestStep(activityName,activityMember,location,startTime,endTime)){
             setTimeout(function () {
                 /*
                  1.隐藏所有的基本信息输入框
@@ -128,6 +187,10 @@ $(function(){
         $(".create-activity-size .modal-body").removeAttr("style");
         dialog.reModify(parseInt($(".create-activity-size").css("min-height")), $(".create-activity-size").outerWidth());
         $(".create-activity-size .modal-body>div:lt(3)").css("display","block");
+    });
+
+    $("#submit").on("click",function(){
+        activity.activityCreation();
     });
 
 });
