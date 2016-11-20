@@ -12,6 +12,7 @@ var OutIncr 	= 50;		//小图出来的旋转
 var OffsetSpeed = 200;		//小图出来的旋转速度
 var InSpeed 	= 480;		//小图进去的速度
 var InIncr 		= 0;		//小图进去的旋转
+var judge      = 55;        //调整中心位置
 function PathRun(){
 
 	var PathMenu = $('#PathMenu');
@@ -22,10 +23,10 @@ function PathRun(){
 		PathItems.each(function(SP){
 			var ID = $(this).index();
 
-			var X 	= Math.cos(angle * (ID - 1)) * Radius;
-			var Y 	= Math.sin(angle * (ID - 1)) * Radius;
-			var X1	= X + Offset;
-			var Y1 	= Y + Offset;
+			var X 	= Math.cos(angle * (ID - 1)) * Radius ;
+			var Y 	= Math.sin(angle * (ID - 1)) * Radius + judge;
+			var X1	= X + Offset ;
+			var Y1 	= Y + Offset ;
 
 
 			$(this).children().children().animate({rotate:720},600);
@@ -48,16 +49,13 @@ function PathRun(){
 		PathItems.each(function(SP){
 			var ID = $(this).index();
 
-			var X 	= Math.cos(angle * (ID - 1)) * Radius;
-			var Y 	= Math.sin(angle * (ID - 1)) * Radius;
-
-			var X1  = Math.cos(angle * (ID - 1)) * (Radius+Offset);
-			var Y1 	= Math.sin(angle * (ID - 1)) * (Radius+Offset);
+			var X1  = Math.cos(angle * (ID - 1)) * (Radius+Offset) ;
+			var Y1 	= Math.sin(angle * (ID - 1)) * (Radius+Offset) + judge ;
 
 			
 			$(this).children().children().animate({rotate:720},6000);
 			$(this).animate({left:X1,bottom:Y1,opacity:1},OffsetSpeed,function(){
-				$(this).animate({left:0,bottom:0,opacity:0},InSpeed+SP*InIncr);
+				$(this).animate({left:0,bottom:judge,opacity:0},InSpeed+SP*InIncr);
 			});
 		});
 

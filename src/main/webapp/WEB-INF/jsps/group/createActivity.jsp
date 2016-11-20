@@ -1,24 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<%@ include file="../common/tag.jsp" %>
-<!doctype html>
-<html>
-<head>
-    <meta http-equiv="content-type" charset="utf-8"/>
-    <title>发布活动模态框</title>
-    <%@ include file="../common/style.jsp"%>
-    <%@ include file="../dialog/dialogCss.jsp"%>
-</head>
-<body>--%>
-
 <div class="container-fluid">
-
-
-   <%-- <div class="row">
-        <div class="col-md-12">
-            <a id="create-activity" href="#" role="button" class="btn" data-toggle="modal">发布活动</a>
-        </div>
-    </div>--%>
-
 
     <!--dialog开始-->
     <div class="dialog shadow">
@@ -70,7 +51,7 @@
                             开始时间:
                         </label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control laydate-icon set-height" name="startTime" id="start-time" placeholder="yyyy-MM-dd" />
+                            <input type="text" class="form-control laydate-icon set-height" name="startTime" id="start-time" placeholder="yyyy-mm-dd" />
                             <div class="err-info"></div>
                         </div>
 
@@ -79,7 +60,7 @@
                             结束时间:
                         </label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control laydate-icon set-height" name="endTime" id="end-time" placeholder="yyyy-MM-dd" />
+                            <input type="text" class="form-control laydate-icon set-height" name="endTime" id="end-time" placeholder="yyyy-mm-dd" />
                             <div class="err-info"></div>
                         </div>
                     </div>
@@ -135,7 +116,7 @@
                             上一步
                         </button>
 
-                        <button type="button" class="btn btn-success" data-dismiss="modal" style="display: none">
+                        <button type="button" id="submit" class="btn btn-success" data-dismiss="modal" style="display: none">
                             提交
                         </button>
                     </div>
@@ -151,11 +132,3 @@
 
 </div>
 
-<%--
-<%@ include file="../dialog/dialogJs.jsp"%>
-<%@ include file="../dialog/ueditorJs.jsp" %>
-<script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
-
-</body>
-</html>
---%>
