@@ -10,7 +10,7 @@ h2 span:after{content: ""; width: 50%; height: 3px; background-color: #fff; posi
 *{margin: 0; padding: 0; box-sizing: border-box;}
 img{width:215px; height:250px;  vertical-align: middle;}
 .full-length{width: 100%; float: left; padding-bottom: 80px;}
-ul{margin: 0 -1.5%;}
+/*ul{margin: 0 -1.5%;}*/
 li{float: left; width: 31.33%; margin-left:10px; list-style: none;}
 
 h3{font-size: 20px; margin: 5px 0 10px;}

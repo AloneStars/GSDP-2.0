@@ -177,6 +177,7 @@
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/login.js"></script>
 </body>
 </html>
 

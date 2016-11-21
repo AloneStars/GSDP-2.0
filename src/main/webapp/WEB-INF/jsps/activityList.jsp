@@ -58,11 +58,11 @@
                 </div>
                 <div class="right_bottom_content">
                     <ul>
-                        <C:forEach items="${hottestActivityList}" var="hotActivity">
+                        <c:forEach items="${hottestActivityList}" var="hotActivity">
                             <li><nobr>
                                 <a href="${pageContext.request.contextPath}/activity/${hotActivity.activityId}/detail"><span class='title' title="${hotActivity.activityTitle}">${hotActivity.activityTitle}</span></a>
                             </nobr></li>
-                        </C:forEach>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>
@@ -75,7 +75,9 @@
 <div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/login.js"></script>
 </body>
 </html>
 

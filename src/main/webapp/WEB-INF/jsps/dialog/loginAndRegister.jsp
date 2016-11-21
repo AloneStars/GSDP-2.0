@@ -8,11 +8,11 @@
             </button>
             <h4 class="modal-title" id="login-register-modal">
                 <ul class="nav nav-tabs" style="border-bottom-width: 0px;">
-                    <li class="active" style="width: 70px">
-                        <a href="#login-navigation" data-toggle="tab" style="height: 43px; width:68px">登录</a>
+                    <li class="active" style="width:70px; margin-left:0px;">
+                        <a href="#login-navigation" data-toggle="tab" style="height: 43px; width:70px">登录</a>
                     </li>
-                    <li style="width: 70px">
-                        <a href="#register-navigation" data-toggle="tab" style="height: 43px; width: 68px;">注册</a>
+                    <li style="width:70px;margin-left:0px">
+                        <a href="#register-navigation" data-toggle="tab" style="height: 43px; width: 70px;">注册</a>
                     </li>
                 </ul>
             </h4>
@@ -30,7 +30,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="email" class="form-control" name="email" id="login-email"
-                                               placeholder="email"/>
+                                               placeholder="如：doubleLL@foxmail.com"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password" id="login-password"
-                                               placeholder="email"/>
+                                               placeholder="不能包括非法(6~16位)"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="row">
-                            <button type="button" class="btn btn-primary col-sm-8 col-sm-offset-2">
+                            <button type="button" id="login" class="btn btn-primary col-sm-8 col-sm-offset-2">
                                 登录
                             </button>
                         </div>
@@ -70,7 +70,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="email" class="form-control" name="email" id="register-email"
-                                               placeholder="email"/>
+                                               placeholder=""/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -80,17 +80,17 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password"
-                                               id="register-password" placeholder="email"/>
+                                               id="register-password" placeholder=""/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="confirm-password" class="col-sm-3 control-label">
+                                    <label for="register-confirm-password" class="col-sm-3 control-label">
                                         确认密码:
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password"
-                                               id="confirm-password" placeholder="email"/>
+                                               id="register-confirm-password" placeholder=""/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                         验证码:
                                     </label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="captcher" placeholder="captcher">
+                                        <input type="text" class="form-control" id="captcher" placeholder="">
                                         <div class="err-info"></div>
                                     </div>
                                     <div class="col-sm-3">

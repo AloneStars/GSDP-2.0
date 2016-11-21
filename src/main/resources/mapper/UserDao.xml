@@ -5,6 +5,10 @@
 
 <mapper namespace="com.gsdp.dao.UserDao">
 
+    <sql id="column">
+        user_id,headPicture,loginEmail,password,username,user_dec,sex,age,wechat,phone,lstatue
+    </sql>
+
     <update id="changeHeadPicture">
         update `user`
         <set>
@@ -16,5 +20,10 @@
             user_id = #{userId};
         </where>
     </update>
+
+    <select>
+        select
+
+    </select>
 
 </mapper>

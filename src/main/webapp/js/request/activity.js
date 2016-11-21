@@ -57,47 +57,71 @@ var activity = {
     "checkNestStep" : function(activityName,activityMember,location,startTime,endTime){
 
         if(!activity.checkNull(activityName)){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#activity-name").next(".err-info").html("活动名称不能为空");
             return false;
         }
-        else
+        else{
+            //$(this).parent().removeClass("has-error").addClass("has-success");
             $("#activity-name").next(".err-info").html("");
+        }
+
 
         if(startTime == ""){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#start-time").next(".err-info").html("请选择活动起始时间");
             return false;
         }
-        else
+        else{
+           // $(this).parent().removeClass("has-error").addClass("has-success");
             $("#start-time").next(".err-info").html("");
+        }
+
 
         if(endTime == ""){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#end-time").next(".err-info").html("请选择活动结束时间");
             return false;
         }
-        else
+        else{
+           // $(this).parent().removeClass("has-error").addClass("has-success");
             $("#end-time").next(".err-info").html("");
+        }
+
 
         
         if(!activity.checkDate(startTime,endTime)){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#end-time").next(".err-info").html("活动结束日期不能比开始日期早");
             return false;
         }
-        else
+        else{
+           // $(this).parent().removeClass("has-error").addClass("has-success");
             $("#end-time").next(".err-info").html("");
+        }
+
 
         if(!activity.checkNumber(activityMember)){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#activity-member").next(".err-info").html("活动人数不能为空，也必须为整数");
             return false;
         }
-        else
+        else{
+           // $(this).parent().removeClass("has-error").addClass("has-success");
             $("#activity-member").next(".err-info").html("");
+        }
+
 
         if(!activity.checkNull(location)){
+            $(this).parent().removeClass("has-success").addClass("has-error");
             $("#location").next(".err-info").html("活动地点不能为空");
             return false;
         }
-        else
+        else{
+            //$(this).parent().removeClass("has-error").addClass("has-success");
             $("#location").next(".err-info").html("");
+        }
+
 
 
         return true;

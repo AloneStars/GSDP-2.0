@@ -28,8 +28,7 @@ public class UserController {
         return "personProfile";
     }
 
-    @RequestMapping(value = "/randomChangeHead", method = RequestMethod.GET,
-            produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/randomChangeHead", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData randomChangeHead(HttpSession session) {
         // TODO 从session中把用户的userId获取到
@@ -43,8 +42,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/changeHead", method = RequestMethod.POST,
-            produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/changeHead", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData changeHeadPicture(@RequestParam("headPicture") MultipartFile multipartFile, HttpSession session) {
         /*
@@ -68,11 +66,12 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST,
-    produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData modifyPassword(String oldPassword, String nowPassword, String confirmPassword,
                                    HttpSession session) {
         return null;
     }
+
+    //public JsonData login(String email,String password)
 }
