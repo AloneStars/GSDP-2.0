@@ -6,6 +6,8 @@ import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private CommonService commonService;
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     //TODO  随机得到一个头像地址
@@ -65,6 +69,9 @@ public class UserServiceImpl implements UserService {
             throw e;
         } catch (SizeBeyondException e) {
             throw e;
+        } catch (Exception e) {
+            logger.error("database update exception", e);
+            return null;
         }
         return null;
     }

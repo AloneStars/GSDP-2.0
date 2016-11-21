@@ -58,9 +58,16 @@ var user = {
         }
     },
 
+    //显示登录模态框
     "showLoginDialog" : function () {
         dialog.showDialog(parseInt($(".login-dialog-size").css("min-height")),
         $(".login-dialog-size").outerWidth(), "login-dialog");
+    },
+
+    //显示修改密码模态框
+    "showModifyPasswordDialog" : function () {
+        dialog.showDialog(parseInt($(".modify-password-size").css("min-height")),
+        $(".modify-password-size").outerWidth(), "modify-password-dialog");
     }
 };
 

@@ -1,7 +1,7 @@
 <%--
   footer(页脚)
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <div class="bottom">
 
     <p>NEUSOFT &nbsp; UNIVERSITY &nbsp;STUDENT &nbsp; GROUP

@@ -64,3 +64,8 @@ input.set-height {
     width: 450px;
     min-height: 300px;
 }
+.modify-password-size {
+    width: 500px;
+    min-height: 300px;
+    border:none;
+}

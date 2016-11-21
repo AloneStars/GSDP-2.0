@@ -1,7 +1,4 @@
-<%--
-background
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <div id="background">
     <div class="bg1 "></div>
     <div class="bg2 "></div>

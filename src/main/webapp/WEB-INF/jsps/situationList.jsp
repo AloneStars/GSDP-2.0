@@ -1,19 +1,14 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/6
-  Time: 12:12
-  To change this template use File | Settings | File Templates.
---%>
-<%@ include file="common/tag.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="common/tag.jsp"%>
+<!doctype html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>动态展览</title>
     <%@ include file="common/style.jsp"%>
     <link href="${pageContext.request.contextPath}/css/situationList.css" type="text/css" rel="stylesheet">
-
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -78,6 +73,9 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>
 

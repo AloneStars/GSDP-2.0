@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/10
-  Time: 10:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
 <!doctype html>
@@ -16,6 +9,8 @@
     <script src="${pageContext.request.contextPath}/js/video.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/resourceList.js"></script>
     <link href="${pageContext.request.contextPath}/css/resourceList.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -173,6 +168,9 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>
 

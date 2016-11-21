@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
-<!--生成所有的dialog-->
+<!--生成登录的dialog-->
 <div class="dialog shadow" id="login-dialog">
     <form method="post" class="form-horizontal" role="form" id="login-form">
         <div class="modal-content login-dialog-size">
@@ -57,4 +57,4 @@
         </div>
     </form>
 </div>
-<!--dialog结束-->
+<!--登录dialog结束-->
