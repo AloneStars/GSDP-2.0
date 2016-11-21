@@ -7,11 +7,13 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
-<html>
+<!doctype html>
 <head>
     <title>动态详情</title>
     <%@  include file="common/style.jsp"%>
     <link href="${pageContext.request.contextPath}/css/situationMsg.css" type="text/css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -59,7 +61,7 @@
                     <ul>
                         <c:forEach items="#{situation.notices}" var="reply">
                             <li>
-                                <img src="${pageContext.request.contextPath}/image/groupIcon/${reply.user.headPicture}"/>
+                                <img src="${pageContext.request.contextPath}/${reply.user.headPicture}"/>
                                 <div class="comments-msg">
                                     <div class="commenter"><span><i>${reply.user.username}</i></span><span ><i>发布时间:${reply.replyTime}</i></span></div>
                                     <p>${reply.replyContent}</p>
@@ -82,5 +84,9 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+
+<script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
+<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>

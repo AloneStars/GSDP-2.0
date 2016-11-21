@@ -71,6 +71,14 @@ function checkLength(str,start,end){
     else
         return false;
 }
+//判断邮箱格式是否正确
+function checkMail(mail) {
+    var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (filter.test(mail))
+        return true;
+    else
+        return false;
+}
 
 /****************数据转换******************/
 //字符串装换成日期 字符串格式:2016-12-31

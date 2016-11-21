@@ -17,7 +17,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="activityName" id="activity-name"
-                                   placeholder="例如:ACM竞赛"/>
+                                   placeholder="例如:ACM竞赛" autocomplete="off"/>
                             <div class="err-info"></div>
                         </div>
                         <label for="open" class="col-sm-2 control-label">
@@ -38,7 +38,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control laydate-icon set-height" name="startTime" id="start-time"
-                                   placeholder="yyyy-MM-dd"/>
+                                   placeholder="yyyy-mm-dd" autocomplete="off"/>
                             <div class="err-info"></div>
                         </div>
                         <label for="end-time" class="col-sm-2 control-label">
@@ -46,7 +46,7 @@
                         </label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control laydate-icon set-height" name="endTime" id="end-time"
-                                   placeholder="yyyy-MM-dd"/>
+                                   placeholder="yyyy-mm-dd" autocomplete="off"/>
                             <div class="err-info"></div>
                         </div>
                     </div>
@@ -58,23 +58,21 @@
                         </label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control" name="activityMember" id="activity-member"
-                                   placeholder="例如:200"/>
+                                   placeholder="例如:200" autocomplete="off"/>
                             <div class="err-info"></div>
                         </div>
                         <label for="location" class="col-sm-2 control-label">
                             活动地点:
                         </label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" name="location" id="location" placeholder="例如:A7-310"/>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="例如:A7-310" autocomplete="off"/>
                             <div class="err-info"></div>
                         </div>
                     </div>
                     <!-- end of row3-->
                     <!--start row4-->
                     <div class="form-group" style="margin: 0px; padding: 0px; display: none;">
-                        <script id="activity-container" name="activityContent" type="text/plain">
-                            这里写你的发表活动的内容
-                        </script>
+                        <script id="activity-container" name="activityContent" type="text/plain">这里写你的发表活动的内容</script>
                     </div>
                     <!--end of row4-->
                 </div>
@@ -89,7 +87,7 @@
                         <button type="button" id="last-step" class="btn btn-primary" style="display: none">
                             上一步
                         </button>
-                        <button type="button" class="btn btn-success" data-dismiss="modal" style="display: none">
+                        <button type="button" id="activity-submit" class="btn btn-success" data-dismiss="modal" style="display: none">
                             提交
                         </button>
                     </div>

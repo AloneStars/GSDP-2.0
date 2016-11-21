@@ -19,7 +19,7 @@
                                 邮箱:
                             </label>
                             <div class="col-sm-7">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="email"/>
+                                <input type="email" class="form-control" name="email" id="email" />
                                 <div class="err-info"></div>
                             </div>
                         </div>
@@ -28,7 +28,7 @@
                                 密码:
                             </label>
                             <div class="col-sm-7">
-                                <input type="password" class="form-control" name="password" id="password" placeholder="email"/>
+                                <input type="password" class="form-control" name="password" id="password" />
                                 <div class="err-info"></div>
                             </div>
                         </div>
@@ -37,7 +37,7 @@
                                 验证码:
                             </label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="captcher" placeholder="captcher">
+                                <input type="text" class="form-control" id="captcher" >
                             </div>
                             <div class="col-sm-3">
                                 <button type="button" class="btn btn-primary">发送邮件</button>

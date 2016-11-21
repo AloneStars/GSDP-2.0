@@ -111,7 +111,7 @@ var activity = {
         var endTime = $("#end-time").val();
         var activityNumber = $("#activity-member").val();
         var location = $("#location").val();
-        var content = editor.getContent();
+        var content = activityEditor.getContent();
 
         $.ajax({
             type:"post",
@@ -199,7 +199,7 @@ $(function(){
         $(".create-activity-size .modal-body>div:lt(3)").css("display","block");
     });
 
-    $("#submit").on("click",function(){
+    $("#activity-submit").on("click",function(){
         activity.activityCreation();
     });
 
