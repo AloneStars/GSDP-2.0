@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/1
-  Time: 22:18
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!doctype html>
@@ -168,7 +161,8 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
-
+<!--加入隐藏背面-->
+<div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/common/datepicker/laydate.dev.js"></script>
 <!-- 配置文件 -->
@@ -182,6 +176,7 @@
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>
 

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 <!--create-activity-dialog开始-->
-    <div class="dialog shadow" id="create-activity-dialog">
+    <div class="dialog dialog-shadow" id="create-activity-dialog">
         <div class="modal-content create-activity-size">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

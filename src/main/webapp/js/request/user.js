@@ -60,8 +60,8 @@ var user = {
 
     //显示登录模态框
     "showLoginDialog" : function () {
-        dialog.showDialog(parseInt($(".login-dialog-size").css("min-height")),
-        $(".login-dialog-size").outerWidth(), "login-dialog");
+        dialog.showDialog(parseInt($(".login-register-dialog-size").css("min-height")),
+        $(".login-register-dialog-size").outerWidth(), "login-register-dialog");
     },
 
     //显示修改密码模态框
@@ -127,5 +127,19 @@ $(function () {
     });
 
 
+//保证切换tab的时候dialog是放在中间的
+    $("#login-register-modal li:eq(0)").on("click", function () {
+        $(".login-register-dialog-size").css("min-height",240);
+        $("#login-register-dialog").css("min-height",240);
+        dialog.reModify(parseInt($(".login-register-dialog-size").css("min-height")),
+            $(".login-register-dialog-size").outerWidth());
+    });
+
+    $("#login-register-modal li:eq(1)").on("click", function () {
+        $(".login-register-dialog-size").css("min-height",340);
+        $("#login-register-dialog").css("min-height",340);
+        dialog.reModify(parseInt($(".login-register-dialog-size").css("min-height")),
+            $(".login-register-dialog-size").outerWidth());
+    });
 
 });

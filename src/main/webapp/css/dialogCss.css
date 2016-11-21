@@ -50,19 +50,24 @@ input.set-height {
 .create-activity-size {
     width: 700px;
     min-height: 300px;
+    border:none;
 }
 
 .create-situation-size {
     width: 700px;
     min-height: 600px;
+    border:none;
 }
 .create-group-size {
     width:465px;
     min-height: 545px;
+    border:none;
 }
-.login-dialog-size {
+.login-register-dialog-size {
     width: 450px;
-    min-height: 300px;
+    min-height: 240px;
+    border:none;
+
 }
 .modify-password-size {
     width: 500px;

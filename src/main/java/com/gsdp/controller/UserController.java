@@ -68,11 +68,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/modifyPassword")
-//    @ResponseBody
-    public String modifyPassword(String oldPassword, String nowPassword, String confirmPassword,
+    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST,
+    produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData modifyPassword(String oldPassword, String nowPassword, String confirmPassword,
                                    HttpSession session) {
-        return "modifyPassword";
+        return null;
     }
-
 }

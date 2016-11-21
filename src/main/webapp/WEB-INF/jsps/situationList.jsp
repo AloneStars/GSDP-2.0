@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
 <!doctype html>
 <html>
@@ -73,6 +73,8 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<!--加入隐藏背面-->
+<div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>

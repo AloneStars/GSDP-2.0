@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 <!--生成所有的dialog-->
-<div class="dialog shadow" id="create-group-dialog">
+<div class="dialog dialog-shadow" id="create-group-dialog">
     <div class="modal-content create-group-size">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">

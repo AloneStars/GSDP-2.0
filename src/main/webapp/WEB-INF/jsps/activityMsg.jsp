@@ -1,17 +1,13 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/13
-  Time: 12:18
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
+<!doctype html>
 <html>
 <head>
     <title>活动详情</title>
-    <%@include file="common/style.jsp"%>
+    <%@include file="common/style.jsp" %>
     <link href="${pageContext.request.contextPath}/css/activityMsg.css" type="text/css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" type="text/css" rel="stylesheet"/>
+    <link href="${pageContext.request.contextPath}/css/dialogCss.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -29,7 +25,7 @@
                 </div>
                 <div class="activityList">
                     <ul>
-                        <c:forEach items="#{moreActivityList}" var="moreActivity">
+                        <c:forEach items="${moreActivityList}" var="moreActivity">
                             <li><nobr>
                                 <a href="${pageContext.request.contextPath}/activity/${moreActivity.activityId}/detail" target="_blank"><span class='title' title="${moreActivity.activityTitle}">${moreActivity.activityTitle}</span></a>
                             </nobr></li>
@@ -73,10 +69,13 @@
                 </div>
             </div>
         </div>
-
     </div>
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<!--加入隐藏背面-->
+<div class="hideBack"></div>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
 </body>
 </html>

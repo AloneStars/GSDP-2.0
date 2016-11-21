@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
-<div class="dialog shadow" id="modify-password-dialog">
+<div class="dialog dialog-shadow" id="modify-password-dialog">
     <div class="modal-content modify-password-size">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">

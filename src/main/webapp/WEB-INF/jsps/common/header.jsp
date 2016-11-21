@@ -45,7 +45,4 @@
 </div>
 
 <!--登录模态框-->
-<%@ include file="../dialog/login.jsp"%>
-
-<!--隐藏背面所做的事情-->
-<div class="hideBack"></div>
+<%@ include file="../dialog/loginAndRegister.jsp"%>

@@ -169,6 +169,7 @@ $(function(){
                  */
                 $(".create-activity-size .modal-body > div:lt(3)").css("display" , "none");
                 $(".create-activity-size").css("min-height", 600);
+                $("#create-activity-dialog").css("min-height", 600);
                 $(".create-activity-size .modal-body").css("padding", "0");
                 $(".create-activity-size .modal-footer button:lt(2)").css("display", "none");
                 $(".create-activity-size .modal-footer button:gt(1)").css("display", "inline-block");
@@ -194,6 +195,7 @@ $(function(){
         $(".create-activity-size .modal-footer button:lt(2)").css("display", "inline-block");
         $(".create-activity-size .modal-footer button:gt(1)").css("display", "none");
         $(".create-activity-size").css("min-height", 300);
+        $("#create-activity-dialog").css("min-height", 300);
         $(".create-activity-size .modal-body").removeAttr("style");
         dialog.reModify(parseInt($(".create-activity-size").css("min-height")), $(".create-activity-size").outerWidth());
         $(".create-activity-size .modal-body>div:lt(3)").css("display","block");

@@ -1,12 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/13
-  Time: 12:21
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
+<!doctype html>
 <html>
 <head>
     <title>动态详情</title>
@@ -82,5 +76,7 @@
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
 </div>
+<!--加入隐藏背面-->
+<div class="hideBack"></div>
 </body>
 </html>

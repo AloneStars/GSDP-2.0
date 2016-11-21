@@ -80,6 +80,3 @@
 <%@ include file="../dialog/createSituation.jsp"%>
 <!--创建组织模态框-->
 <%@ include file="../dialog/createGroup.jsp"%>
-
-<!--隐藏背面所做的事情-->
-<div class="hideBack"></div>
