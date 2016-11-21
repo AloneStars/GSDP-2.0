@@ -1,13 +1,10 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ include file="common/tag.jsp"%>
-<!doctype html>
 <html>
 <head>
     <title>活动详情</title>
     <%@include file="common/style.jsp" %>
     <link href="${pageContext.request.contextPath}/css/activityMsg.css" type="text/css" rel="stylesheet"/>
-    <link href="${pageContext.request.contextPath}/css/common/myDialog.css" type="text/css" rel="stylesheet"/>
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -69,6 +66,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <!-- 页脚 -->
     <jsp:include page="common/footer.jsp"/>
@@ -77,5 +75,6 @@
 <div class="hideBack"></div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 </body>
 </html>

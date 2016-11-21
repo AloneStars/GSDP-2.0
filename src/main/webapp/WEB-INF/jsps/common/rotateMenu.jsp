@@ -13,22 +13,22 @@
         </div>
     </div>
     <div class="PathItem">
-        <a class="link" href="#"  title="1">
+        <a class="link" href="#"  title="发布活动" onclick="activity.clickActivity()">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="2">
-            <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');" onclick="activity.clickActivity()"></span>
+        <a class="link" href="#" title="创建团队" onclick="group.showCreateGroupDialog();">
+            <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="3" onclick="activity.clickActivity()">
+        <a class="link" href="#" title="3">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="4" onclick="group.showCreateGroupDialog();">
+        <a class="link" href="#" title="4" >
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>

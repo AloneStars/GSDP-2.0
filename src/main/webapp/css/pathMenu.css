@@ -5,6 +5,7 @@
 	top:50px;
 	width: 150px;
 	height:150px;
+	z-index: 999 ;
 }
 .PathInner {
 	width: 100%;
@@ -36,7 +37,6 @@
 	position:absolute;
 }
 .PathInner .PathMain {
-	z-index:998;
 	position:absolute;
 	display:block;
 	background-position:center;

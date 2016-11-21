@@ -36,6 +36,7 @@ var user = {
             }
         }
     },
+    
     "randomChangeHead" : function () {
         $.get(user.url.randomChangeHead(), function (data) {
             alert(data.data);
