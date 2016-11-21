@@ -126,21 +126,4 @@ $(function () {
             $(this).next().html("请输入正确的密码格式");
         }
     });
-
-
-//保证切换tab的时候dialog是放在中间的
-    $("#login-register-modal li:eq(0)").on("click", function () {
-        $(".login-register-dialog-size").css("min-height",240);
-        $("#login-register-dialog").css("min-height",240);
-        dialog.reModify(parseInt($(".login-register-dialog-size").css("min-height")),
-            $(".login-register-dialog-size").outerWidth());
-    });
-
-    $("#login-register-modal li:eq(1)").on("click", function () {
-        $(".login-register-dialog-size").css("min-height",340);
-        $("#login-register-dialog").css("min-height",340);
-        dialog.reModify(parseInt($(".login-register-dialog-size").css("min-height")),
-            $(".login-register-dialog-size").outerWidth());
-    });
-
 });
