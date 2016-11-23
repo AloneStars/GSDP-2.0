@@ -39,7 +39,7 @@ public class SituationDaoTest {
 	}
 	
 	@Test
-	public void testAddSitutationMessage() {
+	public void testAddSituationMessage() {
 		String situationTitle = "我们团队的摄影展";
 		String situationContent = "下面是我们团队的摄影展";
 		int publisher = 1;
@@ -47,7 +47,7 @@ public class SituationDaoTest {
 		int groupId = 3;
 		int visitors = 111;
 		Situation situation = new Situation(situationTitle, situationContent, publisher, publishTime, groupId, visitors);
-		int affectRows = situationDao.addSitutationMessage(situation);
+		int affectRows = situationDao.addSituationMessage(situation);
 		logger.info("影响的行数:" + affectRows + "返回的自增id:" + situation.getSituationId());
 	}
 	

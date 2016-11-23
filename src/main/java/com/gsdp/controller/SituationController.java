@@ -1,6 +1,10 @@
 package com.gsdp.controller;
 
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.enums.BaseStatusInfo;
+import com.gsdp.enums.situation.SituationStatusInfo;
+import com.gsdp.exception.situation.SituationException;
 import com.gsdp.service.SituationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -59,8 +65,24 @@ public class SituationController {
         return "situationMsg";
     }
 
-    @RequestMapping(value = "/createSituation", method = RequestMethod.GET)
-    public String viewCreateSituation() {
-        return "createSituation";
-    }
+    @RequestMapping(value = "/situationCreation", method = RequestMethod.POST,
+    produces = "application/json; charset=utf-8")
+    @ResponseBody
+   public JsonData createSituation(String situationTitle, String situationContent, int groupId,
+                                   HttpSession session) {
+        //TODO 从session中把用户的userId拿到
+        int userId = 2;
+        try {
+            Integer situationId = situationService.publishSituation(userId, groupId, situationTitle, situationContent);
+            if(null != situationId) {
+                return new JsonData(true, situationId, SituationStatusInfo.PUBLISH_SITUATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, SituationStatusInfo.PUBLISH_SITUATION_FAIL.getMessage());
+            }
+        } catch (IllegalArgumentException e) {
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+        } catch (SituationException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+   }
 }

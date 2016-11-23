@@ -84,7 +84,7 @@ var group = {
     },
 
     //还原dialog
-    "recoveryDialog"  : function() {
+    "recoveryCreateGroupDialog"  : function() {
         /*
         1.把所有的提示信息全部清除，
         2.把所有的表单信息全部复位
@@ -102,9 +102,14 @@ var group = {
             $(".create-group-size").outerWidth(), "create-group-dialog");
     },
 
+    "showJoinGroupDialog" : function () {
+        dialog.showDialog(parseInt($(".join-group-size").css("min-height")),
+            $(".join-group-size").outerWidth(), "join-group-dialog");
+    },
+
     "closeCreateGroupDialog" : function () {
         dialog.closeDialog();
-        group.recoveryDialog();
+        group.recoveryCreateGroupDialog();
     },
 
     "groupCreation" : function () {
@@ -114,7 +119,7 @@ var group = {
         3.根据服务端返回数据做出相应响应
          */
         var groupName = $("#group_name").val();
-        var groupContact = $("#contact").val();
+        var groupContact = $("#create-group-contact").val();
         var groupAddress = $("#work_address").val();
         var profile = $("#profile").val();
         var groupDec = $("#group_introduce").val();
@@ -162,7 +167,7 @@ $(function () {
     });
 
 //实现用户输入电话号码的提示
-    $("#contact").on("blur", function () {
+    $("#create-group-contact").on("blur", function () {
         if(group.check.checkGroupContact($(this).val())) {
             $(this).parent().removeClass("has-error").addClass("has-success");
             $(this).next().html("");

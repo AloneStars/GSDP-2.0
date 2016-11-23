@@ -24,10 +24,20 @@ public class UserServiceImplTest {
     private UserService userService;
 
     @Test
-    public void testRandomChangeHeadPicture() {
+    public void testRandomChangeHeadPicture() throws Exception {
         int userId = 1;
         String headPicture = userService.randomChangeHeadPicture(userId);
         logger.info("headPicture = {}", headPicture);
+    }
+
+    @Test
+    public void modifyPassword() throws Exception{
+        String email = "1210938970@qq.com";
+        String oldPassword = "1234567";
+        String newPassword = "123456";
+        String confirmPassword = "123456";
+        boolean result = userService.modifyPassword(email,oldPassword,newPassword,confirmPassword);
+        logger.info("result = {}", result);
     }
 
 }

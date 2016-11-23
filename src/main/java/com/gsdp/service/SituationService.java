@@ -1,8 +1,7 @@
 package com.gsdp.service;
 
-import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Situation;
-import org.springframework.stereotype.Service;
+import com.gsdp.exception.situation.SituationException;
 
 import java.util.List;
 
@@ -49,5 +48,19 @@ public interface SituationService {
      * @return
      */
     List<Situation> getSituationMessage(int groupId, int offset, int limit, String order, boolean type);
+
+
+    /**
+     *
+     * @param userId
+     * @param groupId
+     * @param situationTitle
+     * @param situationContent
+     * @return
+     * @throws IllegalArgumentException
+     * @throws SituationException
+     */
+    Integer publishSituation(int userId, int groupId, String situationTitle, String situationContent)
+            throws IllegalArgumentException, SituationException;
 
 }

@@ -18,6 +18,12 @@ var login = {
             return false;
     },
 
+    //显示登录模态框
+    "showLoginDialog" : function () {
+        dialog.showDialog(parseInt($(".login-register-dialog-size").css("min-height")),
+            $(".login-register-dialog-size").outerWidth(), "login-register-dialog");
+    },
+
 };
 
 var register = {

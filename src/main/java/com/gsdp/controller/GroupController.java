@@ -5,14 +5,15 @@ import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
-import com.gsdp.exception.group.CreateGroupException;
+import com.gsdp.exception.file.EmptyFileException;
+import com.gsdp.exception.file.FormatNotMatchException;
+import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.exception.group.NotInGroupException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.service.SituationService;
@@ -113,24 +114,6 @@ public class GroupController {
     }
 
     /**
-     * TODO 这里只是一个测试页面，到时候删除
-     * @return
-     */
-    @RequestMapping(value = "/joinGroup", method = RequestMethod.GET)
-    public String viewJoinGroup() {
-        return "group/joinGroup";
-    }
-
-    /**
-     * TODO 这只是一个测试显示页，到时候删除
-     * @return
-     */
-    @RequestMapping(value = "/showCreation", method = RequestMethod.GET)
-    public String viewGroupCreation() {
-        return "group/createGroup";
-    }
-
-    /**
      *参数单独给出，而不给对象，怕用户直接猜后端实体类属性，然后直接拼过来。
      * @param groupName
      * @param groupContact
@@ -160,12 +143,12 @@ public class GroupController {
         } catch (SizeBeyondException e) {
             return new JsonData(false, FileStatusInfo.SIZE_BEYOND.getMessage());
         } catch (IllegalArgumentException e) {
-            return new JsonData(false,e.getMessage());
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
         } catch (GroupRepeatException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_REPEAT.getMessage());
-        } catch (CreateGroupException e) {
-            //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
-            return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
+        } catch (GroupException e) {
+            //其它的异常（比如sqlException）我们统一返回服务器内部错误信息。
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
 
@@ -177,9 +160,15 @@ public class GroupController {
         int userId = 1;
         try {
             String message = groupService.quitGroup(userId, groupId);
-            return new JsonData(true, message);
+            if(message != null) {
+                return new JsonData(true, message);
+            } else {
+                return new JsonData(false, GroupStatusInfo.QUIT_GROUP_FAIL.getMessage());
+            }
+        } catch (NotInGroupException e) {
+            return new JsonData(false, GroupStatusInfo.NOT_IN_THE_GROUP.getMessage());
         } catch (GroupException e) {
-            return new JsonData(false, GroupStatusInfo.QUIT_GROUP_FAIL.getMessage());
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
 

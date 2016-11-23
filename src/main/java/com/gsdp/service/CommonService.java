@@ -1,8 +1,8 @@
 package com.gsdp.service;
 
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.file.EmptyFileException;
+import com.gsdp.exception.file.FormatNotMatchException;
+import com.gsdp.exception.file.SizeBeyondException;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

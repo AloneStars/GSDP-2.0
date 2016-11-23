@@ -17,13 +17,7 @@ $(function () {
     });
 
     //当我们点击关闭模态框所做的事情
-    $(".dialog").on("click", "button.close,.modal-footer > row > button:eq(1)", function () {
+    $(".dialog").on("click", "button.close,.modal-footer > .row > button:eq(1)", function () {
         dialog.closeDialog();
     });
-
-    //点击发布动态按钮
-    // $("#create-situation-nav").on("click", function () {
-    //     dialog.showDialog(parseInt($(".create-situation-size").css("min-height")),
-    //         $(".create-situation-size").outerWidth(), "create-situation-dialog");
-    // });
 });

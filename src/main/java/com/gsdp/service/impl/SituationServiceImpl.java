@@ -2,7 +2,10 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.exception.situation.SituationException;
 import com.gsdp.service.SituationService;
+import com.gsdp.util.DateUtil;
+import com.gsdp.util.SituationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +21,7 @@ import java.util.List;
  * ********************************************************
  * +描述:SituationService的实现类
  *********************************************************/
-@Service
+@Service("situationService")
 public class SituationServiceImpl implements SituationService{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -56,5 +59,30 @@ public class SituationServiceImpl implements SituationService{
 
         return situationList;
 
+    }
+
+    @Override
+    public Integer publishSituation(int userId, int groupId, String situationTitle, String situationContent)
+            throws IllegalArgumentException, SituationException {
+
+        if(!(SituationUtil.checkSituationTitle(situationTitle) &&
+                SituationUtil.checkSituationContent(situationContent))) {
+            throw new IllegalArgumentException("user input information is incorrect");
+        }
+
+        //TODO 当前用户不是该团队的管理员，直接在拦截器里面拦截
+
+        Situation situation = new Situation(situationTitle,situationContent,userId,
+                DateUtil.dateToString("yyyy-MM-dd"),groupId,0);
+
+        try {
+            if(1 == situationDao.addSituationMessage(situation)) {
+                return situation.getSituationId();
+            }
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SituationException("database update error");
+        }
+        return null;
     }
 }

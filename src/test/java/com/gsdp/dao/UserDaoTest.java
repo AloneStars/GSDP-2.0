@@ -29,4 +29,13 @@ public class UserDaoTest {
         logger.info("影响的行数：" + affectRows);
     }
 
+    @Test
+    public void modifyPassword() throws Exception {
+        String loginEmail = "1210938970@qq.com";
+        String newPassword = "1234567";
+        int affectRows = userDao.modifyPassword(loginEmail, newPassword);
+        logger.info("影响的行数:" + affectRows);
+    }
+
+
 }

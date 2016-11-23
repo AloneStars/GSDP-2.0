@@ -7,6 +7,10 @@ var user = {
      */
     "url" : {
 
+        "modifyPassword" : function () {
+            return "/gsdp/user/modifyPassword";
+        },
+
         "changeHead" : function () {
             return "/gsdp/user/changeHead";
         },
@@ -18,6 +22,11 @@ var user = {
 
     //与用户前端的所有验证有关
     "check" : {
+
+        "checkUsername" : function () {
+
+        },
+
         "checkPassword" : function (password) {
             //限制用户输入的密码长度为[6,16]，只能为字母，数字，和其它符号，但是不能为空白字符
             var regex = /^[a-zA-Z0-9\.@#\$%\^&\*\(\)\[\]\?\\/\|~`\+-_=,:'"]{6,16}$/;
@@ -59,17 +68,42 @@ var user = {
         }
     },
 
-    //显示登录模态框
-    "showLoginDialog" : function () {
-        dialog.showDialog(parseInt($(".login-register-dialog-size").css("min-height")),
-        $(".login-register-dialog-size").outerWidth(), "login-register-dialog");
+    "modifyPassword" : function () {
+        var oldPassword = $("#old-password").val();
+        var newPassword = $("#new-password").val();
+        var confirmPassword = $("#modify-confirm-password").val();
+
+        if(user.check.checkPassword(oldPassword) && user.check.checkPassword(newPassword) &&
+            user.check.checkPassword(confirmPassword) && user.check.isSamePassword(newPassword,
+            confirmPassword)) {
+
+            $.post(user.url.modifyPassword(),
+                {
+                    "oldPassword" : oldPassword,
+                    "newPassword" : newPassword,
+                    "confirmPassword" : confirmPassword
+                }
+                , function (data) {
+                    alert(data.message);
+                }
+            )
+        }
     },
 
     //显示修改密码模态框
     "showModifyPasswordDialog" : function () {
         dialog.showDialog(parseInt($(".modify-password-size").css("min-height")),
         $(".modify-password-size").outerWidth(), "modify-password-dialog");
+    },
+
+    //关闭修改密码模态框
+    "closeModifyPasswordDialog" : function () {
+        $("#modify-password-form div").removeClass("has-error has-success");
+        $("div.err-info").html("");
+        $("#modify-password-form")[0].reset();
     }
+
+
 };
 
 $(function () {
@@ -86,6 +120,11 @@ $(function () {
     //随机改变头像
     $("div.change_picture").on("click", function () {
         user.randomChangeHead();
+    });
+
+    //完成修改密码按钮的事件绑定
+    $("#modify-password-button").on("click", function () {
+        user.modifyPassword();
     });
 
     //完成导航栏和内容的对应关系
@@ -112,7 +151,7 @@ $(function () {
         }
     });
 
-    $(".dialog").on("blur", "#confirm-password", function () {
+    $(".dialog").on("blur", "#modify-confirm-password", function () {
         if(user.check.checkPassword($(this).val())) {
             if(user.check.isSamePassword($(this).val(), $("#new-password").val())) {
                 $(this).parent().removeClass("has-error").addClass("has-success");

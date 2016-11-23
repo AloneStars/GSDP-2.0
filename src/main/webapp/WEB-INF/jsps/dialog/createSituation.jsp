@@ -18,7 +18,7 @@
                         动态名称:
                     </label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="situationName" id="situation-name" placeholder="例如:今天我们有一组非常漂亮的照片"/>
+                        <input type="text" class="form-control" name="situationName" id="situation-name" placeholder="1-10位,不能全为空格"/>
                         <div class="err-info"></div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
             </div>
             <div class="modal-footer">
                 <div class="row text-center">
-                    <button type="button" class="btn btn-success" data-dismiss="modal">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" id="publish-situation-button">
                         发布
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">

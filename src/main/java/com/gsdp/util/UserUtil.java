@@ -10,7 +10,7 @@ public class UserUtil {
      */
 
     public static boolean checkUsername(String username) {
-        return false;
+        return true;
     }
 
     /**
@@ -18,6 +18,6 @@ public class UserUtil {
      * 验证密码:密码长度在【6,16】之间，可以为大小写字母，数字，键盘上面的所有小写字符，不能够为空白字符
      */
     public static boolean checkPassword(String password) {
-        return false;
+        return true;
     }
 }

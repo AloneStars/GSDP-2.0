@@ -58,12 +58,12 @@
                             <input type="radio" name="gender" class="gender" <c:if test="${sessionScope.user.sex == '2'}">checked</c:if> value="2">女
                         </div>
                         <div class="basic_same_div">
-                            <label class="basic_info_label"><strong>微信:</strong></label>
+                            <label class="basic_info_label" for="wechat"><strong>微信:</strong></label>
                             <input type="text" id="wechat" class="wechat_input" value="${sessionScope.user.weChat}" name="wechat">
                         </div>
                         <div class="basic_same_div">
-                            <label class="introduce_label"><strong>个性签名:</strong></label>
-                            <textarea  class="person_introduce">${sessionScope.user.userDec}</textarea>
+                            <label class="introduce_label" for="person-introduce"><strong>个性签名:</strong></label>
+                            <textarea  id="person-introduce" class="person_introduce">${sessionScope.user.userDec}</textarea>
                         </div>
                         <div class="basic_same_div">
                             <div class="confirm_modify"><strong>确认修改</strong></div>

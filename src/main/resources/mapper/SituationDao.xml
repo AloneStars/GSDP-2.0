@@ -36,7 +36,7 @@
 	<resultMap type="Situation" id="situationResultMap">
 		<id column="situation_id" property="situationId" jdbcType="INTEGER"/>
 		<result column="situation_title" property="situationTitle" jdbcType="VARCHAR"/>
-		<result column="situation_content" property="situationContent" jdbcType="VARCHAR"/>
+		<result column="situation_content" property="situationContent" jdbcType="LONGVARCHAR"/>
 		<result column="publisher" property="publisher" jdbcType="INTEGER"/>
 		<result column="publishTime" property="publishTime" jdbcType="DATE"/>
 		<result column="group_id" property="groupId" jdbcType="INTEGER"/>
@@ -58,7 +58,6 @@
 				<result column="replies.user.age" property="age" jdbcType="INTEGER"/>
 				<result column="replies.user.wechat" property="weChat" jdbcType="VARCHAR"/>
 				<result column="replies.user.phone" property="phone" jdbcType="VARCHAR"/>
-				<result column="replies.user.lstatue" property="lstatue" jdbcType="INTEGER"/>
 			</association>
 		</collection>
 	</resultMap>
@@ -90,8 +89,7 @@
 	 	u.sex as "replies.user.sex",
 	 	u.age as "replies.user.age",
 	 	u.wechat as "replies.user.wechat",
-	 	u.phone as "replies.user.phone",
-	 	u.lstatue as "replies.user.lstatue"
+	 	u.phone as "replies.user.phone"
 	 	from situation as s
 	 	LEFT join reply as r on s.situation_id = r.situation_id
 	 	LEFT join user as u on r.replyer = u.user_id
@@ -111,7 +109,7 @@
 			</where>
 	</select> -->
 
-	<insert id="addSitutationMessage" keyProperty="situationId">
+	<insert id="addSituationMessage" keyProperty="situationId">
 		insert ignore situation(situation_title,situation_content,publisher,publishTime,group_id,visitors)
 		values(#{situationTitle},#{situationContent},#{publisher},#{publishTime},#{groupId},#{visitors});
 	</insert>

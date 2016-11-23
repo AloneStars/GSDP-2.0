@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="PathItem">
-        <a class="link" href="#"  title="发布活动" onclick="activity.clickActivity()">
+        <a class="link" href="#"  title="发布活动" onclick="activity.clickActivity();">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
         </a>
     </div>
@@ -23,7 +23,7 @@
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="3">
+        <a class="link" href="#" title="发布动态" onclick="situation.showCreateSituation();">
             <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
         </a>
     </div>
@@ -80,3 +80,5 @@
 <%@ include file="../dialog/createSituation.jsp"%>
 <!--创建组织模态框-->
 <%@ include file="../dialog/createGroup.jsp"%>
+<!--申请加入组织模态框-->
+<%@ include file="../dialog/joinGroup.jsp"%>

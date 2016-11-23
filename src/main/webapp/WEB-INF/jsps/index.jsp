@@ -233,7 +233,7 @@
 <div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
-<script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/login.js"></script>
 </body>
 </html>
 

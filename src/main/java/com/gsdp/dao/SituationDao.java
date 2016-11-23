@@ -47,7 +47,7 @@ public interface SituationDao {
 	 * @param situation
 	 * @return
 	 */
-	int addSitutationMessage(Situation situation);
+	int addSituationMessage(Situation situation);
 
 	/**
 	 * 删除动态消息

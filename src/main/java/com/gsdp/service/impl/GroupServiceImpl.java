@@ -4,11 +4,12 @@ import com.gsdp.dao.GroupDao;
 import com.gsdp.entity.group.Group;
 import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.group.CreateGroupException;
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.file.EmptyFileException;
+import com.gsdp.exception.file.FormatNotMatchException;
+import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.exception.group.NotInGroupException;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.GroupUtil;
@@ -163,18 +164,24 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public String quitGroup(int userId, int groupId) throws GroupException {
-
-        if(0 == groupDao.deleteMember(userId, groupId)) {
-            return GroupStatusInfo.NOT_IN_THE_GROUP.getMessage();
-        }
+    public String quitGroup(int userId, int groupId)
+            throws NotInGroupException, GroupException {
 
         try {
+
+            if(0 == groupDao.deleteMember(userId, groupId)) {
+                throw new NotInGroupException("not in the group");
+            }
+
             if(1 == groupDao.changeMemberNumber(-1, groupId)) {
                 return GroupStatusInfo.QUIT_GROUP_SUCCESS.getMessage();
             }
+
+        } catch (NotInGroupException e) {
+            throw e;
         } catch (Exception e) {
-            throw new GroupException("quit the team failed");
+            logger.error("database update error", e);
+            throw new GroupException("database update error");
         }
         return null;
     }
@@ -213,7 +220,7 @@ public class GroupServiceImpl implements GroupService {
      */
     @Override
     public Group createGroup(Group group, MultipartFile multipartFile) throws
-    EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException, GroupRepeatException {
+    EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException, GroupRepeatException {
 
         final String PATH = "D:/";
         //限制上传的最大字节数,最大可以上传5m的东西。
@@ -227,12 +234,12 @@ public class GroupServiceImpl implements GroupService {
             throw new IllegalArgumentException("user input information is incorrect");
         }
 
-
-        if(groupDao.isSameGroupName(group.getGroupName()) != 0) {
-            throw new GroupRepeatException("the team repeated");
-        }
-
         try {
+
+            if(groupDao.isSameGroupName(group.getGroupName()) != 0) {
+                throw new GroupRepeatException("the team repeated");
+            }
+
             String evidencePath = commonService.upload(multipartFile, PATH, MAX_SIZE, REGEX);
             if(evidencePath != null) {
                 group.setGroupEvidence(evidencePath);
@@ -246,8 +253,11 @@ public class GroupServiceImpl implements GroupService {
             throw e;
         } catch (SizeBeyondException e) {
             throw e;
+        } catch(GroupRepeatException e) {
+            throw e;
         } catch (Exception e) {
-            throw new CreateGroupException("failed to create group");
+            logger.error("database update error", e);
+            throw new GroupException("database update error");
         }
         return null;
     }

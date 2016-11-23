@@ -10,9 +10,11 @@
     font-family: "Micro YaHei";
 }
 
+/*createActivity.jsp所特有的css*/
 input.set-height {
     height: 34px;
 }
+/*createActivity.jsp所特有的css*/
 
 /*createGroup.jsp所特有的css*/
 .file {
@@ -58,19 +60,28 @@ input.set-height {
     min-height: 600px;
     border:none;
 }
+
 .create-group-size {
     width:465px;
     min-height: 545px;
     border:none;
 }
+
 .login-register-dialog-size {
     width: 450px;
     min-height: 240px;
     border:none;
 
 }
+
 .modify-password-size {
     width: 500px;
+    min-height: 300px;
+    border:none;
+}
+
+.join-group-size {
+    width:400px;
     min-height: 300px;
     border:none;
 }

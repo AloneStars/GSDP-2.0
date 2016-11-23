@@ -2,11 +2,12 @@ package com.gsdp.service;
 
 import com.gsdp.entity.group.Group;
 import com.gsdp.exception.group.CreateGroupException;
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.file.EmptyFileException;
+import com.gsdp.exception.file.FormatNotMatchException;
+import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.exception.group.NotInGroupException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -48,8 +49,16 @@ public interface GroupService {
     //添加组织成员
     boolean addMember(int userId, int groupId);
 
-    //删除组织成员
-    String quitGroup(int userId, int groupId) throws GroupException ;
+    /**
+     *
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws GroupException
+     * @throws NotInGroupException
+     */
+    String quitGroup(int userId, int groupId)
+            throws NotInGroupException, GroupException;
 
     //转让组织
     boolean changeOwner(int userId, int groupId);
@@ -65,10 +74,11 @@ public interface GroupService {
      * @throws EmptyFileException
      * @throws SizeBeyondException
      * @throws FormatNotMatchException
-     * @throws CreateGroupException
      * @throws IllegalArgumentException
+     * @throws GroupRepeatException
+     * @throws GroupException
      */
     Group createGroup(Group group, MultipartFile multipartFile) throws
-            EmptyFileException,SizeBeyondException,FormatNotMatchException,CreateGroupException,IllegalArgumentException,GroupRepeatException;
+            EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException,GroupRepeatException, GroupException;
 
 }

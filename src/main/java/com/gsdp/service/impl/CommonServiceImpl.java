@@ -1,8 +1,8 @@
 package com.gsdp.service.impl;
 
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.file.EmptyFileException;
+import com.gsdp.exception.file.FormatNotMatchException;
+import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.service.CommonService;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;

@@ -1,4 +1,4 @@
-package com.gsdp.exception;
+package com.gsdp.exception.file;
 
 /**
  * Created by yizijun on 2016/11/3 0003.

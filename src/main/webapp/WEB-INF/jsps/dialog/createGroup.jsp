@@ -29,11 +29,11 @@
                         <!--end of row1-->
                         <!--start row2-->
                         <div class="form-group">
-                            <label for="contact" class="col-sm-4 control-label">
+                            <label for="create-group-contact" class="col-sm-4 control-label">
                                 联系方式(电话):
                             </label>
                             <div class="col-sm-7">
-                                <input type="text" class="form-control" id="contact"
+                                <input type="text" class="form-control" id="create-group-contact"
                                        name="groupContact" placeholder="例如:13811111111"/>
                                 <div class="err-info"></div>
                             </div>

@@ -30,6 +30,9 @@
                 </div>
 
                 <div id="banner-left-bottom">
+                    <!--埋一个groupId的hidden，好调用-->
+                    <input type="hidden" value="${group.groupId}" id="groupId">
+
                     <div class="groupName">
                         <span><b id="groupName">${group.groupName}</b></span>
                     </div>
@@ -43,7 +46,7 @@
                         办公地点：<span id="groupAddress">${group.groupAddress}</span>
                     </div>
                     <div class="Intro">
-                        <input type="button" value="申请加入">
+                        <input type="button" value="申请加入" onclick="group.showJoinGroupDialog();">
                     </div>
 
                 </div>
@@ -177,6 +180,7 @@
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/situation.js"></script>
 </body>
 </html>
 

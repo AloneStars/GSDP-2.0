@@ -1,6 +1,3 @@
-<%--
-    header(页眉)的通用界面
---%>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 <div class="banner">
     <div class="head"></div>
@@ -39,7 +36,7 @@
             <a href="#"></a>
         </div>
     </div>
-    <div id="Login" onclick="user.showLoginDialog();">
+    <div id="Login" onclick="login.showLoginDialog();">
         登陆/注册
     </div>
 </div>

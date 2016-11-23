@@ -16,4 +16,12 @@ public interface UserDao {
      * @return
      */
 	int changeHeadPicture(@Param("userId") int userId, @Param("headPicture") String headPicture);
+
+    /**
+     * 修改用户的密码
+     * @param email
+     * @param newPassword
+     * @return
+     */
+    int modifyPassword(@Param("email") String email, @Param("newPassword") String newPassword);
 }

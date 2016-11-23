@@ -2,7 +2,7 @@
 <div class="dialog dialog-shadow" id="modify-password-dialog">
     <div class="modal-content modify-password-size">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="user.closeModifyPasswordDialog();">
                 ×
             </button>
             <h4 class="modal-title">
@@ -35,11 +35,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="confirm-password" class="col-sm-4 control-label">
+                            <label for="modify-confirm-password" class="col-sm-4 control-label">
                                 确认密码:
                             </label>
                             <div class="col-sm-7">
-                                <input type="password" class="form-control" id="confirm-password" name="confirmPassword"
+                                <input type="password" class="form-control" id="modify-confirm-password" name="confirmPassword"
                                        placeholder="6-16位密码, 区分大小写, 非空白字符"/>
                                 <div class="err-info"></div>
                             </div>
@@ -50,10 +50,10 @@
             <!--end of body-->
             <div class="modal-footer">
                 <div class="row">
-                    <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="modify">
+                    <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="modify-password-button">
                         修改
                     </button>
-                    <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal">
+                    <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal" onclick="user.closeModifyPasswordDialog();">
                         取消
                     </button>
                 </div>
