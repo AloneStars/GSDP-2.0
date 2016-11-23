@@ -25,7 +25,7 @@
                 </div>
                 <div class="situation-list">
                     <ul>
-                        <c:forEach items="#{moreSituationList}" var="moreSituation">
+                        <c:forEach items="${moreSituationList}" var="moreSituation">
                             <li><nobr>
                                 <a href="${pageContext.request.contextPath}/situation/${moreSituation.situationId}/detail" target="_blank"><span class='title' title="${moreSituation.situationTitle}">${moreSituation.situationTitle}</span></a>
                             </nobr></li>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="comment-list">
                     <ul>
-                        <c:forEach items="#{situation.notices}" var="reply">
+                        <c:forEach items="${situation.notices}" var="reply">
                             <li>
                                 <img src="${pageContext.request.contextPath}/${reply.user.headPicture}"/>
                                 <div class="comments-msg">

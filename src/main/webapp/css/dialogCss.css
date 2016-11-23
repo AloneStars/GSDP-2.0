@@ -49,6 +49,19 @@ input.set-height {
 }
 /*createGroup.jsp所特有的css*/
 
+/*groupMemberManager.jsp所特有的css*/
+li.jump-page {
+    display: inline-block;
+    color:#428bca;
+    height: 34px;
+    line-height: 34px;
+    margin-left: 5px;
+}
+#group-apply-member-manager-table .operation {
+    width: 85px;
+}
+/*groupMemberManager.jsp所特有的css*/
+
 .create-activity-size {
     width: 700px;
     min-height: 300px;
@@ -84,4 +97,8 @@ input.set-height {
     width:400px;
     min-height: 300px;
     border:none;
+}
+.group-apply-member-manager-size {
+    width:1200px;
+    min-height: 550px;
 }

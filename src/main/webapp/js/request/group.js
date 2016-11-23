@@ -107,6 +107,11 @@ var group = {
             $(".join-group-size").outerWidth(), "join-group-dialog");
     },
 
+    "showGroupApplyMemberManager" : function () {
+        dialog.showDialog(parseInt($(".group-apply-member-manager-size").css("min-height")),
+        $(".group-apply-member-manager-size").outerWidth(),"group-apply-member-manager-dialog")
+    },
+
     "closeCreateGroupDialog" : function () {
         dialog.closeDialog();
         group.recoveryCreateGroupDialog();

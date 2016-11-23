@@ -8,6 +8,10 @@ var situation = {
 
         "situationCreation" : function () {
             return "/gsdp/situation/situationCreation";
+        },
+
+        "detailSituationMessage" : function (situationId) {
+            return "/gsdp/situation/" + situationId + "/detail";
         }
 
     },
@@ -57,7 +61,11 @@ var situation = {
                     "situationContent" : situationContent,
                     "groupId" : groupId
                 }, function (data) {
-                    alert(data.data + "data.message = " + data.message);
+                    if(data.success) {
+                        location.href = situation.url.detailSituationMessage(data.data);
+                    } else {
+                        alert(data.message);
+                    }
                 });
         }
     }

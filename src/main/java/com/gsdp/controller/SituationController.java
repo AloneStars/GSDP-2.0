@@ -85,4 +85,5 @@ public class SituationController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
    }
+
 }

@@ -172,4 +172,13 @@ public class GroupController {
         }
     }
 
+    /**
+     * TODO 这里只是一个测试显示的页面，到时候会删除
+     * @return
+     */
+    @RequestMapping(value = "/groupManager", method = RequestMethod.GET)
+    public String viewGroupMemberManager() {
+        return "groupMemberManager";
+    }
+
 }
