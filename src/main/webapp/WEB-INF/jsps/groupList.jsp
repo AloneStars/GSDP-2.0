@@ -87,7 +87,9 @@
   <form id="openWin" action="#" target="_blank" method="get"></form>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/login.js"></script>
 <!--加入隐藏背面-->
 <div class="hideBack"></div>
 </body>

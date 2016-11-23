@@ -2,6 +2,10 @@ package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
 import com.gsdp.enums.BaseStatusInfo;
+import com.gsdp.dto.Token;
+import com.gsdp.email.Send;
+import com.gsdp.entity.group.Group;
+import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.user.UserStatusInfo;
 import com.gsdp.exception.file.EmptyFileException;
@@ -9,6 +13,11 @@ import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.user.TwoPasswordNotMatchException;
 import com.gsdp.exception.user.UserException;
+import com.gsdp.enums.user.UserStatusInfo;
+import com.gsdp.exception.EmptyFileException;
+import com.gsdp.exception.FormatNotMatchException;
+import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.user.*;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +30,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -36,8 +46,7 @@ public class UserController {
         return "personProfile";
     }
 
-    @RequestMapping(value = "/randomChangeHead", method = RequestMethod.GET,
-            produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/randomChangeHead", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData randomChangeHead(HttpSession session) {
         // TODO 从session中把用户的userId获取到
@@ -55,8 +64,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/changeHead", method = RequestMethod.POST,
-            produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/changeHead", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData changeHeadPicture(@RequestParam("headPicture") MultipartFile multipartFile, HttpSession session) {
         /*
@@ -82,8 +90,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST,
-    produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData modifyPassword(String oldPassword, String newPassword, String confirmPassword,
                                    HttpSession session) {
@@ -105,5 +112,77 @@ public class UserController {
         } catch (UserException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData login(String email,String password,HttpSession session){
+
+        User user = null;
+        try {
+            user = userService.checkUserLogin(email, password);
+        }catch(UserUndefinedException e){
+            return new JsonData(false, UserStatusInfo.USER_UNDEFINED.getMessage());
+        }catch(LoginMsgIncorrectException e){
+            return new JsonData(false, UserStatusInfo.USER_LOGIN_MESSAGE_INCORRECT.getMessage());
+        }
+
+        //将用户信息放入session中
+        session.setAttribute("user",user);
+
+        return new JsonData(true,user,UserStatusInfo.USER_LOGIN_SUCCESS.getMessage());
+
+    }
+
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData register(String email,String password,String confirmPassword,String verifyCode,HttpSession session){
+
+        User user = null;
+
+        try {
+
+            user = userService.registerUser(email,password,confirmPassword,verifyCode,session);
+
+            if(user != null)
+                return new JsonData(true,UserStatusInfo.USER_REGISTER_SUCCESS.getMessage());
+            else
+                return new JsonData(false,UserStatusInfo.USER_LOGOUT_FAILURE.getMessage());
+
+        }catch(UserExistedException e){
+            return new JsonData(false,UserStatusInfo.USER_REGISTER_USEREXISTED.getMessage());
+        }catch(ConfirmPasswordIncorrectException e){
+            return new JsonData(false,UserStatusInfo.USER_REGISTER_CONFIRMPASSWORDFAILURE.getMessage());
+        }catch(VerifyCodeIncorrectException e){
+            return new JsonData(false,UserStatusInfo.USER_REGISTER_VERIFTCORRECT.getMessage());
+        }
+
+    }
+
+
+    @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST , produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData sendVerifyCode(String email,HttpSession session){
+
+        String verifyCode = Token.randToken();
+
+        Send send = new Send("/email.properties");
+
+        send.email(email,"本邮件为GSDP(校园团体风采展示平台)的用户注册邮件",
+                       /* "欢迎您注册成为我们的用户,下面是本次登录的验证码:" +*/
+                        "<br/><h1 style='color:#08c;'>验证码:"+ verifyCode+"</h1>");
+
+        session.setAttribute("verifyCode",verifyCode);
+
+        return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_SUCCESS.getMessage());
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.POST , produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData LoginOut(HttpSession session){
+
+        session.removeAttribute("user");
+
+        return new JsonData(true,UserStatusInfo.USER_LOGOUT_SUCCESS.getMessage());
     }
 }

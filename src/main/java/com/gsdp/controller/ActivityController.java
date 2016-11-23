@@ -1,10 +1,12 @@
 package com.gsdp.controller;
 
-import com.gsdp.dto.JsonCode;
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
+import com.gsdp.entity.user.User;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
+import com.gsdp.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.List;
 /**********************************************************
@@ -75,19 +78,19 @@ public class ActivityController {
 
     @RequestMapping(value = "/creation", method = RequestMethod.POST , produces = "application/json;charset=utf-8")
     @ResponseBody
-    public JsonCode addActivity(HttpServletRequest request,HttpServletResponse response,
-                                String activityName,
-                                int open,
-                                String startTime,
-                                String endTime,
-                                int activityNumber,
-                                String location,
-                                String content){
+    public JsonData addActivity(String activityName, int open, String startTime,
+                                String endTime, int activityNumber, String location,
+                                String content,int groupId,HttpSession session){
 
-        Activity activity = new Activity();
-        // TODO: 2016/11/19
-        System.out.println(activityName+","+open+","+startTime+","+endTime+","+activityNumber+","+location+","+content);
+        System.out.print(new Date().toString());
 
-        return new JsonCode("测试成功",new Date(),"200");
+        User user = (User)session.getAttribute("user");
+
+        Activity activity = new Activity(activityName,content,startTime,endTime,user.getUserId(),groupId,activityNumber,location, DateUtil.getDataString(),open,0);
+
+        if(activityService.addActivity(activity))
+            return new JsonData(true,"活动发布成功");
+        else
+            return new JsonData(true,"数据库插入错误");
     }
 }

@@ -25,14 +25,12 @@
 
             <!-- 左部 -->
             <div id="banner-left" class="shadow">
+                <div id="groupId" hidden>${group.groupId}</div>
                 <div id="banner-left-top">
                     <img id="groupIcon" src="${pageContext.request.contextPath}/${group.groupIcon}" />
                 </div>
 
                 <div id="banner-left-bottom">
-                    <!--埋一个groupId的hidden，好调用-->
-                    <input type="hidden" value="${group.groupId}" id="groupId">
-
                     <div class="groupName">
                         <span><b id="groupName">${group.groupName}</b></span>
                     </div>
@@ -180,6 +178,7 @@
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/login.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/situation.js"></script>
 </body>
 </html>

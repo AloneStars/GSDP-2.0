@@ -29,7 +29,10 @@ public class ActivityServiceImpl implements ActivityService{
 
     @Override
     public boolean addActivity(Activity activity) {
-        return false;
+
+        activityDao.addActivityMessage(activity);
+
+        return true;
     }
 
     @Override

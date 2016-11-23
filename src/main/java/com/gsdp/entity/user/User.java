@@ -39,9 +39,27 @@ public class User {
 	private String weChat;
 	
 	private String phone;
-	
-	//登录状态
-	private int lstatue;
+
+	public User(){}
+
+	public User(int age, List<Group> groups, String headPicture, String loginEmail, String password, String phone, String qq, int sex, String userDec, String username, String weChat) {
+		this.age = age;
+		this.groups = groups;
+		this.headPicture = headPicture;
+		this.loginEmail = loginEmail;
+		this.password = password;
+		this.phone = phone;
+		this.qq = qq;
+		this.sex = sex;
+		this.userDec = userDec;
+		this.username = username;
+		this.weChat = weChat;
+	}
+
+	public User(int age, List<Group> groups, String headPicture, String loginEmail, String password, String phone, String qq, int sex, String userDec, int userId, String username, String weChat) {
+		this(age,groups,headPicture,loginEmail,password, phone, qq, sex,userDec,username,weChat);
+		this.userId = userId;
+	}
 
 	//-----------------------------
 	
@@ -140,14 +158,6 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-
-	public int getLstatue() {
-		return lstatue;
-	}
-
-	public void setLstatue(int lstatue) {
-		this.lstatue = lstatue;
-	}
 	
 	
 	//-----------------------------
@@ -159,7 +169,7 @@ public class User {
 				+ ", username=" + username + ", groups=" + groups
 				+ ", userDec=" + userDec + ", sex=" + sex + ", age=" + age
 				+ ", qq=" + qq + ", weChat=" + weChat + ", phone=" + phone
-				+ ", lstatue=" + lstatue + "]";
+				+ "]";
 	} 
 	
 	

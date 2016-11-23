@@ -1,7 +1,4 @@
 package com.gsdp.dto;
-
-import java.util.Date;
-
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
  * +吾名 "暴力的小石头/ViolentStone",吾乃一Java程序猿
@@ -16,14 +13,14 @@ public class JsonCode {
     private String errCode;
 
     //返回类容
-    private String context;
+    private Object context;
 
     //创建时间
-    private Date createTime;
+    private String Message;
 
-    public JsonCode(String context, Date createTime, String errCode) {
+    public JsonCode(String context, String Message, String errCode) {
         this.context = context;
-        this.createTime = createTime;
+        this.Message = Message;
         this.errCode = errCode;
     }
 
@@ -36,20 +33,20 @@ public class JsonCode {
         this.errCode = errCode;
     }
 
-    public String getContext() {
+    public Object getContext() {
         return context;
     }
 
-    public void setContext(String context) {
+    public void setContext(Object context) {
         this.context = context;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public String getMessage() {
+        return Message;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setMessage(String Message) {
+        this.Message = Message;
     }
 
     @Override
@@ -57,7 +54,7 @@ public class JsonCode {
         return "JsonCode{" +
                 "context='" + context + '\'' +
                 ", errCode='" + errCode + '\'' +
-                ", createTime=" + createTime +
+                ", Message=" + Message +
                 '}';
     }
 }
