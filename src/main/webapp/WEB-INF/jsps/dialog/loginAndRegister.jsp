@@ -30,7 +30,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="email" class="form-control" name="email" id="login-email"
-                                               placeholder="如：doubleLL@foxmail.com"/>
+                                               placeholder="如：doubleLL@foxmail.com" autocomplete="off"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password" id="login-password"
-                                               placeholder="不能包括非法(6~16位)"/>
+                                               placeholder="不能包括非法字符(6~16位)" autocomplete="off"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="email" class="form-control" name="email" id="register-email"
-                                               placeholder=""/>
+                                               placeholder="如：doubleLL@foxmail.com" autocomplete="off"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -80,7 +80,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password"
-                                               id="register-password" placeholder=""/>
+                                               id="register-password" placeholder="不能包括非法字符(6~16位)" autocomplete="off"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
                                     </label>
                                     <div class="col-sm-7">
                                         <input type="password" class="form-control" name="password"
-                                               id="register-confirm-password" placeholder=""/>
+                                               id="register-confirm-password" placeholder="请确认两次密码一致" autocomplete="off"/>
                                         <div class="err-info"></div>
                                     </div>
                                 </div>
@@ -99,11 +99,11 @@
                                         验证码:
                                     </label>
                                     <div class="col-sm-4">
-                                        <input type="text" class="form-control" id="captcher" placeholder="">
+                                        <input type="text" class="form-control" id="captcher" placeholder="如：123456" autocomplete="off">
                                         <div class="err-info"></div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <button type="button" class="btn btn-primary">发送邮件</button>
+                                        <button type="button" id="sendVerifyCode" class="btn btn-primary">发送邮件</button>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                     </div>
                     <div class="modal-footer">
                         <div class="row">
-                            <button type="button" class="btn btn-primary col-sm-8 col-sm-offset-2">
+                            <button type="button" id="register" class="btn btn-primary col-sm-8 col-sm-offset-2">
                                 注册
                             </button>
                         </div>

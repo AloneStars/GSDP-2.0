@@ -6,8 +6,53 @@
 <mapper namespace="com.gsdp.dao.UserDao">
 
     <sql id="column">
-        user_id,headPicture,loginEmail,password,username,user_dec,sex,age,wechat,phone,lstatue
+        user_id,headPicture,loginEmail,password,username,user_dec,sex,age,wechat,phone
     </sql>
+
+    <resultMap id="userResultMap" type="User">
+        <id column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="headPicture" property="headPicture" jdbcType="VARCHAR"/>
+        <result column="loginEmail" property="loginEmail" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="user_dec" property="userDec" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="INTEGER"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="wechat" property="weChat" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <collection property="groups" ofType="Group">
+            <id column="group.groupId" property="groupId" jdbcType="INTEGER"/>
+            <result column="group.groupIcon" property="groupIcon" jdbcType="VARCHAR"/>
+            <result column="group.groupName" property="groupName" jdbcType="VARCHAR"/>
+            <result column="group.groupDec" property="groupDec" jdbcType="VARCHAR"/>
+            <result column="group.groupContact" property="groupContact" jdbcType="VARCHAR"/>
+            <result column="group.groupAddress" property="groupAddress" jdbcType="VARCHAR"/>
+            <result column="group.groupType" property="groupType" jdbcType="INTEGER"/>
+            <result column="group.owner" property="owner" jdbcType="INTEGER"/>
+            <result column="group.visitors" property="visitors" jdbcType="INTEGER"/>
+            <result column="group.groupMembers" property="groupMembers" jdbcType="INTEGER"/>
+            <result column="group.groupStatus" property="groupStatus" jdbcType="INTEGER"/>
+            <result column="group.groupEvidence" property="groupEvidence" jdbcType="VARCHAR"/>
+        </collection>
+
+    </resultMap>
+
+
+    <insert id="registerUser" keyProperty="userId">
+        INSERT ignore `user`(headPicture,loginEmail,password,
+               username,user_dec,sex,age,wechat,phone)
+        VALUES(#{headPicture},#{loginEmail},#{password},
+        #{username},#{userDec},#{sex},#{age},#{weChat},#{phone});
+    </insert>
+
+    <select id="queryUserMsgByEmail" resultMap="userResultMap">
+        select
+        <include refid="column"/>
+        FROM  `user`
+        <where>
+            loginEmail = #{email} ;
+        </where>
+    </select>
 
     <update id="changeHeadPicture">
         update `user`
@@ -21,8 +66,44 @@
         </where>
     </update>
 
-    <select>
+    <!--使用多表链接方式获取用户的所有信息-->
+    <select id="queryUserByEmail" resultMap="userResultMap">
         select
+        u.user_id,
+        u.headPicture,
+        u.loginEmail,
+        u.password,
+        u.username,
+        u.user_dec,
+        u.sex,
+        u.age,
+        u.wechat,
+        u.phone,
+
+        m.user_id AS "member.userId",
+        m.group_id AS "member.groupId",
+        m.status AS "member.status",
+
+        g.group_id AS "group.groupId",
+        g.group_icon AS "group.groupIcon",
+        g.group_name AS "group.groupName",
+        g.group_dec AS "group.groupDec",
+        g.group_contact AS "group.groupContact",
+        g.group_address AS "group.groupAddress",
+        g.group_type AS "group.groupType",
+        g.owner AS "group.owner",
+        g.visitors AS "group.visitors",
+        g.group_members AS "group.groupMembers",
+        g.group_status AS "group.groupStatus",
+        g.group_evidence AS "group.groupEvidence"
+
+        FROM `user` AS u
+        LEFT OUTER JOIN  `member` AS m on u.user_id = m.user_id
+        LEFT OUTER JOIN  `group` AS g on m.group_id = g.group_id
+
+        <where>
+           u.loginEmail = #{email} AND m.status = 1 ;
+        </where>
 
     </select>
 

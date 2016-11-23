@@ -1,5 +1,7 @@
 package com.gsdp.dao;
 
+import com.gsdp.entity.group.Group;
+import com.gsdp.entity.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -8,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by yizijun on 2016/11/9 0009.
@@ -27,6 +30,41 @@ public class UserDaoTest {
         String headPicture = "D://123.jpg";
         int affectRows = userDao.changeHeadPicture(userId, headPicture);
         logger.info("影响的行数：" + affectRows);
+    }
+
+    @Test
+    public void queryUserByEmail() throws Exception{
+        String email = "1138494584@qq.com";
+        User user = userDao.queryUserByEmail(email);
+        logger.info("user={}",user);
+    }
+
+    @Test
+    public void  queryUserMsgByEmail() throws Exception{
+        String email = "821711371@qq.com";
+        User user = userDao.queryUserMsgByEmail(email);
+        logger.info("user={}",user);
+    }
+
+    @Test
+    public void  registerUser() throws Exception{
+
+        int age = 21;
+        List<Group> groups = null;
+        String headPicture = "123.jpg";
+        String loginEmail = "doubleLL@foxmail.com";
+        String password = "123456789";
+        String phone = "未填写";
+        String qq = "未填写";
+        int sex = 1;
+        String userDec = "我就是我，颜色不一样的烟火";
+        String username = "耀光想的孤星";
+        String weChat = "未填写";
+
+        User user = new User(age,groups,headPicture,loginEmail,password,phone,qq,sex,userDec,username,weChat);
+        int affectRows = userDao.registerUser(user);
+
+        logger.info("影响的行数"+affectRows+",返回的自增Id:"+user.getUserId());
     }
 
 }

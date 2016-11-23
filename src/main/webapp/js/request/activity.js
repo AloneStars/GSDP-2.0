@@ -38,7 +38,6 @@ var activity = {
             else
                 return false;
         }
-
     },
 
     "checkDate" : function(startTime,endTime){
@@ -103,7 +102,7 @@ var activity = {
 
         if(!activity.checkNumber(activityMember)){
             $(this).parent().removeClass("has-success").addClass("has-error");
-            $("#activity-member").next(".err-info").html("活动人数不能为空，也必须为整数");
+            $("#activity-member").next(".err-info").html("活动人数不能为空，也必须为小于1000的整数");
             return false;
         }
         else{
@@ -121,9 +120,7 @@ var activity = {
             //$(this).parent().removeClass("has-error").addClass("has-success");
             $("#location").next(".err-info").html("");
         }
-
-
-
+        
         return true;
     },
 

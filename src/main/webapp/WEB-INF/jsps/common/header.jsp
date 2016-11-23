@@ -2,6 +2,7 @@
     header(页眉)的通用界面
 --%>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="banner">
     <div class="head"></div>
     <div class="border">
@@ -15,33 +16,40 @@
             </ul>
         </div>
     </div>
-    <div class="end" style="display: none;">
-        <div class="user">
-            <div class="user_info">
-                <div class="INFO"></div>
-                <div class="Msg">
-                    <div class="NOTICE User_a">
-                        <a href="#">通知</a>
+    <c:set var="user" value="${sessionScope.get('user')}"/>
+    <c:choose>
+        <c:when test="${user != null}">
+            <div class="end">
+                <div class="user">
+                    <div class="user_info">
+                        <div class="INFO"></div>
+                        <div class="Msg">
+                            <div class="NOTICE User_a">
+                                <a href="#">通知</a>
+                            </div>
+                            <div class="NEWS User_a">
+                                <a href="#">消息</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="NEWS User_a">
-                        <a href="#">消息</a>
+                    <div class="UserMsg User_a">
+                        <a href="#">个人设置</a>
+                    </div>
+                    <div class="Logout User_a">
+                        <a href="javascript:logout.logout();">注销/退出</a>
                     </div>
                 </div>
+                <div class="HP" style="background:url('${pageContext.request.contextPath}/${user.headPicture}') no-repeat;">
+                    <a href="#"></a>
+                </div>
             </div>
-            <div class="UserMsg User_a">
-                <a href="#">个人设置</a>
+        </c:when>
+        <c:otherwise>
+            <div id="Login" onclick="user.showLoginDialog();">
+                登陆/注册
             </div>
-            <div class="LogoOut User_a">
-                <a href="#">注销/退出</a>
-            </div>
-        </div>
-        <div class="HP">
-            <a href="#"></a>
-        </div>
-    </div>
-    <div id="Login" onclick="user.showLoginDialog();">
-        登陆/注册
-    </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <!--登录模态框-->

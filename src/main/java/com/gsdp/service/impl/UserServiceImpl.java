@@ -1,9 +1,12 @@
 package com.gsdp.service.impl;
 
 import com.gsdp.dao.UserDao;
+import com.gsdp.entity.group.Group;
+import com.gsdp.entity.user.User;
 import com.gsdp.exception.EmptyFileException;
 import com.gsdp.exception.FormatNotMatchException;
 import com.gsdp.exception.SizeBeyondException;
+import com.gsdp.exception.user.*;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
@@ -11,6 +14,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceImpl implements UserService {
@@ -74,5 +80,54 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return null;
+    }
+
+    @Override
+    public User checkUserLogin(String email, String password) throws UserUndefinedException, LoginMsgIncorrectException {
+
+        User user = userDao.queryUserMsgByEmail(email);
+
+        if(user == null)
+            throw  new UserUndefinedException("查询该用户不存在");
+        else{
+            if(!password.equals(user.getPassword()))
+                throw new  LoginMsgIncorrectException("邮箱或者密码不正确");
+            else
+                return user;
+        }
+
+    }
+
+    @Override
+    public User registerUser(String email, String password, String confirmPassword, String verifyCode,HttpSession session)
+    throws UserExistedException,ConfirmPasswordIncorrectException,VerifyCodeIncorrectException{
+
+        int age = 0;
+        List<Group> groups = null;
+        String headPicture = "123456.jpg";
+        String phone = "未填写";
+        String qq = "未填写";
+        int sex = 0;
+        String userDec = null;
+        String username = null;
+        String weChat = "未填写";
+
+        System.out.println(session.getAttribute("verifyCode"));
+
+        if(userDao.queryUserByEmail(email) != null){
+            throw new UserExistedException("this email has already registered");
+        }
+        else if(!password.equals(confirmPassword)){
+            throw new ConfirmPasswordIncorrectException("confirmPassword failure");
+        }
+        else if(!verifyCode.equals(session.getAttribute("verifyCode"))){
+            System.out.println("verifyCode:"+verifyCode+"session:"+session.getAttribute("verifyCode"));
+            throw new VerifyCodeIncorrectException("verifyCode is incorrect");
+        }
+        else{
+            User user = new User(age,groups,headPicture,email,password,phone,qq,sex,userDec,username,weChat);
+            userDao.registerUser(user);
+            return user;
+        }
     }
 }

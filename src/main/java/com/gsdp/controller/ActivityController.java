@@ -1,6 +1,6 @@
 package com.gsdp.controller;
 
-import com.gsdp.dto.JsonCode;
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.service.ActivityService;
@@ -75,7 +75,7 @@ public class ActivityController {
 
     @RequestMapping(value = "/creation", method = RequestMethod.POST , produces = "application/json;charset=utf-8")
     @ResponseBody
-    public JsonCode addActivity(HttpServletRequest request,HttpServletResponse response,
+    public JsonData addActivity(HttpServletRequest request,HttpServletResponse response,
                                 String activityName,
                                 int open,
                                 String startTime,
@@ -88,6 +88,6 @@ public class ActivityController {
         // TODO: 2016/11/19
         System.out.println(activityName+","+open+","+startTime+","+endTime+","+activityNumber+","+location+","+content);
 
-        return new JsonCode("测试成功",new Date(),"200");
+        return new JsonData(true,"测试成功");
     }
 }

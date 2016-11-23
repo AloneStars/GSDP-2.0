@@ -58,7 +58,6 @@
 				<result column="replies.user.age" property="age" jdbcType="INTEGER"/>
 				<result column="replies.user.wechat" property="weChat" jdbcType="VARCHAR"/>
 				<result column="replies.user.phone" property="phone" jdbcType="VARCHAR"/>
-				<result column="replies.user.lstatue" property="lstatue" jdbcType="INTEGER"/>
 			</association>
 		</collection>
 	</resultMap>
@@ -90,8 +89,7 @@
 	 	u.sex as "replies.user.sex",
 	 	u.age as "replies.user.age",
 	 	u.wechat as "replies.user.wechat",
-	 	u.phone as "replies.user.phone",
-	 	u.lstatue as "replies.user.lstatue"
+	 	u.phone as "replies.user.phone"
 	 	from situation as s
 	 	LEFT join reply as r on s.situation_id = r.situation_id
 	 	LEFT join user as u on r.replyer = u.user_id

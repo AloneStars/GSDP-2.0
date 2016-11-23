@@ -139,7 +139,6 @@ a:focus {
 	transition: 0.8s;
 	transform: translateX(50px);
 	opacity: 0;
-
 }
 
 .HP {
@@ -150,7 +149,7 @@ a:focus {
 	margin-top: 35px;
 	border: 2px solid #fff;
 	border-radius: 100%;
-	background: url("../image/hp.jpg");
+	backgournd-size:cover;
 }
 
 .end:hover .user {
@@ -300,7 +299,7 @@ a:focus {
 	border: 1px solid #fff;
 }
 
-.LogoOut {
+.Logout {
 	position: absolute;
 	width: 100px;
 	height: 20px;
