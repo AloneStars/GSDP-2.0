@@ -26,24 +26,21 @@
 			sponsor = #{sponsor}
 		</where>
 	</select>
-	
-	
+
 	<insert id="addActivityMessage" keyProperty="activityId">
 		insert ignore activity(activity_title,activity_content,beginTime,endTime,activity_number,
 				activitier,sponsor,activity_address,permission,publishTime,visitors)
 		values(#{activityTitle},#{activityContent},#{beginTime},#{endTime},#{activityNumber},
 		       #{activitier},#{sponsor},#{activityAddress},#{permission},#{publishTime},#{visitors});
 	</insert>
-	
-	
+
 	<delete id="deleteActivityMessage">
 		delete from activity 
 		<where>
 			activity_id = #{activityId};
 		</where>
 	</delete>
-	
-	
+
 	<update id="updateActivityMessage">
 		update activity
 		<set>
@@ -75,8 +72,7 @@
 			activity_id = #{activityId};
 		</where>
 	</update>
-	
-	
+
 	<select id="queryActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>

@@ -5,6 +5,7 @@ import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.EmptyFileException;
@@ -13,9 +14,12 @@ import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
+import com.gsdp.exception.user.VerifyAdminException;
+import com.gsdp.exception.user.VerifyMemberException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.service.SituationService;
+import com.gsdp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +46,9 @@ public class GroupController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static Gson gson = new Gson();
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GroupService groupService;
@@ -85,11 +92,38 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/{groupId}/detail")
-    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,Model model){
+    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,HttpSession session,Model model){
 
         logger.info("获取组织详细信息");
 
+        User user = (User) session.getAttribute("user");
+
         Group group = groupService.getGroupMsg(groupId);
+
+        System.out.println(user);
+
+        if(user != null){
+            int userId = user.getUserId();
+            try{
+                if(group.getOwner()==userId){
+                    session.setAttribute("Owner", true);
+                    System.out.println("法人身份验证成功");
+                }
+                if(userService.verifyMember(userId,groupId)) {
+                    session.setAttribute("Member", true);
+                    System.out.println("成员身份验证成功");
+                    if(userService.verifyAdmin(userId,groupId)) {
+                        session.setAttribute("Admin", true);
+                        System.out.println("管理员身份验证成功");
+                    }
+                }
+            }catch(VerifyAdminException e){
+                System.out.println("管理员身份验证失败");
+            }catch(VerifyMemberException e){
+                System.out.println("成员身份验证失败");
+            }
+
+        }
 
         List<Activity> activityList = activityService.getGeneralActivityMessage(groupId,0,10,"visitors",true);
 

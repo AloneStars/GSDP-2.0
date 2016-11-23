@@ -107,4 +107,22 @@
 
     </select>
 
+    <select id="verifyMember" resultType="Integer">
+        SELECT user_id,group_id,status
+        FROM member
+        <where>
+            user_id = #{userId}
+            AND group_id = #{groupId}
+            AND status = 1;
+        </where>
+    </select>
+
+    <select id="verifyAdmin" resultType="Integer">
+        SELECT user_id,group_id
+        FROM admin
+        <where>
+            user_id = #{userId} AND group_id = #{groupId};
+        </where>
+    </select>
+
 </mapper>

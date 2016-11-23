@@ -67,4 +67,28 @@ public class UserDaoTest {
         logger.info("影响的行数"+affectRows+",返回的自增Id:"+user.getUserId());
     }
 
+    @Test
+    public void  verifyMember() throws Exception{
+
+        int userId = 1;
+        int groupId = 2;
+
+        Integer affectRows = userDao.verifyAdmin(userId,groupId);
+
+        logger.info("影响的行数:"+affectRows);
+
+    }
+
+    @Test
+    public void  verifyAdmin() throws Exception{
+
+        int userId = 1;
+        int groupId = 5;
+
+        Integer affectRows = userDao.verifyMember(userId,groupId);
+
+        logger.info("影响的行数:"+affectRows);
+
+    }
+
 }

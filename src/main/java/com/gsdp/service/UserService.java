@@ -38,4 +38,21 @@ public interface UserService {
 
     User registerUser(String email,String passwrod,String confirmPassword,String verifyCode,HttpSession session)
             throws UserExistedException,ConfirmPasswordIncorrectException,VerifyCodeIncorrectException;
+
+    /**
+     * 验证成员身份
+     * @param userId
+     * @param groupId
+     */
+    boolean verifyMember(int userId,int groupId);
+
+    /**
+     * 验证管理身份
+     * @param userId
+     * @param groupId
+     */
+    boolean verifyAdmin(int userId,int groupId);
+
+
+
 }

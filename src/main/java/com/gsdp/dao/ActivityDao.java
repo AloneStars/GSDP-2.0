@@ -66,4 +66,5 @@ public interface ActivityDao {
 											 @Param("limit") int limit,@Param("order") String order,
 											 @Param("type") boolean type);
 
+
 }

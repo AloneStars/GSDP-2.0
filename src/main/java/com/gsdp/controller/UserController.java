@@ -147,8 +147,9 @@ public class UserController {
     @ResponseBody
     public JsonData LoginOut(HttpSession session){
 
-        session.removeAttribute("user");
+        session.invalidate();
 
         return new JsonData(true,UserStatusInfo.USER_LOGOUT_SUCCESS.getMessage());
     }
+
 }

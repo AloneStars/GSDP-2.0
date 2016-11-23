@@ -38,4 +38,22 @@ import org.apache.ibatis.annotations.Param;
      * @return
      */
     int registerUser(User user);
+
+    /**
+     * 验证成员身份
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    Integer verifyMember(@Param("userId") int userId,@Param("groupId") int groupId);
+
+
+    /**
+     * 验证管理员身份
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    Integer verifyAdmin(@Param("userId") int userId,@Param("groupId") int groupId);
+
 }
