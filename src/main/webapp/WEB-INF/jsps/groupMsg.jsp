@@ -25,6 +25,7 @@
 
             <!-- 左部 -->
             <div id="banner-left" class="shadow">
+                <div id="groupId" hidden>${group.groupId}</div>
                 <div id="banner-left-top">
                     <img id="groupIcon" src="${pageContext.request.contextPath}/${group.groupIcon}" />
                 </div>

@@ -133,6 +133,7 @@ var activity = {
         var activityNumber = $("#activity-member").val();
         var location = $("#location").val();
         var content = activityEditor.getContent();
+        var groupId = $("#groupId").html();
 
         $.ajax({
             type:"post",
@@ -145,12 +146,14 @@ var activity = {
                 "endTime" : endTime,
                 "activityNumber" : activityNumber,
                 "location" : location,
-                "content" : content
+                "content" : content,
+                "groupId": groupId
             },
             success:function(msg){
                 //这里使用JSON.parse始终解析不到相应的数据
                 var json = eval(msg);
-                alert(json.context);
+                alert(json.message);
+                window.location.reload();
             },
             error:function(jqXHR){
                 alert("发生错误:"+jqXHR.status);
