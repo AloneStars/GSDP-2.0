@@ -43,11 +43,11 @@ public class ActivityController {
     public String getActivityListMsg(Model model){
 
         logger.info("获取活动列表");
-        List<Activity> activityList = activityService.getAllActivity();
+        List<Activity> activityList = activityService.getAllOpenActivity();
         logger.info("获取最新活动列表");
-        List<Activity> newestActivityList = activityService.getGeneralActivityMessage(0,0,10,"publishTime",true);
+        List<Activity> newestActivityList = activityService.getOpenActivityMessage(0,0,10,"publishTime",true);
         logger.info("获取最热活动列表");
-        List<Activity> hottestActivityList = activityService.getGeneralActivityMessage(0,0,10,"visitors",true);
+        List<Activity> hottestActivityList = activityService.getOpenActivityMessage(0,0,10,"visitors",true);
 
         model.addAttribute("activityList",activityList);
         model.addAttribute("newestActivityList",newestActivityList);

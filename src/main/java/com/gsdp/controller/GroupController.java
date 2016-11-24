@@ -96,36 +96,27 @@ public class GroupController {
 
         logger.info("获取组织详细信息");
 
-        User user = (User) session.getAttribute("user");
+        boolean Member = false;
+        boolean Admin = false;
+        boolean Owner = false;
+
+        if(session.getAttribute("Member") != null)
+            Member = (boolean)session.getAttribute("Member");
+
+        if(session.getAttribute("Admin") != null)
+            Admin = (boolean)session.getAttribute("Admin");
+
+        if(session.getAttribute("Admin") != null)
+            Owner = (boolean)session.getAttribute("Owner");
 
         Group group = groupService.getGroupMsg(groupId);
 
-        System.out.println(user);
+        List<Activity> activityList = null;
 
-        if(user != null){
-            int userId = user.getUserId();
-            try{
-                if(group.getOwner()==userId){
-                    session.setAttribute("Owner", true);
-                    System.out.println("法人身份验证成功");
-                }
-                if(userService.verifyMember(userId,groupId)) {
-                    session.setAttribute("Member", true);
-                    System.out.println("成员身份验证成功");
-                    if(userService.verifyAdmin(userId,groupId)) {
-                        session.setAttribute("Admin", true);
-                        System.out.println("管理员身份验证成功");
-                    }
-                }
-            }catch(VerifyAdminException e){
-                System.out.println("管理员身份验证失败");
-            }catch(VerifyMemberException e){
-                System.out.println("成员身份验证失败");
-            }
-
-        }
-
-        List<Activity> activityList = activityService.getGeneralActivityMessage(groupId,0,10,"visitors",true);
+        if(Member||Admin||Owner)
+            activityList = activityService.getGeneralActivityMessage(groupId,0,0,"visitors",true);
+        else
+            activityList = activityService.getOpenActivityMessage(groupId,0,0,"visitors",true);
 
         List<Situation> situationList = situationService.getSituationMessage(groupId,0,10,"visitors",true);
 

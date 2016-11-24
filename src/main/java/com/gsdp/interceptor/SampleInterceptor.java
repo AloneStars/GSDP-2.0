@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  * 这是一个拦截器的样例，我们可以通过拦截器来完成字符编码，用户角色的控制等工作。
  * @author yizijun
- *
  */
 public class SampleInterceptor implements HandlerInterceptor {
 
@@ -21,9 +20,9 @@ public class SampleInterceptor implements HandlerInterceptor {
 	 * 返回false  请求将被终止
 	 * 返回true   请求继续执行。
 	 */
-	public boolean preHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler) throws Exception {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		// TODO 自动生成的方法存根
+
 		return false;
 	}
 
@@ -32,9 +31,7 @@ public class SampleInterceptor implements HandlerInterceptor {
 	 * 这个方法会在执行了拦截目标对象之后，在返回view之前执行，也就是说我们可以通过这个方法
 	 * 来改变ModelAndView里面的一些东西
 	 */
-	public void postHandle(HttpServletRequest request,
-			HttpServletResponse response, Object handler,
-			ModelAndView modelAndView) throws Exception {
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 		// TODO 自动生成的方法存根
 		
 	}
@@ -43,8 +40,7 @@ public class SampleInterceptor implements HandlerInterceptor {
 	/*
 	 * 这个方法是在视图显示之后所进行的操作，比如像一些资源的释放什么的。
 	 */
-	public void afterCompletion(HttpServletRequest request,
-			HttpServletResponse response, Object handler, Exception ex)
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		// TODO 自动生成的方法存根
 		

@@ -17,6 +17,15 @@
 		<include refid="columns"/>
 		from activity;
 	</select>
+
+	<select id="getAllOpenActivityMessage" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<where>
+			permission = 1;
+		</where>
+	</select>
 	
 	<select id="getActivityMessage" resultType="Activity">
 		select
@@ -91,6 +100,24 @@
 				sponsor = #{sponsor}
 			</where>
 		</if>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
+	<select id="getOpenActivityMessage" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<where>
+			permission = 1
+			<if test="sponsor != 0">
+				AND sponsor = #{sponsor}
+			</if>
+		</where>
 		<if test="order != null and !order.equals('')">
 			ORDER BY ${order} <if test="type">DESC</if>
 		</if>

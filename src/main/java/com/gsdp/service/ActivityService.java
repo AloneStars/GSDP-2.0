@@ -49,6 +49,12 @@ public interface ActivityService {
     List<Activity> getAllActivity();
 
     /**
+     * 获取所有公开的活动信息
+     * @return
+     */
+    List<Activity> getAllOpenActivity();
+
+    /**
      * 根据主办方获取活动那个信息
      * @param sponsor 主办方
      */
@@ -64,6 +70,17 @@ public interface ActivityService {
      * @return
      */
     List<Activity> getGeneralActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
+
+    /**
+     * 根据所给条件获取公开活动列表
+     * @param sponsor
+     * @param offset
+     * @param limit
+     * @param order
+     * @param type
+     * @return
+     */
+    List<Activity> getOpenActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
 
 
 }
