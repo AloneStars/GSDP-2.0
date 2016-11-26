@@ -2,6 +2,7 @@ package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.entity.user.User;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.situation.SituationStatusInfo;
 import com.gsdp.exception.situation.SituationException;
@@ -70,8 +71,9 @@ public class SituationController {
     @ResponseBody
    public JsonData createSituation(String situationTitle, String situationContent, int groupId,
                                    HttpSession session) {
-        //TODO 从session中把用户的userId拿到
-        int userId = 2;
+
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
         try {
             Integer situationId = situationService.publishSituation(userId, groupId, situationTitle, situationContent);
             if(null != situationId) {

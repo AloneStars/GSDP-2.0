@@ -50,7 +50,7 @@ public class UserDaoTest {
 
     @Test
     public void  queryUserMsgByEmail() throws Exception{
-        String email = "821711371@qq.com";
+        String email = "1210938970@qq.com";
         User user = userDao.queryUserMsgByEmail(email);
         logger.info("user={}",user);
     }
@@ -74,6 +74,25 @@ public class UserDaoTest {
         int affectRows = userDao.registerUser(user);
 
         logger.info("影响的行数"+affectRows+",返回的自增Id:"+user.getUserId());
+    }
+
+    @Test
+    public void updateUserById() throws Exception {
+        String username = "一生一知己";
+        int age = 22;
+        int sex = 1;
+        String weChat = "一生一知己";
+        int userId = 2;
+        String userDec = "我们是黑夜的雄鹰,腾飞在祖国的蓝天之上";
+        int affectRows = userDao.updateUserById(new User(userId,null,null,null,username,userDec,sex,age,null,weChat,null));
+        logger.info("影响的行数:" + affectRows);
+    }
+
+    @Test
+    public void queryUserMessageById() {
+        int userId = 2;
+        User user = userDao.queryUserMessageById(userId);
+        logger.info("user = {}", user);
     }
 
 }

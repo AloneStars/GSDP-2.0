@@ -1,7 +1,6 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Group;
-import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;

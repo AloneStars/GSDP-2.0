@@ -3,7 +3,6 @@ package com.gsdp.service.impl;
 import com.gsdp.dao.GroupDao;
 import com.gsdp.entity.group.Group;
 import com.gsdp.enums.group.GroupStatusInfo;
-import com.gsdp.exception.group.CreateGroupException;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;

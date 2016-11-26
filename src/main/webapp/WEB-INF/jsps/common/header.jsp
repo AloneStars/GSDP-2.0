@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="UserMsg User_a">
-                        <a href="#">个人设置</a>
+                        <a href="${pageContext.request.contextPath}/user/profile">个人设置</a>
                     </div>
                     <div class="Logout User_a">
                         <a href="javascript:logout.logout();">注销/退出</a>
@@ -45,7 +45,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div id="Login" onclick="user.showLoginDialog();">
+            <div id="Login" onclick="login.showLoginDialog();">
                 登陆/注册
             </div>
         </c:otherwise>

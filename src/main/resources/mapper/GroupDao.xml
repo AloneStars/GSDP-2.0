@@ -151,13 +151,12 @@
 
 	<!--注意我们在传入string类型参数的时候，我们在这里用参数名只能用_parameter
 	来才能获取，但是如果是int类型就不用，但是为了语义表达清楚，这里我们用@param来
-	解决这个问题-->
+	解决这个问题,但是我们如果把if判断从where条件里面去掉的话，我们不用@Param这个
+	注解也是可以执行的。-->
 	<select id="isSameGroupName" resultType="int">
 		select COUNT(*) from `group`
 		<where>
-			<if test="groupName != null and !groupName.equals('')">
 			group_name = #{groupName};
-			</if>
 		</where>
 	</select>
 

@@ -4,19 +4,12 @@ import com.gsdp.dto.JsonData;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.dto.Token;
 import com.gsdp.email.Send;
-import com.gsdp.entity.group.Group;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.user.UserStatusInfo;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
-import com.gsdp.exception.user.TwoPasswordNotMatchException;
-import com.gsdp.exception.user.UserException;
-import com.gsdp.enums.user.UserStatusInfo;
-import com.gsdp.exception.EmptyFileException;
-import com.gsdp.exception.FormatNotMatchException;
-import com.gsdp.exception.SizeBeyondException;
 import com.gsdp.exception.user.*;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
@@ -30,7 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -49,12 +41,13 @@ public class UserController {
     @RequestMapping(value = "/randomChangeHead", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData randomChangeHead(HttpSession session) {
-        // TODO 从session中把用户的userId获取到
-        int userId = 1;
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
         try {
             String headPicture = userService.randomChangeHeadPicture(userId);
             if(null != headPicture) {
-                //TODO 在把当前的Session给更新了
+                user.setHeadPicture(headPicture);
+                session.setAttribute("user", user);
                 return new JsonData(true, headPicture, UserStatusInfo.MODIFY_HEAD_PICTURE_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, UserStatusInfo.MODIFY_HEAD_PICTURE_FAIL.getMessage());
@@ -67,14 +60,15 @@ public class UserController {
     @RequestMapping(value = "/changeHead", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData changeHeadPicture(@RequestParam("headPicture") MultipartFile multipartFile, HttpSession session) {
-        /*
-        1.从session中获取用户的userId TODO
-         */
-        int userId = 1;
+
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
+        String rootPath = session.getServletContext().getRealPath("/");
         try {
-            String headPicture = userService.changeHeadPicture(userId, multipartFile);
+            String headPicture = userService.changeHeadPicture(userId, multipartFile, rootPath);
             if(headPicture != null) {
-                //TODO 在把当前的Session给更新了
+                user.setHeadPicture(headPicture);
+                session.setAttribute("user", user);
                 return new JsonData(true, headPicture, UserStatusInfo.MODIFY_HEAD_PICTURE_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, UserStatusInfo.MODIFY_HEAD_PICTURE_FAIL.getMessage());
@@ -95,20 +89,21 @@ public class UserController {
     public JsonData modifyPassword(String oldPassword, String newPassword, String confirmPassword,
                                    HttpSession session) {
 
-        //TODO 用户邮箱从session中获取
-        String email = "1210938970@qq.com";
-        try {
+        User user = (User)session.getAttribute("user");
+        String email = user.getLoginEmail();
 
+        try {
             if(userService.modifyPassword(email, oldPassword, newPassword, confirmPassword)) {
                 return new JsonData(true, "", UserStatusInfo.MODIFY_PASSWORD_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, UserStatusInfo.MODIFY_PASSWORD_FAIL.getMessage());
             }
-
         } catch (IllegalArgumentException e) {
             return new JsonData(false,BaseStatusInfo.PARAMETER_ERROR.getMessage());
         } catch (TwoPasswordNotMatchException e) {
             return new JsonData(false, UserStatusInfo.TWO_PASSWORD_INPUT_NOT_MATCH.getMessage());
+        } catch(LoginMsgIncorrectException e) {
+            return new JsonData(false, UserStatusInfo.ORIGINAL_PASSWORD_ERROR.getMessage());
         } catch (UserException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
@@ -182,7 +177,30 @@ public class UserController {
     public JsonData LoginOut(HttpSession session){
 
         session.removeAttribute("user");
-
+        session.invalidate();
         return new JsonData(true,UserStatusInfo.USER_LOGOUT_SUCCESS.getMessage());
+    }
+
+    @RequestMapping(value = "/modifyBaseInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public JsonData modifyUserBaseInfo(String username, int age, int sex, String weChat,
+                                       String userDec, HttpSession session) {
+        int userId = ((User)session.getAttribute("user")).getUserId();
+
+        try {
+            User user = userService.modifyUserBaseInfo(userId, username,age,sex,weChat,userDec);
+            if(null != user) {
+                //我们把其密码置为null
+                user.setPassword(null);
+                session.setAttribute("user", user);
+                return new JsonData(true, "", UserStatusInfo.MODIFY_USER_BASE_INFO_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, UserStatusInfo.MODIFY_USER_BASE_INFO_FAIL.getMessage());
+            }
+        } catch (IllegalArgumentException e) {
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+        } catch (UserException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
     }
 }

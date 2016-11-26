@@ -17,14 +17,24 @@ var user = {
 
         "randomChangeHead" : function () {
             return "/gsdp/user/randomChangeHead";
+        },
+        
+        "modifyUserBaseInfo" : function () {
+            return "/gsdp/user/modifyBaseInfo"
         }
     },
 
     //与用户前端的所有验证有关
     "check" : {
 
-        "checkUsername" : function () {
-
+        "checkUsername" : function (username) {
+            //用户名的长度在[1,15]之间，并且不能有空格和特殊字符，只能为中文，大小写字母和数字
+            var regex = /^[a-zA-z0-9\u4E00-\u9FA5]{1,15}$/;
+            if(username && regex.test(username)) {
+                return true;
+            } else {
+                return false;
+            }
         },
 
         "checkPassword" : function (password) {
@@ -43,12 +53,45 @@ var user = {
             } else {
                 return false;
             }
+        },
+        
+        "checkAge" : function (age) {
+            //为[1,9]位的正整数,下面这个正则可以匹配0000这种形式
+            var regex = /^\d{1,9}$/;
+            if(age && regex.test(age)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        "checkWechat" : function (wechat) {
+          //这里只是做了一个简单的验证空的操作
+            if(wechat && Trim(wechat,"g").length > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        "checkPersonIntroduce" : function (personIntroduce) {
+            //用户输入的个人介绍字数在[5,100]之间，并且不能有空白符
+            var regex = /^\S{5,100}$/;
+            if(personIntroduce && regex.test(personIntroduce)) {
+                return true;
+            } else {
+                return false;
+            }
         }
     },
     
     "randomChangeHead" : function () {
         $.get(user.url.randomChangeHead(), function (data) {
-            alert(data.data);
+            if(data.success) {
+                $(".modify_headPicture > img").attr("src","/gsdp/" + data.data);
+            } else {
+             alert(data.message);
+            }
         },"json");
     },
 
@@ -62,7 +105,11 @@ var user = {
                 fileElementId : "profile",
                 dataType : "JSON",
                 success : function(data) {
-                    alert(data);
+                    if(data.success) {
+                        $(".modify_headPicture > img").attr("src","/gsdp/" + data.data);
+                    } else {
+                        alert(data.message);
+                    }
                 }
             });
         }
@@ -82,11 +129,36 @@ var user = {
                     "oldPassword" : oldPassword,
                     "newPassword" : newPassword,
                     "confirmPassword" : confirmPassword
-                }
-                , function (data) {
+                } , function (data) {
                     alert(data.message);
                 }
             )
+        }
+    },
+
+    "modifyUserBaseInfo" : function () {
+        var username = $(".modify_basic_info #username").val();
+        var age = $(".modify_basic_info #age").val();
+        var sex = $(".modify_basic_info input[name='gender']:checked").val();
+        var weChat = $(".modify_basic_info #wechat").val();
+        var userDec = $(".modify_basic_info #person-introduce").val();
+
+        if(user.check.checkUsername(username) && user.check.checkAge(age) &&
+        user.check.checkWechat(weChat) && user.check.checkPersonIntroduce(userDec)) {
+            $.post(user.url.modifyUserBaseInfo(),
+                {
+                    "username" : username,
+                    "age" : age,
+                    "sex" : sex,
+                    "weChat" : weChat,
+                    "userDec" : userDec
+                }, function (data) {
+                    if(data.success) {
+                        location.reload();
+                    } else {
+                        alert(data.message);
+                    }
+                });
         }
     },
 
@@ -127,6 +199,10 @@ $(function () {
         user.modifyPassword();
     });
 
+    $("#confirm-modify-baseInfo").on("click", function () {
+        user.modifyUserBaseInfo();
+    });
+
     //完成导航栏和内容的对应关系
     $("ul.nav_ul li").on("click",function(){
         var $allLi = $("ul.nav_ul > li");
@@ -144,10 +220,10 @@ $(function () {
     $(".dialog").on("blur", "#old-password,#new-password", function () {
         if(user.check.checkPassword($(this).val())) {
             $(this).parent().removeClass("has-error").addClass("has-success");
-            $(this).next().html("");
+            $(this).next(".err-info").html("");
         } else {
             $(this).parent().removeClass("has-success").addClass("has-error");
-            $(this).next().html("请输入正确的密码格式");
+            $(this).next(".err-info").html("请输入正确的密码格式");
         }
     });
 
@@ -155,14 +231,46 @@ $(function () {
         if(user.check.checkPassword($(this).val())) {
             if(user.check.isSamePassword($(this).val(), $("#new-password").val())) {
                 $(this).parent().removeClass("has-error").addClass("has-success");
-                $(this).next().html("");
+                $(this).next(".err-info").html("");
             } else {
                 $(this).parent().removeClass("has-success").addClass("has-error");
-                $(this).next().html("两次输入密码不一致");
+                $(this).next(".err-info").html("两次输入密码不一致");
             }
         } else {
             $(this).parent().removeClass("has-success").addClass("has-error");
-            $(this).next().html("请输入正确的密码格式");
+            $(this).next(".err-info").html("请输入正确的密码格式");
+        }
+    });
+    
+    $(".modify_basic_info #username").on("blur", function () {
+        if(user.check.checkUsername($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的用户名格式");
+        }
+    });
+
+    $(".modify_basic_info #age").on("blur", function () {
+        if(user.check.checkAge($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的年龄格式");
+        }
+    });
+
+    $(".modify_basic_info #wechat").on("blur", function () {
+        if(user.check.checkWechat($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的微信格式");
+        }
+    });
+
+    $(".modify_basic_info #person-introduce").on("blur", function () {
+        if(user.check.checkPersonIntroduce($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的个人介绍格式");
         }
     });
 });

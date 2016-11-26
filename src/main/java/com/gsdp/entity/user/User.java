@@ -61,6 +61,20 @@ public class User {
 		this.userId = userId;
 	}
 
+	public User(int userId, String headPicture, String loginEmail, String password, String username, String userDec, int sex, int age, String qq, String weChat, String phone) {
+		this.userId = userId;
+		this.headPicture = headPicture;
+		this.loginEmail = loginEmail;
+		this.password = password;
+		this.username = username;
+		this.userDec = userDec;
+		this.sex = sex;
+		this.age = age;
+		this.qq = qq;
+		this.weChat = weChat;
+		this.phone = phone;
+	}
+
 	//-----------------------------
 	
 	public int getUserId() {

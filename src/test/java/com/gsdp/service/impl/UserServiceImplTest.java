@@ -1,5 +1,6 @@
 package com.gsdp.service.impl;
 
+import com.gsdp.entity.user.User;
 import com.gsdp.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +39,18 @@ public class UserServiceImplTest {
         String confirmPassword = "123456";
         boolean result = userService.modifyPassword(email,oldPassword,newPassword,confirmPassword);
         logger.info("result = {}", result);
+    }
+
+    @Test
+    public void modifyUserBaseInfo() throws Exception {
+        String username = "一生一知己";
+        int age = 22;
+        int sex = 1;
+        String weChat = "一生一知己ii";
+        int userId = 2;
+        String userDec = "我们是黑夜的雄鹰,腾飞在祖国的蓝天之上";
+        User user = userService.modifyUserBaseInfo(userId,username,age,sex,weChat,userDec);
+        logger.info("user = {}", user);
     }
 
 }

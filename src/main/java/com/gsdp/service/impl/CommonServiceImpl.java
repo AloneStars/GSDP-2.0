@@ -33,7 +33,8 @@ public class CommonServiceImpl implements CommonService {
         String originalFileName = multipartFile.getOriginalFilename();
 
         //防止用户传一些非允许的格式的文件
-        if(-1 == regex.indexOf(originalFileName.substring(originalFileName.lastIndexOf(".") + 1))) {
+        if(-1 == regex.indexOf(originalFileName.substring(originalFileName.lastIndexOf(".") + 1)
+                .toLowerCase())) {
             throw new FormatNotMatchException("the file format is not allowed upload");
         }
 

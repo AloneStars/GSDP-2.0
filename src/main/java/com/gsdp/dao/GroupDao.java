@@ -125,5 +125,5 @@ public interface GroupDao {
 	 * @param groupName
 	 * @return
 	 */
-	int isSameGroupName(@Param("groupName") String groupName);
+	int isSameGroupName(String groupName);
 }

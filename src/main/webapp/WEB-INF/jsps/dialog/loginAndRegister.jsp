@@ -9,10 +9,10 @@
             <h4 class="modal-title" id="login-register-modal">
                 <ul class="nav nav-tabs" style="border-bottom-width: 0px;">
                     <li class="active" style="width:70px; margin-left:0px;">
-                        <a href="#login-navigation" data-toggle="tab" style="height: 43px; width:70px">登录</a>
+                        <a href="#login-navigation" data-toggle="tab" style="height: 43px; width:70px"><strong>登录</strong></a>
                     </li>
                     <li style="width:70px;margin-left:0px">
-                        <a href="#register-navigation" data-toggle="tab" style="height: 43px; width: 70px;">注册</a>
+                        <a href="#register-navigation" data-toggle="tab" style="height: 43px; width: 70px;"><strong>注册</strong></a>
                     </li>
                 </ul>
             </h4>

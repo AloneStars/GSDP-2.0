@@ -50,9 +50,19 @@
         <include refid="column"/>
         FROM  `user`
         <where>
-            loginEmail = #{email} ;
+            loginEmail = #{email};
         </where>
     </select>
+
+    <select id="queryUserMessageById" resultType="User">
+        select
+        <include refid="column"/>
+        from  `user`
+        <where>
+            user_id = #{userId};
+        </where>
+    </select>
+
 
     <update id="changeHeadPicture">
         update `user`
@@ -120,5 +130,37 @@
         </where>
 
     </select>
+
+    <update id="updateUserById">
+        update `user`
+        <set>
+            <if test="headPicture != null and !headPicture.equals('')">
+                headPicture = #{headPicture},
+            </if>
+            <if test="loginEmail != null and !loginEmail.equals('')">
+                loginEmail = #{loginEmail},
+            </if>
+            <if test="password != null and !password.equals('')">
+                password = #{password},
+            </if>
+            <if test="username != null and !username.equals('')">
+                username = #{username},
+            </if>
+            <if test="userDec != null and !userDec.equals('')">
+                user_dec = #{userDec},
+            </if>
+            sex = #{sex},
+            age = #{age},
+            <if test="weChat != null and !weChat.equals('')">
+                wechat = #{weChat},
+            </if>
+            <if test="phone != null and !phone.equals('')">
+                phone = #{phone},
+            </if>
+        </set>
+        <where>
+            user_id = #{userId};
+        </where>
+    </update>
 
 </mapper>

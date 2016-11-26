@@ -31,7 +31,7 @@
             <!--start basic information-->
             <div id="basic_info_content" class="basic_info_content nav_content">
                 <div class="modify_headPicture">
-                    <img src="${sessionScope.user.headPicture}"/>
+                    <img src="${pageContext.request.contextPath}/${sessionScope.user.headPicture}"/>
                     <div class="change_picture modify_picture_hover">换一换</div>
                     <div class="upload_picture">
                         <a href="javascript:;" class="file">选一选
@@ -45,11 +45,13 @@
                     <div class="modify_basic_info">
                         <div class="basic_same_div">
                             <label class="basic_info_label" for="username"><strong>用户名:</strong></label>
-                            <input id="username" class="name" type="text" value="${sessionScope.user.username}" name="username">
+                            <input id="username" class="name" type="text" value="${sessionScope.user.username}" name="username" placeholder="1~15位,不能有空白字符和特殊字符">
+                            <div class="err-info" style="margin-left: 155px"></div>
                         </div>
                         <div class="basic_same_div">
                             <label class="basic_info_label" for="age"><strong>年龄:</strong></label>
-                            <input type="text" id="age" class="age_input" value="${sessionScope.user.age}" name="age">
+                            <input type="text" id="age" class="age_input" value="${sessionScope.user.age}" name="age" placeholder="大于0的正整数">
+                            <div class="err-info" style="margin-left: 155px"></div>
                         </div>
                         <div class="basic_same_div">
                             <label class="basic_info_label"><strong>性别:</strong></label>
@@ -59,14 +61,16 @@
                         </div>
                         <div class="basic_same_div">
                             <label class="basic_info_label" for="wechat"><strong>微信:</strong></label>
-                            <input type="text" id="wechat" class="wechat_input" value="${sessionScope.user.weChat}" name="wechat">
+                            <input type="text" id="wechat" class="wechat_input" value="${sessionScope.user.weChat}" name="wechat" placeholder="请输入你的微信号">
+                            <div class="err-info" style="margin-left: 155px"></div>
                         </div>
                         <div class="basic_same_div">
                             <label class="introduce_label" for="person-introduce"><strong>个性签名:</strong></label>
-                            <textarea  id="person-introduce" class="person_introduce">${sessionScope.user.userDec}</textarea>
+                            <textarea  id="person-introduce" class="person_introduce" placeholder="5~100位，不能为空白字符">${sessionScope.user.userDec}</textarea>
+                            <div class="err-info" style="margin-left: 155px"></div>
                         </div>
                         <div class="basic_same_div">
-                            <div class="confirm_modify"><strong>确认修改</strong></div>
+                            <div class="confirm_modify" id="confirm-modify-baseInfo"><strong>确认修改</strong></div>
                         </div>
                     </div>
                 </form>

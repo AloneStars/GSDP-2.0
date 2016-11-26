@@ -50,7 +50,7 @@ var situation = {
     "creationSituation" : function () {
         var situationTitle = $("#create-situation-form #situation-name").val();
         var situationContent = UE.getEditor('situation-container').getContent();
-        var groupId = $("#groupId").val();
+        var groupId = $("#groupId").text();
 
         if(situation.check.checkSituationTitle(situationTitle) &&
             situation.check.checkSituationContent(situationContent)) {

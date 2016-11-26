@@ -5,6 +5,7 @@ import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.entity.user.User;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
@@ -156,8 +157,9 @@ public class GroupController {
     produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData quitGroup(int groupId, HttpSession session) {
-        //TODO userId应该从session里面取出来
-        int userId = 1;
+
+        User user = (User)session.getAttribute("user");
+        int userId = user.getUserId();
         try {
             String message = groupService.quitGroup(userId, groupId);
             if(message != null) {
@@ -171,14 +173,4 @@ public class GroupController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
-
-    /**
-     * TODO 这里只是一个测试显示的页面，到时候会删除
-     * @return
-     */
-    @RequestMapping(value = "/groupManager", method = RequestMethod.GET)
-    public String viewGroupMemberManager() {
-        return "groupMemberManager";
-    }
-
 }

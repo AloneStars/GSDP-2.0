@@ -65,7 +65,7 @@ var login = {
                 alert("发生错误:"+jqXHR.status);
             }
         });
-    }
+    },
 
     //显示登录模态框
     "showLoginDialog" : function () {

@@ -3,12 +3,10 @@ package com.gsdp.dao;
 import com.gsdp.entity.user.User;
 import org.apache.ibatis.annotations.Param;
 
-    /**
-     *
-     * @author yizijun
-     *
-     */
-    public interface UserDao {
+/**
+ *
+ */
+public interface UserDao {
 
     /**
      * 修改用户的头像
@@ -34,6 +32,13 @@ import org.apache.ibatis.annotations.Param;
     User queryUserByEmail(String email);
 
     /**
+     * 根据用户id来查询用户的基本信息
+     * @param userId
+     * @return
+     */
+    User queryUserMessageById(int userId);
+
+    /**
      * 单纯获取用户信息
      * @param email
      * @return
@@ -46,4 +51,11 @@ import org.apache.ibatis.annotations.Param;
      * @return
      */
     int registerUser(User user);
+
+    /**
+     *根据用户的userId来更新用户的信息
+     * @param user
+     * @return
+     */
+    int updateUserById(User user);
 }
