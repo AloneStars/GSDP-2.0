@@ -15,9 +15,12 @@ import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.exception.group.NotInGroupException;
+import com.gsdp.exception.user.VerifyAdminException;
+import com.gsdp.exception.user.VerifyMemberException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.service.SituationService;
+import com.gsdp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,9 @@ public class GroupController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public static Gson gson = new Gson();
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private GroupService groupService;
@@ -87,13 +93,31 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/{groupId}/detail")
-    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,Model model){
+    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,HttpSession session,Model model){
 
         logger.info("获取组织详细信息");
 
+        boolean Member = false;
+        boolean Admin = false;
+        boolean Owner = false;
+
+        if(session.getAttribute("Member") != null)
+            Member = (boolean)session.getAttribute("Member");
+
+        if(session.getAttribute("Admin") != null)
+            Admin = (boolean)session.getAttribute("Admin");
+
+        if(session.getAttribute("Admin") != null)
+            Owner = (boolean)session.getAttribute("Owner");
+
         Group group = groupService.getGroupMsg(groupId);
 
-        List<Activity> activityList = activityService.getGeneralActivityMessage(groupId,0,10,"visitors",true);
+        List<Activity> activityList = null;
+
+        if(Member||Admin||Owner)
+            activityList = activityService.getGeneralActivityMessage(groupId,0,0,"visitors",true);
+        else
+            activityList = activityService.getOpenActivityMessage(groupId,0,0,"visitors",true);
 
         List<Situation> situationList = situationService.getSituationMessage(groupId,0,10,"visitors",true);
 
@@ -144,12 +168,12 @@ public class GroupController {
         } catch (SizeBeyondException e) {
             return new JsonData(false, FileStatusInfo.SIZE_BEYOND.getMessage());
         } catch (IllegalArgumentException e) {
-            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+            return new JsonData(false,e.getMessage());
         } catch (GroupRepeatException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_REPEAT.getMessage());
-        } catch (GroupException e) {
-            //其它的异常（比如sqlException）我们统一返回服务器内部错误信息。
-            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        } catch (CreateGroupException e) {
+            //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
+            return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
         }
     }
 
@@ -173,4 +197,5 @@ public class GroupController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
+
 }

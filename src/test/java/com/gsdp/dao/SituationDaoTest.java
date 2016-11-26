@@ -31,9 +31,9 @@ public class SituationDaoTest {
 	
 	@Test
 	public void testGetSingleSituationMessage() {
-		int situationId = 1;
+		int situationId = 4;
 		int offset = 0;
-		int limit = 2;
+		int limit = 10;
 		Situation situation = situationDao.getSingleSituationMessage(situationId, offset, limit);
 		logger.info("situation = {}", situation);
 	}

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -178,6 +179,7 @@ public class UserController {
 
         session.removeAttribute("user");
         session.invalidate();
+
         return new JsonData(true,UserStatusInfo.USER_LOGOUT_SUCCESS.getMessage());
     }
 
@@ -203,4 +205,5 @@ public class UserController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
+
 }

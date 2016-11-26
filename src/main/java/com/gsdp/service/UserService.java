@@ -59,4 +59,21 @@ public interface UserService {
 
     User modifyUserBaseInfo(int uesrId, String username, int age, int sex, String weChat, String userDec) throws
             IllegalArgumentException, UserException;
+
+    /**
+     * 验证成员身份
+     * @param userId
+     * @param groupId
+     */
+    boolean verifyMember(int userId,int groupId);
+
+    /**
+     * 验证管理身份
+     * @param userId
+     * @param groupId
+     */
+    boolean verifyAdmin(int userId,int groupId);
+
+
+
 }

@@ -17,6 +17,12 @@ public interface ActivityDao {
 	 * @return
 	 */
 	List<Activity> getAllActivityMessage();
+
+	/**
+	 * 获取所有公开的活动信息
+	 * @return
+	 */
+	List<Activity> getAllOpenActivityMessage();
 	
 	/**
 	 * 查询指定社团所举办的所有活动
@@ -65,5 +71,19 @@ public interface ActivityDao {
 	List<Activity> getGeneralActivityMessage(@Param("sponsor") int sponsor,@Param("offset") int offset,
 											 @Param("limit") int limit,@Param("order") String order,
 											 @Param("type") boolean type);
+
+	/**
+	 * 根据所给的条件获取公开活动列表
+	 * @param sponsor 主板单位
+	 * @param offset 偏移量
+	 * @param limit 查询个数，为0表示不做分页查询
+	 * @param order 排序子段，按照和字段做排序
+	 * @parma type  是否启用降序排列，true表示采用降序排列
+	 * @return 活动列表
+	 */
+	List<Activity> getOpenActivityMessage(@Param("sponsor") int sponsor,@Param("offset") int offset,
+											 @Param("limit") int limit,@Param("order") String order,
+											 @Param("type") boolean type);
+
 
 }

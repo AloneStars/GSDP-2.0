@@ -193,4 +193,32 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+    @Override
+    public boolean verifyMember(int userId, int groupId) throws VerifyMemberException {
+
+        Integer affectRows = userDao.verifyMember(userId,groupId);
+
+        System.out.println("验证成员身份："+affectRows);
+
+        if(affectRows == null)
+            throw new VerifyMemberException("verifyMember failure");
+        else
+            return true;
+
+    }
+
+    @Override
+    public boolean verifyAdmin(int userId, int groupId) throws VerifyAdminException {
+
+        Integer affectRows = userDao.verifyAdmin(userId,groupId);
+
+        System.out.println("验证管理身份："+affectRows);
+
+        if(affectRows == null)
+            throw new VerifyAdminException("verifyAdmin failure");
+        else
+            return true;
+
+    }
 }

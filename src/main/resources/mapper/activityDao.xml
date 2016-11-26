@@ -17,6 +17,15 @@
 		<include refid="columns"/>
 		from activity;
 	</select>
+
+	<select id="getAllOpenActivityMessage" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<where>
+			permission = 1;
+		</where>
+	</select>
 	
 	<select id="getActivityMessage" resultType="Activity">
 		select
@@ -26,24 +35,21 @@
 			sponsor = #{sponsor}
 		</where>
 	</select>
-	
-	
+
 	<insert id="addActivityMessage" keyProperty="activityId">
 		insert ignore activity(activity_title,activity_content,beginTime,endTime,activity_number,
 				activitier,sponsor,activity_address,permission,publishTime,visitors)
 		values(#{activityTitle},#{activityContent},#{beginTime},#{endTime},#{activityNumber},
 		       #{activitier},#{sponsor},#{activityAddress},#{permission},#{publishTime},#{visitors});
 	</insert>
-	
-	
+
 	<delete id="deleteActivityMessage">
 		delete from activity 
 		<where>
 			activity_id = #{activityId};
 		</where>
 	</delete>
-	
-	
+
 	<update id="updateActivityMessage">
 		update activity
 		<set>
@@ -75,8 +81,7 @@
 			activity_id = #{activityId};
 		</where>
 	</update>
-	
-	
+
 	<select id="queryActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>
@@ -95,6 +100,24 @@
 				sponsor = #{sponsor}
 			</where>
 		</if>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
+	<select id="getOpenActivityMessage" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<where>
+			permission = 1
+			<if test="sponsor != 0">
+				AND sponsor = #{sponsor}
+			</if>
+		</where>
 		<if test="order != null and !order.equals('')">
 			ORDER BY ${order} <if test="type">DESC</if>
 		</if>

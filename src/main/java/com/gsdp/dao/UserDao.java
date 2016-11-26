@@ -3,10 +3,12 @@ package com.gsdp.dao;
 import com.gsdp.entity.user.User;
 import org.apache.ibatis.annotations.Param;
 
-/**
- *
- */
-public interface UserDao {
+    /**
+     *
+     * @author yizijun
+     *
+     */
+    public interface UserDao {
 
     /**
      * 修改用户的头像
@@ -58,4 +60,22 @@ public interface UserDao {
      * @return
      */
     int updateUserById(User user);
+
+    /**
+     * 验证成员身份
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    Integer verifyMember(@Param("userId") int userId,@Param("groupId") int groupId);
+
+
+    /**
+     * 验证管理员身份
+     * @param userId
+     * @param groupId
+     * @return
+     */
+    Integer verifyAdmin(@Param("userId") int userId,@Param("groupId") int groupId);
+
 }
