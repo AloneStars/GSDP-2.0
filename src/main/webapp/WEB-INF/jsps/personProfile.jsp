@@ -6,10 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>个人设置</title>
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-    <link href="${pageContext.request.contextPath}/css/common.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/common.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/personal.css" type="text/css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <%@ include file="common/background.jsp"%>
@@ -99,9 +99,9 @@
 <div class="hideBack"></div>
 <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/common.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/upload/ajaxfileupload.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>

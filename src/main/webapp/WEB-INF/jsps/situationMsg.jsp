@@ -7,7 +7,7 @@
     <%@  include file="common/style.jsp"%>
     <link href="${pageContext.request.contextPath}/css/situationMsg.css" type="text/css" rel="stylesheet"/>
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -82,7 +82,7 @@
 <div class="hideBack"></div>
 
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>

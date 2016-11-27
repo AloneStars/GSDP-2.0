@@ -9,6 +9,9 @@ var activity = {
         //获取发布用户连接
         "activityCreation"  : function() {
             return "/gsdp/activity/creation";
+        },
+        "activityPagination" : function(){
+            return "/gsdp/activity/pagination";
         }
     },
 

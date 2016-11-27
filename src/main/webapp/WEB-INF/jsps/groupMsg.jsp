@@ -6,11 +6,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>团队详情</title>
     <%@include file="common/style.jsp"%>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/js/pathMenu.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/pathMenu/pathMenu.js"></script>
     <link href="${pageContext.request.contextPath}/css/groupMsg.css" type="text/css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/pathMenu.css" type="text/css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/css/pathMenu/pathMenu.css" type="text/css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -173,7 +173,7 @@
 <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
 <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
 <script src="${pageContext.request.contextPath}/common/ueditor/lang/zh-cn/zh-cn.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>

@@ -5,12 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>资源总库</title>
     <%@include file="common/style.jsp"%>
-    <link href="${pageContext.request.contextPath}/css/video-js.min.css" rel="stylesheet">
-    <script src="${pageContext.request.contextPath}/js/video.min.js"></script>
+    <link href="${pageContext.request.contextPath}/css/video-js/video-js.min.css" rel="stylesheet">
+    <script src="${pageContext.request.contextPath}/js/video-js/video.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/resourceList.js"></script>
     <link href="${pageContext.request.contextPath}/css/resourceList.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -171,7 +171,7 @@
 <!--加入隐藏背面-->
 <div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>
