@@ -20,6 +20,7 @@ $(function(){
         callback: function (api) {
             SituationPagination(api.getCurrent(),pagination.showData);
             $("#currentPage").html(api.getCurrent());
+            window.scroll(0,0);
         }
     });
 });

@@ -88,6 +88,5 @@
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>
-
 </html>
 

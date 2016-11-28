@@ -8,9 +8,13 @@ package com.gsdp.exception;
  * ********************************************************
  * +描述:数据库操作异常类
  *********************************************************/
-public class SqlActionWrongException extends Exception {
+public class SqlActionWrongException extends RuntimeException {
 
     public SqlActionWrongException(String msg) {
         super(msg);
+    }
+
+    public SqlActionWrongException(String message, Throwable cause) {
+        super(message, cause);
     }
 }

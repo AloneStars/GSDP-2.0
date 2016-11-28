@@ -41,6 +41,7 @@
                 <div class="situationMsg-banner">
                     <b><i>动态详情</i></b>
                 </div>
+                <div id="situationId" hidden>${situation.situationId}</div>
                 <div class="situation-detail">
                      <center><h4>${situation.situationTitle}</h4></center>
                      ${situation.situationContent}
@@ -67,8 +68,8 @@
                 </div>
                 <div class="comment">
                     <form action="" method="post">
-                        <input class="message" type="text"/>
-                        <input class="submit" type="submit" value="发表"/>
+                        <input id="replyMessage" class="message" type="text" autocomplete="off"/>
+                        <input id="reply" class="submit" type="button" value="发表"/>
                     </form>
                 </div>
             </div>
@@ -86,5 +87,6 @@
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>
+<script src="${pageContext.request.contextPath}/js/request/reply.js"></script>
 </body>
 </html>

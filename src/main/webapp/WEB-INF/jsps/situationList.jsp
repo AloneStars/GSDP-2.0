@@ -55,7 +55,7 @@
                     <ul>
                         <c:forEach items="#{newestSituationList}" var="newSituation">
                             <li><nobr>
-                                <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title' title="${newSituation.situationTitle}">${newSituation.situationTitle}</span></a>
+                                <a href="${pageContext.request.contextPath}/situation/${newSituation.situationId}/detail" target="_blank"><span class='title' title="${newSituation.situationTitle}">${newSituation.situationTitle}</span></a>
                             </nobr></li>
                         </c:forEach>
                     </ul>
@@ -70,7 +70,7 @@
                     <ul>
                         <c:forEach items="#{hottestSituationList}" var="hotSituation">
                             <li><nobr>
-                                <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" target="_blank"><span class='title' title="${hotSituation.situationTitle}">${hotSituation.situationTitle}</span></a>
+                                <a href="${pageContext.request.contextPath}/situation/${hotSituation.situationId}/detail" target="_blank"><span class='title' title="${hotSituation.situationTitle}">${hotSituation.situationTitle}</span></a>
                             </nobr></li>
                         </c:forEach>
                     </ul>

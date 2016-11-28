@@ -113,12 +113,12 @@ ul li {
 .comments-msg  span{
     display: inline-block;
     width:50%;
-    padding-left:10px;
+    padding:0 10px;
 }
 .comments-msg p{
-    height:20%;
+    height:20px;
     line-height:20px;
-    padding-left:10px;
+    padding:0 10px;
 }
 .comment{
     height:60px;

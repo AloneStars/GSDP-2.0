@@ -76,7 +76,7 @@
 	 	r.reply_id as "replies.reply_id",
 	 	r.reply_content as "replies.reply_content",
 	 	r.replyer as "replies.replyer",
-	 	r.replyTime as "replies.replyTime",
+	 	r.reply_time as "replies.replyTime",
 	 	r.situation_id as "replies.situation_id",
 	 	
 	 	
