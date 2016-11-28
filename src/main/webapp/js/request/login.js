@@ -180,7 +180,6 @@ var register = {
     }
 }
 
-
 var logout ={
 
     "url" : {

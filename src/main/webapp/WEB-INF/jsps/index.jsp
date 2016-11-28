@@ -17,7 +17,7 @@
     <link href="css/animations.css" type="text/css" rel="stylesheet">
     <link href="css/index.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -232,7 +232,7 @@
 <!--加入隐藏背面-->
 <div class="hideBack"></div>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>

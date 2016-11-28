@@ -71,6 +71,11 @@
 			<bean class="com.gsdp.interceptor.UserInterceptor"/>
 		</mvc:interceptor>
 
+		<mvc:interceptor>
+			<mvc:mapping path="/reply/creation"/>
+			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
+			<bean class="com.gsdp.interceptor.CheckLoginInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 </beans>

@@ -6,10 +6,10 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>团队大厅</title>
   <%@include file="common/style.jsp"%>
-  <link href="${pageContext.request.contextPath}/css/hover-effects.css" type="text/css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/css/pathMenu/hover-effects.css" type="text/css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/groupList.css" type="text/css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
-  <link href="${pageContext.request.contextPath}/css/dialogCss.css" rel="stylesheet">
+  <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -86,7 +86,7 @@
 </div>
   <form id="openWin" action="#" target="_blank" method="get"></form>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
-<script src="${pageContext.request.contextPath}/js/dialogJs.js"></script>
+<script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/login.js"></script>

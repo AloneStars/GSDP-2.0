@@ -1,9 +1,11 @@
 package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
+import com.gsdp.dto.Pagination;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.user.User;
+import com.gsdp.enums.pagination.PaginationStatusInfo;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.DateUtil;
@@ -40,13 +42,28 @@ public class ActivityController {
     @RequestMapping("/list")
     public String getActivityListMsg(Model model){
 
-        logger.info("获取活动列表");
-        List<Activity> activityList = activityService.getAllOpenActivity();
+        logger.info("获取所有活动列表");
+        List<Activity> activitys = activityService.getAllOpenActivity();
+
+        int showData = 3;
+
+        int totalPage = 0;
+
+        if(activitys.size()%showData == 0)
+            totalPage = activitys.size()/showData;
+        else
+            totalPage = (activitys.size()/showData)+1;
+
+        Pagination pagination = new Pagination(totalPage,1,showData);
+
+        logger.info("获取分页活动列表");
+        List<Activity> activityList = activityService.getOpenActivityMessage(0,(pagination.getCurrentPage()-1)*showData,pagination.getShowData(),null,true);
         logger.info("获取最新活动列表");
         List<Activity> newestActivityList = activityService.getOpenActivityMessage(0,0,10,"publishTime",true);
         logger.info("获取最热活动列表");
         List<Activity> hottestActivityList = activityService.getOpenActivityMessage(0,0,10,"visitors",true);
 
+        model.addAttribute("pagination",pagination);
         model.addAttribute("activityList",activityList);
         model.addAttribute("newestActivityList",newestActivityList);
         model.addAttribute("hottestActivityList",hottestActivityList);
@@ -90,5 +107,14 @@ public class ActivityController {
             return new JsonData(true,"活动发布成功");
         else
             return new JsonData(true,"数据库插入错误");
+    }
+
+    @RequestMapping(value = "/pagination", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public JsonData getPaginationActivity(int currentPage,int showData){
+
+        List<Activity> activityList = activityService.getOpenActivityMessage(0,(currentPage-1)*showData,showData,null,true);
+
+        return new JsonData(true,activityList, PaginationStatusInfo.PAGINATION_SUCCESS.getMessage());
     }
 }

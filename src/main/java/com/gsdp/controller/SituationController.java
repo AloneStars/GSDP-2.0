@@ -1,7 +1,11 @@
 package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
+import com.gsdp.dto.Pagination;
+import com.gsdp.entity.group.Activity;
+import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.enums.pagination.PaginationStatusInfo;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.situation.SituationStatusInfo;
@@ -35,7 +39,20 @@ public class SituationController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String getSituationList(Model model) {
 
-        List<Situation> situationList = situationService.getSituationMessage(0,0,0,null,true);
+        List<Situation> situations = situationService.getSituationMessage(0,0,0,null,true);
+
+        int showData = 3;
+
+        int totalPage = 0;
+
+        if(situations.size()%showData == 0)
+            totalPage = situations.size()/showData;
+        else
+            totalPage = (situations.size()/showData)+1;
+
+        Pagination pagination = new Pagination(totalPage,1,showData);
+
+        List<Situation> situationList = situationService.getSituationMessage(0,(pagination.getCurrentPage()-1)*showData,showData,null,true);
 
         List<Situation> newestSituationList = situationService.getSituationMessage(0,0,10,"publishTime",true);
 
@@ -44,6 +61,7 @@ public class SituationController {
         model.addAttribute("situationList",situationList);
         model.addAttribute("newestSituationList",newestSituationList);
         model.addAttribute("hottestSituationList",hottestSituationList);
+        model.addAttribute("pagination",pagination);
 
         return "situationList";
     }
@@ -88,4 +106,17 @@ public class SituationController {
         }
    }
 
+    @RequestMapping(value = "/createSituation", method = RequestMethod.GET)
+    public String viewCreateSituation() {
+        return "createSituation";
+    }
+
+    @RequestMapping(value = "/pagination", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public JsonData getPaginationActivity(int currentPage, int showData){
+
+        List<Situation> situationList = situationService.getSituationMessage(0,(currentPage-1)*showData,showData,null,true);
+
+        return new JsonData(true,situationList, PaginationStatusInfo.PAGINATION_SUCCESS.getMessage());
+    }
 }
