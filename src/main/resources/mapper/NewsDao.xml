@@ -9,6 +9,14 @@
 		insert ignore news(news_title,news_content,fromAddress,toAddress,sendTime,statue)
 		values(#{newsTitle},#{newsContent},#{fromAddress},#{toAddress},#{sendTime},#{statue});
 	</insert>
+
+	<!--网上说如果在批量加入的时候要使用keyProperty的话，需要把mytatis升级到3.3.1版本-->
+	<insert id="batchAddNew">
+		insert ignore news(news_title,news_content,fromAddress,toAddress,sendTime) values
+		 <foreach collection="list" item="news" separator=",">
+			 (#{news.newsTitle},#{news.newsContent},#{news.fromAddress},#{news.toAddress},#{news.sendTime})
+		 </foreach>
+	</insert>
 	
 	
 	<delete id="deleteNews">

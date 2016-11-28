@@ -1,6 +1,8 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.user.User;
+import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.user.*;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
@@ -74,6 +76,17 @@ public interface UserService {
      */
     boolean verifyAdmin(int userId,int groupId);
 
-
+    /**
+     *
+     * @param userId
+     * @param groupId
+     * @param applyReason
+     * @param phone
+     * @return
+     * @throws GroupNotExistException
+     * @throws GroupException
+     */
+    boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
+            IllegalArgumentException,GroupNotExistException, GroupException;
 
 }

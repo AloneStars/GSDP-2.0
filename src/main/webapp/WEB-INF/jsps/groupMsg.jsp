@@ -25,7 +25,10 @@
 
             <!-- 左部 -->
             <div id="banner-left" class="shadow">
+
+                <%--这里埋了一个hidden，好获取团队的id--%>
                 <div id="groupId" hidden>${group.groupId}</div>
+
                 <div id="banner-left-top">
                     <img id="groupIcon" src="${pageContext.request.contextPath}/${group.groupIcon}" />
                 </div>

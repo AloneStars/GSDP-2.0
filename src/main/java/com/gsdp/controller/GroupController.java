@@ -15,8 +15,6 @@ import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.exception.group.NotInGroupException;
-import com.gsdp.exception.user.VerifyAdminException;
-import com.gsdp.exception.user.VerifyMemberException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.service.SituationService;
@@ -157,9 +155,9 @@ public class GroupController {
             Group result = groupService.createGroup(new Group(null,groupName,groupDec,groupContact,groupAddress,
             groupType,1,0,0,0,null), multipartFile);
             if(result != null) {
-                return new JsonData(true, result, GroupStatusInfo.CREATE_GROUP_SUCCESS.getMessage());
+                return new JsonData(true, result, GroupStatusInfo.APPLICATION_HAS_BEEN_SUBMITTED.getMessage());
             } else {
-                return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
+                return new JsonData(false, GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
             }
         } catch (EmptyFileException e) {
             return new JsonData(false, FileStatusInfo.EMPTY_FILE.getMessage());
@@ -171,9 +169,9 @@ public class GroupController {
             return new JsonData(false,e.getMessage());
         } catch (GroupRepeatException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_REPEAT.getMessage());
-        } catch (CreateGroupException e) {
-            //其它的异常（比如sqlException）我们统一返回创建失败这种提示信息。
-            return new JsonData(false, GroupStatusInfo.CREATE_GROUP_FAIL.getMessage());
+        } catch (GroupException e) {
+            //其它的异常（比如sqlException）我们统一返回服务器内部错误这种提示信息。
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
 
@@ -196,6 +194,24 @@ public class GroupController {
         } catch (GroupException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
+    }
+
+
+
+
+
+
+    /*
+    *****************
+    所有app接口
+    *************
+    * */
+
+    @RequestMapping(value = "/app/list", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonData queryAllGroups() {
+        List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
+        return new JsonData(true, groupList, GroupStatusInfo.GET_GROUP_MESSAGE_SUCCESS.getMessage());
     }
 
 }

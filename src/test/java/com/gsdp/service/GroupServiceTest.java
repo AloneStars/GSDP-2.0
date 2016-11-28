@@ -1,7 +1,9 @@
 package com.gsdp.service;
 
 import com.google.gson.Gson;
+import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
+import com.gsdp.entity.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -85,7 +87,12 @@ public class GroupServiceTest {
 
     @Test
     public void addMember() throws Exception {
-
+        int userId = 2;
+        int groupId = 4;
+        String applyReason = "我很想加入这个社团";
+        String phone = "13811111111";
+        MemberAddition memberAddition = groupService.addMember(userId,groupId,applyReason,phone);
+        logger.info("memberAddition = {}" + memberAddition);
     }
 
     @Test

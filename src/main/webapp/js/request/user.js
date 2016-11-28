@@ -103,7 +103,7 @@ var user = {
                 url : user.url.changeHead(),
                 secureuri : false,
                 fileElementId : "profile",
-                dataType : "JSON",
+                dataType : "json",
                 success : function(data) {
                     if(data.success) {
                         $(".modify_headPicture > img").attr("src","/gsdp/" + data.data);

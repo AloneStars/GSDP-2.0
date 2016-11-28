@@ -62,6 +62,15 @@
 			<!-- 定义在mvc:interceptor下面的表示是对特定的请求才进行拦截的 -->
 			<bean class="com.gsdp.interceptor.VerifyIdentityInterceptor"/>
 		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<!--这里只拦截了user这个控制器-->
+			<mvc:mapping path="/user/**"/>
+			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/user/register"/>
+			<bean class="com.gsdp.interceptor.UserInterceptor"/>
+		</mvc:interceptor>
+
 	</mvc:interceptors>
 
 </beans>

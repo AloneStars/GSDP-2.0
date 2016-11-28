@@ -78,6 +78,10 @@ public class GroupUtil {
         }
     }
 
+    public static boolean checkApplyReason(String applyReason) {
+        return true;
+    }
+
     public static void main(String[] args) {
 //        System.out.println(isSpecialFormat("dkfjdfj.f.jpgg"));
 //        System.out.println(checkGroupName("aaaaaaaaaaa"));

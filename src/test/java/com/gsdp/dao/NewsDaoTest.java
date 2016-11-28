@@ -2,6 +2,7 @@ package com.gsdp.dao;
 
 import javax.annotation.Resource;
 
+import com.gsdp.enums.news.NewsStatusInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -10,6 +11,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gsdp.entity.user.News;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/spring-dao.xml")
@@ -45,6 +49,17 @@ public class NewsDaoTest {
 		int statue = 1;
 		int newsId = 2;
 		int affectRows = newsDao.changeNewsStatue(statue, newsId);
+		logger.info("影响的行数:" + affectRows);
+	}
+
+	@Test
+	public void batchAddNews() throws Exception {
+		News news1 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",2,6,"",0);
+		News news2 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",2,7,"",0);
+		List<News> list = new ArrayList<News>();
+		list.add(news1);
+		list.add(news2);
+		int affectRows = newsDao.batchAddNew(list);
 		logger.info("影响的行数:" + affectRows);
 	}
 }

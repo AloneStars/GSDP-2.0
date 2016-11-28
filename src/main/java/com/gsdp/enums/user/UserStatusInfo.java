@@ -13,6 +13,7 @@ public enum  UserStatusInfo {
     USER_LOGIN_SUCCESS(0,"用户登录成功"),
     USER_UNDEFINED(1,"用户不存在"),
     USER_LOGIN_MESSAGE_INCORRECT(2,"用户名或者密码错误"),
+    MODIFY_USER_BASE_INFO_SUCCESS(3, "用户基本信息修改成功"),
     USER_LOGOUT_SUCCESS(4,"用户注销成功"),
     USER_LOGOUT_FAILURE(5,"用户注销失败"),
     USER_REGISTER_USEREXISTED(6,"该邮箱已被注册"),
@@ -23,7 +24,11 @@ public enum  UserStatusInfo {
     USER_SENDVERIFYCODE_SUCCESS(11,"验证码发送成功"),
     MODIFY_PASSWORD_SUCCESS(12, "密码修改成功"),
     MODIFY_HEAD_PICTURE_SUCCESS(13, "头像修改成功"),
-    MODIFY_USER_BASE_INFO_SUCCESS(14, "用户基本信息修改成功"),
+
+
+
+    /***************************************/
+    SUPER_ADMIN_USER_ID(9999,"2");
     ;
 
     private int state;

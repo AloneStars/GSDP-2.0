@@ -1,15 +1,24 @@
 package com.gsdp.service.impl;
 
+import com.gsdp.dao.GroupDao;
 import com.gsdp.dao.UserDao;
-import com.gsdp.exception.file.EmptyFileException;
-import com.gsdp.exception.file.FormatNotMatchException;
-import com.gsdp.exception.file.SizeBeyondException;
+import com.gsdp.dto.group.MemberAddition;
+import com.gsdp.entity.group.Member;
+import com.gsdp.enums.news.NewsStatusInfo;
+import com.gsdp.enums.user.UserStatusInfo;
+import com.gsdp.exception.file.*;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.user.User;
+import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
+import com.gsdp.exception.news.ReceiverIsEmptyException;
 import com.gsdp.exception.user.*;
 import com.gsdp.service.CommonService;
+import com.gsdp.service.GroupService;
+import com.gsdp.service.NewsService;
 import com.gsdp.service.UserService;
 import com.gsdp.util.DateUtil;
+import com.gsdp.util.GroupUtil;
 import com.gsdp.util.UserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +37,16 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Autowired
+    private GroupDao groupDao;
+
+    @Autowired
     private CommonService commonService;
+
+    @Autowired
+    private GroupService groupService;
+
+    @Autowired
+    private NewsService newsService;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -221,4 +239,55 @@ public class UserServiceImpl implements UserService {
             return true;
 
     }
+
+    @Override
+    public boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
+            IllegalArgumentException, GroupNotExistException, GroupException {
+
+        if(!(GroupUtil.checkGroupContact(phone) && GroupUtil.checkApplyReason(applyReason))) {
+            throw new IllegalArgumentException("user input information is incorrect");
+        }
+
+        try {
+
+            MemberAddition memberAddition = groupService.addMember(userId, groupId, applyReason, phone);
+
+            if(memberAddition != null && memberAddition.isSuccess()) {
+                /*
+                如果这条数据插入成功，我们就要把消息发给该团队的所有管理员，
+                同时在这里有一点非常重要的业务逻辑的是：如果该数据插入成功，
+                但是没有给团队管理员发送消息，我们也认定该申请提交成功
+                1.查找该团队的所有管理员
+                2.发送消息给所有的管理员
+                 */
+                try {
+                    String newsTitle = NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage();
+
+                    String newsContent = "用户:" + memberAddition.getUsername() + " 申请加入:" +
+                            memberAddition.getGroupName() + " 申请理由:"
+                            + memberAddition.getMember().getApplyReason();
+
+                    List<Integer> admin = groupDao.getGroupAdmin(groupId);
+
+                    newsService.sendMessage(newsTitle, newsContent,
+                            Integer.parseInt(UserStatusInfo.SUPER_ADMIN_USER_ID.getMessage()),admin);
+
+                } catch (ReceiverIsEmptyException e) {
+                    logger.error("receiver is empty");
+                    //do nothing
+                } catch (Exception e) {
+                    logger.error("database update error");
+                    //do nothing
+                }
+                return true;
+            }
+        } catch(GroupNotExistException e) {
+            throw e;
+        } catch (GroupException e) {
+            throw e;
+        }
+        return false;
+    }
+
+
 }

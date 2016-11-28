@@ -30,7 +30,6 @@ public class BaseController {
 
     /**
      * 当直接访问我们项目的根目录，直接跳转到index.jsp
-     * TODO 这里只是做了一个跳转，并没有做相关的查询数据操作
      * @return
      */
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -44,5 +43,22 @@ public class BaseController {
 
         return "index";
     }
+
+    //权限错误显示页
+    @RequestMapping(value = "/authorityError")
+    public String viewAuthorityErrorPage() {
+        return "errorPage/authorityError";
+    }
+
+    //显示404错误的页面
+    @RequestMapping(value = "/pageNotFoundError")
+    public String viewPageNotFoundErrorPage() {
+        return "errorPage/pageNotFoundError";
+    }
+
+    //显示500错误的页面
+
+
+    //显示406参数错误的页面
 
 }

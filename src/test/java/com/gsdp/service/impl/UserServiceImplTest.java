@@ -53,4 +53,14 @@ public class UserServiceImplTest {
         logger.info("user = {}", user);
     }
 
+    @Test
+    public void applyJoinGroup() throws Exception {
+        int userId = 3;
+        int groupId = 4;
+        String applyreason = "我想加入这个组织";
+        String phone = "18900964176";
+        boolean result = userService.applyJoinGroup(userId,groupId,applyreason,phone);
+        logger.info("result = " + result);
+    }
+
 }

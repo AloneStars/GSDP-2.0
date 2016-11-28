@@ -20,6 +20,14 @@
     		user_id = #{userId} and group_id = #{groupId};
     	</where>
     </delete>
+
+
+	<select id="getGroupAdmin" resultType="int">
+		select user_id from admin
+		<where>
+			group_id = #{groupId};
+		</where>
+	</select>
     
     
     <update id="changeOwner">
@@ -34,7 +42,8 @@
     
     
     <insert id="addMember">
-    	insert ignore member values(#{userId},#{groupId});
+    	insert ignore member(user_id,group_id,apply_reason,phone)
+    	values(#{userId},#{groupId},#{applyReason},#{phone});
     </insert>
 
 	<update id="changeMemberNumber">
@@ -61,8 +70,7 @@
     	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors},#{groupStatus},#{groupEvidence});
     </insert>
     
-    
-    <!-- 这个sql存在一定的问题..TODO：sql语句已解决，等待对方确认 -->
+
     <update id="updateGroup">
     	update `group`
     	<set>

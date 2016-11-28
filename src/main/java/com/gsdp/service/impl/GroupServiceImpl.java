@@ -1,12 +1,15 @@
 package com.gsdp.service.impl;
 
 import com.gsdp.dao.GroupDao;
+import com.gsdp.dao.UserDao;
+import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
+import com.gsdp.entity.group.Member;
+import com.gsdp.entity.user.User;
 import com.gsdp.enums.group.GroupStatusInfo;
-import com.gsdp.exception.file.EmptyFileException;
-import com.gsdp.exception.file.FormatNotMatchException;
-import com.gsdp.exception.file.SizeBeyondException;
+import com.gsdp.exception.file.*;
 import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.exception.group.NotInGroupException;
 import com.gsdp.service.CommonService;
@@ -36,6 +39,9 @@ public class GroupServiceImpl implements GroupService {
 
     @Autowired
     private GroupDao groupDao;
+
+    @Autowired
+    private UserDao userDao;
 
     @Autowired
     private CommonService commonService;
@@ -146,19 +152,29 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public boolean addMember(int userId, int groupId) {
+    public MemberAddition addMember(int userId, int groupId, String applyReason, String phone) throws
+    GroupNotExistException, GroupException {
 
-        int number = groupDao.addMember(userId, groupId);
-        int anoNumber = groupDao.changeMemberNumber(1,groupId);
+        try {
+            //1.判断该组织是否存在
+            Group group = groupDao.getGroupMessage(groupId);
+            if(null == group) {
+                throw new GroupNotExistException("group not exist");
+            }
 
-        if((number == 1 )&& (anoNumber ==1)) {
-            logger.info("数据库添加组织成员成功");
-            return true;
+            Member member = new Member(userId,groupId,applyReason,phone);
+
+            if(1 == groupDao.addMember(member)) {
+                User user =  userDao.queryUserMessageById(userId);
+                return new MemberAddition(true,user.getUsername(),group.getGroupName(),member);
+            }
+        } catch (GroupNotExistException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new GroupException("database update error");
         }
-        else {
-            logger.info("数据库添加组织成员数量:{}", number);
-            return false;
-        }
+        return null;
     }
 
     @Override

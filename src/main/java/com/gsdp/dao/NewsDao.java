@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Param;
 
 import com.gsdp.entity.user.News;
 
+import java.util.List;
+
 /**
  * 
  * @author yizijun
@@ -17,6 +19,13 @@ public interface NewsDao {
 	 * @return
 	 */
 	int addNews(News news);
+
+	/**
+	 * 批量的添加消息
+	 * @param news
+	 * @return
+	 */
+	int batchAddNew(List<News> news);
 	
 	/**
 	 * 删除消息

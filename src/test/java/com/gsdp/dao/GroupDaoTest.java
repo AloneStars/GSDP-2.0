@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.gsdp.entity.group.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -58,7 +59,10 @@ public class GroupDaoTest {
 	public void testAddMember() {
 		int userId = 2;
 		int groupId = 4;
-		int affectRows = groupDao.addMember(userId, groupId);
+		String applyReason = "我非常想加这个社团";
+		String phone = "13811111111";
+
+		int affectRows = groupDao.addMember(new Member(userId,groupId,applyReason,phone));
 		logger.info("影响的行数:" + affectRows);
 	}
 	
@@ -134,9 +138,16 @@ public class GroupDaoTest {
 	}
 
 	@Test
-	public void isSameGroupName() {
+	public void isSameGroupName() throws Exception{
 		String groupName = "动漫社";
 		int affectRows = groupDao.isSameGroupName(groupName);
 		logger.info("影响的行数:" + affectRows);
+	}
+
+	@Test
+	public void getGroupAdmin() throws Exception {
+		int group_id = 4;
+		List<Integer> admin = groupDao.getGroupAdmin(group_id);
+		logger.info("admin = {}", admin);
 	}
 }

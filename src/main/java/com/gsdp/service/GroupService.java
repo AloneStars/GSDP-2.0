@@ -1,10 +1,11 @@
 package com.gsdp.service;
 
+import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
-import com.gsdp.exception.file.EmptyFileException;
-import com.gsdp.exception.file.FormatNotMatchException;
-import com.gsdp.exception.file.SizeBeyondException;
+import com.gsdp.entity.user.User;
+import com.gsdp.exception.file.*;
 import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.exception.group.NotInGroupException;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,8 +46,18 @@ public interface GroupService {
     //删除管理员
     boolean delAdmin(int userId, int groupId);
 
-    //添加组织成员
-    boolean addMember(int userId, int groupId);
+    /**
+     *向member表中插入一条数据
+     * @param userId
+     * @param groupId
+     * @param applyReason
+     * @param phone
+     * @return 添加成功就返回这个用户的信息
+     * @throws GroupNotExistException  所传的社团并不存在
+     * @throws GroupException  数据库更新异常
+     */
+    MemberAddition addMember(int userId, int groupId, String applyReason, String phone) throws
+            GroupNotExistException, GroupException;
 
     /**
      *

@@ -6,10 +6,13 @@ import com.gsdp.dto.Token;
 import com.gsdp.email.Send;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
+import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.enums.user.UserStatusInfo;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
+import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.user.*;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
@@ -23,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -183,7 +185,7 @@ public class UserController {
         return new JsonData(true,UserStatusInfo.USER_LOGOUT_SUCCESS.getMessage());
     }
 
-    @RequestMapping(value = "/modifyBaseInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/modifyBaseInfo", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData modifyUserBaseInfo(String username, int age, int sex, String weChat,
                                        String userDec, HttpSession session) {
@@ -204,6 +206,27 @@ public class UserController {
         } catch (UserException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/applyJoinGroup", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData applyJoinGroup(int groupId, String applyReason, String phone, HttpSession session) {
+
+        int userId = ((User)session.getAttribute("user")).getUserId();
+        try {
+            if(userService.applyJoinGroup(userId, groupId,applyReason,phone)) {
+                return new JsonData(true,"",GroupStatusInfo.APPLICATION_HAS_BEEN_SUBMITTED.getMessage());
+            } else {
+                return new JsonData(false,GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
+            }
+        } catch(IllegalArgumentException e) {
+                return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+        } catch (GroupNotExistException e) {
+            return new JsonData(false, GroupStatusInfo.GROUP_NOT_EXIST.getMessage());
+        } catch (GroupException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+
     }
 
 }

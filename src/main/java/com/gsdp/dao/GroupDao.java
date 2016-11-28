@@ -2,6 +2,7 @@ package com.gsdp.dao;
 
 import java.util.List;
 
+import com.gsdp.entity.group.Member;
 import org.apache.ibatis.annotations.Param;
 
 import com.gsdp.entity.group.Group;
@@ -28,6 +29,13 @@ public interface GroupDao {
 	 * @return
 	 */
 	int deleteAdmin(@Param("userId") int userId, @Param("groupId") int groupId);
+
+	/**
+	 * 获取一个团队的所有管理员的id
+	 * @param groupId
+	 * @return
+	 */
+	List<Integer> getGroupAdmin(int groupId);
 	
 	/**
 	 * 转让组织给别人
@@ -36,14 +44,14 @@ public interface GroupDao {
 	 * @return
 	 */
 	int changeOwner(@Param("userId") int userId, @Param("groupId") int groupId);
-	
+
+
 	/**
-	 * 添加团体成员
-	 * @param userId
-	 * @param groupId
+	 *
+	 * @param member
 	 * @return
 	 */
-	int addMember(@Param("userId") int userId, @Param("groupId") int groupId);
+	int addMember(Member member);
 	
 	/**
 	 * 删除团体成员
