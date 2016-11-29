@@ -7,9 +7,7 @@ public class News {
 	private String newsTitle;
 	
 	private String newsContent;
-	
-	private int fromAddress;
-	
+
 	private int toAddress;
 	
 	private String sendTime;
@@ -19,11 +17,8 @@ public class News {
 	
 	public News() {}
 	
-	public News(String newsTitle, String newsContent, int fromAddress,
-			int toAddress, String sendTime, int statue) {
+	public News(String newsTitle, String newsContent, int toAddress, String sendTime, int statue) {
 		this.newsTitle = newsTitle;
-		this.newsContent = newsContent;
-		this.fromAddress = fromAddress;
 		this.toAddress = toAddress;
 		this.sendTime = sendTime;
 		this.statue = statue;
@@ -55,14 +50,6 @@ public class News {
 		this.newsContent = newsContent;
 	}
 
-	public int getFromAddress() {
-		return fromAddress;
-	}
-
-	public void setFromAddress(int fromAddress) {
-		this.fromAddress = fromAddress;
-	}
-
 	public int getToAddress() {
 		return toAddress;
 	}
@@ -92,8 +79,7 @@ public class News {
 	@Override
 	public String toString() {
 		return "News [newsId=" + newsId + ", newsTitle=" + newsTitle
-				+ ", newsContent=" + newsContent + ", fromAddress="
-				+ fromAddress + ", toAddress=" + toAddress + ", sendTime="
+				+ ", newsContent=" + newsContent +  ", toAddress=" + toAddress + ", sendTime="
 				+ sendTime + ", statue=" + statue + "]";
 	}
 }

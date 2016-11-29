@@ -45,7 +45,7 @@
             </div>
         </c:when>
         <c:otherwise>
-            <div id="Login" onclick="user.showLoginDialog();">
+            <div id="Login" onclick="login.showLoginDialog();">
                 登陆/注册
             </div>
         </c:otherwise>

@@ -10,9 +10,11 @@
     font-family: "Micro YaHei";
 }
 
+/*createActivity.jsp所特有的css*/
 input.set-height {
     height: 34px;
 }
+/*createActivity.jsp所特有的css*/
 
 /*createGroup.jsp所特有的css*/
 .file {
@@ -47,6 +49,19 @@ input.set-height {
 }
 /*createGroup.jsp所特有的css*/
 
+/*groupMemberManager.jsp所特有的css*/
+li.jump-page {
+    display: inline-block;
+    color:#428bca;
+    height: 34px;
+    line-height: 34px;
+    margin-left: 5px;
+}
+#group-apply-member-manager-table .operation {
+    width: 85px;
+}
+/*groupMemberManager.jsp所特有的css*/
+
 .create-activity-size {
     width: 700px;
     min-height: 300px;
@@ -58,19 +73,37 @@ input.set-height {
     min-height: 600px;
     border:none;
 }
+
 .create-group-size {
     width:465px;
     min-height: 545px;
     border:none;
 }
+
 .login-register-dialog-size {
     width: 450px;
     min-height: 240px;
     border:none;
 
 }
+
 .modify-password-size {
     width: 500px;
     min-height: 300px;
+    border:none;
+}
+
+.join-group-size {
+    width:400px;
+    min-height: 300px;
+    border:none;
+}
+.group-apply-member-manager-size {
+    width:1200px;
+    min-height: 550px;
+}
+.publish-notice-size {
+    width:400px;
+    min-height:320px;
     border:none;
 }

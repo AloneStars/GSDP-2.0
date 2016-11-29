@@ -21,37 +21,37 @@
         <c:when test="${Owner}">
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="组织信息管理" onclick="alert('组织信息管理');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/GroupMsg.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="发布资源" onclick="alert('发布资源');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Resource.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);"  title="发布活动" onclick="activity.clickActivity()">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Activity.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="发布动态" onclick="alert('发布动态');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Situation.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="发布通知" onclick="alert('发布通知');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
+                <a class="link" href="javascript:void(0);" title="发布通知" onclick="notice.showPublishNotice();">
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Notice.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="成员管理" onclick="alert('成员管理');">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="管理员管理" onclick="alert('管理员管理');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Admin.png');"></span>
                 </a>
             </div>
         </c:when>
@@ -128,3 +128,5 @@
 <%@ include file="../dialog/createSituation.jsp"%>
 <!--创建组织模态框-->
 <%@ include file="../dialog/createGroup.jsp"%>
+<%--发布通知的模态框--%>
+<%@ include file="../dialog/publishNotice.jsp"%>
