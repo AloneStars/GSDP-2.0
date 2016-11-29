@@ -2,7 +2,6 @@ package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
 import com.gsdp.dto.Pagination;
-import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Situation;
 import com.gsdp.enums.pagination.PaginationStatusInfo;
 import com.gsdp.service.SituationService;

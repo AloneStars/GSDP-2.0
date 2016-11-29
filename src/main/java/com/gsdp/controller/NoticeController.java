@@ -1,16 +1,18 @@
 package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
-import com.gsdp.entity.group.Reply;
+import com.gsdp.entity.group.Notice;
 import com.gsdp.entity.user.User;
+import com.gsdp.enums.Ntoice.NoticeStatusInfo;
 import com.gsdp.enums.Reply.ReplyStatusInfo;
 import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
-import com.gsdp.service.ReplyService;
+import com.gsdp.service.NoticeService;
 import com.gsdp.util.DateUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,39 +23,37 @@ import javax.servlet.http.HttpSession;
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
  * +吾名 "暴力的小石头/ViolentStone",吾乃一Java程序猿
  * +吾信 "猿" 乃一世变者
- * +你见到的这个玩意儿,就是吾在 2016/11/28 创造的作品
+ * +你见到的这个玩意儿,就是吾在 2016/11/29 创造的作品
  * ********************************************************
- * +描述:回复相关的controller
+ * +描述:通知相关的controller
  *********************************************************/
 @Controller
-@RequestMapping("/reply")
-public class ReplyController {
+@RequestMapping("/notice")
+public class NoticeController {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
-    private ReplyService replyService;
+    private NoticeService noticeService;
 
     @RequestMapping(value = "/creation",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
-    public JsonData addReply(int situationId, String replyContent, HttpSession session){
+    public JsonData addNotice(String noticeContent, int groupId, HttpSession session){
 
-        System.out.println("test");
-        System.out.println(situationId);
-        System.out.println(replyContent);
+        User user = (User)session.getAttribute("user");
 
-        User user = (User) session.getAttribute("user");
-
-        System.out.println(user);
+        Notice notice = new Notice(noticeContent, DateUtil.getDataString(),user.getUserId(),groupId);
 
         try {
-            Reply reply = new Reply(replyContent, user.getUserId(), DateUtil.getDataString(), situationId, user);
-            if(replyService.addReply(reply))
-                return new JsonData(false,ReplyStatusInfo.REPLY_CREATE_SUCCESS.getMessage());
+            if(noticeService.addNoticeMessage(notice))
+                return new JsonData(true, NoticeStatusInfo.NOTICE_CREATE_SUCCESS.getMessage());
             else
-                return  new JsonData(false,ReplyStatusInfo.REPLY_CREATE_FAILURE.getMessage());
+                return  new JsonData(false,NoticeStatusInfo.NOTICE_CREATE_FAILURE.getMessage());
         }catch (MessageSizeException e){
-            return  new JsonData(false,ReplyStatusInfo.REPLY_MESSAGESIZE_INCORRECT.getMessage());
+            return  new JsonData(false,NoticeStatusInfo.NOTICE_MESSAGESIZE_INCORRECT.getMessage());
         } catch(SqlActionWrongException e){
-            return  new JsonData(false,ReplyStatusInfo.REPLY_CREATE_FAILURE.getMessage());
+            return  new JsonData(false,NoticeStatusInfo.NOTICE_CREATE_FAILURE.getMessage());
         }
+
     }
 }

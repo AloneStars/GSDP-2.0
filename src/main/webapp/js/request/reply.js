@@ -15,8 +15,8 @@ var reply = {
         if(message.length==0){
             alert("评论内容不能为空");
             return false;
-        }else if(message.length>=50){
-            alert("评论内容不能超过50字");
+        }else if(message.length>=200){
+            alert("评论内容不能超过200字");
             return false;
         }else{
             return true;

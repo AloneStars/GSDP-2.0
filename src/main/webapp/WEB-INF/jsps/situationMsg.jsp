@@ -68,8 +68,16 @@
                 </div>
                 <div class="comment">
                     <form action="" method="post">
-                        <input id="replyMessage" class="message" type="text" autocomplete="off"/>
-                        <input id="reply" class="submit" type="button" value="发表"/>
+                        <c:choose>
+                            <c:when test="${sessionScope.get('user') != null}">
+                                <input id="replyMessage" class="message" type="text" placeholder="你想说点啥呢...(200字以内效果最佳)" autocomplete="off"/>
+                                <input id="reply" class="submit" type="button" value="发表"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input id="replyMessage" class="message" type="text" placeholder="你想说点啥呢...(200字以内效果最佳)" autocomplete="off" disabled/>
+                                <input id="reply" class="submit" type="button" value="发表" disabled/>
+                            </c:otherwise>
+                        </c:choose>
                     </form>
                 </div>
             </div>

@@ -20,7 +20,8 @@ public enum UserStatusInfo {
     USER_REGISTER_VERIFTCORRECT(8,"验证码不正确"),
     USER_REGISTER_SUCCESS(9,"用户注册成功"),
     USER_REGISTER_FAILURE(10,"用户注册失败"),
-    USER_SENDVERIFYCODE_SUCCESS(11,"验证码发送成功")
+    USER_SENDVERIFYCODE_SUCCESS(11,"验证码发送成功"),
+    USER_NOT_LOGIN(12,"用户尚未登录，请先登录")
     ;
 
     private int status;
