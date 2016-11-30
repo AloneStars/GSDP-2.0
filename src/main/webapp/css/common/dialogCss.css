@@ -102,3 +102,8 @@ li.jump-page {
     width:1200px;
     min-height: 550px;
 }
+.publish-notice-size {
+    width:400px;
+    min-height:320px;
+    border:none;
+}

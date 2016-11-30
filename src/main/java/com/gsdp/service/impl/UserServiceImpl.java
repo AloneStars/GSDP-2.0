@@ -269,8 +269,7 @@ public class UserServiceImpl implements UserService {
 
                     List<Integer> admin = groupDao.getGroupAdmin(groupId);
 
-                    newsService.sendMessage(newsTitle, newsContent,
-                            Integer.parseInt(UserStatusInfo.SUPER_ADMIN_USER_ID.getMessage()),admin);
+                    newsService.sendMessage(newsTitle, newsContent,admin);
 
                 } catch (ReceiverIsEmptyException e) {
                     logger.error("receiver is empty");

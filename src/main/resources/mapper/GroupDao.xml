@@ -39,12 +39,63 @@
     		group_id = #{groupId};
     	</where>
     </update>
+
+
+	<select id="getGroupAllNumberByStatus" resultType="int">
+		select count(*) from member
+		<where>
+			group_id = #{groupId} and status = #{status};
+		</where>
+	</select>
+
+
+	<select id="getGroupMembersByStatus" resultType="Member">
+		select
+
+		m.user_id as "userId",
+		m.group_id as "groupId",
+		m.apply_reason as "applyReason",
+		m.phone as "phone",
+		m.status as "status",
+
+		u.user_id as "user.userId",
+		u.headPicture as "user.headPicture",
+		u.loginEmail as "user.loginEmail",
+		u.username as "user.username",
+		u.user_dec as "user.userDec",
+		u.sex as "user.sex",
+		u.age as "user.age",
+		u.wechat as "user.weChat",
+		u.phone as "user.phone"
+		from member as m inner join `user` as u on
+		m.user_id = u.user_id
+		<where>
+			m.group_id = #{groupId} and m.status = #{status}
+			order by m.user_id limit ${offset},${limit};
+		</where>
+	</select>
     
     
     <insert id="addMember">
     	insert ignore member(user_id,group_id,apply_reason,phone)
     	values(#{userId},#{groupId},#{applyReason},#{phone});
     </insert>
+
+	<update id="updateMember">
+		update member
+		<set>
+			<if test="applyReason != null and !applyReason.equals('')">
+				apply_reason = #{applyReason},
+			</if>
+			<if test="phone != null and !phone.equals('')">
+				phone = #{phone},
+			</if>
+			status = #{status}
+			<where>
+				user_id = #{userId} and group_id = #{groupId};
+			</where>
+		</set>
+	</update>
 
 	<update id="changeMemberNumber">
 		UPDATE  `group`

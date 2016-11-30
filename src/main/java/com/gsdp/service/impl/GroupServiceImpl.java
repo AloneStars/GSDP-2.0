@@ -2,11 +2,14 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.GroupDao;
 import com.gsdp.dao.UserDao;
+import com.gsdp.dto.group.GroupApplyMember;
 import com.gsdp.dto.group.MemberAddition;
+import com.gsdp.entity.Page;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Member;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.group.GroupStatusInfo;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
@@ -275,5 +278,66 @@ public class GroupServiceImpl implements GroupService {
             throw new GroupException("database update error");
         }
         return null;
+    }
+
+    @Override
+    public GroupApplyMember getGroupMembersByStatus(int groupId, int status, int currentPage, int limit) throws
+    GroupNotExistException, SqlActionWrongException {
+
+        try {
+            Group group = groupDao.getGroupMessage(groupId);
+            if(null == group) {
+                throw new GroupNotExistException("group not exist");
+            }
+
+            int groupNumbers = groupDao.getGroupAllNumberByStatus(groupId, status);
+
+            //初始化分页参数
+            Page page = new Page();
+            page.initPage(groupNumbers, currentPage, limit);
+
+            List<Member> members = groupDao.getGroupMembersByStatus(groupId,status,page.getStartNumbers(),page.getPerPageDisplay());
+
+            return new GroupApplyMember(page,members);
+
+        } catch (GroupNotExistException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean agreeUserJoinGroup(int userId, int groupId) throws
+    SqlActionWrongException {
+
+        //TODO 在这里就不判断该团队是否存在了，也不会对后端造成什么影响
+        try {
+            if(1 == groupDao.updateMember(new Member(userId, groupId,1))) {
+                if(1 == groupDao.changeMemberNumber(1, groupId)) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
+    }
+
+    @Override
+    public boolean disagreeUserJoinGroup(int userId, int groupId) throws
+            SqlActionWrongException {
+        try {
+            if(1 == groupDao.deleteMember(userId,groupId)) {
+                return true;
+            }
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
     }
 }

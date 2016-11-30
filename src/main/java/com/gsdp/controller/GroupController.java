@@ -2,6 +2,7 @@ package com.gsdp.controller;
 
 import com.google.gson.Gson;
 import com.gsdp.dto.JsonData;
+import com.gsdp.dto.group.GroupApplyMember;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Situation;
@@ -9,10 +10,12 @@ import com.gsdp.entity.user.User;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.group.GroupRepeatException;
 import com.gsdp.exception.group.NotInGroupException;
 import com.gsdp.service.ActivityService;
@@ -37,6 +40,7 @@ import java.util.List;
  * +你见到的这个玩意儿,就是吾在 2016/10/31 创造的作品
  * ********************************************************
  * +描述:组织相关的控制类
+ *
  *********************************************************/
 @Controller
 @RequestMapping("/group")
@@ -197,7 +201,52 @@ public class GroupController {
     }
 
 
+    @RequestMapping(value = "/applyMembers", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData getGroupApplyMembers(int groupId, int currentPage, int limit) {
 
+        try {
+            GroupApplyMember groupApplyMember = groupService.getGroupMembersByStatus(groupId, 0, currentPage, limit);
+            if(null != groupApplyMember) {
+                return new JsonData(true, groupApplyMember, GroupStatusInfo.GET_GROUP_APPLY_MEMBER_SUCCESS.getMessage());
+            } else {
+               return new JsonData(false, GroupStatusInfo.GET_GROUP_APPLY_MEMBER_FAILED.getMessage());
+            }
+        } catch (GroupNotExistException e) {
+            return new JsonData(false, GroupStatusInfo.GROUP_NOT_EXIST.getMessage());
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+
+    @RequestMapping(value = "/agreeJoin", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData agreeUserJoinGroup(int userId, int groupId) {
+        try {
+            if(groupService.agreeUserJoinGroup(userId,groupId)) {
+                return new JsonData(true,"",GroupStatusInfo.OPERATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false,GroupStatusInfo.OPERATION_FAIL.getMessage());
+            }
+        } catch (SqlActionWrongException e) {
+           return new JsonData(false,BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/disagreeJoin", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData disagreeJoinGroup(int userId, int groupId) {
+        try {
+            if(groupService.disagreeUserJoinGroup(userId, groupId)) {
+                return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false,GroupStatusInfo.OPERATION_FAIL.getMessage());
+            }
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false,BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
 
 
 

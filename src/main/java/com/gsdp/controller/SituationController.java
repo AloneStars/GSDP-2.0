@@ -2,8 +2,6 @@ package com.gsdp.controller;
 
 import com.gsdp.dto.JsonData;
 import com.gsdp.dto.Pagination;
-import com.gsdp.entity.group.Activity;
-import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Situation;
 import com.gsdp.enums.pagination.PaginationStatusInfo;
 import com.gsdp.entity.user.User;
@@ -105,11 +103,6 @@ public class SituationController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
    }
-
-    @RequestMapping(value = "/createSituation", method = RequestMethod.GET)
-    public String viewCreateSituation() {
-        return "createSituation";
-    }
 
     @RequestMapping(value = "/pagination", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody

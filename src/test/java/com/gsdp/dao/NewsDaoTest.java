@@ -28,11 +28,10 @@ public class NewsDaoTest {
 	public void testAddNews() {
 		String newsTitle = "吃饭了吗?";
 		String newsContent = "我反正吃了。";
-		int fromAddress = 1;
 		int toAddress = 2;
 		String sendTime = "2016-10-27";
 		int statue = 0;
-		News news = new News(newsTitle, newsContent, fromAddress, toAddress, sendTime, statue);
+		News news = new News(newsTitle, newsContent, toAddress, sendTime, statue);
 		int affectRows = newsDao.addNews(news);
 		logger.info("影响的行数:" + affectRows + "自增的id:" + news.getNewsId());
 	}
@@ -54,8 +53,8 @@ public class NewsDaoTest {
 
 	@Test
 	public void batchAddNews() throws Exception {
-		News news1 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",2,6,"",0);
-		News news2 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",2,7,"",0);
+		News news1 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",6,"",0);
+		News news2 = new News(NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage(),"有成员申请该团队",7,"",0);
 		List<News> list = new ArrayList<News>();
 		list.add(news1);
 		list.add(news2);

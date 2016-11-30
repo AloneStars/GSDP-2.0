@@ -6,6 +6,28 @@ var group = {
     "url" : {
         "groupCreation" : function () {
             return "/gsdp/group/creation";
+        },
+
+        "getGroupApplyMembers" : function () {
+            return "/gsdp/group/applyMembers";
+        },
+
+        "agreeUserJoinGroup" : function () {
+            return "/gsdp/group/agreeJoin"
+        },
+
+        "disagreeUserJoinGroup" : function () {
+            return "/gsdp/group/disagreeJoin";
+        }
+    },
+
+    //分页参数
+    "pagination" : {
+
+        "groupApplyMember" : {
+            "totalPages" : 0,
+            "initCurrentPage" : 1,
+            "limit" : 8
         }
     },
 
@@ -83,7 +105,7 @@ var group = {
         }
     },
 
-    //还原dialog
+    //还原CreateGroupDialog
     "recoveryCreateGroupDialog"  : function() {
         /*
         1.把所有的提示信息全部清除，
@@ -107,14 +129,89 @@ var group = {
             $(".join-group-size").outerWidth(), "join-group-dialog");
     },
 
+    "closeJoinGroupDialog" : function () {
+        $("#join-group-form div").removeClass("has-error has-success");
+        $("#join-group-form .err-info").html("");
+        $("#join-group-form")[0].reset();
+    },
+
+    /**
+     * 显示团队成员申请管理时完成的动作
+     */
     "showGroupApplyMemberManager" : function () {
+        group.getGroupApplyMembers(group.pagination.groupApplyMember.initCurrentPage,
+            group.pagination.groupApplyMember.limit);
+        group.initGroupApplyMembersPagination(group.pagination.groupApplyMember.totalPages,
+            group.pagination.groupApplyMember.limit);
         dialog.showDialog(parseInt($(".group-apply-member-manager-size").css("min-height")),
         $(".group-apply-member-manager-size").outerWidth(),"group-apply-member-manager-dialog")
+    },
+
+    //显示发布通知模态框
+    "showPublishNotice" : function () {
+        dialog.showDialog(parseInt($(".publish-notice-size").css("min-height")),
+        $(".publish-notice-size").outerWidth(), "publish-notice-dialog");
     },
 
     "closeCreateGroupDialog" : function () {
         dialog.closeDialog();
         group.recoveryCreateGroupDialog();
+    },
+
+    "getGroupApplyMembers" : function (currentPage, limit) {
+        var groupId = $("#groupId").text();
+
+        $.ajax({
+            url : group.url.getGroupApplyMembers(),
+            type : "post",
+            dataType : "json",
+            async : false,
+            data : {
+                "groupId" : groupId,
+                "currentPage" : currentPage,
+                "limit" : limit
+            },
+            success : function (data) {
+                if(data.success) {
+                    $("#group-apply-member-manager-table tbody").empty();
+                    for(var i = 0; i < data.data.members.length; ++i) {
+                        $("#group-apply-member-manager-table tbody").
+                        append("<tr class='success'><td>" + (i+1) + "</td><td>" + data.data.members[i].user.username +
+                            "</td><td>" + data.data.members[i].phone + "</td><td>" + data.data.members[i].applyReason +
+                            "</td><td class='operation' user-id='" + data.data.members[i].userId +
+                            "'><button type='button' title='同意' class='btn btn-info btn-sm'>√</button>" +
+                            "<button type='button' title='不同意' class='btn btn-sm btn-default'>×</button></td></tr>");
+                    }
+                    group.pagination.groupApplyMember.totalPages = data.data.page.totalPages;
+                } else {
+                    alert(data.message);
+                }
+            },
+            error : function () {
+                //do nothing
+            }
+        });
+
+    },
+
+    /**
+     * 初始化团队成员申请管理的分页
+     * @param totalNumbers
+     * @param limit
+     */
+    "initGroupApplyMembersPagination" : function (totalNumbers, limit) {
+        $(".modal-footer .M-box3").pagination({
+            pageCount:totalNumbers,//总共的页数
+            jump:true,
+            coping:true,
+            homePage:'首页',
+            endPage:'末页',
+            prevContent:'上页',
+            nextContent:'下页',
+            callback: function (api) {
+                group.getGroupApplyMembers(api.getCurrent(), limit);
+            }
+        });
     },
 
     "groupCreation" : function () {
@@ -140,7 +237,7 @@ var group = {
                 url : group.url.groupCreation(),
                 secureuri : false,
                 fileElementId : "profile",
-                dataType : "JSON",
+                dataType : "json",
                 data : {
                     "groupName" : groupName,
                     "groupContact" : groupContact,
@@ -148,11 +245,53 @@ var group = {
                     "groupType" : groupType,
                     "groupDec" : groupDec
                 },
-                success : function(data, status) {
+                success : function(data) {
                    alert(data);
                 }
             });
         }
+    },
+
+    /**
+     * 同意用户加入团队
+     */
+    "agreeUserJoinGroup" : function (userId) {
+        var groupId = $("#groupId").text();
+
+        $.post(group.url.agreeUserJoinGroup(),
+            {
+                "userId" : userId,
+                "groupId" : groupId
+            }, function (data) {
+                if(data.success) {
+                    group.getGroupApplyMembers(group.pagination.groupApplyMember.initCurrentPage,
+                        group.pagination.groupApplyMember.limit);
+                    group.initGroupApplyMembersPagination(group.pagination.groupApplyMember.totalPages,
+                        group.pagination.groupApplyMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            });
+    },
+
+    "disagreeUserJoinGroup" : function (userId) {
+
+        var groupId = $("#groupId").text();
+
+        $.post(group.url.disagreeUserJoinGroup(),
+            {
+                "userId" : userId,
+                "groupId" : groupId
+            },function (data) {
+                if(data.success) {
+                    group.getGroupApplyMembers(group.pagination.groupApplyMember.initCurrentPage,
+                        group.pagination.groupApplyMember.limit);
+                    group.initGroupApplyMembersPagination(group.pagination.groupApplyMember.totalPages,
+                        group.pagination.groupApplyMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            });
     }
 
     //TODO
@@ -221,5 +360,19 @@ $(function () {
     $("#submit-apply-group").on("click", function () {
         group.groupCreation();
     });
+
+    //当点击同意按钮的时候
+    /*
+    注意这里我在tbody td.operation > button：eq(0)这种选择器的时候有点坑，其只会选择第一个，而不是
+    选择所有button下面的第一个
+     */
+    $("#group-apply-member-manager-table").on("click","tbody td.operation > button[title='同意']", function () {
+        group.agreeUserJoinGroup($(this).parent().attr("user-id"));
+    });
+
+    //当点击不同意按钮的时候
+    $("#group-apply-member-manager-table").on("click", "tbody td.operation > button[title='不同意']", function () {
+        group.disagreeUserJoinGroup($(this).parent().attr("user-id"));
+    })
 
 });

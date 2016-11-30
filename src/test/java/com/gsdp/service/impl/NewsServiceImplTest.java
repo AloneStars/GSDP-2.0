@@ -31,9 +31,8 @@ public class NewsServiceImplTest {
 
         String newsTitle = NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage();
         String newsContent = "有人加入社团";
-        int sender = 2;
         List<Integer> receiver = Arrays.asList(6,7,8,9);
-        boolean result = newsService.sendMessage(newsTitle,newsContent,2,receiver);
+        boolean result = newsService.sendMessage(newsTitle,newsContent,receiver);
         logger.info("result = " + result);
     }
 

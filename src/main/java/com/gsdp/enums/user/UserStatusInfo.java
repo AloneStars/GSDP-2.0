@@ -24,11 +24,6 @@ public enum  UserStatusInfo {
     USER_SENDVERIFYCODE_SUCCESS(11,"验证码发送成功"),
     MODIFY_PASSWORD_SUCCESS(12, "密码修改成功"),
     MODIFY_HEAD_PICTURE_SUCCESS(13, "头像修改成功"),
-
-
-
-    /***************************************/
-    SUPER_ADMIN_USER_ID(9999,"2");
     ;
 
     private int state;

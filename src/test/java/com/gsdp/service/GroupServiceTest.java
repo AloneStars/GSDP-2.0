@@ -1,9 +1,10 @@
 package com.gsdp.service;
 
 import com.google.gson.Gson;
+import com.gsdp.dto.group.GroupApplyMember;
 import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
-import com.gsdp.entity.user.User;
+import com.gsdp.entity.group.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -115,6 +116,32 @@ public class GroupServiceTest {
         int groupId = 3;
         String message = groupService.quitGroup(userId, groupId);
         logger.info("message = {}", message);
+    }
+
+    @Test
+    public void getGroupMembersByStatus() throws Exception {
+        int groupId = 3;
+        int status = 0;
+        int currentPage = -3;
+        int limit = 100;
+        GroupApplyMember groupApplyMember = groupService.getGroupMembersByStatus(groupId,status,currentPage,limit);
+        logger.info("groupApplyMember = {}", groupApplyMember);
+    }
+
+    @Test
+    public void agreeUserJoinGroup() throws Exception {
+        int userId = 2;
+        int groupId = 5;
+        boolean result = groupService.agreeUserJoinGroup(userId, groupId);
+        logger.info("result = " + result);
+    }
+
+    @Test
+    public void disagreeUserJoinGroup() throws Exception {
+        int userId = 3;
+        int groupId = 4;
+        boolean result = groupService.disagreeUserJoinGroup(userId, groupId);
+        logger.info("result = " + result);
     }
 
 }

@@ -11,6 +11,7 @@
     <link href="${pageContext.request.contextPath}/css/pathMenu/pathMenu.css" type="text/css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/pagination/pagination.css" rel="stylesheet"/>
 </head>
 <body>
 <jsp:include page="common/background.jsp"/>
@@ -167,6 +168,8 @@
 </div>
 <!--加入隐藏背面-->
 <div class="hideBack"></div>
+<script src="${pageContext.request.contextPath}/js/pagination/jquery.pagination.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/pagination/situationPagination.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/myDialog.js"></script>
 <script src="${pageContext.request.contextPath}/common/datepicker/laydate.dev.js"></script>
 <!-- 配置文件 -->

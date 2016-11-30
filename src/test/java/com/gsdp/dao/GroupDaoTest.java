@@ -150,4 +150,28 @@ public class GroupDaoTest {
 		List<Integer> admin = groupDao.getGroupAdmin(group_id);
 		logger.info("admin = {}", admin);
 	}
+
+	@Test
+	public void getGroupMembersByStatus() throws Exception {
+		int groupId = 3;
+		List<Member> list = groupDao.getGroupMembersByStatus(groupId,0,0,100);
+		logger.info("list = {}", list);
+	}
+
+	@Test
+	public void getGroupAllNumberByStatus() {
+		int groupId = 3;
+		int status = 0;
+		int numbers = groupDao.getGroupAllNumberByStatus(groupId,status);
+		logger.info("numbers = " + numbers);
+	}
+
+	@Test
+	public void updateMember() throws Exception {
+		int userId = 2;
+		int groupId = 3;
+		int status = 1;
+		int affectRows = groupDao.updateMember(new Member(userId,groupId,status));
+		logger.info("影响的行数:" + affectRows);
+	}
 }

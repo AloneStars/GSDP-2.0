@@ -25,7 +25,7 @@ public class NewsServiceImpl implements NewsService {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public boolean sendMessage(String newsTitle, String newsContent, int sender, List<Integer> receiver) throws
+    public boolean sendMessage(String newsTitle, String newsContent, List<Integer> receiver) throws
             ReceiverIsEmptyException {
 
         if(receiver == null || receiver.size() == 0) {
@@ -36,7 +36,7 @@ public class NewsServiceImpl implements NewsService {
         List<News> list = new ArrayList<>(receiver.size());
 
         for(Integer user : receiver) {
-                list.add(new News(newsTitle,newsContent,sender,user, DateUtil.dateToString("yyyy-MM-dd"),0));
+                list.add(new News(newsTitle,newsContent,user, DateUtil.dateToString("yyyy-MM-dd"),0));
         }
 
         try {

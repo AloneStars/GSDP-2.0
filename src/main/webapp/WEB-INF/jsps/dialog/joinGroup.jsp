@@ -3,7 +3,7 @@
 <div class="dialog dialog-shadow" id="join-group-dialog">
     <div class="modal-content join-group-size">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="group.closeJoinGroupDialog();">
                 ×
             </button>
             <h4 class="modal-title" id="join-group-modal">
@@ -13,11 +13,11 @@
         <form method="post" class="form-horizontal" role="form" id="join-group-form">
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="apply-group-contact" class="col-sm-4 control-label">
+                    <label for="apply-join-group-contact" class="col-sm-4 control-label">
                         手机号码:
                     </label>
                     <div class="col-sm-7">
-                        <input type="text" class="form-control" name="contact" id="apply-group-contact"
+                        <input type="text" class="form-control" name="contact" id="apply-join-group-contact"
                                placeholder="例如:13811111111"/>
                         <div class="err-info"></div>
                     </div>
@@ -35,10 +35,10 @@
             </div>
             <div class="modal-footer">
                 <div class="row text-center">
-                    <button type="button" class="btn btn-primary">
+                    <button type="button" class="btn btn-primary" onclick="user.applyJoinGroup();">
                         确定
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="dialog.closeDialog();">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="group.closeJoinGroupDialog();">
                         取消
                     </button>
                 </div>

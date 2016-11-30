@@ -62,6 +62,32 @@ public interface GroupDao {
 	int deleteMember(@Param("userId") int userId, @Param("groupId") int groupId);
 
 	/**
+	 * 根据userId和groupId来更新Member
+	 * @param member
+	 * @return
+	 */
+	int updateMember(Member member);
+
+	/**
+	 * 根据特定的状态（也就是查看是申请中，还是已加入该团队）来获取相关团队成员信息，同时
+	 * 包括该用户的详细信息，但是密码被我们给抹去了
+	 * @param groupId
+	 * @param status
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	List<Member> getGroupMembersByStatus(@Param("groupId") int groupId, @Param("status") int status,
+										 @Param("offset") int offset, @Param("limit") int limit);
+
+	/**
+	 * 根据状态获取一个团队所有的人数
+	 * @param groupId
+	 * @param status
+	 * @return
+	 */
+	int getGroupAllNumberByStatus(@Param("groupId") int groupId, @Param("status") int status);
+	/**
 	 * 更改成员数量
 	 * @param number
 	 * @param groupId

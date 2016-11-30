@@ -1,8 +1,9 @@
 package com.gsdp.service;
 
+import com.gsdp.dto.group.GroupApplyMember;
 import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
-import com.gsdp.entity.user.User;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
@@ -91,4 +92,36 @@ public interface GroupService {
     Group createGroup(Group group, MultipartFile multipartFile) throws
             EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException,GroupRepeatException, GroupException;
 
+    /**
+     *
+     * @param groupId
+     * @param status
+     * @param currentPage
+     * @param limit
+     * @return
+     * @throws GroupNotExistException
+     * @throws SqlActionWrongException
+     */
+    GroupApplyMember getGroupMembersByStatus(int groupId, int status, int currentPage, int limit) throws
+            GroupNotExistException, SqlActionWrongException;
+
+    /**
+     * 同意用户加入指定团队
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws SqlActionWrongException
+     */
+    boolean agreeUserJoinGroup(int userId, int groupId) throws
+            SqlActionWrongException;
+
+    /**
+     * 不同意用户加入指定团队
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws SqlActionWrongException
+     */
+    boolean disagreeUserJoinGroup(int userId, int groupId) throws
+            SqlActionWrongException;
 }

@@ -7,9 +7,7 @@ public class News {
 	private String newsTitle;
 	
 	private String newsContent;
-	
-	private int fromAddress;
-	
+
 	private int toAddress;
 	
 	private String sendTime;
@@ -18,18 +16,14 @@ public class News {
 	private int statue;
 	
 	public News() {}
-	
-	public News(String newsTitle, String newsContent, int fromAddress,
-			int toAddress, String sendTime, int statue) {
+
+	public News(String newsTitle, String newsContent, int toAddress, String sendTime, int statue) {
 		this.newsTitle = newsTitle;
 		this.newsContent = newsContent;
-		this.fromAddress = fromAddress;
 		this.toAddress = toAddress;
 		this.sendTime = sendTime;
 		this.statue = statue;
 	}
-
-	//--------------------------
 
 	public int getNewsId() {
 		return newsId;
@@ -53,14 +47,6 @@ public class News {
 
 	public void setNewsContent(String newsContent) {
 		this.newsContent = newsContent;
-	}
-
-	public int getFromAddress() {
-		return fromAddress;
-	}
-
-	public void setFromAddress(int fromAddress) {
-		this.fromAddress = fromAddress;
 	}
 
 	public int getToAddress() {
@@ -87,13 +73,15 @@ public class News {
 		this.statue = statue;
 	}
 
-	//--------------------------
-	
 	@Override
 	public String toString() {
-		return "News [newsId=" + newsId + ", newsTitle=" + newsTitle
-				+ ", newsContent=" + newsContent + ", fromAddress="
-				+ fromAddress + ", toAddress=" + toAddress + ", sendTime="
-				+ sendTime + ", statue=" + statue + "]";
+		return "News{" +
+				"newsId=" + newsId +
+				", newsTitle='" + newsTitle + '\'' +
+				", newsContent='" + newsContent + '\'' +
+				", toAddress=" + toAddress +
+				", sendTime='" + sendTime + '\'' +
+				", statue=" + statue +
+				'}';
 	}
 }

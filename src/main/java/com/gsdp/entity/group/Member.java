@@ -1,5 +1,7 @@
 package com.gsdp.entity.group;
 
+import com.gsdp.entity.user.User;
+
 /**
  * Created by yizijun on 2016/11/28 0028.
  */
@@ -15,6 +17,8 @@ public class Member {
 
     private int status;
 
+    private User user;
+
     public Member() {}
 
     public Member(int userId, int groupId, String applyReason, String phone) {
@@ -22,6 +26,12 @@ public class Member {
         this.groupId = groupId;
         this.applyReason = applyReason;
         this.phone = phone;
+    }
+
+    public Member(int userId, int groupId, int status) {
+        this.userId = userId;
+        this.groupId = groupId;
+        this.status = status;
     }
 
     public int getUserId() {
@@ -64,6 +74,14 @@ public class Member {
         this.status = status;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -72,6 +90,7 @@ public class Member {
                 ", applyReason='" + applyReason + '\'' +
                 ", phone='" + phone + '\'' +
                 ", status=" + status +
+                ", user=" + user +
                 '}';
     }
 }
