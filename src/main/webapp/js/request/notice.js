@@ -17,6 +17,9 @@ var notice = {
     },
     
     "checkMessage" : function(message){
+
+        message = trimBr(message);
+
         if(message.length==0){
             alert("通知内容不能为空");
             return false;

@@ -1,12 +1,20 @@
 package com.gsdp.service.impl;
 
 import com.gsdp.dao.NoticeDao;
+import com.gsdp.email.Send;
+import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Notice;
+import com.gsdp.entity.user.User;
+import com.gsdp.exception.EmailSendException;
 import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
+import com.gsdp.service.GroupService;
 import com.gsdp.service.NoticeService;
+import com.gsdp.service.UserService;
+import com.gsdp.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,7 +32,14 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private NoticeDao noticeDao;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
+
     @Override
+    @Transactional
     public boolean addNoticeMessage(Notice notice) throws MessageSizeException,SqlActionWrongException{
 
         int length = notice.getNoticeContent().length();
@@ -34,8 +49,28 @@ public class NoticeServiceImpl implements NoticeService {
         }else {
             int affectRows = noticeDao.addNoticeMessage(notice);
 
-            if (affectRows == 1)
+            if (affectRows == 1){
+
+                int groupId = notice.getGroupId();
+                Group group = groupService.getGroupMsg(groupId);
+                List<User> userList = userService.getUserListByGroupId(groupId);
+                Send send = new Send("/email.properties");
+
+                for (User user: userList) {
+
+                     boolean success = send.email(user.getLoginEmail(),"本邮件为GSDP(校园团体风采展示平台)的组织通知邮件",
+                            "<h1>"+group.getGroupName()+"的管理员:"+user.getUsername()+"在"+DateUtil.getDataString()+"发布通知"
+                                    +"<br>通知类容如下:"+notice.getNoticeContent()+"<br>请注意查收通知</h1>");
+
+                    if(success)
+                        continue;
+                    else
+                        return false;
+
+                }
+
                 return true;
+            }
             else
                 throw new SqlActionWrongException("Add Notice failure");
         }

@@ -8,6 +8,7 @@ import com.gsdp.exception.user.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public interface UserService {
 
@@ -53,6 +54,11 @@ public interface UserService {
      */
     boolean verifyAdmin(int userId,int groupId);
 
-
+    /**
+     * 通过组织Id获取相关组织的成员
+     * @param groupId
+     * @return
+     */
+    List<User> getUserListByGroupId(int groupId);
 
 }

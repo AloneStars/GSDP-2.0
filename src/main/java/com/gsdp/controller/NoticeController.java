@@ -3,8 +3,7 @@ package com.gsdp.controller;
 import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Notice;
 import com.gsdp.entity.user.User;
-import com.gsdp.enums.Ntoice.NoticeStatusInfo;
-import com.gsdp.enums.Reply.ReplyStatusInfo;
+import com.gsdp.enums.notice.NoticeStatusInfo;
 import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.service.NoticeService;
@@ -46,7 +45,7 @@ public class NoticeController {
 
         try {
             if(noticeService.addNoticeMessage(notice))
-                return new JsonData(true, NoticeStatusInfo.NOTICE_CREATE_SUCCESS.getMessage());
+                return new JsonData(true,NoticeStatusInfo.NOTICE_CREATE_SUCCESS.getMessage());
             else
                 return  new JsonData(false,NoticeStatusInfo.NOTICE_CREATE_FAILURE.getMessage());
         }catch (MessageSizeException e){

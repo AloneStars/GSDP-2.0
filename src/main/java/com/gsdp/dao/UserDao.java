@@ -3,7 +3,9 @@ package com.gsdp.dao;
 import com.gsdp.entity.user.User;
 import org.apache.ibatis.annotations.Param;
 
-    /**
+import java.util.List;
+
+/**
      *
      * @author yizijun
      *
@@ -19,7 +21,7 @@ import org.apache.ibatis.annotations.Param;
 	int changeHeadPicture(@Param("userId") int userId, @Param("headPicture") String headPicture);
 
     /**
-     * 通过email来获取用户信息
+     * 通过email来获取用户信息所有信息
      * @param email
      * @return
      */
@@ -55,5 +57,13 @@ import org.apache.ibatis.annotations.Param;
      * @return
      */
     Integer verifyAdmin(@Param("userId") int userId,@Param("groupId") int groupId);
+
+
+    /**
+     * 获取该组织的所有的成员
+     * @param groupId
+     * @return
+     */
+    List<User> queryUserByGroupId(int groupId);
 
 }

@@ -10,7 +10,7 @@
                 <strong>发布通知</strong>
             </h4>
         </div>
-        <form method="post" class="form-horizontal" role="form" id="publish-notice-form">
+        <form method="post" class="form-horizontal" role="form" id="publish-notice-form" autocomplete="off">
             <div class="modal-body">
                 <div class="form-group">
                     <label class="col-sm-4 control-label" for="notice-content">
@@ -18,7 +18,7 @@
                     </label>
                     <div class="col-sm-7">
                         <textarea name="notice-content" id="notice-content" class="no-resize form-control" rows="7"
-                                  placeholder="例如:明天我们要开一场会"></textarea>
+                                  placeholder="例如:明天我们要开一场会" ></textarea>
                         <div class="err-info"></div>
                     </div>
                 </div>

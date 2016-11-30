@@ -1,4 +1,4 @@
-package com.gsdp.enums.Ntoice;
+package com.gsdp.enums.notice;
 
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下

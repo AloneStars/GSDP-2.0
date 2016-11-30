@@ -158,4 +158,12 @@ public class UserServiceImpl implements UserService {
             return true;
 
     }
+
+    @Override
+    public List<User> getUserListByGroupId(int groupId) {
+
+        List<User> userList = userDao.queryUserByGroupId(groupId);
+
+        return userList;
+    }
 }

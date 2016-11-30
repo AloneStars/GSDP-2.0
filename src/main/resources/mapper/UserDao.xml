@@ -37,7 +37,6 @@
 
     </resultMap>
 
-
     <insert id="registerUser" keyProperty="userId">
         INSERT ignore `user`(headPicture,loginEmail,password,
                username,user_dec,sex,age,wechat,phone)
@@ -51,6 +50,29 @@
         FROM  `user`
         <where>
             loginEmail = #{email} ;
+        </where>
+    </select>
+
+    <select id="queryUserByGroupId" resultMap="userResultMap">
+        select
+        u.user_id,
+        u.headPicture,
+        u.loginEmail,
+        u.password,
+        u.username,
+        u.user_dec,
+        u.sex,
+        u.age,
+        u.wechat,
+        u.phone
+
+        FROM  `user` AS u
+        JOIN `member` AS m
+        ON  u.user_id = m.user_id
+        <where>
+            m.status = 1
+            AND
+            m.group_id = #{groupId} ;
         </where>
     </select>
 
