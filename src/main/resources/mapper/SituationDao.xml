@@ -122,4 +122,12 @@
 		</where>
 	</delete>
 
+	<update id="addSituationVisitors">
+		UPDATE `situation`
+		SET visitors = visitors + 1
+		<where>
+			situation_id = #{situationId};
+		</where>
+	</update>
+
 </mapper>

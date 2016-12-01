@@ -50,4 +50,10 @@ public interface SituationService {
      */
     List<Situation> getSituationMessage(int groupId, int offset, int limit, String order, boolean type);
 
+    /**
+     * 浏览记录+1
+     * @param situationId
+     * @return
+     */
+    boolean addSituationVisitors(int situationId);
 }

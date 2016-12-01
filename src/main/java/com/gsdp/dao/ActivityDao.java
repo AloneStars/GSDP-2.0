@@ -85,5 +85,11 @@ public interface ActivityDao {
 											 @Param("limit") int limit,@Param("order") String order,
 											 @Param("type") boolean type);
 
+	/**
+	 * 添加浏览记录
+	 * @param activityId
+	 * @return
+     */
+	int addActivityVisitors(int activityId);
 
 }

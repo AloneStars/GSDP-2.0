@@ -126,4 +126,12 @@
 		</if>
 	</select>
 
+	<update id="addActivityVisitors">
+		UPDATE `activity`
+		SET visitors = visitors + 1
+		<where>
+			activity_id = #{activityId};
+		</where>
+	</update>
+
 </mapper>

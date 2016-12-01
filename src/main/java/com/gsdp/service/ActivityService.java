@@ -85,4 +85,10 @@ public interface ActivityService {
     List<Activity> getOpenActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
 
 
+    /**
+     * 浏览记录+1
+     * @param activityId
+     * @return
+     */
+    boolean addActivityVisitors(int activityId);
 }

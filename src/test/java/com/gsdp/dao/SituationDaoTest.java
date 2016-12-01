@@ -58,4 +58,13 @@ public class SituationDaoTest {
 		logger.info("影响的行数:" + affectRows);
 	}
 
+	@Test
+	public void testAddSituationVisitors(){
+
+		int situationId = 5;
+		int affectRows = situationDao.addSituationVisitors(situationId);
+		logger.info("影响的行数:" + affectRows);
+
+	}
+
 }

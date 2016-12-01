@@ -36,7 +36,7 @@ public class BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String viewIndex(Model model) {
 
-        List<Activity> activityList = activityService.getGeneralActivityMessage(0,0,20,"publishTime",true);
+        List<Activity> activityList = activityService.getOpenActivityMessage(0,0,20,"publishTime",true);
         List<Situation> situationList = situationService.getSituationMessage(0,0,10,"publishTime",true);
 
         model.addAttribute("activityList",activityList);

@@ -57,4 +57,11 @@ public interface SituationDao {
 	 */
 	int deleteSituationMessage(int situationId);
 
+	/**
+	 * 添加浏览记录
+	 * @param situationId
+	 * @return
+     */
+	int addSituationVisitors(int situationId);
+
 }

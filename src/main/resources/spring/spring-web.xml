@@ -58,9 +58,9 @@
 		<!-- 使用bean定义一个Interceptor，直接定义在mvc:interceptors根下面的Interceptor将拦截所有的请求 -->
 		<!--<bean class="com.host.app.web.interceptor.AllInterceptor"/>-->
 		<mvc:interceptor>
-			<mvc:mapping path="/reply/*"/>
-			<mvc:mapping path="/notice/*"/>
-			<mvc:mapping path="/activity/*"/>
+			<mvc:mapping path="/reply/creation"/>
+			<mvc:mapping path="/notice/creation"/>
+			<mvc:mapping path="/activity/creation"/>
 			<bean class="com.gsdp.interceptor.CheckLoginInterceptor"/>
 		</mvc:interceptor>
 		<mvc:interceptor>

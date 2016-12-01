@@ -2,6 +2,7 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.ActivityDao;
 import com.gsdp.entity.group.Activity;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.activity.ActivityTimeException;
 import com.gsdp.exception.activity.OpenPermissionException;
 import com.gsdp.service.ActivityService;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -57,9 +59,15 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
-    public Activity getSingleActivity(int activityId) {
+    @Transactional
+    public Activity getSingleActivity(int activityId){
         Activity activity = activityDao.queryActivityMessage(activityId);
+
+        //添加浏览记录失败，事物回滚
+        addActivityVisitors(activityId);
+
         return activity;
+
     }
 
     @Override
@@ -110,6 +118,18 @@ public class ActivityServiceImpl implements ActivityService{
         logger.info("activityList={}",activityList);
 
         return activityList;
+    }
+
+    @Override
+    public boolean addActivityVisitors(int activityId) throws SqlActionWrongException {
+        try{
+            if(activityDao.addActivityVisitors(activityId) == 1)
+                return true;
+            else
+                throw new SqlActionWrongException("add visitors failure");
+        }catch (Exception e){
+            throw new SqlActionWrongException("add visitors failure");
+        }
     }
 
 }
