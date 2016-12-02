@@ -2,19 +2,17 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.GroupDao;
 import com.gsdp.dao.UserDao;
-import com.gsdp.dto.group.GroupApplyMember;
+import com.gsdp.dto.group.GroupMember;
+import com.gsdp.dto.group.GroupMemberWithCurrentUserRole;
 import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.Page;
+import com.gsdp.entity.Role;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Member;
 import com.gsdp.entity.user.User;
-import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
-import com.gsdp.exception.group.GroupException;
-import com.gsdp.exception.group.GroupNotExistException;
-import com.gsdp.exception.group.GroupRepeatException;
-import com.gsdp.exception.group.NotInGroupException;
+import com.gsdp.exception.group.*;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.GroupUtil;
@@ -50,9 +48,9 @@ public class GroupServiceImpl implements GroupService {
     private CommonService commonService;
 
     @Override
-    public List<Group> getGroupListMsg(int typeId,int offset,int limit,String order,boolean type) {
+    public List<Group> getGroupListMsg(int typeId, int offset, int limit, String order, boolean type) {
 
-        List<Group> groupList = groupDao.getGroupMessageByType(typeId,offset,limit,order,type);
+        List<Group> groupList = groupDao.getGroupMessageByType(typeId, offset, limit, order, type);
 
         return groupList;
     }
@@ -67,9 +65,9 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getAllGroupListMsg(int offset,int limit,String order,boolean type) {
+    public List<Group> getAllGroupListMsg(int offset, int limit, String order, boolean type) {
 
-        List<Group> groupList = groupDao.getAllGroupMessage(offset,limit,order,type);
+        List<Group> groupList = groupDao.getAllGroupMessage(offset, limit, order, type);
 
         return groupList;
 
@@ -80,11 +78,10 @@ public class GroupServiceImpl implements GroupService {
 
         int number = groupDao.addGroup(group);
 
-        if(number == 1) {
+        if (number == 1) {
             logger.info("数据库插入组织成功");
             return true;
-        }
-        else {
+        } else {
             logger.info("数据库插入组织数量:{}", number);
             return false;
         }
@@ -96,11 +93,10 @@ public class GroupServiceImpl implements GroupService {
 
         int number = groupDao.deleteGroup(groupId);
 
-        if(number == 1) {
+        if (number == 1) {
             logger.info("数据库删除组织成功");
             return true;
-        }
-        else {
+        } else {
             logger.info("数据库删除组织数量:{}", number);
             return false;
         }
@@ -112,64 +108,98 @@ public class GroupServiceImpl implements GroupService {
 
         int number = groupDao.updateGroup(group);
 
-        if(number == 1) {
+        if (number == 1) {
             logger.info("数据库更新组织成功");
             return true;
-        }
-        else {
+        } else {
             logger.info("数据库更新组织数量:{}", number);
             return false;
         }
     }
 
     @Override
-    public boolean addAdmin(int userId, int groupId) {
+    @Transactional
+    public boolean addAdmin(int userId, int groupId) throws
+    NotInGroupException, HasBeenAdminException, SqlActionWrongException {
 
-        int number = groupDao.addAdmin(userId,groupId);
+        try {
 
-        if(number == 1) {
-            logger.info("数据库添加组织管理员成功");
-            return true;
+            Role role = groupDao.getRole(userId, groupId);
+
+            if(null == role) {
+                throw new NotInGroupException("not in the group");
+            }
+
+            if(role.getRoleId() > com.gsdp.enums.user.Role.GROUP_USER.getRoleId()) {
+                throw new HasBeenAdminException("has been an admin");
+            }
+
+            if(1 == groupDao.updateMember(new Member(userId, groupId, 1, com.gsdp.enums.user.Role.GROUP_ADMIN.getRoleId()))) {
+                if(1 == groupDao.addAdmin(userId, groupId)) {
+                    return true;
+                }
+            }
+        } catch (NotInGroupException e) {
+            throw  e;
+        } catch (HasBeenAdminException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
         }
-        else {
-            logger.info("数据库添加组织管理员数量:{}", number);
-            return false;
-        }
-
+        return false;
     }
 
     @Override
-    public boolean delAdmin(int userId, int groupId) {
+    @Transactional
+    public boolean deleteAdmin(int userId, int groupId) throws
+            NotInGroupException, NotGroupAdminException, SqlActionWrongException {
 
-        int number = groupDao.deleteAdmin(userId,groupId);
+        try {
 
-        if(number == 1) {
-            logger.info("数据库删除组织管理员成功");
-            return true;
+            Role role = groupDao.getRole(userId, groupId);
+
+            if(null == role) {
+                throw new NotInGroupException("not in the group");
+            }
+
+            if(role.getRoleId() != com.gsdp.enums.user.Role.GROUP_ADMIN.getRoleId()) {
+                throw new NotGroupAdminException("not group admin");
+            }
+
+            if(1 == groupDao.updateMember(new Member(userId, groupId, 1, com.gsdp.enums.user.Role.GROUP_USER.getRoleId()))) {
+                if(1 == groupDao.deleteAdmin(userId, groupId)) {
+                    return true;
+                }
+            }
+        } catch(NotInGroupException e) {
+            throw e;
+        } catch (NotGroupAdminException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
         }
-        else {
-            logger.info("数据库删除组织管理员数量:{}", number);
-            return false;
-        }
+        return false;
     }
 
     @Override
     @Transactional
     public MemberAddition addMember(int userId, int groupId, String applyReason, String phone) throws
-    GroupNotExistException, GroupException {
+            GroupNotExistException, GroupException {
 
         try {
             //1.判断该组织是否存在
             Group group = groupDao.getGroupMessage(groupId);
-            if(null == group) {
+            if (null == group) {
                 throw new GroupNotExistException("group not exist");
             }
 
-            Member member = new Member(userId,groupId,applyReason,phone);
+            Member member = new Member(userId, groupId, applyReason, phone);
 
-            if(1 == groupDao.addMember(member)) {
-                User user =  userDao.queryUserMessageById(userId);
-                return new MemberAddition(true,user.getUsername(),group.getGroupName(),member);
+            if (1 == groupDao.addMember(member)) {
+                User user = userDao.queryUserMessageById(userId);
+                return new MemberAddition(true, user.getUsername(), group.getGroupName(), member);
             }
         } catch (GroupNotExistException e) {
             throw e;
@@ -182,41 +212,70 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     @Transactional
-    public String quitGroup(int userId, int groupId)
-            throws NotInGroupException, GroupException {
+    public boolean quitGroup(int userId, int groupId) throws
+            NotInGroupException, OwnerCanNotQuitGroupException, SqlActionWrongException{
 
         try {
 
-            if(0 == groupDao.deleteMember(userId, groupId)) {
+            Role role = groupDao.getRole(userId, groupId);
+
+            if(null == role) {
                 throw new NotInGroupException("not in the group");
             }
 
-            if(1 == groupDao.changeMemberNumber(-1, groupId)) {
-                return GroupStatusInfo.QUIT_GROUP_SUCCESS.getMessage();
+            if(role.getRoleId() == com.gsdp.enums.user.Role.GROUP_OWNER.getRoleId()) {
+                throw new OwnerCanNotQuitGroupException("owner can't quit group");
             }
 
+            if (1 == groupDao.deleteMember(userId, groupId)) {
+                groupDao.deleteAdmin(userId, groupId);
+                if (1 == groupDao.changeMemberNumber(-1, groupId)) {
+                    return true;
+                }
+            }
+        } catch (NotInGroupException e) {
+            throw e;
+        } catch (OwnerCanNotQuitGroupException e) {
+            throw  e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean changeOwner(int currentOwner, int userId, int groupId) throws
+            NotInGroupException, SqlActionWrongException {
+
+        /**
+         * 1.把当前法人在member表里面的role改变成团队普通管理员
+         * 2.把即将成为法人在member表里面的role改成法人
+         * 3.将当前这个人添加到admin表中
+         * 3.将group表中的owner改变了。
+         */
+        try {
+
+            if (0 == groupDao.updateMember(new Member(userId, groupId, 1, com.gsdp.enums.user.Role.GROUP_OWNER.getRoleId()))) {
+                throw new NotInGroupException("not in the group");
+            }
+
+            //在这里我们已经用拦截器判断了当前操作的用户肯定当前社团的法人，所以在这里我们就不用判断了
+            if (1 == groupDao.updateMember(new Member(currentOwner, groupId, 1, com.gsdp.enums.user.Role.GROUP_ADMIN.getRoleId()))) {
+                //这里主要不做判断是说它有可能本来就是这个社团的管理员了
+                groupDao.addAdmin(userId, groupId);
+                if (1 == groupDao.changeOwner(userId, groupId)) {
+                    return true;
+                }
+            }
         } catch (NotInGroupException e) {
             throw e;
         } catch (Exception e) {
             logger.error("database update error", e);
-            throw new GroupException("database update error");
+            throw new SqlActionWrongException("database update error");
         }
-        return null;
-    }
-
-    @Override
-    public boolean changeOwner(int userId, int groupId) {
-
-        int number = groupDao.changeOwner(userId, groupId);
-
-        if(number == 1) {
-            logger.info("数据库转让组织成功");
-            return true;
-        }
-        else {
-            logger.info("数据库转让组织数量:{}", number);
-            return false;
-        }
+        return false;
     }
 
     @Override
@@ -224,21 +283,20 @@ public class GroupServiceImpl implements GroupService {
 
         List<Group> groupList = groupDao.getGroupListMessageExpGroup(groupId);
 
-        logger.info("groupList={}",groupList);
+        logger.info("groupList={}", groupList);
 
         return groupList;
 
     }
 
     /**
-     *
      * @param group
      * @param multipartFile
      * @return
      */
     @Override
     public Group createGroup(Group group, MultipartFile multipartFile) throws
-    EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException, GroupRepeatException {
+            EmptyFileException, SizeBeyondException, FormatNotMatchException, IllegalArgumentException, GroupRepeatException {
 
         final String PATH = "D:/";
         //限制上传的最大字节数,最大可以上传5m的东西。
@@ -247,21 +305,21 @@ public class GroupServiceImpl implements GroupService {
 
 
         //判断用户输入的团队信息是否全， 如果不全则返回
-        if(!GroupUtil.checkGroupName(group.getGroupName()) || !GroupUtil.checkGroupContact(group.getGroupContact()) ||
+        if (!GroupUtil.checkGroupName(group.getGroupName()) || !GroupUtil.checkGroupContact(group.getGroupContact()) ||
                 !GroupUtil.checkGroupAddress(group.getGroupAddress()) || !GroupUtil.checkGroupType(group.getGroupType())) {
             throw new IllegalArgumentException("user input information is incorrect");
         }
 
         try {
 
-            if(groupDao.isSameGroupName(group.getGroupName()) != 0) {
+            if (groupDao.isSameGroupName(group.getGroupName()) != 0) {
                 throw new GroupRepeatException("the team repeated");
             }
 
             String evidencePath = commonService.upload(multipartFile, PATH, MAX_SIZE, REGEX);
-            if(evidencePath != null) {
+            if (evidencePath != null) {
                 group.setGroupEvidence(evidencePath);
-                if(1 == groupDao.addGroup(group)) {
+                if (1 == groupDao.addGroup(group)) {
                     return group;
                 }
             }
@@ -271,7 +329,7 @@ public class GroupServiceImpl implements GroupService {
             throw e;
         } catch (SizeBeyondException e) {
             throw e;
-        } catch(GroupRepeatException e) {
+        } catch (GroupRepeatException e) {
             throw e;
         } catch (Exception e) {
             logger.error("database update error", e);
@@ -281,24 +339,24 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public GroupApplyMember getGroupMembersByStatus(int groupId, int status, int currentPage, int limit) throws
-    GroupNotExistException, SqlActionWrongException {
+    public GroupMember getGroupMembersByStatus(int groupId, int status, int currentPage, int limit) throws
+            GroupNotExistException, SqlActionWrongException {
 
         try {
             Group group = groupDao.getGroupMessage(groupId);
-            if(null == group) {
+            if (null == group) {
                 throw new GroupNotExistException("group not exist");
             }
 
-            int groupNumbers = groupDao.getGroupAllNumberByStatus(groupId, status);
+            int groupNumbers = groupDao.getGroupAllMemberNumbersByStatus(groupId, status);
 
             //初始化分页参数
             Page page = new Page();
             page.initPage(groupNumbers, currentPage, limit);
 
-            List<Member> members = groupDao.getGroupMembersByStatus(groupId,status,page.getStartNumbers(),page.getPerPageDisplay());
+            List<Member> members = groupDao.getGroupMembersMessageWithRoleByStatus(groupId, status, page.getStartNumbers(), page.getPerPageDisplay());
 
-            return new GroupApplyMember(page,members);
+            return new GroupMember(page, members);
 
         } catch (GroupNotExistException e) {
             throw e;
@@ -309,14 +367,34 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public GroupMemberWithCurrentUserRole getGroupMembersWithRoleByStatus(int groupId, int status, int currentUserId, int currentPage, int limit)
+            throws GroupNotExistException, SqlActionWrongException {
+
+        /*
+        1.获取当前用户在这个团队的角色
+        2.然后获得这个团队的全部成员
+         */
+        Role currentRole = null;
+        try {
+            currentRole = groupDao.getRole(currentUserId, groupId);
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        GroupMember groupMember = getGroupMembersByStatus(groupId, status, currentPage, limit);
+        return new GroupMemberWithCurrentUserRole(currentRole, groupMember);
+    }
+
+
+    @Override
     @Transactional
     public boolean agreeUserJoinGroup(int userId, int groupId) throws
-    SqlActionWrongException {
+            SqlActionWrongException {
 
-        //TODO 在这里就不判断该团队是否存在了，也不会对后端造成什么影响
+        //TODO 有BUG
         try {
-            if(1 == groupDao.updateMember(new Member(userId, groupId,1))) {
-                if(1 == groupDao.changeMemberNumber(1, groupId)) {
+            if (1 == groupDao.updateMember(new Member(userId, groupId, 1, com.gsdp.enums.user.Role.GROUP_USER.getRoleId()))) {
+                if (1 == groupDao.changeMemberNumber(1, groupId)) {
                     return true;
                 }
             }
@@ -330,8 +408,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public boolean disagreeUserJoinGroup(int userId, int groupId) throws
             SqlActionWrongException {
+
+        //TODO 有BUG
         try {
-            if(1 == groupDao.deleteMember(userId,groupId)) {
+            if (1 == groupDao.deleteMember(userId, groupId)) {
                 return true;
             }
         } catch (Exception e) {
@@ -339,5 +419,17 @@ public class GroupServiceImpl implements GroupService {
             throw new SqlActionWrongException("database update error");
         }
         return false;
+    }
+
+    @Override
+    public Group getGroupMessageWithOwner(int groupId)
+            throws SqlActionWrongException {
+
+        try {
+            return groupDao.queryGroupMessageWithOwner(groupId);
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
     }
 }

@@ -3,12 +3,10 @@ package com.gsdp.dao;
 import com.gsdp.entity.user.User;
 import org.apache.ibatis.annotations.Param;
 
-    /**
-     *
-     * @author yizijun
-     *
-     */
-    public interface UserDao {
+/**
+ *
+ */
+public interface UserDao {
 
     /**
      * 修改用户的头像

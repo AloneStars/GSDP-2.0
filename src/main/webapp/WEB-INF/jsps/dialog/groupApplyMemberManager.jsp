@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
-<!--group-member-manager-dialog开始-->
+<!--group-apply-member-manager-dialog开始-->
 <div class="dialog dialog-shadow" id="group-apply-member-manager-dialog">
     <div class="modal-content group-apply-member-manager-size">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 ×
             </button>
-            <h4 class="modal-title" id="join-group-modal">
+            <h4 class="modal-title" id="group-apply-member-manager-modal">
                 <strong>社团成员申请管理</strong>
             </h4>
         </div>
@@ -33,5 +33,5 @@
         </div>
     </div>
 </div>
-<!--group-member-manager-dialog结束-->
+<!--group-apply-member-manager-dialog开始结束-->
 

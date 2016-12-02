@@ -114,7 +114,7 @@
         </a>
     </div>
     <div class="PathItem">
-        <a class="link" href="#" title="5">
+        <a class="link" href="#" title="团队成员管理" onclick="group.showGroupMemberManager();">
             <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
         </a>
     </div>
@@ -181,4 +181,6 @@
 <!--申请加入组织模态框-->
 <%@ include file="../dialog/joinGroup.jsp"%>
 <!--申请团队的成员管理模态框-->
-<%@ include file="../dialog/GroupApplyMemberManager.jsp"%>
+<%@ include file="../dialog/groupApplyMemberManager.jsp"%>
+<!--团队成员管理的模态框-->
+<%@ include file="../dialog/groupMemberManager.jsp"%>

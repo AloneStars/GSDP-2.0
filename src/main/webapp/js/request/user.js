@@ -28,6 +28,16 @@ var user = {
         }
     },
 
+    "reference" : {
+        "genderReference" : function () {
+            return [[0, "保密"],[1, "男"], [2, "女"]];
+        },
+
+        "roleReference" : function () {
+            return [[0, ""],[1, "普通用户"], [2, "团队成员"], [3, "团队管理员"], [4, "团队法人"]];
+        }
+    },
+
     //与用户前端的所有验证有关
     "check" : {
 

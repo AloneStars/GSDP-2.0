@@ -1,5 +1,6 @@
 package com.gsdp.entity.group;
 
+import com.gsdp.entity.Role;
 import com.gsdp.entity.user.User;
 
 /**
@@ -17,7 +18,12 @@ public class Member {
 
     private int status;
 
+    private int roleId;
+
     private User user;
+
+    //该用户在该社团的权限
+    private Role role;
 
     public Member() {}
 
@@ -32,6 +38,11 @@ public class Member {
         this.userId = userId;
         this.groupId = groupId;
         this.status = status;
+    }
+
+    public Member(int userId, int groupId, int status, int roleId) {
+        this(userId, groupId, status);
+        this.roleId = roleId;
     }
 
     public int getUserId() {
@@ -82,6 +93,22 @@ public class Member {
         this.user = user;
     }
 
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Member{" +
@@ -90,7 +117,9 @@ public class Member {
                 ", applyReason='" + applyReason + '\'' +
                 ", phone='" + phone + '\'' +
                 ", status=" + status +
+                ", roleId=" + roleId +
                 ", user=" + user +
+                ", role=" + role +
                 '}';
     }
 }

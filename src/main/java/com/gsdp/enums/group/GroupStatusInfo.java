@@ -11,6 +11,8 @@ public enum  GroupStatusInfo {
     GET_GROUP_MESSAGE_SUCCESS(4, "获取团队信息成功"),
     GET_GROUP_APPLY_MEMBER_SUCCESS(5, "获取团队申请成员信息成功"),
     OPERATION_SUCCESS(6, "操作成功"),
+    GET_GROUP_MEMBER_SUCCESS(7, "获取团队用户信息成功"),
+    OWNER_CHANGE_SUCCESS(8, "法人转变成功"),
     GROUP_REPEAT(-1, "团队已存在"),
     CREATE_GROUP_FAIL(-2, "创建团队失败"),
     QUIT_GROUP_FAIL(-3, "退出团队失败"),
@@ -18,7 +20,11 @@ public enum  GroupStatusInfo {
     GROUP_NOT_EXIST(-5, "团队不存在"),
     APPLICATION_SUBMISSION_FAILED(-6, "您的申请提交失败"),
     GET_GROUP_APPLY_MEMBER_FAILED(-7, "获取团队申请成员信息失败"),
-    OPERATION_FAIL(-8, "操作失败")
+    OPERATION_FAIL(-8, "操作失败"),
+    OWNER_CAN_NOT_QUIT_GROUP(-9, "法人无法退出团队"),
+    OWNER_CHANGE_FAIL(-10, "法人转变失败"),
+    HAS_BEEN_GROUP_ADMIN(-11, "你已是社团管理员"),
+    IS_NOT_GROUP_ADMIN(-12, "你不是团队的管理员")
     ;
 
     private int state;

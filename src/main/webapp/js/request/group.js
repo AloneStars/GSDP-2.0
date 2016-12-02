@@ -12,12 +12,36 @@ var group = {
             return "/gsdp/group/applyMembers";
         },
 
+        "getGroupMembers" : function () {
+          return "/gsdp/group/members";
+        },
+
         "agreeUserJoinGroup" : function () {
             return "/gsdp/group/agreeJoin"
         },
 
         "disagreeUserJoinGroup" : function () {
             return "/gsdp/group/disagreeJoin";
+        },
+
+        "quitGroup" : function () {
+            return "/gsdp/group/quit";
+        },
+
+        "fireFromGroup" : function () {
+            return "/gsdp/group/fireMember";
+        },
+
+        "appointmentAdmin" : function () {
+            return "/gsdp/group/appointmentAdmin";
+        },
+
+        "deleteAdmin" : function () {
+            return "/gsdp/group/deleteAdmin";
+        },
+
+        "changeOwner" : function () {
+            return "/gsdp/group/changeOwner";
         }
     },
 
@@ -25,6 +49,12 @@ var group = {
     "pagination" : {
 
         "groupApplyMember" : {
+            "totalPages" : 0,
+            "initCurrentPage" : 1,
+            "limit" : 8
+        },
+
+        "groupMember" : {
             "totalPages" : 0,
             "initCurrentPage" : 1,
             "limit" : 8
@@ -147,6 +177,18 @@ var group = {
         $(".group-apply-member-manager-size").outerWidth(),"group-apply-member-manager-dialog")
     },
 
+    /**
+     * 显示团队成员
+     */
+    "showGroupMemberManager" : function () {
+        group.getGroupMembers(group.pagination.groupMember.initCurrentPage,
+        group.pagination.groupMember.limit);
+        group.initGroupMemberPagination(group.pagination.groupMember.totalPages,
+        group.pagination.groupMember.limit);
+        dialog.showDialog(parseInt($(".group-member-manager-size").css("min-height")),
+            $(".group-member-manager-size").outerWidth(),"group-member-manager-dialog");
+    },
+
     //显示发布通知模态框
     "showPublishNotice" : function () {
         dialog.showDialog(parseInt($(".publish-notice-size").css("min-height")),
@@ -172,6 +214,7 @@ var group = {
                 "limit" : limit
             },
             success : function (data) {
+                //TODO 这里实现有瑕疵，到时候修改
                 if(data.success) {
                     $("#group-apply-member-manager-table tbody").empty();
                     for(var i = 0; i < data.data.members.length; ++i) {
@@ -191,17 +234,94 @@ var group = {
                 //do nothing
             }
         });
-
     },
+
+    "getGroupMembers" : function (currentPage, limit) {
+        var groupId = $("#groupId").text();
+        $.ajax({
+            url : group.url.getGroupMembers(),
+            type : "post",
+            dataType : "json",
+            async : false,
+            data : {
+                "groupId" : groupId,
+                "currentPage" : currentPage,
+                "limit" : limit
+            },
+            success : function (data) {
+                if(data.success) {
+                    //先把所有td标签里面的内容都清除掉
+                    $("#group-member-manager-table td").html("");
+                    for(var i = 0; i < data.data.groupMember.members.length; ++i) {
+
+                        $("#group-member-manager-table tr:eq(" + i + ") td:eq(0)").
+                        html("<img src='/gsdp/" + data.data.groupMember.members[i].user.headPicture + "'/>&nbsp;" +
+                            data.data.groupMember.members[i].user.username);
+
+                        $("#group-member-manager-table tr:eq(" + i + ") td:eq(1)").
+                        html(user.reference.genderReference()[data.data.groupMember.members[i].user.sex][1]);
+
+                        $("#group-member-manager-table tr:eq(" + i + ") td:eq(2)").
+                        html(data.data.groupMember.members[i].user.age + "岁");
+
+                        $("#group-member-manager-table tr:eq(" + i + ") td:eq(3)").
+                        html(data.data.groupMember.members[i].role.roleName);
+
+                        var operation = "";
+                        var groupOwner = "<img src='/gsdp/image/role/group_owner.png' title='设置为法人' class='set-group-owner' style='cursor: pointer'/>&nbsp;";
+                        var groupAdmin = "<img src='/gsdp/image/role/group_admin.png' title='设置为团队管理员' class='set-group-admin' style='cursor: pointer'/>&nbsp;";
+                        var groupUser = "<img src='/gsdp/image/role/group_user.png' title='设置为普通成员' class='set-group-user' style='cursor: pointer'/>&nbsp;";
+                        var fireMember = "<img src='/gsdp/image/role/fire_member.png' title='从该组织移除' class='fire-member' style='cursor: pointer'/>&nbsp;";
+                        //首先要当前这个用户的权限有显示这个人的权限高才有资格操作
+                        if(data.data.currentRole.roleId > data.data.groupMember.members[i].roleId) {
+                            /*
+                            如果当前这个人是这个社团的管理员，那么对它就有3个操作
+                            1.设置为超级管理员 --- 》superAdmin
+                            2.下降为普通用户    ----> groupUser
+                            3.踢出该团队   ----> user
+                             */
+                            if(data.data.groupMember.members[i].roleId === 3) {
+                                operation += (groupOwner + groupUser + fireMember);
+                                /*
+                                如果是普通成员的话，
+                                法人对其有三个操作  1.superAdmin  2。user. 3 admin(普通管理员)
+                                普通管理员对其有两个操作  1。admin   2 user
+                                 */
+                            } else if(data.data.groupMember.members[i].roleId === 2) {
+                                if(data.data.currentRole.roleId === 4) {
+                                    operation += (groupOwner + groupAdmin + fireMember);
+                                }
+                                if(data.data.currentRole.roleId === 3) {
+                                    operation += (groupUser + fireMember);
+                                }
+                            }
+                        }
+
+                        //接下来是根据当前用户的角色动态的显示操作按钮
+                        $("#group-member-manager-table tr:eq(" + i + ") td:eq(4)").attr("user-id",
+                            data.data.groupMember.members[i].user.userId).html(operation);
+                    }
+                    //设置当前的总页数
+                    group.pagination.groupMember.totalPages = data.data.groupMember.page.totalPages;
+                } else {
+                    alert(data.message);
+                }
+            },
+            error : function () {
+                //do nothing;
+            }
+        });
+    },
+
 
     /**
      * 初始化团队成员申请管理的分页
      * @param totalNumbers
      * @param limit
      */
-    "initGroupApplyMembersPagination" : function (totalNumbers, limit) {
-        $(".modal-footer .M-box3").pagination({
-            pageCount:totalNumbers,//总共的页数
+    "initGroupApplyMembersPagination" : function (totalPages, limit) {
+        $("#group-apply-member-manager-dialog .modal-footer .M-box3").pagination({
+            pageCount:totalPages,//总共的页数
             jump:true,
             coping:true,
             homePage:'首页',
@@ -210,6 +330,26 @@ var group = {
             nextContent:'下页',
             callback: function (api) {
                 group.getGroupApplyMembers(api.getCurrent(), limit);
+            }
+        });
+    },
+
+    /**
+     * 初始化团队成员管理的分页
+     * @param totalPages
+     * @param limit
+     */
+    "initGroupMemberPagination" : function (totalPages, limit) {
+        $("#group-member-manager-dialog .modal-footer .M-box3").pagination({
+            pageCount:totalPages,//总共的页数
+            jump:true,
+            coping:true,
+            homePage:'首页',
+            endPage:'末页',
+            prevContent:'上页',
+            nextContent:'下页',
+            callback: function (api) {
+                group.getGroupMembers(api.getCurrent(), limit);
             }
         });
     },
@@ -274,6 +414,9 @@ var group = {
             });
     },
 
+    /**
+     * 不同意该用户加入该团队的申请
+     */
     "disagreeUserJoinGroup" : function (userId) {
 
         var groupId = $("#groupId").text();
@@ -292,7 +435,104 @@ var group = {
                     alert(data.message);
                 }
             });
+    },
+
+    /**
+    把某人从组织中开除了
+     */
+    "fireMember" : function (userId) {
+        var groupId = $("#groupId").text();
+        $.post(group.url.fireFromGroup(),
+            {
+                "groupId" : groupId,
+                "userId" : userId
+            },function (data) {
+                if(data.success) {
+                    //TODO  这里还有一点瑕疵，每次用户操作完都是跳到第一页，到时候修改到不跳到第一页
+                    group.getGroupMembers(group.pagination.groupMember.initCurrentPage,
+                        group.pagination.groupMember.limit);
+                    group.initGroupMemberPagination(group.pagination.groupMember.totalPages,
+                        group.pagination.groupMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            }
+        )
+    },
+
+    /**
+     * 任命当前组织的普通用户为管理员
+     * @param userId
+     */
+    "appointmentAdmin" : function (userId) {
+        var groupId = $("#groupId").text();
+        $.post(group.url.appointmentAdmin(),
+            {
+                "groupId" : groupId,
+                "userId" : userId
+            },function (data) {
+                if(data.success) {
+                    //TODO  这里还有一点瑕疵，每次用户操作完都是跳到第一页，到时候修改到不跳到第一页
+                    group.getGroupMembers(group.pagination.groupMember.initCurrentPage,
+                        group.pagination.groupMember.limit);
+                    group.initGroupMemberPagination(group.pagination.groupMember.totalPages,
+                        group.pagination.groupMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            }
+        )
+    },
+
+    /**
+     * 把当前组织的管理员解雇（也就是变成普通成员）
+     * @param userId
+     */
+    "deleteAdmin" : function (userId) {
+        var groupId = $("#groupId").text();
+        $.post(group.url.deleteAdmin(),
+            {
+                "groupId" : groupId,
+                "userId" : userId
+            },function (data) {
+                if(data.success) {
+                    //TODO  这里还有一点瑕疵，每次用户操作完都是跳到第一页，到时候修改到不跳到第一页
+                    group.getGroupMembers(group.pagination.groupMember.initCurrentPage,
+                        group.pagination.groupMember.limit);
+                    group.initGroupMemberPagination(group.pagination.groupMember.totalPages,
+                        group.pagination.groupMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            }
+        )
+    },
+
+    /**
+     * 把当前组织中指定的一个人设置为法人
+     * @param userId
+     */
+    "changeOwner" : function (userId) {
+        var groupId = $("#groupId").text();
+        $.post(group.url.changeOwner(),
+            {
+                "groupId" : groupId,
+                "userId" : userId
+            },function (data) {
+                if(data.success) {
+                    //TODO  这里还有一点瑕疵，每次用户操作完都是跳到第一页，到时候修改到不跳到第一页
+                    group.getGroupMembers(group.pagination.groupMember.initCurrentPage,
+                        group.pagination.groupMember.limit);
+                    group.initGroupMemberPagination(group.pagination.groupMember.totalPages,
+                        group.pagination.groupMember.limit);
+                } else {
+                    alert(data.message);
+                }
+            }
+        )
     }
+
+
 
     //TODO
 };
@@ -373,6 +613,28 @@ $(function () {
     //当点击不同意按钮的时候
     $("#group-apply-member-manager-table").on("click", "tbody td.operation > button[title='不同意']", function () {
         group.disagreeUserJoinGroup($(this).parent().attr("user-id"));
-    })
+    });
+
+
+    //把某人从组织中移除
+    $("#group-member-manager-table").on("click", ".fire-member", function () {
+        group.fireMember($(this).parent().attr("user-id"));
+    });
+
+    //任命当前组织的普通用户为管理员
+    $("#group-member-manager-table").on("click", ".set-group-admin", function () {
+        group.appointmentAdmin($(this).parent().attr("user-id"));
+    });
+
+    //把当前组织的管理员解雇（也就是变成普通成员）
+    $("#group-member-manager-table").on("click", ".set-group-user", function () {
+        group.deleteAdmin($(this).parent().attr("user-id"));
+    });
+
+    //把当前社团的成员变成法人
+    $("#group-member-manager-table").on("click", ".set-group-owner", function () {
+        group.changeOwner($(this).parent().attr("user-id"));
+    });
+
 
 });

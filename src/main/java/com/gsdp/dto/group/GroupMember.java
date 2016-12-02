@@ -6,19 +6,19 @@ import com.gsdp.entity.group.Member;
 import java.util.List;
 
 /**
- * 这里主要是封装通过分页查找的团队里面的特定状态的人数(包括这个人的详细信息，但是密码给摸去了)
+ * 这里主要是封装通过分页查找的团队里面的特定状态的人(但是把用户的密码给摸去了)
  *--
  * Created by yizijun on 2016/11/29 0029.
  */
-public class GroupApplyMember {
+public class GroupMember {
 
     private Page page;
 
     private List<Member> members;
 
-    public GroupApplyMember() {}
+    public GroupMember() {}
 
-    public GroupApplyMember(Page page, List<Member> members) {
+    public GroupMember(Page page, List<Member> members) {
         this.page = page;
         this.members = members;
     }
@@ -41,7 +41,7 @@ public class GroupApplyMember {
 
     @Override
     public String toString() {
-        return "GroupApplyMember{" +
+        return "GroupMember{" +
                 "page=" + page +
                 ", members=" + members +
                 '}';

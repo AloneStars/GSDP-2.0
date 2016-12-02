@@ -1,5 +1,7 @@
 package com.gsdp.entity.group;
 
+import com.gsdp.entity.user.User;
+
 public class Group {
     
 	//团体Id
@@ -34,6 +36,10 @@ public class Group {
 
 	//团队状态
 	private int groupStatus;
+
+	//团队法人
+	private User groupOwner;
+
 
 	//团队佐证材料存放地址
 	private String groupEvidence;
@@ -160,6 +166,14 @@ public class Group {
 		this.groupEvidence = groupEvidence;
 	}
 
+	public User getGroupOwner() {
+		return groupOwner;
+	}
+
+	public void setGroupOwner(User groupOwner) {
+		this.groupOwner = groupOwner;
+	}
+
 	@Override
 	public String toString() {
 		return "Group{" +
@@ -174,6 +188,7 @@ public class Group {
 				", visitors=" + visitors +
 				", groupMembers=" + groupMembers +
 				", groupStatus=" + groupStatus +
+				", groupOwner=" + groupOwner +
 				", groupEvidence='" + groupEvidence + '\'' +
 				'}';
 	}
