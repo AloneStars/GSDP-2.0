@@ -13,9 +13,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>平台首页</title>
     <%@ include file="common/style.jsp"%>
-    <script src="js/index.js"></script>
-    <link href="css/animations.css" type="text/css" rel="stylesheet">
-    <link href="css/index.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/common/animations.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/index.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" rel="stylesheet">
 </head>
@@ -44,19 +43,19 @@
                         <!-- 轮播（Carousel）项目 -->
                         <div class="carousel-inner">
                             <div class="item active">
-                                <img src="image/slide1.jpg" alt="First slide">
+                                <img src="${pageContext.request.contextPath}/image/slide1.jpg" alt="First slide">
                                 <div class="carousel-caption">
                                     <p>Android系统是最屌的</p>
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="image/slide2.png" alt="Second slide">
+                                <img src="${pageContext.request.contextPath}/image/slide2.png" alt="Second slide">
                                 <div class="carousel-caption">
                                     <p>iOS还活着，永远轮不到android</p>
                                 </div>
                             </div>
                             <div class="item">
-                                <img src="image/slide3.png" alt="Third slide">
+                                <img src="${pageContext.request.contextPath}/image/slide3.png" alt="Third slide">
                                 <div class="carousel-caption">
                                     <p>HTC的品牌也不错好吗</p>
                                 </div>

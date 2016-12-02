@@ -1,13 +1,12 @@
 package com.gsdp.interceptor;
 
-import com.gsdp.dto.JsonData;
 import com.gsdp.entity.user.User;
-import com.gsdp.enums.Reply.ReplyStatusInfo;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -20,8 +19,21 @@ import javax.servlet.http.HttpServletResponse;
 public class CheckLoginInterceptor implements HandlerInterceptor{
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        return true;
+    public boolean preHandle(HttpServletRequest Request, HttpServletResponse Response, Object o) throws Exception {
+
+        HttpSession session = Request.getSession();
+        User user = (User)session.getAttribute("user");
+
+
+        if(user == null){
+            System.out.println("验证登录失败");
+            return false;
+        }
+        else{
+            System.out.println("验证登录成功");
+            return true;
+        }
+
     }
 
     @Override

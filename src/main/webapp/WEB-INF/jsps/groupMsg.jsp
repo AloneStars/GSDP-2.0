@@ -63,19 +63,19 @@
                     <!-- 轮播（Carousel）项目 -->
                     <div class="carousel-inner">
                         <div class="item active">
-                            <img src="image/slide1.jpg" alt="First slide">
+                            <img src="${pageContext.request.contextPath}/image/slide1.jpg" alt="First slide">
                             <div class="carousel-caption">
                                 <p>Android系统是最屌的</p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="image/slide2.png" alt="Second slide">
+                            <img src="${pageContext.request.contextPath}/image/slide2.png" alt="Second slide">
                             <div class="carousel-caption">
                                 <p>iOS还活着，永远轮不到android</p>
                             </div>
                         </div>
                         <div class="item">
-                            <img src="image/slide3.png" alt="Third slide">
+                            <img src="${pageContext.request.contextPath}/image/slide3.png" alt="Third slide">
                             <div class="carousel-caption">
                                 <p>HTC的品牌也不错好吗</p>
                             </div>

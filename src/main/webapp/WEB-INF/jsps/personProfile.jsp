@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link href="${pageContext.request.contextPath}/css/common/common.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/myDialog.css" type="text/css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/css/personal.css" type="text/css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/css/personalProfile.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/common/dialogCss.css" type="text/css" rel="stylesheet">
 </head>
 <body>
