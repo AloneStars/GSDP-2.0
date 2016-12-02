@@ -3,13 +3,13 @@ package com.gsdp.controller;
 import com.gsdp.dto.JsonData;
 import com.gsdp.entity.group.Reply;
 import com.gsdp.entity.user.User;
-import com.gsdp.enums.Reply.ReplyStatusInfo;
+import com.gsdp.enums.reply.ReplyStatusInfo;
+import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.service.ReplyService;
 import com.gsdp.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,19 +35,24 @@ public class ReplyController {
     @ResponseBody
     public JsonData addReply(int situationId, String replyContent, HttpSession session){
 
+        System.out.println("test");
+        System.out.println(situationId);
+        System.out.println(replyContent);
+
         User user = (User) session.getAttribute("user");
-        if(user == null)
-            return new JsonData(false, ReplyStatusInfo.REPLY_NOT_LOGIN.getMessage());
-        else{
-            try {
-                Reply reply = new Reply(replyContent, user.getUserId(), DateUtil.getDataString(), situationId, user);
-                if(replyService.addReply(reply))
-                    return new JsonData(false,ReplyStatusInfo.REPLY_CREATE_SUCCESS.getMessage());
-                else
-                    return  new JsonData(false,ReplyStatusInfo.REPLY_CREATE_FAILURE.getMessage());
-            }catch (SqlActionWrongException e){
+
+        System.out.println(user);
+
+        try {
+            Reply reply = new Reply(replyContent, user.getUserId(), DateUtil.getDataString(), situationId, user);
+            if(replyService.addReply(reply))
+                return new JsonData(false, ReplyStatusInfo.REPLY_CREATE_SUCCESS.getMessage());
+            else
                 return  new JsonData(false,ReplyStatusInfo.REPLY_CREATE_FAILURE.getMessage());
-            }
+        }catch (MessageSizeException e){
+            return  new JsonData(false,ReplyStatusInfo.REPLY_MESSAGESIZE_INCORRECT.getMessage());
+        } catch(SqlActionWrongException e){
+            return  new JsonData(false,ReplyStatusInfo.REPLY_CREATE_FAILURE.getMessage());
         }
     }
 }

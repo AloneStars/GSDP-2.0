@@ -1,6 +1,8 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Activity;
+import com.gsdp.exception.activity.ActivityTimeException;
+import com.gsdp.exception.activity.OpenPermissionException;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public interface ActivityService {
      * @param activity
      * @return
      */
-    boolean addActivity(Activity activity);
+    boolean addActivity(Activity activity) throws ActivityTimeException,OpenPermissionException;
 
     /**
      * 删除一个活动
@@ -83,4 +85,10 @@ public interface ActivityService {
     List<Activity> getOpenActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
 
 
+    /**
+     * 浏览记录+1
+     * @param activityId
+     * @return
+     */
+    boolean addActivityVisitors(int activityId);
 }

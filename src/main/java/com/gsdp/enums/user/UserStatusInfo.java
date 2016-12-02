@@ -1,9 +1,14 @@
 package com.gsdp.enums.user;
 
-/**
- * Created by yizijun on 2016/11/22 0022.
- */
-public enum  UserStatusInfo {
+/**********************************************************
+ * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
+ * +吾名 "暴力的小石头/ViolentStone",吾乃一Java程序猿
+ * +吾信 "猿" 乃一世变者
+ * +你见到的这个玩意儿,就是吾在 2016/11/22 创造的作品
+ * ********************************************************
+ * +描述:
+ *********************************************************/
+public enum UserStatusInfo {
 
     ORIGINAL_PASSWORD_ERROR(-1, "原密码错误"),
     TWO_PASSWORD_INPUT_NOT_MATCH(-2, "两次输入密码不匹配"),
@@ -29,6 +34,9 @@ public enum  UserStatusInfo {
 
     /***************************************/
     SUPER_ADMIN_USER_ID(9999,"2");
+    USER_SENDVERIFYCODE_SUCCESS(11,"验证码发送成功"),
+    USER_SENDVERIFYCODE_FAILURE(12,"验证码发送失败,请检查邮箱"),
+    USER_NOT_LOGIN(13,"用户尚未登录，请先登录")
     ;
 
     private int state;

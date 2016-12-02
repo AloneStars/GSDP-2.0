@@ -119,6 +119,7 @@ ul li {
     height:20px;
     line-height:20px;
     padding:0 10px;
+    overflow-y:auto;
 }
 .comment{
     height:60px;

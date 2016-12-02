@@ -93,4 +93,15 @@ public class ActivityDaoTest {
 		logger.info("activityList={}",activityList);
 
 	}
+
+	@Test
+	public void addActiityVisitors(){
+
+		int activityId = 2;
+
+		int affectRows = activityDao.addActivityVisitors(activityId);
+
+		logger.info("影响行数"+affectRows);
+
+	}
 }

@@ -1,5 +1,7 @@
 package com.gsdp.email;
 
+import com.gsdp.exception.EmailSendException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -49,21 +51,29 @@ public class Send {
 	}
 
 
-	public static boolean email(String toAddress,String Subject , String Content){
+	public static boolean email(String toAddress,String Subject , String Content) throws EmailSendException{
 
 		mailInfo.setToAddress(toAddress);
 		mailInfo.setSubject(Subject);
 		mailInfo.setContent(Content);
-
-		if(Send.prop.getProperty("type").equals("html")){
-			return sms.sendHtmlMail(mailInfo);
-		}else if(Send.prop.getProperty("type").equals("text")){
-			return sms.sendTextMail(mailInfo);
-		}else{
-			System.out.println("请配置邮件类型");
+		try{
+			if(Send.prop.getProperty("type").equals("html")){
+				if(sms.sendHtmlMail(mailInfo))
+					return true;
+				else
+					throw new EmailSendException("send email failure");
+			}else if(Send.prop.getProperty("type").equals("text")){
+				if(sms.sendTextMail(mailInfo))
+					return true;
+				else
+					throw new EmailSendException("send email failure");
+			}else{
+				System.out.println("请配置邮件类型");
+				return  false;
+			}
+		}catch (Exception e){
+			throw new EmailSendException("send email failure");
 		}
-
-		return false;
 	}
 
 

@@ -2,6 +2,7 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.ReplyDao;
 import com.gsdp.entity.group.Reply;
+import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +24,19 @@ public class ReplyServiceImpl implements ReplyService {
     private ReplyDao replyDao;
 
     @Override
-    public boolean addReply(Reply reply) throws SqlActionWrongException{
+    public boolean addReply(Reply reply) throws SqlActionWrongException,MessageSizeException{
 
-        int affectRows = replyDao.addReply(reply);
-        if(affectRows == 1)
-            return true;
-        else
-            throw new SqlActionWrongException("Add reply failure");
+        int length = reply.getReplyContent().length();
+        if(length>=200 || length<=0){
+            throw new MessageSizeException("message size is incorrect");
+        }else {
+            int affectRows = replyDao.addReply(reply);
+
+            if (affectRows == 1)
+                return true;
+            else
+                throw new SqlActionWrongException("Add reply failure");
+        }
 
     }
 

@@ -83,7 +83,7 @@ var group = {
         }
     },
 
-    //还原dialog
+    //还原CreateGroupDialog
     "recoveryCreateGroupDialog"  : function() {
         /*
         1.把所有的提示信息全部清除，
@@ -105,6 +105,22 @@ var group = {
     "showJoinGroupDialog" : function () {
         dialog.showDialog(parseInt($(".join-group-size").css("min-height")),
             $(".join-group-size").outerWidth(), "join-group-dialog");
+    },
+
+    "showGroupApplyMemberManager" : function () {
+        dialog.showDialog(parseInt($(".group-apply-member-manager-size").css("min-height")),
+        $(".group-apply-member-manager-size").outerWidth(),"group-apply-member-manager-dialog")
+    },
+
+    "showJoinGroupDialog" : function () {
+        dialog.showDialog(parseInt($(".join-group-size").css("min-height")),
+            $(".join-group-size").outerWidth(), "join-group-dialog");
+    },
+
+    "closeJoinGroupDialog" : function () {
+        $("#join-group-form div").removeClass("has-error has-success");
+        $("#join-group-form .err-info").html("");
+        $("#join-group-form")[0].reset();
     },
 
     "showGroupApplyMemberManager" : function () {

@@ -32,7 +32,7 @@ public class NewsDaoTest {
 		int toAddress = 2;
 		String sendTime = "2016-10-27";
 		int statue = 0;
-		News news = new News(newsTitle, newsContent, fromAddress, toAddress, sendTime, statue);
+		News news = new News(newsTitle, newsContent,toAddress, sendTime, statue);
 		int affectRows = newsDao.addNews(news);
 		logger.info("影响的行数:" + affectRows + "自增的id:" + news.getNewsId());
 	}

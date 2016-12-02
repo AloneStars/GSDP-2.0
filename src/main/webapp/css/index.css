@@ -1,8 +1,8 @@
 ul li {
-	list-style-type: decimal;
-	height: 20px;
-	line-height: 20px;
-}
+	 list-style-type: decimal;
+	 height: 20px;
+	 line-height: 20px;
+ }
 
 #content-container {
 	width: 1024px;

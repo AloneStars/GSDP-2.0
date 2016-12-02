@@ -1,7 +1,7 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Situation;
-import com.gsdp.exception.situation.SituationException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -63,4 +63,10 @@ public interface SituationService {
     Integer publishSituation(int userId, int groupId, String situationTitle, String situationContent)
             throws IllegalArgumentException, SituationException;
 
+    /**
+     * 浏览记录+1
+     * @param situationId
+     * @return
+     */
+    boolean addSituationVisitors(int situationId);
 }

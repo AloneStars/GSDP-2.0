@@ -18,7 +18,7 @@ var user = {
         "randomChangeHead" : function () {
             return "/gsdp/user/randomChangeHead";
         },
-        
+
         "modifyUserBaseInfo" : function () {
             return "/gsdp/user/modifyBaseInfo"
         }
@@ -54,7 +54,7 @@ var user = {
                 return false;
             }
         },
-        
+
         "checkAge" : function (age) {
             //为[1,9]位的正整数,下面这个正则可以匹配0000这种形式
             var regex = /^\d{1,9}$/;
@@ -238,39 +238,7 @@ $(function () {
             }
         } else {
             $(this).parent().removeClass("has-success").addClass("has-error");
-            $(this).next(".err-info").html("请输入正确的密码格式");
-        }
-    });
-    
-    $(".modify_basic_info #username").on("blur", function () {
-        if(user.check.checkUsername($(this).val())) {
-            $(this).next(".err-info").html("");
-        } else {
-            $(this).next(".err-info").html("请输入正确的用户名格式");
-        }
-    });
-
-    $(".modify_basic_info #age").on("blur", function () {
-        if(user.check.checkAge($(this).val())) {
-            $(this).next(".err-info").html("");
-        } else {
-            $(this).next(".err-info").html("请输入正确的年龄格式");
-        }
-    });
-
-    $(".modify_basic_info #wechat").on("blur", function () {
-        if(user.check.checkWechat($(this).val())) {
-            $(this).next(".err-info").html("");
-        } else {
-            $(this).next(".err-info").html("请输入正确的微信格式");
-        }
-    });
-
-    $(".modify_basic_info #person-introduce").on("blur", function () {
-        if(user.check.checkPersonIntroduce($(this).val())) {
-            $(this).next(".err-info").html("");
-        } else {
-            $(this).next(".err-info").html("请输入正确的个人介绍格式");
+            $(this).next().html("请输入正确的密码格式");
         }
     });
 });

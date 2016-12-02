@@ -2,11 +2,16 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.ActivityDao;
 import com.gsdp.entity.group.Activity;
+import com.gsdp.exception.SqlActionWrongException;
+import com.gsdp.exception.activity.ActivityTimeException;
+import com.gsdp.exception.activity.OpenPermissionException;
 import com.gsdp.service.ActivityService;
+import com.gsdp.util.ActivityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -28,11 +33,19 @@ public class ActivityServiceImpl implements ActivityService{
     public ActivityDao activityDao;
 
     @Override
-    public boolean addActivity(Activity activity) {
+    public boolean addActivity(Activity activity) throws ActivityTimeException,OpenPermissionException{
 
-        activityDao.addActivityMessage(activity);
+        if(ActivityUtil.checkStartTime(activity.getBeginTime())
+                &&ActivityUtil.checkEndTime(activity.getBeginTime(),activity.getEndTime())){
+            if(ActivityUtil.checkOpen(activity.getPermission())){
+                activityDao.addActivityMessage(activity);
+                return true;
+            }
+            else
+                throw new OpenPermissionException("this permission of activity is incorrect");
+        }else
+            throw new ActivityTimeException("ActivityTime is incorrect");
 
-        return true;
     }
 
     @Override
@@ -46,9 +59,15 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
-    public Activity getSingleActivity(int activityId) {
+    @Transactional
+    public Activity getSingleActivity(int activityId){
         Activity activity = activityDao.queryActivityMessage(activityId);
+
+        //添加浏览记录失败，事物回滚
+        addActivityVisitors(activityId);
+
         return activity;
+
     }
 
     @Override
@@ -99,6 +118,18 @@ public class ActivityServiceImpl implements ActivityService{
         logger.info("activityList={}",activityList);
 
         return activityList;
+    }
+
+    @Override
+    public boolean addActivityVisitors(int activityId) throws SqlActionWrongException {
+        try{
+            if(activityDao.addActivityVisitors(activityId) == 1)
+                return true;
+            else
+                throw new SqlActionWrongException("add visitors failure");
+        }catch (Exception e){
+            throw new SqlActionWrongException("add visitors failure");
+        }
     }
 
 }

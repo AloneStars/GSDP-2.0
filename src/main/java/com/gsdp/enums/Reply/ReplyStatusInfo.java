@@ -1,4 +1,4 @@
-package com.gsdp.enums.Reply;
+package com.gsdp.enums.reply;
 
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -10,9 +10,9 @@ package com.gsdp.enums.Reply;
  *********************************************************/
 public enum  ReplyStatusInfo {
 
-    REPLY_NOT_LOGIN(1,"用户尚未登录请先登录"),
-    REPLY_CREATE_FAILURE(2,"评论失败"),
-    REPLY_CREATE_SUCCESS(3,"评论成功")
+    REPLY_CREATE_FAILURE(1,"评论失败"),
+    REPLY_CREATE_SUCCESS(2,"评论成功"),
+    REPLY_MESSAGESIZE_INCORRECT(3,"评论内容的长度不符合标准")
     ;
 
     private int status;

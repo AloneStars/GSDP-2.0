@@ -2,6 +2,7 @@ package com.gsdp.service;
 
 import com.gsdp.dao.ReplyDao;
 import com.gsdp.entity.group.Reply;
+import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
 
 /**********************************************************
@@ -14,5 +15,5 @@ import com.gsdp.exception.SqlActionWrongException;
  *********************************************************/
 public interface ReplyService {
 
-    boolean addReply(Reply reply) throws SqlActionWrongException;
+    boolean addReply(Reply reply) throws SqlActionWrongException,MessageSizeException;
 }

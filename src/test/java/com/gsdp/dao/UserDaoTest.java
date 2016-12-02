@@ -49,6 +49,15 @@ public class UserDaoTest {
     }
 
     @Test
+    public void queryUserByGroupId() throws Exception{
+
+        int groupId = 3;
+        List<User> userList = userDao.queryUserByGroupId(groupId);
+        logger.info("userList={}",userList);
+
+    }
+
+    @Test
     public void  queryUserMsgByEmail() throws Exception{
         String email = "1210938970@qq.com";
         User user = userDao.queryUserMsgByEmail(email);

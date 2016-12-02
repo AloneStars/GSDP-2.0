@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -95,24 +96,20 @@ public class GroupController {
 
         logger.info("获取组织详细信息");
 
-        boolean Member = false;
-        boolean Admin = false;
-        boolean Owner = false;
+        Map<Integer,String> identities = null;
 
-        if(session.getAttribute("Member") != null)
-            Member = (boolean)session.getAttribute("Member");
+        String identity = null;
 
-        if(session.getAttribute("Admin") != null)
-            Admin = (boolean)session.getAttribute("Admin");
-
-        if(session.getAttribute("Admin") != null)
-            Owner = (boolean)session.getAttribute("Owner");
+        if(session.getAttribute("identities") != null){
+            identities = (Map<Integer,String>)session.getAttribute("identities");
+            identity = identities.get(groupId);
+        }
 
         Group group = groupService.getGroupMsg(groupId);
 
         List<Activity> activityList = null;
 
-        if(Member||Admin||Owner)
+        if(!("visitor".equals(identity))&&(identity!=null))
             activityList = activityService.getGeneralActivityMessage(groupId,0,0,"visitors",true);
         else
             activityList = activityService.getOpenActivityMessage(groupId,0,0,"visitors",true);
@@ -174,6 +171,7 @@ public class GroupController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
+
 
     @RequestMapping(value = "/quit", method = RequestMethod.POST,
     produces = "application/json; charset=utf-8")

@@ -5,7 +5,10 @@ import com.gsdp.dto.Pagination;
 import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.user.User;
+import com.gsdp.enums.activity.ActivityStatusInfo;
 import com.gsdp.enums.pagination.PaginationStatusInfo;
+import com.gsdp.exception.activity.ActivityTimeException;
+import com.gsdp.exception.activity.OpenPermissionException;
 import com.gsdp.service.ActivityService;
 import com.gsdp.service.GroupService;
 import com.gsdp.util.DateUtil;
@@ -17,7 +20,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -97,16 +99,23 @@ public class ActivityController {
                                 String endTime, int activityNumber, String location,
                                 String content,int groupId,HttpSession session){
 
-        System.out.print(new Date().toString());
-
+        // TODO: 2016/11/29 准备异常处理 
         User user = (User)session.getAttribute("user");
 
         Activity activity = new Activity(activityName,content,startTime,endTime,user.getUserId(),groupId,activityNumber,location, DateUtil.getDataString(),open,0);
 
-        if(activityService.addActivity(activity))
-            return new JsonData(true,"活动发布成功");
-        else
-            return new JsonData(true,"数据库插入错误");
+        try{
+            if(activityService.addActivity(activity))
+                return new JsonData(true,ActivityStatusInfo.ACTIVITY_CREATE_SUCCESS.getMessage());
+            else
+                return new JsonData(true,ActivityStatusInfo.ACTIVITY_CREATE_FAILURE.getMessage());
+        }catch (ActivityTimeException e){
+            return new JsonData(false, ActivityStatusInfo.ACTIVITY_TIME_INCORRECT.getMessage());
+        }catch (OpenPermissionException e){
+            return new JsonData(false, ActivityStatusInfo.ACTIVITY_PERMISSION_INCORRECT.getMessage());
+        }
+
+
     }
 
     @RequestMapping(value = "/pagination", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
@@ -117,4 +126,5 @@ public class ActivityController {
 
         return new JsonData(true,activityList, PaginationStatusInfo.PAGINATION_SUCCESS.getMessage());
     }
+
 }

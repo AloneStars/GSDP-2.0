@@ -3,6 +3,7 @@ package com.gsdp.service.impl;
 import com.gsdp.dao.SituationDao;
 import com.gsdp.entity.group.Situation;
 import com.gsdp.exception.situation.SituationException;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.service.SituationService;
 import com.gsdp.util.DateUtil;
 import com.gsdp.util.SituationUtil;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,13 +42,16 @@ public class SituationServiceImpl implements SituationService{
     }
 
     @Override
+    @Transactional
     public Situation getSingleSituationMessage(int situationId, int offset, int limit) {
 
-       Situation situation = situationDao.getSingleSituationMessage(situationId,offset,limit);
+        Situation situation = situationDao.getSingleSituationMessage(situationId,offset,limit);
+
+        //添加浏览记录失败，事物回滚
+        addSituationVisitors(situationId);
 
         logger.info("situation={}",situation);
-
-       return situation;
+        return situation;
 
     }
 
@@ -84,5 +89,17 @@ public class SituationServiceImpl implements SituationService{
             throw new SituationException("database update error");
         }
         return null;
+    }
+
+    @Override
+    public boolean addSituationVisitors(int situationId) {
+        try{
+            if(situationDao.addSituationVisitors(situationId) == 1)
+                return true;
+            else
+                throw new SqlActionWrongException("add visitors failure");
+        }catch (Exception e){
+            throw new SqlActionWrongException("add visitors failure");
+        }
     }
 }

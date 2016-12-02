@@ -10,6 +10,7 @@ import com.gsdp.exception.file.SizeBeyondException;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 public interface UserService {
 
@@ -88,5 +89,11 @@ public interface UserService {
      */
     boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
             IllegalArgumentException,GroupNotExistException, GroupException;
+    /**
+     * 通过组织Id获取相关组织的成员
+     * @param groupId
+     * @return
+     */
+    List<User> getUserListByGroupId(int groupId);
 
 }

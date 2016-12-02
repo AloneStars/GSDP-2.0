@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**********************************************************
  * +茫茫人海与你相遇即是一种缘分,这让我不得不好好自我介绍一下
@@ -35,36 +37,49 @@ public class VerifyIdentityInterceptor implements HandlerInterceptor{
 
         HttpSession session = request.getSession();
 
+        Map<Integer,String> identities = (Map<Integer,String>)session.getAttribute("identities");
+
+        if(identities == null)
+            identities = new HashMap<Integer,String>();
+
         User user = (User) session.getAttribute("user");
 
         int groupId = Integer.parseInt(request.getRequestURI().split("/")[3]);
 
         Group group = groupService.getGroupMsg(groupId);
 
-        System.out.println(user);
+        if(user != null) {
 
-        if(user != null){
             int userId = user.getUserId();
-            try{
-                if(group.getOwner()==userId){
-                    session.setAttribute("Owner", true);
+
+            try {
+                if (group.getOwner() == userId) {
+                    identities.put(groupId, "owner");
+                   // session.setAttribute(Integer.toString(groupId), "owner");
                     System.out.println("法人身份验证成功");
-                }
-                if(userService.verifyMember(userId,groupId)) {
-                    session.setAttribute("Member", true);
+                }else if (userService.verifyMember(userId, groupId)) {
+                    identities.put(groupId, "member");
+                    //session.setAttribute(Integer.toString(groupId), "member");
                     System.out.println("成员身份验证成功");
-                    if(userService.verifyAdmin(userId,groupId)) {
-                        session.setAttribute("Admin", true);
+                    if (userService.verifyAdmin(userId, groupId)) {
+                        identities.put(groupId, "admin");
+                       // session.setAttribute(Integer.toString(groupId), "admin");
                         System.out.println("管理员身份验证成功");
                     }
+                } else {
+                    identities.put(groupId, "visitor");
+                   // session.setAttribute(Integer.toString(groupId), "visitor");
+                    System.out.println("游客验证成功");
                 }
-            }catch(VerifyAdminException e){
+            } catch (VerifyAdminException e) {
                 System.out.println("管理员身份验证失败");
-            }catch(VerifyMemberException e){
+            } catch (VerifyMemberException e) {
+                identities.put(groupId, "visitor");
                 System.out.println("成员身份验证失败");
             }
-
         }
+
+        session.setAttribute("identities",identities);
 
         return true;
     }

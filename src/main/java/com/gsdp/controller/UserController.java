@@ -166,13 +166,19 @@ public class UserController {
 
         Send send = new Send("/email.properties");
 
-        send.email(email,"本邮件为GSDP(校园团体风采展示平台)的用户注册邮件",
-                       /* "欢迎您注册成为我们的用户,下面是本次登录的验证码:" +*/
+        boolean success = send.email(email,"本邮件为GSDP(校园团体风采展示平台)的用户注册邮件",
+                        "<h1>欢迎您注册成为我们的用户,下面是本次登录的验证码:</h1>" +
                         "<br/><h1 style='color:#08c;'>验证码:"+ verifyCode+"</h1>");
 
-        session.setAttribute("verifyCode",verifyCode);
+        if(success){
+            session.setAttribute("verifyCode",verifyCode);
+            return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_SUCCESS.getMessage());
+        }else
+            return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_FAILURE.getMessage());
 
-        return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_SUCCESS.getMessage());
+
+
+
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST , produces = "application/json; charset=utf-8")
