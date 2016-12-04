@@ -28,8 +28,7 @@
 			group_id = #{groupId};
 		</where>
 	</select>
-    
-    
+
     <update id="changeOwner">
     	update `group`
     	<set>
@@ -39,12 +38,137 @@
     		group_id = #{groupId};
     	</where>
     </update>
+
+
+	<select id="getGroupAllMemberNumbersByStatus" resultType="int">
+		select count(*) from member
+		<where>
+			group_id = #{groupId} and status = #{status};
+		</where>
+	</select>
+
+	<select id="getOneGroupMember" resultType="Member">
+		select
+        m.user_id as "userId",
+		m.group_id as "groupId",
+		m.apply_reason as "applyReason",
+		m.phone as "phone",
+		m.status as "status",
+        m.role_id as "roleId",
+
+		u.user_id as "user.userId",
+		u.headPicture as "user.headPicture",
+		u.loginEmail as "user.loginEmail",
+		u.username as "user.username",
+		u.user_dec as "user.userDec",
+		u.sex as "user.sex",
+		u.age as "user.age",
+		u.wechat as "user.weChat",
+		u.phone as "user.phone",
+
+		g.group_id as "group.groupId",
+		g.group_icon as "group.groupIcon",
+		g.group_name as "group.groupName",
+		g.group_dec as "group.groupDec",
+		g.group_contact as "group.groupContact",
+		g.group_address as "group.groupAddress",
+		g.group_type as "group.groupType",
+		g.owner as "group.owner",
+		g.visitors as "group.visitors",
+		g.group_members as "group.groupMembers",
+		g.group_status as "group.groupStatus",
+		g.group_evidence as "group.groupEvidence",
+
+		r.role_id as "role.roleId",
+		r.role_name as "role.roleName"
+		from member as m inner join `group` as g on
+		m.group_id = g.group_id inner join `user` as u on
+		m.user_id = u.user_id inner join role as r on
+		m.role_id = r.role_id
+		<where>
+			m.user_id = #{userId} and m.group_id = #{groupId};
+		</where>
+	</select>
+
+
+	<select id="getGroupMembersByStatus" resultType="Member">
+		select
+		m.user_id as "userId",
+		m.group_id as "groupId",
+		m.apply_reason as "applyReason",
+		m.phone as "phone",
+		m.status as "status",
+
+		u.user_id as "user.userId",
+		u.headPicture as "user.headPicture",
+		u.loginEmail as "user.loginEmail",
+		u.username as "user.username",
+		u.user_dec as "user.userDec",
+		u.sex as "user.sex",
+		u.age as "user.age",
+		u.wechat as "user.weChat",
+		u.phone as "user.phone"
+		from member as m inner join `user` as u on
+		m.user_id = u.user_id
+		<where>
+			m.group_id = #{groupId} and m.status = #{status}
+			order by m.user_id limit ${offset},${limit};
+		</where>
+	</select>
+
+
+    <select id="getGroupMembersMessageWithRoleByStatus" resultType="Member">
+        select
+        m.user_id as "userId",
+		m.group_id as "groupId",
+		m.apply_reason as "applyReason",
+		m.phone as "phone",
+		m.status as "status",
+        m.role_id as "roleId",
+
+		u.user_id as "user.userId",
+		u.headPicture as "user.headPicture",
+		u.loginEmail as "user.loginEmail",
+		u.username as "user.username",
+		u.user_dec as "user.userDec",
+		u.sex as "user.sex",
+		u.age as "user.age",
+		u.wechat as "user.weChat",
+		u.phone as "user.phone",
+
+		r.role_id as "role.roleId",
+		r.role_name as "role.roleName"
+		from member as m inner join `user` as u on
+		m.user_id = u.user_id inner join role  as r on
+		m.role_id = r.role_id
+		<where>
+            m.group_id = #{groupId} and m.status = #{status}
+            order by m.role_id desc limit ${offset},${limit};
+        </where>
+    </select>
     
     
     <insert id="addMember">
     	insert ignore member(user_id,group_id,apply_reason,phone)
     	values(#{userId},#{groupId},#{applyReason},#{phone});
     </insert>
+
+	<update id="updateMember">
+		update member
+		<set>
+			<if test="applyReason != null and !applyReason.equals('')">
+				apply_reason = #{applyReason},
+			</if>
+			<if test="phone != null and !phone.equals('')">
+				phone = #{phone},
+			</if>
+			status = #{status},
+			role_id = #{roleId}
+			<where>
+				user_id = #{userId} and group_id = #{groupId};
+			</where>
+		</set>
+	</update>
 
 	<update id="changeMemberNumber">
 		UPDATE  `group`
@@ -69,6 +193,18 @@
     	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_status,group_evidence)
     	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors},#{groupStatus},#{groupEvidence});
     </insert>
+
+
+	<select id="getRole" resultType="Role">
+		select
+		r.role_id as "roleId",
+		r.role_name as "roleName"
+		from member as m inner join role as r on
+		m.role_id = r.role_id
+		<where>
+			m.group_id = #{groupId} and m.user_id = #{userId};
+		</where>
+	</select>
     
 
     <update id="updateGroup">
@@ -107,6 +243,39 @@
     		group_id = #{groupId};
     	</where>
     </select>
+
+	<select id="queryGroupMessageWithOwner" resultType="Group">
+		select
+		g.group_id as "groupId",
+		g.group_icon as "groupIcon",
+		g.group_name as "groupName",
+		g.group_dec as "groupDec",
+		g.group_contact as "groupContact",
+		g.group_address as "groupAddress",
+		g.group_type as "groupType",
+		g.owner as "owner",
+		g.visitors as "visitors",
+		g.group_members as "groupMembers",
+		g.group_status as "groupStatus",
+		g.group_evidence as "groupEvidence",
+
+		u.user_id as "groupOwner.user_id",
+		u.headPicture as "groupOwner.headPicture",
+		u.loginEmail as "groupOwner.loginEmail",
+		u.username as "groupOwner.username",
+		u.user_dec as "groupOwner.userDec",
+		u.sex as "groupOwner.sex",
+		u.age as "groupOwner.age",
+		u.wechat as "groupOwner.weChat",
+		u.phone as "groupOwner.phone"
+		from `group` as g inner join `user` as u
+		on g.owner = u.user_id
+		<where>
+			g.group_id = #{groupId};
+		</where>
+	</select>
+
+
     
     <!--简单来说#{} 解析的是占位符？可以防止SQL注入，
      比如打印出来的语句 select *　from table where id=?,
@@ -156,6 +325,8 @@
 			group_id != #{groupId};
 		</where>
 	</select>
+
+
 
 	<!--注意我们在传入string类型参数的时候，我们在这里用参数名只能用_parameter
 	来才能获取，但是如果是int类型就不用，但是为了语义表达清楚，这里我们用@param来

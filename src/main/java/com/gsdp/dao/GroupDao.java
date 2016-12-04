@@ -2,6 +2,7 @@ package com.gsdp.dao;
 
 import java.util.List;
 
+import com.gsdp.entity.Role;
 import com.gsdp.entity.group.Member;
 import org.apache.ibatis.annotations.Param;
 
@@ -62,6 +63,65 @@ public interface GroupDao {
 	int deleteMember(@Param("userId") int userId, @Param("groupId") int groupId);
 
 	/**
+	 * 根据userId和groupId来更新Member
+	 * @param member
+	 * @return
+	 */
+	int updateMember(Member member);
+
+	/**
+	 * 根据userId和groupId获得一个单一的用户和团队的对应关系（里面的信息包括当前用户的详细信息
+	 * （但是把密码给摸去了）,
+	 * 当前社团的详细信息，当前用户的角色信息和Member的详细信息）
+	 * @param userId
+	 * @param groupId
+	 * @return
+	 */
+	Member getOneGroupMember(@Param("userId") int userId, @Param("groupId") int groupId);
+
+	/**
+	 * TODO   这个方法现在在service层并没有调用，现在只是在测试方法里面调用了一次
+	 * 根据特定的状态（也就是查看是申请中，还是已加入该团队）来获取相关团队成员信息，同时
+	 * 包括该用户的详细信息，但是密码被我们给抹去了
+	 * @param groupId
+	 * @param status
+	 * @param offset
+	 * @param limit
+	 * @return
+	 */
+	List<Member> getGroupMembersByStatus(@Param("groupId") int groupId, @Param("status") int status,
+										 @Param("offset") int offset, @Param("limit") int limit);
+
+    /**
+     * 根据特定的状态（也就是查看是申请中，还是已加入该团队）来获取相关团队成员信息，同时
+     * 包括该用户的详细信息,同时还包括该成员在该团队的角色信息，但是密码被我们给抹去了
+     * 同时这是一个升序排列，意思就是说这个列表是按照职位的高低依次排列的。
+     * @param groupId
+     * @param status
+     * @param offset
+     * @param limit
+     * @return
+     */
+    List<Member> getGroupMembersMessageWithRoleByStatus(@Param("groupId") int groupId, @Param("status") int status,
+														@Param("offset") int offset, @Param("limit") int limit);
+
+	/**
+	 * 获取指定用户在指定团队的权限
+	 * @param userId
+	 * @param groupId
+	 * @return
+	 */
+	Role getRole(@Param("userId") int userId, @Param("groupId") int groupId);
+
+	/**
+	 * 根据状态获取一个团队总人数
+	 * @param groupId
+	 * @param status
+	 * @return
+	 */
+	int getGroupAllMemberNumbersByStatus(@Param("groupId") int groupId, @Param("status") int status);
+
+	/**
 	 * 更改成员数量
 	 * @param number
 	 * @param groupId
@@ -89,6 +149,7 @@ public interface GroupDao {
 	 * @return
 	 */
 	int updateGroup(Group group);
+
 	
 	/**
 	 * 获取组织信息（根据Id）
@@ -96,6 +157,14 @@ public interface GroupDao {
 	 * @return
 	 */
 	Group getGroupMessage(int groupId);
+
+	/**
+	 * 获取一个团队的信息，包括这个团队的创建者信息
+	 * @param groupId
+	 * @return
+	 */
+	Group queryGroupMessageWithOwner(int groupId);
+
 
 	/**
 	 * 获取组织列表,通过给定的参数获取

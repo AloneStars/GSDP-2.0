@@ -6,12 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
-     *
-     * @author yizijun
-     *
-     */
-    public interface UserDao {
-
+ *
+ */
+public interface UserDao {
     /**
      * 修改用户的头像
      * @param userId

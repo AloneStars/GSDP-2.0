@@ -63,7 +63,7 @@
             </div>
             <%--成员管理--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="成员管理" onclick="alert('成员管理');">
+                <a class="link" href="javascript:void(0);" title="成员管理"  onclick="group.showGroupMemberManager();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
@@ -83,7 +83,7 @@
             </div>
             <%--发布动态--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="发布动态" onclick="alert('发布动态');">
+                <a class="link" href="javascript:void(0);" title="发布动态" onclick="situation.showCreateSituation();">
                     <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Situation.png');"></span>
                 </a>
             </div>
@@ -95,7 +95,7 @@
             </div>
             <%--成员管理--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="成员管理" onclick="alert('成员管理');">
+                <a class="link" href="javascript:void(0);" title="成员管理">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
@@ -174,6 +174,8 @@
 <!--申请加入组织模态框-->
 <%@ include file="../dialog/joinGroup.jsp"%>
 <!--申请团队的成员管理模态框-->
-<%@ include file="../dialog/GroupApplyMemberManager.jsp"%>
+<%@ include file="../dialog/groupApplyMemberManager.jsp"%>
 <%--发布通知的模态框--%>
 <%@ include file="../dialog/publishNotice.jsp"%>
+<!--团队成员管理的模态框-->
+<%@ include file="../dialog/groupMemberManager.jsp"%>

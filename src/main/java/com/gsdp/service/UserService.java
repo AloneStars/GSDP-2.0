@@ -1,8 +1,9 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.user.User;
-import com.gsdp.exception.group.GroupException;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.group.GroupNotExistException;
+import com.gsdp.exception.news.NewsException;
 import com.gsdp.exception.user.*;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
@@ -57,10 +58,34 @@ public interface UserService {
     User checkUserLogin(String email, String password)
             throws UserUndefinedException,LoginMsgIncorrectException;
 
-    User registerUser(String email,String passwrod,String confirmPassword,String verifyCode,HttpSession session)
+    /**
+     *
+     * @param email
+     * @param password
+     * @param confirmPassword
+     * @param verifyCode
+     * @param session
+     * @return
+     * @throws UserExistedException
+     * @throws ConfirmPasswordIncorrectException
+     * @throws VerifyCodeIncorrectException
+     */
+    User registerUser(String email,String password,String confirmPassword,String verifyCode,HttpSession session)
             throws UserExistedException,ConfirmPasswordIncorrectException,VerifyCodeIncorrectException;
 
-    User modifyUserBaseInfo(int uesrId, String username, int age, int sex, String weChat, String userDec) throws
+    /**
+     *
+     * @param userId
+     * @param username
+     * @param age
+     * @param sex
+     * @param weChat
+     * @param userDec
+     * @return
+     * @throws IllegalArgumentException
+     * @throws UserException
+     */
+    User modifyUserBaseInfo(int userId, String username, int age, int sex, String weChat, String userDec) throws
             IllegalArgumentException, UserException;
 
     /**
@@ -84,11 +109,13 @@ public interface UserService {
      * @param applyReason
      * @param phone
      * @return
+     * @throws IllegalArgumentException
      * @throws GroupNotExistException
-     * @throws GroupException
+     * @throws SqlActionWrongException
+     * @throws NewsException
      */
     boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
-            IllegalArgumentException,GroupNotExistException, GroupException;
+            IllegalArgumentException,GroupNotExistException, SqlActionWrongException, NewsException;
     /**
      * 通过组织Id获取相关组织的成员
      * @param groupId

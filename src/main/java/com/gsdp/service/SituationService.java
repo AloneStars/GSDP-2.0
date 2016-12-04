@@ -1,6 +1,7 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Situation;
+import com.gsdp.exception.situation.SituationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

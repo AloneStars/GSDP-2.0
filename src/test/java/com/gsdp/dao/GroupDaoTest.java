@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.gsdp.entity.Role;
 import com.gsdp.entity.group.Member;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -149,5 +150,63 @@ public class GroupDaoTest {
 		int group_id = 4;
 		List<Integer> admin = groupDao.getGroupAdmin(group_id);
 		logger.info("admin = {}", admin);
+	}
+
+	@Test
+	public void getGroupMembersByStatus() throws Exception {
+		int groupId = 3;
+		List<Member> list = groupDao.getGroupMembersByStatus(groupId,0,0,100);
+		logger.info("list = {}", list);
+	}
+
+	@Test
+	public void getGroupAllMemberNumbersByStatus() {
+		int groupId = 3;
+		int status = 0;
+		int numbers = groupDao.getGroupAllMemberNumbersByStatus(groupId,status);
+		logger.info("numbers = " + numbers);
+	}
+
+	@Test
+	public void updateMember() throws Exception {
+		int userId = 2;
+		int groupId = 3;
+		int status = 1;
+		int roleId = com.gsdp.enums.user.Role.GROUP_USER.getRoleId();
+		int affectRows = groupDao.updateMember(new Member(userId,groupId,status,roleId));
+		logger.info("影响的行数:" + affectRows);
+	}
+
+	@Test
+	public void queryGroupMessageWithOwner() throws Exception {
+		int groupId = 5;
+		Group group = groupDao.queryGroupMessageWithOwner(groupId);
+		logger.info("group = " + group);
+	}
+
+	@Test
+	public void getGroupMembersMessageWithRoleByStatus() throws Exception {
+		int groupId = 3;
+		int status = 1;
+		int offset = 0;
+		int limit = 100;
+		List<Member> members = groupDao.getGroupMembersMessageWithRoleByStatus(groupId,status,offset,limit);
+		logger.info("members = {}", members);
+	}
+
+	@Test
+	public void getRole() throws Exception {
+		int userId = 2;
+		int groupId = 3;
+		Role role = groupDao.getRole(userId, groupId);
+		logger.info("role = " + role);
+	}
+
+	@Test
+	public void getOneGroupMember() throws Exception {
+		int userId = 3;
+		int groupId = 9;
+		Member member = groupDao.getOneGroupMember(userId, groupId);
+		logger.info("member = {}", member);
 	}
 }

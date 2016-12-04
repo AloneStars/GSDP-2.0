@@ -16,15 +16,15 @@ public class News {
 	private int statue;
 	
 	public News() {}
-	
+
+
 	public News(String newsTitle, String newsContent, int toAddress, String sendTime, int statue) {
 		this.newsTitle = newsTitle;
+		this.newsContent = newsContent;
 		this.toAddress = toAddress;
 		this.sendTime = sendTime;
 		this.statue = statue;
 	}
-
-	//--------------------------
 
 	public int getNewsId() {
 		return newsId;
@@ -74,12 +74,15 @@ public class News {
 		this.statue = statue;
 	}
 
-	//--------------------------
-	
 	@Override
 	public String toString() {
-		return "News [newsId=" + newsId + ", newsTitle=" + newsTitle
-				+ ", newsContent=" + newsContent +  ", toAddress=" + toAddress + ", sendTime="
-				+ sendTime + ", statue=" + statue + "]";
+		return "News{" +
+				"newsId=" + newsId +
+				", newsTitle='" + newsTitle + '\'' +
+				", newsContent='" + newsContent + '\'' +
+				", toAddress=" + toAddress +
+				", sendTime='" + sendTime + '\'' +
+				", statue=" + statue +
+				'}';
 	}
 }

@@ -1,9 +1,10 @@
 package com.gsdp.service;
 
 import com.google.gson.Gson;
+import com.gsdp.dto.group.GroupMember;
+import com.gsdp.dto.group.GroupMemberWithCurrentUserRole;
 import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
-import com.gsdp.entity.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -77,12 +78,18 @@ public class GroupServiceTest {
 
     @Test
     public void addAdmin() throws Exception {
-
+        int userId = 2;
+        int groupId = 3;
+        boolean result = groupService.addAdmin(userId, groupId);
+        logger.info("result = " + result);
     }
 
     @Test
-    public void delAdmin() throws Exception {
-
+    public void deleteAdmin() throws Exception {
+        int userId = 2;
+        int groupId = 3;
+        boolean result = groupService.deleteAdmin(userId, groupId);
+        logger.info("result = " + result);
     }
 
     @Test
@@ -97,7 +104,11 @@ public class GroupServiceTest {
 
     @Test
     public void changeOwner() throws Exception {
-
+        int currentOwner = 1;
+        int userId = 3;
+        int groupId = 3;
+        boolean result = groupService.changeOwner(currentOwner, userId, groupId);
+        logger.info("result = " + result);
     }
 
     @Test
@@ -111,10 +122,64 @@ public class GroupServiceTest {
 
     @Test
     public void quitGroup() throws Exception {
+        int userId = 2;
+        int groupId = 3;
+        boolean result = groupService.quitGroup(userId, groupId);
+        logger.info("result = {}", result);
+    }
+
+    @Test
+    public void getGroupMembersByStatus() throws Exception {
+        int groupId = 3;
+        int status = 1;
+        int currentPage = -3;
+        int limit = 100;
+        GroupMember groupMember = groupService.getGroupMembersByStatus(groupId,status,currentPage,limit);
+        logger.info("groupMember = {}", groupMember);
+    }
+
+    @Test
+    public void agreeUserJoinGroup() throws Exception {
         int userId = 1;
         int groupId = 3;
-        String message = groupService.quitGroup(userId, groupId);
-        logger.info("message = {}", message);
+        boolean result = groupService.agreeUserJoinGroup(userId, groupId);
+        logger.info("result = " + result);
+    }
+
+    @Test
+    public void disagreeUserJoinGroup() throws Exception {
+        int userId = 3;
+        int groupId = 4;
+        boolean result = groupService.disagreeUserJoinGroup(userId, groupId);
+        logger.info("result = " + result);
+    }
+
+    @Test
+    public void getGroupMessageWithOwner() throws Exception {
+        int groupId = 3;
+        Group group = groupService.getGroupMessageWithOwner(groupId);
+        logger.info("group = " + group);
+    }
+
+    @Test
+    public void getGroupMembersWithRoleByStatus() throws Exception {
+        int groupId = 3;
+        int currentUserId = 66;
+        int status = 1;
+        int currentPage = 1;
+        int limit = 100;
+        GroupMemberWithCurrentUserRole groupMemberWithCurrentUserRole =
+        groupService.getGroupMembersWithRoleByStatus(groupId, status, currentUserId, currentPage, limit);
+        logger.info("groupMemberWithCurrentUserRole = " + groupMemberWithCurrentUserRole);
+    }
+
+    @Test
+    public void fireMember() throws Exception {
+        int currentUserId = 2;
+        int userId = 8;
+        int groupId = 3;
+        boolean result = groupService.fireMember(currentUserId, userId, groupId);
+        logger.error("result = " + result);
     }
 
 }

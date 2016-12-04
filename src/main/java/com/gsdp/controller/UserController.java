@@ -8,11 +8,13 @@ import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.enums.user.UserStatusInfo;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
+import com.gsdp.exception.news.NewsException;
 import com.gsdp.exception.user.*;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
@@ -219,18 +221,21 @@ public class UserController {
     public JsonData applyJoinGroup(int groupId, String applyReason, String phone, HttpSession session) {
 
         int userId = ((User)session.getAttribute("user")).getUserId();
+
         try {
-            if(userService.applyJoinGroup(userId, groupId,applyReason,phone)) {
-                return new JsonData(true,"",GroupStatusInfo.APPLICATION_HAS_BEEN_SUBMITTED.getMessage());
+            if(userService.applyJoinGroup(userId, groupId, applyReason, phone)) {
+                return new JsonData(true, "", GroupStatusInfo.APPLICATION_HAS_BEEN_SUBMITTED.getMessage());
             } else {
-                return new JsonData(false,GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
+                return new JsonData(false, GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
             }
-        } catch(IllegalArgumentException e) {
-                return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+        } catch (IllegalArgumentException e) {
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
         } catch (GroupNotExistException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_NOT_EXIST.getMessage());
-        } catch (GroupException e) {
+        } catch (SqlActionWrongException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        } catch (NewsException e) {
+            return new JsonData(false, GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
         }
 
     }

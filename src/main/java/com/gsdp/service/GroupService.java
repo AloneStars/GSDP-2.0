@@ -1,13 +1,13 @@
 package com.gsdp.service;
 
+import com.gsdp.dto.group.GroupMember;
+import com.gsdp.dto.group.GroupMemberWithCurrentUserRole;
 import com.gsdp.dto.group.MemberAddition;
 import com.gsdp.entity.group.Group;
-import com.gsdp.entity.user.User;
+import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
-import com.gsdp.exception.group.GroupException;
-import com.gsdp.exception.group.GroupNotExistException;
-import com.gsdp.exception.group.GroupRepeatException;
-import com.gsdp.exception.group.NotInGroupException;
+import com.gsdp.exception.group.*;
+import com.gsdp.exception.news.NewsException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -31,47 +31,93 @@ public interface GroupService {
     //获取所有的组织信息
     List<Group> getAllGroupListMsg(int offset,int limit,String order,boolean type);
 
-    //添加组织信息
-    boolean addGroup(Group group);
-
     //删除组织信息
     boolean delGroup(int groupId);
 
     //更新组织信息
     boolean updateGroup(Group group);
 
-    //添加管理员
-    boolean addAdmin(int userId, int groupId);
-
-    //删除管理员
-    boolean delAdmin(int userId, int groupId);
 
     /**
-     *向member表中插入一条数据
+     * 将团队里面的一个普通成员变成管理员
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws NotInGroupException
+     * @throws HasBeenAdminException
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean addAdmin(int userId, int groupId) throws
+            NotInGroupException, HasBeenAdminException, NewsException, SqlActionWrongException;
+
+    /**
+     * 把团队的某个管理员变成普通成员，并且给其发送一封消息
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws NotInGroupException
+     * @throws NotGroupAdminException
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean deleteAdmin(int userId, int groupId) throws
+            NotInGroupException, NotGroupAdminException, NewsException, SqlActionWrongException;
+
+    /**
+     * 向member表中插入一条数据
      * @param userId
      * @param groupId
      * @param applyReason
      * @param phone
-     * @return 添加成功就返回这个用户的信息
-     * @throws GroupNotExistException  所传的社团并不存在
-     * @throws GroupException  数据库更新异常
+     * @return
+     * @throws GroupNotExistException
+     * @throws SqlActionWrongException
      */
     MemberAddition addMember(int userId, int groupId, String applyReason, String phone) throws
-            GroupNotExistException, GroupException;
+            GroupNotExistException, SqlActionWrongException;
 
     /**
-     *
+     *团队用户自动退出团体，但是法人不能够退出团队
      * @param userId
      * @param groupId
      * @return
-     * @throws GroupException
      * @throws NotInGroupException
+     * @throws OwnerCanNotQuitGroupException
+     * @throws SqlActionWrongException
      */
-    String quitGroup(int userId, int groupId)
-            throws NotInGroupException, GroupException;
+    boolean quitGroup(int userId, int groupId) throws
+            NotInGroupException, OwnerCanNotQuitGroupException, SqlActionWrongException;
 
-    //转让组织
-    boolean changeOwner(int userId, int groupId);
+
+    /**
+     *
+     * @param currentUserId
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws NotInGroupException
+     * @throws OwnerCanNotQuitGroupException
+     * @throws NotHasPermissionException
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean fireMember(int currentUserId, int userId, int groupId) throws
+            NotInGroupException, OwnerCanNotQuitGroupException, NotHasPermissionException, NewsException, SqlActionWrongException;
+
+    /**
+     *
+     * @param currentOwner
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws NotInGroupException
+     * @throws HasBeenOwnerException
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean changeOwner(int currentOwner, int userId, int groupId) throws
+            NotInGroupException, HasBeenOwnerException, NewsException, SqlActionWrongException;
 
     //获取除了该组织之后的所有组织列表
     List<Group> getGroupListMessageExpGroup(int groupId);
@@ -91,4 +137,56 @@ public interface GroupService {
     Group createGroup(Group group, MultipartFile multipartFile) throws
             EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException,GroupRepeatException, GroupException;
 
+    /**
+     *
+     * @param groupId
+     * @param status
+     * @param currentPage
+     * @param limit
+     * @return
+     * @throws GroupNotExistException
+     * @throws SqlActionWrongException
+     */
+    GroupMember getGroupMembersByStatus(int groupId, int status, int currentPage, int limit) throws
+            GroupNotExistException, SqlActionWrongException;
+
+    /**
+     *
+     * @param groupId
+     * @param status
+     * @param currentUserId
+     * @param currentPage
+     * @param limit
+     * @return
+     * @throws GroupNotExistException
+     * @throws SqlActionWrongException
+     */
+    GroupMemberWithCurrentUserRole getGroupMembersWithRoleByStatus(int groupId, int status, int currentUserId, int currentPage, int limit) throws
+            GroupNotExistException, SqlActionWrongException;
+
+    /**
+     *
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws HasBeenMemberException
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean agreeUserJoinGroup(int userId, int groupId) throws
+            HasBeenMemberException, NewsException, SqlActionWrongException;
+
+    /**
+     *
+     * @param userId
+     * @param groupId
+     * @return
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean disagreeUserJoinGroup(int userId, int groupId) throws
+            NewsException, SqlActionWrongException;
+
+    Group getGroupMessageWithOwner(int groupId) throws
+            SqlActionWrongException;
 }

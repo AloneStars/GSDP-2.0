@@ -106,9 +106,7 @@
             </if>
         </set>
         <where>
-            <if test="email != null and !email.equals('')">
                 loginEmail = #{email}
-            </if>
         </where>
     </update>
 

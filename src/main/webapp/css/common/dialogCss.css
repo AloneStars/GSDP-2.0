@@ -49,16 +49,21 @@ input.set-height {
 }
 /*createGroup.jsp所特有的css*/
 
-/*groupMemberManager.jsp所特有的css*/
-li.jump-page {
-    display: inline-block;
-    color:#428bca;
-    height: 34px;
-    line-height: 34px;
-    margin-left: 5px;
-}
+/*groupApplyMemberManager.jsp所特有的css*/
 #group-apply-member-manager-table .operation {
     width: 85px;
+}
+/*groupApplyMemberManager.jsp所特有的css*/
+
+/*groupMemberManager.jsp所特有的css*/
+#group-member-manager-table td {
+    line-height: 35px;
+    height:40px;
+}
+#group-member-manager-table td img {
+    width:35px;
+    height:35px;
+    border-radius: 100%;
 }
 /*groupMemberManager.jsp所特有的css*/
 
@@ -101,6 +106,17 @@ li.jump-page {
 .group-apply-member-manager-size {
     width:1200px;
     min-height: 550px;
+    border: none;
+}
+.group-member-manager-size {
+    width: 800px;
+    min-height: 550px;
+    border: none;
+}
+.publish-notice-size {
+    width:400px;
+    min-height:320px;
+    border:none;
 }
 .publish-notice-size {
     width:400px;

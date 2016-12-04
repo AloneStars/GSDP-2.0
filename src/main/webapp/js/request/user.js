@@ -20,7 +20,21 @@ var user = {
         },
 
         "modifyUserBaseInfo" : function () {
-            return "/gsdp/user/modifyBaseInfo"
+            return "/gsdp/user/modifyBaseInfo";
+        },
+
+        "applyJoinGroup" : function () {
+            return "/gsdp/user/applyJoinGroup";
+        }
+    },
+
+    "reference" : {
+        "genderReference" : function () {
+            return [[0, "保密"],[1, "男"], [2, "女"]];
+        },
+
+        "roleReference" : function () {
+            return [[0, ""],[1, "普通用户"], [2, "团队成员"], [3, "团队管理员"], [4, "团队法人"]];
         }
     },
 
@@ -41,6 +55,20 @@ var user = {
             //限制用户输入的密码长度为[6,16]，只能为字母，数字，和其它符号，但是不能为空白字符
             var regex = /^[a-zA-Z0-9\.@#\$%\^&\*\(\)\[\]\?\\/\|~`\+-_=,:'"]{6,16}$/;
             if(password && regex.test(password)) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+
+        "checkPhone" : function (phone) {
+          return group.check.checkGroupContact(phone);
+        },
+
+        "checkApplyJoinGroupReason" : function (applyReason) {
+            //验证用户输入的申请加入团队信息只能为[10,100]之间，并且不能有空格
+            var regex = /^\S{10,100}$/;
+            if(applyReason && regex.test(applyReason)) {
                 return true;
             } else {
                 return false;
@@ -162,6 +190,23 @@ var user = {
         }
     },
 
+    "applyJoinGroup" : function () {
+        var phone = $("#apply-join-group-contact").val();
+        var applyReason = $("#apply-reason").val();
+        var groupId = $("#groupId").text();
+
+        if(user.check.checkPhone(phone) && user.check.checkApplyJoinGroupReason(applyReason)) {
+            $.post(user.url.applyJoinGroup(),
+                {
+                    "groupId" : groupId,
+                    "applyReason" : applyReason,
+                    "phone" : phone
+                }, function (data) {
+                    alert(data.message);
+                });
+        }
+    },
+
     //显示修改密码模态框
     "showModifyPasswordDialog" : function () {
         dialog.showDialog(parseInt($(".modify-password-size").css("min-height")),
@@ -241,4 +286,24 @@ $(function () {
             $(this).next().html("请输入正确的密码格式");
         }
     });
+
+    $("#join-group-form #apply-join-group-contact").on("blur", function () {
+       if(user.check.checkPhone($(this).val())) {
+           $(this).parent().removeClass("has-error").addClass("has-success");
+           $(this).next(".err-info").html("");
+       } else {
+           $(this).parent().removeClass("has-success").addClass("has-error");
+           $(this).next(".err-info").html("手机号码格式输入错误");
+       }
+    });
+
+    $("#join-group-form #apply-reason").on("blur", function () {
+        if(user.check.checkApplyJoinGroupReason($(this).val())) {
+            $(this).parent().removeClass("has-error").addClass("has-success");
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).parent().removeClass("has-success").addClass("has-error");
+            $(this).next(".err-info").html("申请理由格式错误");
+        }
+    })
 });

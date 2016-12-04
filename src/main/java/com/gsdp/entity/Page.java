@@ -7,22 +7,22 @@ package com.gsdp.entity;
  */
 public class Page {
 
-	private int totalNums;
+	private int totalNumbers;
 
-	private int perPageDisplay = 5;
+	private int perPageDisplay;
 
-	private int startNums;
+	private int startNumbers;
 
 	private int totalPages;
 
 	private int currentPage;
 
-	public int getTotalNums() {
-		return totalNums;
+	public int getTotalNumbers() {
+		return totalNumbers;
 	}
 
-	public void setTotalNums(int totalNums) {
-		this.totalNums = totalNums;
+	public void setTotalNumbers(int totalNumbers) {
+		this.totalNumbers = totalNumbers;
 	}
 
 	public int getPerPageDisplay() {
@@ -33,12 +33,12 @@ public class Page {
 		this.perPageDisplay = perPageDisplay;
 	}
 
-	public int getStartNums() {
-		return startNums;
+	public int getStartNumbers() {
+		return startNumbers;
 	}
 
-	public void setStartNums(int startNums) {
-		this.startNums = startNums;
+	public void setStartNumbers(int startNumbers) {
+		this.startNumbers = startNumbers;
 	}
 
 	public int getTotalPages() {
@@ -78,21 +78,29 @@ public class Page {
 	}
 
 	/**
-	 * 初始化分页的一些参数
+	 *
 	 * @param totalNotes
 	 * @param page
+	 * @param perPageDisplay
 	 */
-	public void initPage(int totalNotes, String page) {
+	public void initPage(int totalNotes, int page, int perPageDisplay) {
 
-		int realPage = 0;
+		//当前显示的页数
+		int realPage = 1;
 
-		/*
-		 * 判断传入的数据的正确性
-		 */
-		if(page != null && page.matches("[0-9]{1,9}")) {
-			realPage = Integer.parseInt(page);
+//		if(page != null && !page.equals("0") && page.matches("[0-9]{1,9}")) {
+//			realPage = Integer.parseInt(page);
+//		}
+
+		if(0 < page) {
+			realPage = page;
 		}
-		setTotalNums(totalNotes);
+
+		//设置每页显示的数
+		setPerPageDisplay(perPageDisplay);
+		//设置总共的数目
+		setTotalNumbers(totalNotes);
+		//设置总共的页数
 		setTotalPages(totalNotes);
 
 		if (realPage > totalPages) {
@@ -101,7 +109,17 @@ public class Page {
 			setCurrentPage(realPage);
 		}
 
-		setStartNums((currentPage - 1) * perPageDisplay);
+		setStartNumbers((currentPage - 1) * perPageDisplay);
 	}
 
+	@Override
+	public String toString() {
+		return "Page{" +
+				"totalNumbers=" + totalNumbers +
+				", perPageDisplay=" + perPageDisplay +
+				", startNumbers=" + startNumbers +
+				", totalPages=" + totalPages +
+				", currentPage=" + currentPage +
+				'}';
+	}
 }
