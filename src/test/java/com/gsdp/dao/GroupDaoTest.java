@@ -146,7 +146,6 @@ public class GroupDaoTest {
 	}
 
 	@Test
-<<<<<<< HEAD
 	public void getGroupAdmin() throws Exception {
 		int group_id = 4;
 		List<Integer> admin = groupDao.getGroupAdmin(group_id);
@@ -209,7 +208,9 @@ public class GroupDaoTest {
 		int groupId = 9;
 		Member member = groupDao.getOneGroupMember(userId, groupId);
 		logger.info("member = {}", member);
-=======
+	}
+
+	@Test
 	public void getGroupListByOwner() {
 		int owner = 1;
 		List<Group> groupList = groupDao.getGroupListByOwner(owner);
@@ -221,6 +222,5 @@ public class GroupDaoTest {
 		int member = 1;
 		List<Group> groupList = groupDao.getGroupListByMember(member);
 		logger.info("groupList={}",groupList);
->>>>>>> 实现个人中心页面逻辑分析
 	}
 }

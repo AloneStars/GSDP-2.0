@@ -202,9 +202,6 @@ public interface GroupDao {
 	 * @param groupName
 	 * @return
 	 */
-<<<<<<< HEAD
-	int isSameGroupName(String groupName);
-=======
 	int isSameGroupName(@Param("groupName") String groupName);
 
 	/**
@@ -220,5 +217,5 @@ public interface GroupDao {
 	 * @return
      */
 	List<Group> getGroupListByMember(int member);
->>>>>>> 实现个人中心页面逻辑分析
+
 }

@@ -59,13 +59,13 @@
 		<!--<bean class="com.host.app.web.interceptor.AllInterceptor"/>-->
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
-			<mvc:exclude-mapping path="/user/login"/>
-			<mvc:exclude-mapping path="/user/register"/>
-			<mvc:mapping path="group/**"/>
-
+			<mvc:mapping path="/group/**"/>
 			<mvc:mapping path="/reply/creation"/>
 			<mvc:mapping path="/notice/creation"/>
 			<mvc:mapping path="/activity/creation"/>
+			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/user/register"/>
+
 			<bean class="com.gsdp.interceptor.CheckLoginInterceptor"/>
 		</mvc:interceptor>
 
