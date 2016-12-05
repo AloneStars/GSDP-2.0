@@ -13,6 +13,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>个人中心</title>
     <%@ include file="common/style.jsp"%>
+    <link href="${pageContext.request.contextPath}/css/pathMenu/hover-effects.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/animations.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/personal.css" type="text/css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/css/timeLine/timeline.css" rel="stylesheet" />
@@ -30,6 +31,7 @@
     <div id="content-container">
 
         <div id="personal_lobby">
+
             <div id="personal_container">
 
                 <div id="personal_container_top">
@@ -58,14 +60,12 @@
                         <div id="personal_msg_right">
 
                             <ul>
-
-                                <a href=""><li style="color:orange;"><i class="go">组织</i><i class="in">>>></i></li></a>
-                                <a href=""><li style="color:pink;"><i class="go">活动</i><i class="in">>>></i></li></a>
-                                <a href=""><li style="color:#08c;"><i class="go">动态</i><i class="in">>>></i></li></a>
-                                <a href=""><li style="color:#00cc00;"><i class="go">资源</i><i class="in">>>></i></li></a>
-                                <a href=""><li style="color:yellow;"><i class="go">通知</i><i class="in">>>></i></li></a>
-                                <a href=""><li style="color:red;"><i class="go">消息</i><i class="in">>>></i></li></a>
-
+                                <a href="#groupHistory" onclick="Toggle('#groupHistory_container');"><li style="color:orange;"><i class="go">组织</i><i class="in">>>></i></li></a>
+                                <a href="#activityHistory" onclick="Toggle('#activityHistory_container');"><li style="color:pink;" ><i class="go">活动</i><i class="in">>>></i></li></a>
+                                <a href="#situationHistory" onclick="Toggle('#situationHistory_container');"><li style="color:#08c;" ><i class="go">动态</i><i class="in">>>></i></li></a>
+                                <a href="#resourceHistory" onclick="Toggle('#resourceHistory_container');"><li style="color:#00cc00;" ><i class="go">资源</i><i class="in">>>></i></li></a>
+                                <a href="#noticeHistory" onclick="Toggle('#noticeHistory_container');"><li style="color:yellow;" ><i class="go">通知</i><i class="in">>>></i></li></a>
+                                <a href="#newsHistory" onclick="Toggle('#newsHistory_container');"><li style="color:red;" ><i class="go">消息</i><i class="in">>>></i></li></a>
                             </ul>
 
                         </div>
@@ -75,11 +75,507 @@
 
                 <div id="personal_container_bottom" class="shadow">
 
-                        <div class="personal_banner">
-                            <b><i>历史记录</i></b>
+                    <div id="groupHistory">
+
+                        <div class="personal_banner" onclick="Toggle('#groupHistory_container');">
+                            <b><i>组织历史纪录</i></b>
                         </div>
 
-                        <section id="cd-timeline" class="cd-container">
+                        <div id="groupHistory_container">
+
+                            <div id="createdGroup">
+                                <div class="personal_banner">
+                                    <b><i>他创建的组织</i></b>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="joinedGroup">
+                                <div class="personal_banner">
+                                    <b><i>他加入的组织</i></b>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                                <div class="group_list_item port-2 effect-3">
+                                    <div class="image-box">
+                                        <img src="${pageContext.request.contextPath}/image/GroupIcon/Star.jpg" alt="Image-1"/>
+                                    </div>
+                                    <div class="text-desc">
+                                        <h3>星空摄影团队</h3>
+                                        <p>阿斯顿发色发送到</p>
+                                        <a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" class="btn" target="_blank">Learn more</a>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="activityHistory" onclick="Toggle('#activityHistory_container');">
+
+                        <div class="personal_banner">
+                            <b><i>活动历史记录</i></b>
+                        </div>
+
+                        <div id="activityHistory_container">
+
+                            <section  class="cd-timeline cd-container">
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div><!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 1</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-2-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 2</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-3-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 3</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2015-5-24</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 4</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 14</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 5</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 6</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 26</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                            </section> <!-- cd-timeline -->
+
+                        </div>
+
+                    </div>
+
+                    <div id="situationHistory" onclick="Toggle('#situationHistory_container');" >
+                        <div class="personal_banner">
+                            <b><i>动态历史记录</i></b>
+                        </div>
+
+                        <div id="situationHistory_container">
+
+                            <section  class="cd-timeline cd-container">
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div><!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 1</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-2-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 2</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-3-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 3</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2015-5-24</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 4</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 14</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 5</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 6</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 26</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                            </section> <!-- cd-timeline -->
+
+                        </div>
+
+                    </div>
+
+                    <div id="resourceHistory" onclick="Toggle('#resourceHistory_container');" >
+                        <div class="personal_banner">
+                            <b><i>资源历史记录</i></b>
+                        </div>
+
+                        <div id="resourceHistory_container">
+
+                            <section  class="cd-timeline cd-container">
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div><!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 1</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-2-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 2</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-3-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 3</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2015-5-24</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 4</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 14</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 5</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 6</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 26</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                            </section> <!-- cd-timeline -->
+
+                        </div>
+
+                    </div>
+
+                    <div id="noticeHistory" onclick="Toggle('#noticeHistory_container');" >
+                        <div class="personal_banner">
+                            <b><i>通知历史记录</i></b>
+                        </div>
+
+                        <div id="noticeHistory_container">
+
+                            <section  class="cd-timeline cd-container">
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div><!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 1</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-2-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 2</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2014-3-18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-picture">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 3</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">2015-5-24</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 4</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 14</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-location">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-location.svg" alt="Location">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 5</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 18</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                                <div class="cd-timeline-block">
+                                    <div class="cd-timeline-img cd-movie">
+                                        <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
+                                    </div> <!-- cd-timeline-img -->
+
+                                    <div class="cd-timeline-content">
+                                        <h2>html5时间表 6</h2>
+                                        <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
+                                        <a href="#" class="cd-read-more">阅读更多</a>
+                                        <span class="cd-date">Feb 26</span>
+                                    </div> <!-- cd-timeline-content -->
+                                </div> <!-- cd-timeline-block -->
+
+                            </section> <!-- cd-timeline -->
+
+                        </div>
+
+                    </div>
+
+                    <div id="newsHistory" onclick="Toggle('#newsHistory_container');" >
+
+                        <div class="personal_banner">
+                            <b><i>消息历史记录</i></b>
+                        </div>
+
+                        <div id="newsHistory_container">
+
+                            <section class="cd-timeline cd-container">
                             <div class="cd-timeline-block">
                                 <div class="cd-timeline-img cd-picture">
                                     <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-picture.svg" alt="Picture">
@@ -87,7 +583,7 @@
 
                                 <div class="cd-timeline-content">
                                     <h2>html5时间表 1</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。<br><br><br><br><br><br><br><br><br><br><br><br></p>
+                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
                                     <a href="#" class="cd-read-more">阅读更多</a>
                                     <span class="cd-date">2014-2-18</span>
                                 </div> <!-- cd-timeline-content -->
@@ -158,89 +654,16 @@
                                 </div> <!-- cd-timeline-content -->
                             </div> <!-- cd-timeline-block -->
 
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
-                            <div class="cd-timeline-block">
-                                <div class="cd-timeline-img cd-movie">
-                                    <img src="${pageContext.request.contextPath}/image/timeLine/cd-icon-movie.svg" alt="Movie">
-                                </div> <!-- cd-timeline-img -->
-
-                                <div class="cd-timeline-content">
-                                    <h2>html5时间表 6</h2>
-                                    <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
-                                    <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Feb 26</span>
-                                </div> <!-- cd-timeline-content -->
-                            </div> <!-- cd-timeline-block -->
-
                         </section> <!-- cd-timeline -->
+
+                        </div>
+
+                    </div>
 
                 </div>
 
             </div>
+
         </div>
 
     </div>
@@ -276,6 +699,10 @@
             });
         });
     });
+
+    function Toggle(divClass){
+        $(divClass).slideToggle("slow");
+    };
 </script>
 </body>
 </html>

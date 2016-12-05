@@ -72,7 +72,7 @@
                     <!-- end of row3-->
                     <!--start row4-->
                     <div class="form-group" style="margin: 0px; padding: 0px; display: none;">
-                        <script id="activity-container" name="activityContent" type="text/plain">这里写你的发表活动的内容</script>
+                        <script id="activity-container" name="activityContent" type="text/plain">请在这里键入你的发表活动的内容...</script>
                     </div>
                     <!--end of row4-->
                 </div>

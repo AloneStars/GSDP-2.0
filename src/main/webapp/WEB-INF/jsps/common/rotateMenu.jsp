@@ -31,12 +31,6 @@
                     <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/GroupMsg.png');"></span>
                 </a>
             </div>
-            <%--管理员管理--%>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="管理员管理" onclick="alert('管理员管理');">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Admin.png');"></span>
-                </a>
-            </div>
             <%--发布资源--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="发布资源" onclick="alert('发布资源');">
@@ -51,7 +45,7 @@
             </div>
             <%--发布动态--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="发布动态" onclick="alert('发布动态');">
+                <a class="link" href="javascript:void(0);" title="发布动态" onclick="situation.showCreateSituation();">
                     <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Situation.png');"></span>
                 </a>
             </div>
@@ -95,7 +89,7 @@
             </div>
             <%--成员管理--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="成员管理">
+                <a class="link" href="javascript:void(0);" title="成员管理" onclick="group.showGroupMemberManager();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
@@ -107,30 +101,16 @@
                         <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Resource.png');"></span>
                     </a>
             </div>
+            <%--成员管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="成员管理" onclick="group.showGroupMemberManager();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                </a>
+            </div>
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="${identity}">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="10">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="11">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="12">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
                 </a>
             </div>
         </c:when>
@@ -139,26 +119,6 @@
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="${identity}">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="10">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_pic.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="11">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
-                </a>
-            </div>
-            <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="12">
-                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/moment_icn_info.png');"></span>
                 </a>
             </div>
         </c:otherwise>

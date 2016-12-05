@@ -26,9 +26,7 @@
                 <!--start row2-->
                 <div class="form-group" style="margin: 0px; padding: 0px">
                     <!-- 加载编辑器的容器 -->
-                    <script id="situation-container" name="situationContent" type="text/plain">
-                            动态主题
-                        </script>
+                    <script id="situation-container" name="situationContent" type="text/plain">请在此处键入你的动态内容...</script>
                 </div>
                 <!--end of row2-->
             </div>

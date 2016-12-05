@@ -75,7 +75,9 @@
         <div class="modal-footer">
             <div class="row text-center">
                 <%--分页设置--%>
-                <div class="M-box3">
+                <div class="wrapper">
+                    <div class="M-box3">
+                    </div>
                 </div>
             </div>
         </div>

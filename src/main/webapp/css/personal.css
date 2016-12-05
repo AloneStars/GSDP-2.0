@@ -125,6 +125,7 @@
 }
 
 #personal_msg_right ul a li{
+    float:none;
     list-style-type: none;
     margin:10px auto;
     font-size: 18px;
@@ -147,6 +148,37 @@
     width:50%;
     text-align: right;
     padding-right:20px;
+}
+
+#groupHistory{
+    width:100%;
+    height:auto;
+ }
+
+#groupHistory_container{
+    margin:0 auto;
+    width:910px;
+    height:840px;
+}
+
+#createdGroup{
+    float:left;
+    width:25%;
+    height:840px;
+}
+
+#joinedGroup{
+    float:left;
+    width:75%;
+    height:580px;
+}
+
+.group_list_item {
+    margin:0px 0px 10px 10px;
+    width: 215px;
+    height: 250px;
+    overflow: hidden;
+    float: left;
 }
 
 

@@ -82,6 +82,7 @@ public class VerifyIdentityInterceptor implements HandlerInterceptor{
         session.setAttribute("identities",identities);
 
         return true;
+
     }
 
     @Override

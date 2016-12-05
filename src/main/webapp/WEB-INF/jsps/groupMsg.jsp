@@ -35,6 +35,7 @@
                 </div>
 
                 <div id="banner-left-bottom">
+
                     <div class="groupName">
                         <span><b id="groupName">${group.groupName}</b></span>
                     </div>
@@ -47,9 +48,31 @@
                     <div class="Intro">
                         办公地点：<span id="groupAddress">${group.groupAddress}</span>
                     </div>
-                    <div class="Intro">
-                        <input type="button" value="申请加入" onclick="group.showJoinGroupDialog();">
-                    </div>
+
+                    <c:set var="groupId" value="${group.groupId}"/>
+                    <c:forEach items="${sessionScope.get('identities')}" var="map">
+                        <c:if test="${map.key == groupId}">
+                            <c:set var="identity" value="${map.value}"/>
+                        </c:if>
+                    </c:forEach>
+
+                    <c:choose>
+                        <c:when test="${identity == 'owner'}">
+                            <div class="Intro">
+                                <input type="button" value="退出组织" onclick="alert('法人不能轻易退出组织,请慎重...');">
+                            </div>
+                        </c:when>
+                        <c:when test="${identity == 'member' or identity == 'admin'}">
+                            <div class="Intro">
+                                <input type="button" value="退出组织" onclick="alert('管理员/普通成员团退出组织');">
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="Intro">
+                                <input type="button" value="申请加入" onclick="group.showJoinGroupDialog();">
+                            </div>
+                        </c:otherwise>
+                    </c:choose>
 
                 </div>
             </div>
