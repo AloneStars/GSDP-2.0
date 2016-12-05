@@ -64,4 +64,11 @@ public interface SituationDao {
      */
 	int addSituationVisitors(int situationId);
 
+	/**
+	 * 获取该用户发布的所有的动态
+	 * @param publisher
+	 * @return
+     */
+	List<Situation> getSituationListByPublisher(int publisher);
+
 }

@@ -70,4 +70,11 @@ public interface SituationService {
      * @return
      */
     boolean addSituationVisitors(int situationId);
+
+    /**
+     * 获取该用户所有的动态
+     * @param publisher
+     * @return
+     */
+    List<Situation> getSituationListByPublisher(int publisher);
 }

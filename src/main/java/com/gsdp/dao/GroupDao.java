@@ -202,5 +202,23 @@ public interface GroupDao {
 	 * @param groupName
 	 * @return
 	 */
+<<<<<<< HEAD
 	int isSameGroupName(String groupName);
+=======
+	int isSameGroupName(@Param("groupName") String groupName);
+
+	/**
+	 * 查询相应用户创建的团体
+	 * @param owner
+	 * @return
+     */
+	List<Group> getGroupListByOwner(int owner);
+
+	/**
+	 * 查询相应用户加入的团体
+	 * @param member
+	 * @return
+     */
+	List<Group> getGroupListByMember(int member);
+>>>>>>> 实现个人中心页面逻辑分析
 }

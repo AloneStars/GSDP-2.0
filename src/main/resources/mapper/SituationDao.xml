@@ -9,6 +9,15 @@
 		situation_id,situation_title,situation_content,publisher,publishTime,group_id,visitors
 	</sql>
 
+	<select id="getSituationListByPublisher" resultType="Situation">
+		select
+		<include refid="columns"/>
+		from situation
+		<where>
+			publisher = #{publisher};
+		</where>
+	</select>
+
  
 	<select id="getSituationMessage" resultType="Situation">
 		select

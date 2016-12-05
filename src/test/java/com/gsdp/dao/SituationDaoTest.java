@@ -67,4 +67,11 @@ public class SituationDaoTest {
 
 	}
 
+	@Test
+	public void testGetSituationListByPublisher(){
+		int publisher = 1;
+		List<Situation> situationList = situationDao.getSituationListByPublisher(publisher);
+		logger.info("situationList = {}",situationList);
+	}
+
 }

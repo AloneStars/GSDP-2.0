@@ -362,6 +362,22 @@ public class GroupServiceImpl implements GroupService {
 
     }
 
+    @Override
+    public List<Group> getGroupListBySponsor(int sponsor) {
+
+        List<Group> groupList = groupDao.getGroupListByOwner(sponsor);
+
+        return groupList;
+    }
+
+    @Override
+    public List<Group> getGroupListByMember(int member) {
+
+        List<Group> groupList = groupDao.getGroupListByMember(member);
+
+        return groupList;
+    }
+
     /**
      * @param group
      * @param multipartFile

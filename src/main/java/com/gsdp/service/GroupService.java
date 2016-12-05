@@ -122,6 +122,11 @@ public interface GroupService {
     //获取除了该组织之后的所有组织列表
     List<Group> getGroupListMessageExpGroup(int groupId);
 
+    List<Group> getGroupListBySponsor(int sponsor);
+
+    List<Group> getGroupListByMember(int member);
+
+
     /**
      *
      * @param group

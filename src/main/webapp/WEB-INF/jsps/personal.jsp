@@ -58,6 +58,7 @@
                         <div id="personal_msg_right">
 
                             <ul>
+
                                 <a href=""><li style="color:orange;"><i class="go">组织</i><i class="in">>>></i></li></a>
                                 <a href=""><li style="color:pink;"><i class="go">活动</i><i class="in">>>></i></li></a>
                                 <a href=""><li style="color:#08c;"><i class="go">动态</i><i class="in">>>></i></li></a>
@@ -88,7 +89,7 @@
                                     <h2>html5时间表 1</h2>
                                     <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。<br><br><br><br><br><br><br><br><br><br><br><br></p>
                                     <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Jan 14</span>
+                                    <span class="cd-date">2014-2-18</span>
                                 </div> <!-- cd-timeline-content -->
                             </div> <!-- cd-timeline-block -->
 
@@ -101,7 +102,7 @@
                                     <h2>html5时间表 2</h2>
                                     <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
                                     <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Jan 18</span>
+                                    <span class="cd-date">2014-3-18</span>
                                 </div> <!-- cd-timeline-content -->
                             </div> <!-- cd-timeline-block -->
 
@@ -114,7 +115,7 @@
                                     <h2>html5时间表 3</h2>
                                     <p>jQuery 团队在官博中再次提醒用户，jQuery 2.0 不再支持IE 6/7/8 了，但是 jQuery 1.9 会继续支持。因为旧版 IE 浏览器在整个互联网中还有很大部分市场，所以他们非常期望大部分网站能继续使用 jQuery 1.x 一段时间。jQuery 团队也将同时支持 jQuery 1.x 和 2.x 。1.9 和 2.0 版的 API 是相同的，所以不必因为你们网站还在用 jQuery 1.9，就感觉好像错过了什么，或者是落后了。</p>
                                     <a href="#" class="cd-read-more">阅读更多</a>
-                                    <span class="cd-date">Jan 24</span>
+                                    <span class="cd-date">2015-5-24</span>
                                 </div> <!-- cd-timeline-content -->
                             </div> <!-- cd-timeline-block -->
 

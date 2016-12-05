@@ -339,4 +339,41 @@
 		</where>
 	</select>
 
+	<select id="getGroupListByOwner" resultType="Group">
+		SELECT
+		<include refid="columns"/>
+		FROM `group`
+		<where>
+			owner = #{owner}
+			AND
+			group_status = 1;
+		</where>
+	</select>
+
+	<select id="getGroupListByMember" resultType="Group">
+		SELECT
+		g.group_id,
+		g.group_icon,
+		g.group_name,
+		g.group_dec,
+		g.group_contact,
+		g.group_address,
+		g.group_type,
+		g.owner,
+		g.visitors,
+		g.group_members,
+		g.group_status,
+		g.group_evidence
+		FROM `group` AS g
+		JOIN  `member` AS  m
+		ON g.group_id = m.group_id
+		<where>
+			user_id = #{userId}
+			AND
+			role_id = 2 OR role_id = 3
+			AND
+			m.status = 1;
+		</where>
+	</select>
+
 </mapper>

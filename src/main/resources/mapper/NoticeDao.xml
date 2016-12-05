@@ -24,7 +24,15 @@
 		</where>
 	</select>
 	
-	
+	<select id="getNoticeListByNoticer" resultType="Notice">
+		select
+		<include refid="columns"/>
+		from notice
+		<where>
+			noticer = #{noticer};
+		</where>
+	</select>
+
 	<select id="getSingleNoticeMessage" resultType="Notice">
 		select
 		<include refid="columns"/>

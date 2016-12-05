@@ -3,6 +3,7 @@ package com.gsdp.dao;
 import java.util.List;
 
 import com.gsdp.entity.group.Notice;
+import com.gsdp.entity.group.Situation;
 
 /**
  * 
@@ -24,6 +25,13 @@ public interface NoticeDao {
 	 * @return
 	 */
 	List<Notice> getNoticeMessage(int groupId);
+
+	/**
+	 * 获取该用户发布的所有通知
+	 * @param noticer
+	 * @return
+     */
+	List<Situation> getNoticeListByNoticer(int noticer);
 	
 	/**
 	 * 获取单个的通知消息

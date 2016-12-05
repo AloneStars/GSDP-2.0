@@ -102,4 +102,13 @@ public class SituationServiceImpl implements SituationService{
             throw new SqlActionWrongException("add visitors failure");
         }
     }
+
+    @Override
+    public List<Situation> getSituationListByPublisher(int publisher) {
+
+        List<Situation> situationList = situationDao.getSituationListByPublisher(publisher);
+
+        return situationList;
+
+    }
 }
