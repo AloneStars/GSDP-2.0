@@ -51,4 +51,10 @@ public class NewsServiceImpl implements NewsService {
         }
         return false;
     }
+
+    @Override
+    public List<News> getNewsListByToAddress(int toAddress) {
+        List<News> newsList = newsDao.getNewsListByToAddress(toAddress);
+        return newsList;
+    }
 }

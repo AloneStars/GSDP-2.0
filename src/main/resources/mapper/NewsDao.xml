@@ -36,5 +36,15 @@
 			news_id = #{newsId};
 		</where>
 	</update>
+	
+	<select id="getNewsListByToAddress" resultType="News">
+		SELECT news_title,news_content,toAddress,sendTime,statue
+		FROM `news`
+		<where>
+			toAddress = #{toAddress}
+			ORDER BY sendTime DESC;
+		</where>
+	</select>
+
 
 </mapper>

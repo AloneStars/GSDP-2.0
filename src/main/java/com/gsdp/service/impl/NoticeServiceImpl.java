@@ -91,4 +91,12 @@ public class NoticeServiceImpl implements NoticeService {
     public boolean deleteNoticeMessage(int noticeId) {
         return false;
     }
+
+    @Override
+    public List<Notice> getNoticeListByNoticer(int noticer) {
+
+        List<Notice> noticeList = noticeDao.getNoticeListByNoticer(noticer);
+
+        return noticeList;
+    }
 }

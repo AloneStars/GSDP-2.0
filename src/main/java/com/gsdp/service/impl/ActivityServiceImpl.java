@@ -111,9 +111,29 @@ public class ActivityServiceImpl implements ActivityService{
     }
 
     @Override
+    public List<Activity> getGeneralActivityMessageByAcvitier(int activitier, int offset, int limit, String order, boolean type) {
+
+        List<Activity> activityList = activityDao.getGeneralActivityMessageByActivitier(activitier,offset,limit,order,type);
+
+        logger.info("activityList={}",activityList);
+
+        return activityList;
+    }
+
+    @Override
     public List<Activity> getOpenActivityMessage(int sponsor, int offset, int limit, String order, boolean type) {
 
         List<Activity> activityList = activityDao.getOpenActivityMessage(sponsor,offset,limit,order,type);
+
+        logger.info("activityList={}",activityList);
+
+        return activityList;
+    }
+
+    @Override
+    public List<Activity> getOpenActivityMessageByActivitier(int activitier, int offset, int limit, String order, boolean type) {
+
+        List<Activity> activityList = activityDao.getOpenActivityMessageByActivitier(activitier,offset,limit,order,type);
 
         logger.info("activityList={}",activityList);
 

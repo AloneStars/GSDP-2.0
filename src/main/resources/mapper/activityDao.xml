@@ -108,6 +108,23 @@
 		</if>
 	</select>
 
+	<select id="getGeneralActivityMessageByActivitier" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<if test="activitier != 0">
+			<where>
+				activitier = #{activitier}
+			</where>
+		</if>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
 	<select id="getOpenActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>
@@ -116,6 +133,24 @@
 			permission = 1
 			<if test="sponsor != 0">
 				AND sponsor = #{sponsor}
+			</if>
+		</where>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
+	<select id="getOpenActivityMessageByActivitier" resultType="Activity">
+		select
+		<include refid="columns"/>
+		from activity
+		<where>
+			permission = 1
+			<if test="activitier != 0">
+				AND activitier = #{activitier}
 			</if>
 		</where>
 		<if test="order != null and !order.equals('')">

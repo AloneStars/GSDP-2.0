@@ -4,11 +4,9 @@ import com.gsdp.entity.group.Activity;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Notice;
 import com.gsdp.entity.group.Situation;
+import com.gsdp.entity.user.News;
 import com.gsdp.entity.user.User;
-import com.gsdp.service.ActivityService;
-import com.gsdp.service.GroupService;
-import com.gsdp.service.NoticeService;
-import com.gsdp.service.SituationService;
+import com.gsdp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +39,9 @@ public class PersonalController {
 
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private NewsService newsService;
 
 
     // TODO: 2016/12/4 活动和通知的前提都必须是该用户发布的，资源暂时不考虑，但是权限限制应该和活动一样
@@ -75,33 +76,47 @@ public class PersonalController {
         int actionUserId = user.getUserId();
 
         //获取组织信息
-        List<Group> createdGroupList = groupService.getGroupListBySponsor(user.getUserId());
+        List<Group> createdGroupList = groupService.getGroupListByOwner(actionUserId);
 
-        List<Group> joinedGroupList = groupService.getGroupListByMember(user.getUserId());
+        System.out.println("创建组织列表:"+createdGroupList.size());
+
+        List<Group> joinedGroupList = groupService.getGroupListByMember(actionUserId);
 
         //获取动态信息
-        List<Situation> situationList = situationService.getSituationListByPublisher(user.getUserId());
+        List<Situation> situationList = situationService.getSituationListByPublisher(actionUserId);
+
+        List<Activity> activityList = null;
+        List<Notice> noticeList = null;
+        List<News> newsList = null;
+
+        if(userId == actionUserId ){
+            // TODO: 2016/12/6 本人身份验证成功
+            //获取活动信息
+            activityList = activityService.getGeneralActivityMessageByAcvitier(actionUserId,0,0,"publishTime",true);
+
+            // TODO: 2016/12/6  获取资源信息
+
+            //获取通知信息
+            noticeList = noticeService.getNoticeListByNoticer(actionUserId);
+
+            //获取消息信息
+            newsList = newsService.getNewsListByToAddress(actionUserId);
+
+        }else{
+            activityList = activityService.getOpenActivityMessageByActivitier(user.getUserId(),0,0,"publishTime",true);
+        }
+
+        for (Activity activity: activityList) {
+            Group group = groupService.getGroupMsg(activity.getSponsor());
+            activity.setGroup(group);
+        }
 
         model.addAttribute("createdGroupList",createdGroupList);
         model.addAttribute("joinedGroupList",joinedGroupList);
         model.addAttribute("situationList",situationList);
-        
-        if(userId == actionUserId ){
-            // TODO: 2016/12/6 本人身份验证成功
-            System.out.println("本人身份验证成功");
-            //获取活动信息
-            List<Activity> activityList = activityService.getGeneralActivityMessage(user.getUserId(),0,0,"publishTime",true);
-            model.addAttribute("activityList",activityList);
-            //获取资源信息
-
-            //获取通知信息
-
-            //获取消息信息
-
-        }else{
-            List<Activity> activityList = activityService.getOpenActivityMessage(user.getUserId(),0,0,"publishTime",true);
-            model.addAttribute("activityList",activityList);
-        }
+        model.addAttribute("activityList",activityList);
+        model.addAttribute("noticeList",noticeList);
+        model.addAttribute("newsList",newsList);
 
         return "personal";
         
@@ -112,7 +127,7 @@ public class PersonalController {
 
         User user = (User)session.getAttribute("user");
 
-        List<Group> createdGroupList = groupService.getGroupListBySponsor(user.getUserId());
+        List<Group> createdGroupList = groupService.getGroupListByOwner(user.getUserId());
 
         List<Group> joinedGroupList = groupService.getGroupListByMember(user.getUserId());
 

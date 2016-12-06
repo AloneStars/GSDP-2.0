@@ -37,6 +37,9 @@ public class Activity {
 
 	//活动访问人数统计
 	private int visitors;
+
+	//存储主办方对象
+	private Group group;
 	
 	public Activity() {}
 
@@ -158,6 +161,14 @@ public class Activity {
 
 	public void setVisitors(int visitors) {
 		this.visitors = visitors;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
 	}
 
 	//---------------------------------

@@ -363,7 +363,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getGroupListBySponsor(int sponsor) {
+    public List<Group> getGroupListByOwner(int sponsor) {
 
         List<Group> groupList = groupDao.getGroupListByOwner(sponsor);
 

@@ -31,7 +31,7 @@ public interface NoticeDao {
 	 * @param noticer
 	 * @return
      */
-	List<Situation> getNoticeListByNoticer(int noticer);
+	List<Notice> getNoticeListByNoticer(int noticer);
 	
 	/**
 	 * 获取单个的通知消息

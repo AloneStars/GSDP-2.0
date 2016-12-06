@@ -42,4 +42,11 @@ public interface NewsDao {
 	 */
 	int changeNewsStatue(@Param("statue") int statue, @Param("newsId") int newsId);
 
+	/**
+	 * 获取该用户收到的所有消息
+	 * @param toAddress
+	 * @return
+     */
+	List<News> getNewsListByToAddress(int toAddress);
+
 }

@@ -25,4 +25,6 @@ public interface NoticeService {
 
     boolean deleteNoticeMessage(int noticeId);
 
+    List<Notice> getNoticeListByNoticer(int noticer);
+
 }

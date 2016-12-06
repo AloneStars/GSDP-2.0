@@ -1,5 +1,6 @@
 package com.gsdp.service;
 
+import com.gsdp.entity.user.News;
 import com.gsdp.exception.news.ReceiverIsEmptyException;
 
 import java.util.List;
@@ -19,5 +20,12 @@ public interface NewsService {
      */
     boolean sendMessage(String newsTitle, String newsContent, List<Integer> receiver) throws
             ReceiverIsEmptyException;
+
+    /**
+     * 获取用户收到的所有消息
+     * @param toAddress
+     * @return
+     */
+    List<News> getNewsListByToAddress(int toAddress);
 
 }

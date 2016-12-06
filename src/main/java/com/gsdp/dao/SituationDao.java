@@ -43,7 +43,6 @@ public interface SituationDao {
 
 	/**
 	 * 添加动态消息
-	 * 
 	 * @param situation
 	 * @return
 	 */

@@ -14,7 +14,8 @@
 		<include refid="columns"/>
 		from situation
 		<where>
-			publisher = #{publisher};
+			publisher = #{publisher}
+			ORDER BY publishTime DESC;
 		</where>
 	</select>
 
@@ -122,8 +123,7 @@
 		insert ignore situation(situation_title,situation_content,publisher,publishTime,group_id,visitors)
 		values(#{situationTitle},#{situationContent},#{publisher},#{publishTime},#{groupId},#{visitors});
 	</insert>
-	
-	
+
 	<delete id="deleteSituationMessage">
 		delete from situation
 		<where>

@@ -29,7 +29,8 @@
 		<include refid="columns"/>
 		from notice
 		<where>
-			noticer = #{noticer};
+			noticer = #{noticer}
+			ORDER BY noticeTime DESC;
 		</where>
 	</select>
 

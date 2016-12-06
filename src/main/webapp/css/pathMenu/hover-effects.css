@@ -2,7 +2,7 @@
 /*= Reset CSS
 ============= */
 html, body {border: 0; margin: 0; padding: 0;}
-body { /*font: 14px "Lato", Arial, sans-serif;*/ min-width: 100%; min-height: 100%; color: #666; background-color: #2D2D2D; }
+body { /*font: 14px "Lato", Arial, sans-serif;*/ min-width: 100%; min-height: 100%; /*color: #666;*/ background-color: #2D2D2D; }
 .container{margin: 0 auto; max-width: 1060px;}
 h2{color: #fff; float: left; width: 100%; font-size: 24px; font-weight: 400; text-align: center; /*padding: 50px 0 40px;*/ position: relative; z-index: 50;}
 h2 span{position: relative; padding-bottom: 10px;}
