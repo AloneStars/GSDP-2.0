@@ -10,6 +10,7 @@ import com.gsdp.entity.group.Situation;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.BaseStatusInfo;
 import com.gsdp.enums.file.FileStatusInfo;
+import com.gsdp.enums.group.GroupStatus;
 import com.gsdp.enums.group.GroupStatusInfo;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.EmptyFileException;
@@ -366,6 +367,17 @@ public class GroupController {
     public JsonData queryAllGroups() {
         List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
         return new JsonData(true, groupList, GroupStatusInfo.GET_GROUP_MESSAGE_SUCCESS.getMessage());
+    }
+
+    @RequestMapping(value = "/app/listWithOwner", method = RequestMethod.GET)
+    @ResponseBody
+    public JsonData getAllGroupMessagesWithOwner() {
+        try {
+            List<Group> allGroupMessageWithOwner = groupService.getAllGroupMessagesWithOwner();
+            return new JsonData(true, allGroupMessageWithOwner, GroupStatusInfo.GET_GROUP_MESSAGE_SUCCESS.getMessage());
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
     }
 
     @RequestMapping(value = "/app/{groupId}/detail", method = RequestMethod.GET, produces = "application/json; charset=utf-8")

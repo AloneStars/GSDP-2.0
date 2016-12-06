@@ -363,6 +363,18 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<Group> getAllGroupMessagesWithOwner()
+            throws SqlActionWrongException {
+
+        try {
+            return groupDao.getAllGroupMessagesWithOwner();
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+    }
+
+    @Override
     public List<Group> getGroupListBySponsor(int sponsor) {
 
         List<Group> groupList = groupDao.getGroupListByOwner(sponsor);
@@ -525,7 +537,7 @@ public class GroupServiceImpl implements GroupService {
 
             Member member = groupDao.getOneGroupMember(userId, groupId);
             //如果用户并没有申请，或者已经是团队的成员了，我们不允许它做这个操作
-            if(member == null || member.getStatus() == 0) {
+            if(member == null || member.getStatus() == 1) {
                 return false;
             }
 

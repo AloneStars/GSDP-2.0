@@ -276,6 +276,35 @@
 	</select>
 
 
+	<select id="getAllGroupMessagesWithOwner" resultType="Group">
+		select
+		g.group_id as "groupId",
+		g.group_icon as "groupIcon",
+		g.group_name as "groupName",
+		g.group_dec as "groupDec",
+		g.group_contact as "groupContact",
+		g.group_address as "groupAddress",
+		g.group_type as "groupType",
+		g.owner as "owner",
+		g.visitors as "visitors",
+		g.group_members as "groupMembers",
+		g.group_status as "groupStatus",
+		g.group_evidence as "groupEvidence",
+
+		u.user_id as "groupOwner.user_id",
+		u.headPicture as "groupOwner.headPicture",
+		u.loginEmail as "groupOwner.loginEmail",
+		u.username as "groupOwner.username",
+		u.user_dec as "groupOwner.userDec",
+		u.sex as "groupOwner.sex",
+		u.age as "groupOwner.age",
+		u.wechat as "groupOwner.weChat",
+		u.phone as "groupOwner.phone"
+		from `group` as g inner join `user` as u
+		on g.owner = u.user_id;
+	</select>
+
+
     
     <!--简单来说#{} 解析的是占位符？可以防止SQL注入，
      比如打印出来的语句 select *　from table where id=?,

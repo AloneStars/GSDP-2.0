@@ -58,7 +58,7 @@ input.set-height {
 /*groupMemberManager.jsp所特有的css*/
 #group-member-manager-table td {
     line-height: 35px;
-    height:40px;
+    height:35px;
 }
 #group-member-manager-table td img {
     width:35px;
@@ -66,6 +66,13 @@ input.set-height {
     border-radius: 100%;
 }
 /*groupMemberManager.jsp所特有的css*/
+
+/*groupApplyMemberManager.jsp所特有的css*/
+#group-apply-member-manager-table td {
+    height: 40px;
+    line-height: 40px;
+}
+/*groupApplyMemberManager.jsp所特有的css*/
 
 .create-activity-size {
     width: 700px;
@@ -110,7 +117,8 @@ input.set-height {
 }
 .group-member-manager-size {
     width: 800px;
-    min-height: 550px;
+    /*min-height: 550px;*/
+    min-height: 500px;
     border: none;
 }
 .publish-notice-size {

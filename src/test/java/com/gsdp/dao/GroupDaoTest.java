@@ -211,6 +211,12 @@ public class GroupDaoTest {
 	}
 
 	@Test
+	public void getAllGroupMessagesWithOwner() {
+		List<Group> list = groupDao.getAllGroupMessagesWithOwner();
+		logger.info("list = {}", list);
+	}
+
+	@Test
 	public void getGroupListByOwner() {
 		int owner = 1;
 		List<Group> groupList = groupDao.getGroupListByOwner(owner);

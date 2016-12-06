@@ -128,6 +128,14 @@ public interface GroupService {
 
 
     /**
+     * 返回所有社团的全部信息（包括该社团的法人信息），供app调用
+     * @return
+     * @throws SqlActionWrongException
+     */
+    List<Group> getAllGroupMessagesWithOwner() throws
+            SqlActionWrongException;
+
+    /**
      *
      * @param group
      * @param multipartFile

@@ -287,6 +287,38 @@ $(function () {
         }
     });
 
+    $(".modify_basic_info #username").on("blur", function () {
+        if(user.check.checkUsername($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的用户名格式");
+        }
+    });
+
+    $(".modify_basic_info #age").on("blur", function () {
+        if(user.check.checkAge($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的年龄格式");
+        }
+    });
+
+    $(".modify_basic_info #wechat").on("blur", function () {
+        if(user.check.checkWechat($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的微信格式");
+        }
+    });
+
+    $(".modify_basic_info #person-introduce").on("blur", function () {
+        if(user.check.checkPersonIntroduce($(this).val())) {
+            $(this).next(".err-info").html("");
+        } else {
+            $(this).next(".err-info").html("请输入正确的个人介绍格式");
+        }
+    });
+
     $("#join-group-form #apply-join-group-contact").on("blur", function () {
        if(user.check.checkPhone($(this).val())) {
            $(this).parent().removeClass("has-error").addClass("has-success");

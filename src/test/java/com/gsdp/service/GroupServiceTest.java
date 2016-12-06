@@ -182,4 +182,10 @@ public class GroupServiceTest {
         logger.error("result = " + result);
     }
 
+    @Test
+    public void getAllGroupMessagesWithOwner() throws Exception {
+        List<Group> list = groupService.getAllGroupMessagesWithOwner();
+        logger.info("list = {}", list);
+    }
+
 }

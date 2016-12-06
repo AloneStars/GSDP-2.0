@@ -135,8 +135,7 @@ var group = {
         }
     },
 
-    //还原CreateGroupDialog
-    "recoveryCreateGroupDialog"  : function() {
+    "closeCreateGroupDialog"  : function() {
         /*
         1.把所有的提示信息全部清除，
         2.把所有的表单信息全部复位
@@ -177,21 +176,6 @@ var group = {
         $(".group-apply-member-manager-size").outerWidth(),"group-apply-member-manager-dialog")
     },
 
-    "showJoinGroupDialog" : function () {
-        dialog.showDialog(parseInt($(".join-group-size").css("min-height")),
-            $(".join-group-size").outerWidth(), "join-group-dialog");
-    },
-
-    "closeJoinGroupDialog" : function () {
-        $("#join-group-form div").removeClass("has-error has-success");
-        $("#join-group-form .err-info").html("");
-        $("#join-group-form")[0].reset();
-    },
-
-    "showGroupApplyMemberManager" : function () {
-        dialog.showDialog(parseInt($(".group-apply-member-manager-size").css("min-height")),
-            $(".group-apply-member-manager-size").outerWidth(), "group-apply-member-manager-dialog")
-    },
     /**
      * 显示团队成员
      */
@@ -210,11 +194,6 @@ var group = {
         $(".publish-notice-size").outerWidth(), "publish-notice-dialog");
     },
 
-    "closeCreateGroupDialog" : function () {
-        dialog.closeDialog();
-        group.recoveryCreateGroupDialog();
-    },
-
     "getGroupApplyMembers" : function (currentPage, limit) {
         var groupId = $("#groupId").text();
 
@@ -229,18 +208,18 @@ var group = {
                 "limit" : limit
             },
             success : function (data) {
-                //TODO 这里实现有瑕疵，到时候修改
                 if(data.success) {
-                    $("#group-apply-member-manager-table tbody").empty();
+                    $("#group-apply-member-manager-table td").html("");
                     for(var i = 0; i < data.data.members.length; ++i) {
-                        $("#group-apply-member-manager-table tbody").
-                        append("<tr class='success'><td>" + (i+1) + "</td><td>" + data.data.members[i].user.username +
-                            "</td><td>" + data.data.members[i].phone + "</td><td>" + data.data.members[i].applyReason +
-                            "</td><td class='operation' user-id='" + data.data.members[i].userId +
-                            "'><button type='button' title='同意' class='btn btn-info btn-sm'>√</button>" +
-                            "<button type='button' title='不同意' class='btn btn-sm btn-default'>×</button></td></tr>");
+                        $("#group-apply-member-manager-table tbody tr:eq(" + i + ") td:eq(0)").html(i + 1);
+                        $("#group-apply-member-manager-table tbody tr:eq(" + i + ") td:eq(1)").html(data.data.members[i].user.username);
+                        $("#group-apply-member-manager-table tbody tr:eq(" + i + ") td:eq(2)").html(data.data.members[i].phone);
+                        $("#group-apply-member-manager-table tbody tr:eq(" + i + ") td:eq(3)").html("<nobr>" + data.data.members[i].applyReason + "</nobr>");
+                        $("#group-apply-member-manager-table tbody tr:eq(" + i + ") td:eq(4)").
+                        attr("user-id",data.data.members[i].userId).html("<button type='button' title='同意' class='btn btn-info btn-sm'>√</button>" +
+                                 "<button type='button' title='不同意' class='btn btn-sm btn-default'>×</button>");
                     }
-                    group.pagination.groupApplyMember.totalPages = data.data.page.totalPages;
+                     group.pagination.groupApplyMember.totalPages = data.data.page.totalPages;
                 } else {
                     alert(data.message);
                 }
@@ -435,7 +414,6 @@ var group = {
     "disagreeUserJoinGroup" : function (userId) {
 
         var groupId = $("#groupId").text();
-
         $.post(group.url.disagreeUserJoinGroup(),
             {
                 "userId" : userId,

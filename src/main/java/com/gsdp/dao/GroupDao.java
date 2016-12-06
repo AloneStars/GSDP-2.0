@@ -165,6 +165,12 @@ public interface GroupDao {
 	 */
 	Group queryGroupMessageWithOwner(int groupId);
 
+	/**
+	 * 这个方法供app调用
+	 * @return
+	 */
+	List<Group> getAllGroupMessagesWithOwner();
+
 
 	/**
 	 * 获取组织列表,通过给定的参数获取

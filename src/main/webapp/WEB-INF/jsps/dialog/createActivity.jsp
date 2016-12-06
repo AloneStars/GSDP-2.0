@@ -81,7 +81,7 @@
                         <button type="button" id="next-step" class="btn btn-primary">
                             下一步
                         </button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <button type="button" class="btn btn-default close-dialog" data-dismiss="modal">
                             取消
                         </button>
                         <button type="button" id="last-step" class="btn btn-primary" style="display: none">

@@ -17,7 +17,7 @@ $(function () {
     });
 
     //当我们点击关闭模态框所做的事情
-    $(".dialog").on("click", "button.close,.modal-footer > .row > button:eq(1)", function () {
+    $(".dialog").on("click", "button.close, button.close-dialog", function () {
         dialog.closeDialog();
     });
 });

@@ -53,7 +53,7 @@
                     <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="modify-password-button">
                         修改
                     </button>
-                    <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal" onclick="user.closeModifyPasswordDialog();">
+                    <button type="button" class="btn btn-default col-sm-2 close-dialog" data-dismiss="modal" onclick="user.closeModifyPasswordDialog();">
                         取消
                     </button>
                 </div>
