@@ -19,7 +19,6 @@
                     <div class="col-sm-7">
                         <textarea name="notice-content" id="notice-content" class="no-resize form-control" rows="7"
                                   placeholder="例如:明天我们要开一场会" ></textarea>
-
                         <div class="err-info"></div>
                     </div>
                 </div>

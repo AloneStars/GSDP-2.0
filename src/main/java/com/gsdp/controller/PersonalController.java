@@ -67,9 +67,44 @@ public class PersonalController {
     // 消息，看不到消息。
 
 
-    @RequestMapping("/msg")
-    public String personalMsg(){
+    @RequestMapping("/{userId}/msg")
+    public String personalMsg(@PathVariable("userId") int userId,Model model,HttpSession session){
+
+        User user = (User)session.getAttribute("user");
+        
+        int actionUserId = user.getUserId();
+
+        //获取组织信息
+        List<Group> createdGroupList = groupService.getGroupListBySponsor(user.getUserId());
+
+        List<Group> joinedGroupList = groupService.getGroupListByMember(user.getUserId());
+
+        //获取动态信息
+        List<Situation> situationList = situationService.getSituationListByPublisher(user.getUserId());
+
+        model.addAttribute("createdGroupList",createdGroupList);
+        model.addAttribute("joinedGroupList",joinedGroupList);
+        model.addAttribute("situationList",situationList);
+        
+        if(userId == actionUserId ){
+            // TODO: 2016/12/6 本人身份验证成功
+            System.out.println("本人身份验证成功");
+            //获取活动信息
+            List<Activity> activityList = activityService.getGeneralActivityMessage(user.getUserId(),0,0,"publishTime",true);
+            model.addAttribute("activityList",activityList);
+            //获取资源信息
+
+            //获取通知信息
+
+            //获取消息信息
+
+        }else{
+            List<Activity> activityList = activityService.getOpenActivityMessage(user.getUserId(),0,0,"publishTime",true);
+            model.addAttribute("activityList",activityList);
+        }
+
         return "personal";
+        
     }
 
     @RequestMapping("/organization")

@@ -157,20 +157,44 @@
 
 #groupHistory_container{
     margin:0 auto;
-    width:910px;
-    height:840px;
+    display: none;
+}
+
+#activityHistory_container{
+    margin:0 auto;
+    display: none;
+}
+
+#situationHistory_container{
+    margin:0 auto;
+    display: none;
+}
+
+#resourceHistory_container{
+    margin:0 auto;
+    display: none;
+}
+
+#noticeHistory_container{
+    margin:0 auto;
+    display: none;
+}
+
+#newsHistory_container{
+    margin:0 auto;
+    display: none;
 }
 
 #createdGroup{
     float:left;
     width:25%;
-    height:840px;
+    height:auto;
 }
 
 #joinedGroup{
     float:left;
     width:75%;
-    height:580px;
+    height:auto;
 }
 
 .group_list_item {

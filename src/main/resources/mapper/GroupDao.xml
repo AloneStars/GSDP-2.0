@@ -364,15 +364,15 @@
 		g.group_members,
 		g.group_status,
 		g.group_evidence
-		FROM `group` AS g
-		JOIN  `member` AS  m
-		ON g.group_id = m.group_id
+		FROM `member` AS  m
+		LEFT JOIN  `group` AS g
+		ON m.group_id = g.group_id
 		<where>
 			user_id = #{userId}
 			AND
-			role_id = 2 OR role_id = 3
+			m.status = 1
 			AND
-			m.status = 1;
+			(role_id = 2 OR role_id = 3);
 		</where>
 	</select>
 

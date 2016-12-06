@@ -40,7 +40,7 @@
                     </div>
                 </div>
                 <div class="HP" style="background:url('${pageContext.request.contextPath}/${user.headPicture}') no-repeat;">
-                    <a href="${pageContext.request.contextPath}/personal/msg" title="个人中心"></a>
+                    <a href="${pageContext.request.contextPath}/personal/${user.userId}/msg" title="个人中心"></a>
                 </div>
             </div>
         </c:when>
