@@ -53,4 +53,13 @@ public class NoticeDaoTest {
 		int affectRows = noticeDao.deleteNoticeMessage(noticeId);
 		logger.info("影响的行数 :" + affectRows);
 	}
+
+	@Test
+	public void testGetGroup() {
+		int noticeId = 3;
+		int affectRows = noticeDao.deleteNoticeMessage(noticeId);
+		logger.info("影响的行数 :" + affectRows);
+	}
+
+
 }

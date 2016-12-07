@@ -27,6 +27,9 @@ public class Situation {
 	
 	//一个动态的所有回复
 	private List<Reply> replies;
+
+	//存储组织信息
+	private Group group;
 	
 	public Situation() {}
 
@@ -106,6 +109,22 @@ public class Situation {
 	}
 
 	public void setNotices(List<Reply> replies) {
+		this.replies = replies;
+	}
+
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Reply> replies) {
 		this.replies = replies;
 	}
 

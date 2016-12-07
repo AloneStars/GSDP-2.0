@@ -282,7 +282,6 @@ public class GroupController {
         }
     }
 
-
     @RequestMapping(value = "/admin/applyMembers", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData getGroupApplyMembers(int groupId, int currentPage, int limit) {
@@ -317,7 +316,6 @@ public class GroupController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
-
 
     @RequestMapping(value = "/admin/agreeJoin", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody

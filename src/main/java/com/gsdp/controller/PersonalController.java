@@ -29,6 +29,9 @@ import java.util.List;
 public class PersonalController {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private GroupService groupService;
 
     @Autowired
@@ -68,7 +71,7 @@ public class PersonalController {
     // 消息，看不到消息。
 
 
-    @RequestMapping("/{userId}/msg")
+    @RequestMapping("/{userId}/detail")
     public String personalMsg(@PathVariable("userId") int userId,Model model,HttpSession session){
 
         User user = (User)session.getAttribute("user");
@@ -76,14 +79,16 @@ public class PersonalController {
         int actionUserId = user.getUserId();
 
         //获取组织信息
-        List<Group> createdGroupList = groupService.getGroupListByOwner(actionUserId);
+        List<Group> createdGroupList = groupService.getGroupListByOwner(userId);
 
         System.out.println("创建组织列表:"+createdGroupList.size());
 
-        List<Group> joinedGroupList = groupService.getGroupListByMember(actionUserId);
+        List<Group> joinedGroupList = groupService.getGroupListByMember(userId);
 
         //获取动态信息
-        List<Situation> situationList = situationService.getSituationListByPublisher(actionUserId);
+        List<Situation> situationList = situationService.getSituationListByPublisher(userId);
+
+        User queryUser = null;
 
         List<Activity> activityList = null;
         List<Notice> noticeList = null;
@@ -91,25 +96,27 @@ public class PersonalController {
 
         if(userId == actionUserId ){
             // TODO: 2016/12/6 本人身份验证成功
+            model.addAttribute("queryUser",user);
+
             //获取活动信息
-            activityList = activityService.getGeneralActivityMessageByAcvitier(actionUserId,0,0,"publishTime",true);
+            activityList = activityService.getGeneralActivityMessageByAcvitier(userId,0,0,"publishTime",true);
 
             // TODO: 2016/12/6  获取资源信息
 
             //获取通知信息
-            noticeList = noticeService.getNoticeListByNoticer(actionUserId);
+            noticeList = noticeService.getNoticeListByNoticer(userId);
 
             //获取消息信息
-            newsList = newsService.getNewsListByToAddress(actionUserId);
+            newsList = newsService.getNewsListByToAddress(userId);
 
         }else{
-            activityList = activityService.getOpenActivityMessageByActivitier(user.getUserId(),0,0,"publishTime",true);
+
+            queryUser = userService.getUserByUserId(userId);
+            model.addAttribute("queryUser",queryUser);
+
+            activityList = activityService.getOpenActivityMessageByActivitier(userId,0,0,"publishTime",true);
         }
 
-        for (Activity activity: activityList) {
-            Group group = groupService.getGroupMsg(activity.getSponsor());
-            activity.setGroup(group);
-        }
 
         model.addAttribute("createdGroupList",createdGroupList);
         model.addAttribute("joinedGroupList",joinedGroupList);

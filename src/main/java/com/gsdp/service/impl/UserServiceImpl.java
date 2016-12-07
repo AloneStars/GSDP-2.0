@@ -249,6 +249,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUserId(int userId) {
+
+        User user = userDao.queryUserMessageById(userId);
+
+        return user;
+
+    }
+
+    @Override
     public boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
             IllegalArgumentException, GroupNotExistException, SqlActionWrongException, NewsException {
 

@@ -38,7 +38,7 @@
 	</update>
 	
 	<select id="getNewsListByToAddress" resultType="News">
-		SELECT news_title,news_content,toAddress,sendTime,statue
+		SELECT news_id,news_title,news_content,toAddress,sendTime,statue
 		FROM `news`
 		<where>
 			toAddress = #{toAddress}

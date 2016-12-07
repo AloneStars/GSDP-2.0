@@ -24,9 +24,9 @@ public class CheckLoginInterceptor implements HandlerInterceptor{
         HttpSession session = Request.getSession();
         User user = (User)session.getAttribute("user");
 
-
         if(user == null){
             System.out.println("验证登录失败");
+            Response.sendRedirect(Request.getContextPath());
             return false;
         }
         else{
@@ -45,4 +45,5 @@ public class CheckLoginInterceptor implements HandlerInterceptor{
     public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {
 
     }
+
 }

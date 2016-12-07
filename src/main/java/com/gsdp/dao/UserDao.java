@@ -85,4 +85,11 @@ public interface UserDao {
      */
     List<User> queryUserByGroupId(int groupId);
 
+    /**
+     * 根据id获取用户信息
+     * @param UserId
+     * @return
+     */
+    User queryUserByUserId(int userId);
+
 }

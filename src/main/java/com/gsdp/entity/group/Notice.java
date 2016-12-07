@@ -18,7 +18,15 @@ public class Notice {
 	//通知发布到那个组织
 	private int groupId;
 
+	//存储组织信息
+	private Group group;
+
 	public Notice() {}
+
+	public Notice(Group group,int noticeId, String noticeContent, String noticeTime, int noticer, int groupId){
+		this(noticeId,noticeContent,noticeTime,noticer,groupId);
+		this.group = group;
+	}
 
 	public Notice(int noticeId, String noticeContent, String noticeTime, int noticer, int groupId) {
 		this(noticeContent,noticeTime,noticer,groupId);
@@ -73,11 +81,23 @@ public class Notice {
 		this.groupId = groupId;
 	}
 
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	@Override
 	public String toString() {
-		return "Notice [noticeId=" + noticeId + ", noticeContent="
-				+ noticeContent + ", noticeTime=" + noticeTime + ", noticer="
-				+ noticer + ", groupId=" + groupId + "]";
+		return "Notice{" +
+				"group=" + group +
+				", noticeId=" + noticeId +
+				", noticeContent='" + noticeContent + '\'' +
+				", noticeTime='" + noticeTime + '\'' +
+				", noticer=" + noticer +
+				", groupId=" + groupId +
+				'}';
 	}
-	
 }
