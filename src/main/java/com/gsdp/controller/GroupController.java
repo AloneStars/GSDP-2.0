@@ -30,6 +30,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.json.Json;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -63,48 +64,48 @@ public class GroupController {
     private SituationService situationService;
 
     @RequestMapping(value = "/list")
-    public String getGroupListMsg(Model model){
+    public String getGroupListMsg(Model model) {
 
         logger.info("获取所有组织列表");
 
-        List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
+        List<Group> groupList = groupService.getAllGroupListMsg(0, 0, "visitors", true);
 
         Gson gson = new Gson();
 
         logger.info(gson.toJson(groupList));
 
-        model.addAttribute("groupList",groupList);
+        model.addAttribute("groupList", groupList);
 
         return "groupList";
     }
 
     @RequestMapping(value = "/{typeId}/list")
-    public String getGroupListMsg(@PathVariable("typeId") int typeId, Model model){
+    public String getGroupListMsg(@PathVariable("typeId") int typeId, Model model) {
 
         logger.info("获取组织列表");
 
-        List<Group> groupList = groupService.getGroupListMsg(typeId,0,0,"visitors",true);
+        List<Group> groupList = groupService.getGroupListMsg(typeId, 0, 0, "visitors", true);
 
         Gson gson = new Gson();
 
         logger.info(gson.toJson(groupList));
 
-        model.addAttribute("groupList",groupList);
+        model.addAttribute("groupList", groupList);
 
         return "groupList";
     }
 
     @RequestMapping(value = "/{groupId}/detail")
-    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId,HttpSession session,Model model){
+    public String getGroupDetatilMsg(@PathVariable("groupId") int groupId, HttpSession session, Model model) {
 
         logger.info("获取组织详细信息");
 
-        Map<Integer,String> identities = null;
+        Map<Integer, String> identities = null;
 
         String identity = null;
 
-        if(session.getAttribute("identities") != null){
-            identities = (Map<Integer,String>)session.getAttribute("identities");
+        if (session.getAttribute("identities") != null) {
+            identities = (Map<Integer, String>) session.getAttribute("identities");
             identity = identities.get(groupId);
         }
 
@@ -112,12 +113,13 @@ public class GroupController {
 
         List<Activity> activityList = null;
 
-        if(!("visitor".equals(identity))&&(identity!=null))
-            activityList = activityService.getGeneralActivityMessage(groupId,0,0,"visitors",true);
-        else
-            activityList = activityService.getOpenActivityMessage(groupId,0,0,"visitors",true);
+        if (!("visitor".equals(identity)) && (identity != null)) {
+            activityList = activityService.getGeneralActivityMessage(groupId, 0, 0, "visitors", true);
+        } else {
+            activityList = activityService.getOpenActivityMessage(groupId, 0, 0, "visitors", true);
 
-        List<Situation> situationList = situationService.getSituationMessage(groupId,0,10,"visitors",true);
+        }
+        List<Situation> situationList = situationService.getSituationMessage(groupId, 0, 10, "visitors", true);
 
         List<Group> groupList = groupService.getGroupListMessageExpGroup(groupId);
 
@@ -125,10 +127,10 @@ public class GroupController {
          * 资源部分的功能还待设计样式和初始化方式
          */
 
-        model.addAttribute("group",group);
-        model.addAttribute("activityList",activityList);
-        model.addAttribute("situationList",situationList);
-        model.addAttribute("groupList",groupList);
+        model.addAttribute("group", group);
+        model.addAttribute("activityList", activityList);
+        model.addAttribute("situationList", situationList);
+        model.addAttribute("groupList", groupList);
 
         logger.info(gson.toJson(group));
 
@@ -137,24 +139,31 @@ public class GroupController {
     }
 
     /**
-     *参数单独给出，而不给对象，怕用户直接猜后端实体类属性，然后直接拼过来。
+     * 参数单独给出，而不给对象，怕用户直接猜后端实体类属性，然后直接拼过来。
+     *
      * @param groupName
      * @param groupContact
      * @param groupAddress
      * @param groupType
      * @param groupDec
      * @param multipartFile
-     * @return  在这里有一点非常重要的是，当我们返回的对象是json，但是我们返回的
+     * @return 在这里有一点非常重要的是，当我们返回的对象是json，但是我们返回的
      * 实际对象里面没有get和set方法是要报406异常的。
      */
     @RequestMapping(value = "/creation", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
     public JsonData createGroup(String groupName, String groupContact, String groupAddress,
-                                int groupType, String groupDec, @RequestParam("checkFile") MultipartFile multipartFile) {
+                                int groupType, String groupDec, @RequestParam("checkFile") MultipartFile multipartFile, HttpSession session) {
+
+        int currentUserId = ((User)session.getAttribute("user")).getUserId();
+
+        String rootPath = session.getServletContext().getRealPath("/");
+
+        Group group = new Group(groupName, groupDec, groupContact, groupAddress,
+                groupType, currentUserId, 1, GroupStatus.APPLYING.getState());
         try {
-            Group result = groupService.createGroup(new Group(null,groupName,groupDec,groupContact,groupAddress,
-            groupType,1,0,0,0,null), multipartFile);
-            if(result != null) {
+            Group result = groupService.createGroup(currentUserId, group, rootPath, multipartFile);
+            if (result != null) {
                 return new JsonData(true, result, GroupStatusInfo.APPLICATION_HAS_BEEN_SUBMITTED.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
@@ -166,24 +175,113 @@ public class GroupController {
         } catch (SizeBeyondException e) {
             return new JsonData(false, FileStatusInfo.SIZE_BEYOND.getMessage());
         } catch (IllegalArgumentException e) {
-            return new JsonData(false,e.getMessage());
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
         } catch (GroupRepeatException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_REPEAT.getMessage());
-        } catch (GroupException e) {
+        } catch (SqlActionWrongException e) {
             //其它的异常（比如sqlException）我们统一返回服务器内部错误这种提示信息。
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/admin/randomChangeGroupIcon", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData randomChangeGroupIcon(int groupId) {
+
+        try {
+            String groupIcon = groupService.randomChangeGroupIcon(groupId);
+            if(null != groupIcon) {
+                return new JsonData(true, groupIcon, GroupStatusInfo.CHANGE_GROUP_ICON_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.CHANGE_GROUP_ICON_FAIL.getMessage());
+            }
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/admin/ChangeGroupIcon", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData changeGroupIcon(int groupId, @RequestParam("groupIcon") MultipartFile multipartFile, HttpSession session) {
+        String rootPath = session.getServletContext().getRealPath("/");
+        try {
+            String groupIcon = groupService.changeGroupIcon(groupId, multipartFile, rootPath);
+            if(null != groupIcon) {
+                return new JsonData(true, groupIcon, GroupStatusInfo.CHANGE_GROUP_ICON_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.CHANGE_GROUP_ICON_FAIL.getMessage());
+            }
+        } catch (EmptyFileException e) {
+            return new JsonData(false, FileStatusInfo.EMPTY_FILE.getMessage());
+        } catch (FormatNotMatchException e) {
+            return new JsonData(false, FileStatusInfo.FORMAT_NOT_MATCH.getMessage());
+        } catch (SizeBeyondException e) {
+            return new JsonData(false, FileStatusInfo.SIZE_BEYOND.getMessage());
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/admin/ChangeGroupInfo", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData changeGroupInfo(int groupId, String groupName, String groupContact, String groupAddress,
+                                    int groupType, String groupDec) {
+        try {
+            if(groupService.changeGroupInfo(groupId, groupName, groupContact, groupAddress,groupType,groupDec)) {
+                return new JsonData(true, "", GroupStatusInfo.CHANGE_GROUP_INFORMATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.CHANGE_GROUP_INFORMATION_FAIL.getMessage());
+            }
+        } catch (IllegalArgumentException e) {
+            return new JsonData(false, BaseStatusInfo.PARAMETER_ERROR.getMessage());
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/superAdmin/agreeCreateGroup", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData agreeCreateGroup(int groupId) {
+        //这个方法只能为系统管理员调用，我们统一在拦截器里面把这个url拦截掉，
+        //同时这个地址也最好不要暴露出来。
+        try {
+            if (groupService.agreeCreateGroup(groupId)) {
+                return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
+            }
+        } catch (NewsException e) {
+            return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
+        } catch (SqlActionWrongException e) {
+            return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/superAdmin/disagreeCreateGroup", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData disagreeCreateGroup(int groupId) {
+        try {
+            if (groupService.disagreeCreateGroup(groupId)) {
+                return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
+            } else {
+                return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
+            }
+        } catch (NewsException e) {
+            return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
+        } catch (SqlActionWrongException e) {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         }
     }
 
 
     @RequestMapping(value = "/member/quit", method = RequestMethod.POST,
-    produces = "application/json; charset=utf-8")
+            produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData quitGroup(int groupId, HttpSession session) {
-        int userId = ((User)session.getAttribute("user")).getUserId();
+        int userId = ((User) session.getAttribute("user")).getUserId();
         try {
             boolean message = groupService.quitGroup(userId, groupId);
-            if(message) {
+            if (message) {
                 return new JsonData(true, "", GroupStatusInfo.QUIT_GROUP_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.QUIT_GROUP_FAIL.getMessage());
@@ -200,10 +298,10 @@ public class GroupController {
     @RequestMapping(value = "/admin/fireMember", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData fireFromGroup(int userId, int groupId, HttpSession session) {
-        int currentUserId = ((User)session.getAttribute("user")).getUserId();
+        int currentUserId = ((User) session.getAttribute("user")).getUserId();
 
         try {
-            if(groupService.fireMember(currentUserId, userId, groupId)) {
+            if (groupService.fireMember(currentUserId, userId, groupId)) {
                 return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
@@ -245,7 +343,7 @@ public class GroupController {
     @ResponseBody
     public JsonData deleteAdmin(int userId, int groupId) {
         try {
-            if(groupService.deleteAdmin(userId, groupId)) {
+            if (groupService.deleteAdmin(userId, groupId)) {
                 return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
@@ -265,9 +363,9 @@ public class GroupController {
     @ResponseBody
     public JsonData changeOwner(int userId, int groupId, HttpSession session) {
 
-        int currentOwner = ((User)session.getAttribute("user")).getUserId();
+        int currentOwner = ((User) session.getAttribute("user")).getUserId();
         try {
-            if(groupService.changeOwner(currentOwner, userId, groupId)) {
+            if (groupService.changeOwner(currentOwner, userId, groupId)) {
                 return new JsonData(true, "", GroupStatusInfo.OWNER_CHANGE_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.OWNER_CHANGE_FAIL.getMessage());
@@ -290,10 +388,10 @@ public class GroupController {
 
         try {
             GroupMember groupMember = groupService.getGroupMembersByStatus(groupId, 0, currentPage, limit);
-            if(null != groupMember) {
+            if (null != groupMember) {
                 return new JsonData(true, groupMember, GroupStatusInfo.GET_GROUP_APPLY_MEMBER_SUCCESS.getMessage());
             } else {
-               return new JsonData(false, GroupStatusInfo.GET_GROUP_APPLY_MEMBER_FAILED.getMessage());
+                return new JsonData(false, GroupStatusInfo.GET_GROUP_APPLY_MEMBER_FAILED.getMessage());
             }
         } catch (GroupNotExistException e) {
             return new JsonData(false, GroupStatusInfo.GROUP_NOT_EXIST.getMessage());
@@ -305,9 +403,7 @@ public class GroupController {
     @RequestMapping(value = "/member/members", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData getGroupMembers(int groupId, int currentPage, int limit, HttpSession session) {
-
-        //TODO 访问这个url必须是这个社团的成员
-        int currentUserId = ((User)session.getAttribute("user")).getUserId();
+        int currentUserId = ((User) session.getAttribute("user")).getUserId();
         try {
             GroupMemberWithCurrentUserRole groupMemberWithCurrentUserRole =
                     groupService.getGroupMembersWithRoleByStatus(groupId, 1, currentUserId, currentPage, limit);
@@ -324,7 +420,7 @@ public class GroupController {
     @ResponseBody
     public JsonData agreeUserJoinGroup(int userId, int groupId) {
         try {
-            if(groupService.agreeUserJoinGroup(userId, groupId)) {
+            if (groupService.agreeUserJoinGroup(userId, groupId)) {
                 return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
@@ -343,7 +439,7 @@ public class GroupController {
     public JsonData disagreeJoinGroup(int userId, int groupId) {
 
         try {
-            if(groupService.disagreeUserJoinGroup(userId, groupId)) {
+            if (groupService.disagreeUserJoinGroup(userId, groupId)) {
                 return new JsonData(true, "", GroupStatusInfo.OPERATION_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.OPERATION_FAIL.getMessage());
@@ -365,7 +461,7 @@ public class GroupController {
     @RequestMapping(value = "/app/list", method = RequestMethod.GET)
     @ResponseBody
     public JsonData queryAllGroups() {
-        List<Group> groupList = groupService.getAllGroupListMsg(0,0,"visitors",true);
+        List<Group> groupList = groupService.getAllGroupListMsg(0, 0, "visitors", true);
         return new JsonData(true, groupList, GroupStatusInfo.GET_GROUP_MESSAGE_SUCCESS.getMessage());
     }
 
@@ -386,7 +482,7 @@ public class GroupController {
 
         try {
             Group group = groupService.getGroupMessageWithOwner(groupId);
-            if(null != group) {
+            if (null != group) {
                 return new JsonData(true, group, GroupStatusInfo.GET_GROUP_MESSAGE_SUCCESS.getMessage());
             } else {
                 return new JsonData(false, GroupStatusInfo.GROUP_NOT_EXIST.getMessage());

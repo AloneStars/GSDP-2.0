@@ -78,6 +78,10 @@ public class GroupUtil {
         }
     }
 
+    public static boolean checkGroupDec(String groupDec) {
+        return true;
+    }
+
     public static boolean checkApplyReason(String applyReason) {
         return true;
     }

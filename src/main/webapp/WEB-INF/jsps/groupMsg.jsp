@@ -64,7 +64,7 @@
                         </c:when>
                         <c:when test="${identity == 'member' or identity == 'admin'}">
                             <div class="Intro">
-                                <input type="button" value="退出组织" onclick="alert('管理员/普通成员团退出组织');">
+                                <input type="button" value="退出组织" onclick="if(confirm('你确定要退出组织吗?')){group.quitGroup();};">
                             </div>
                         </c:when>
                         <c:otherwise>
@@ -204,6 +204,7 @@
 <script src="${pageContext.request.contextPath}/common/ueditor/lang/zh-cn/zh-cn.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/dialogJs.js"></script>
 <script src="${pageContext.request.contextPath}/js/common/format.js"></script>
+<script src="${pageContext.request.contextPath}/js/upload/ajaxfileupload.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/activity.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/group.js"></script>
 <script src="${pageContext.request.contextPath}/js/request/user.js"></script>

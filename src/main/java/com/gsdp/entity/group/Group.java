@@ -57,6 +57,26 @@ public class Group {
 		this.groupId = groupId;
 	}
 
+	public Group(int groupId, String groupName, String groupDec, String groupContact, String groupAddress, int groupType) {
+		this.groupId = groupId;
+		this.groupName = groupName;
+		this.groupDec = groupDec;
+		this.groupContact = groupContact;
+		this.groupAddress = groupAddress;
+		this.groupType = groupType;
+	}
+
+	public Group(String groupName, String groupDec, String groupContact, String groupAddress, int groupType, int owner, int groupMembers, int groupStatus) {
+		this.groupName = groupName;
+		this.groupDec = groupDec;
+		this.groupContact = groupContact;
+		this.groupAddress = groupAddress;
+		this.groupType = groupType;
+		this.owner = owner;
+		this.groupMembers = groupMembers;
+		this.groupStatus = groupStatus;
+	}
+
 	public Group(String groupIcon, String groupName, String groupDec,
 				 String groupContact, String groupAddress, int groupType, int owner, int visitors, int groupMembers) {
 		this.groupIcon = groupIcon;

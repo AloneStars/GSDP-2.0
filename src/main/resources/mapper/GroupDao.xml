@@ -149,8 +149,8 @@
     
     
     <insert id="addMember">
-    	insert ignore member(user_id,group_id,apply_reason,phone)
-    	values(#{userId},#{groupId},#{applyReason},#{phone});
+    	insert ignore member
+    	values(#{userId},#{groupId},#{applyReason},#{phone},#{status},#{roleId});
     </insert>
 
 	<update id="updateMember">
@@ -213,7 +213,6 @@
     		<if test="groupIcon != null and !groupIcon.equals('')">
     			group_icon = #{groupIcon},
     		</if>
-    			group_type = #{groupType},
     		<if test="groupName != null and !groupName.equals('')">
     			group_name = #{groupName},
     		</if>
@@ -227,13 +226,32 @@
     			group_contact = #{groupContact},
     		</if>
     			group_type = #{groupType},
-    			owner = #{owner},
-				visitors = #{visitors}
     	</set>
     	<where>
     		group_id = #{groupId};
     	</where>
     </update>
+
+
+	<update id="updateGroupStatus">
+		update `group`
+		<set>
+			group_status = #{status}
+		</set>
+		<where>
+			group_id = #{groupId};
+		</where>
+	</update>
+
+	<update id="updateGroupIcon">
+		update `group`
+		<set>
+			group_icon = #{groupIcon}
+		</set>
+		<where>
+			group_id = #{groupId};
+		</where>
+	</update>
     
     <select id="getGroupMessage" resultType="Group">
     	select

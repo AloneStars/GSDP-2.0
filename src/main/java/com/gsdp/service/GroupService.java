@@ -32,10 +32,24 @@ public interface GroupService {
     List<Group> getAllGroupListMsg(int offset,int limit,String order,boolean type);
 
     //删除组织信息
-    boolean delGroup(int groupId);
+    boolean deleteGroup(int groupId);
 
-    //更新组织信息
-    boolean updateGroup(Group group);
+
+    /**
+     * 修改组织信息
+     * @param groupId
+     * @param groupName
+     * @param groupContact
+     * @param groupAddress
+     * @param groupType
+     * @param groupDec
+     * @return
+     * @throws IllegalArgumentException  用户传入的参数不符合格式
+     * @throws SqlActionWrongException   数据库执行时发生了异常
+     */
+    boolean changeGroupInfo(int groupId, String groupName, String groupContact, String groupAddress,
+                            int groupType, String groupDec) throws
+            IllegalArgumentException, SqlActionWrongException;
 
 
     /**
@@ -135,20 +149,56 @@ public interface GroupService {
     List<Group> getAllGroupMessagesWithOwner() throws
             SqlActionWrongException;
 
+
     /**
-     *
-     * @param group
-     * @param multipartFile
+     * 用户完成创建团队的申请
+     * @param currentUserId   当前用户的id
+     * @param group     团队信息
+     * @param rootPath  团队佐证材料存放的文件夹
+     * @param multipartFile  文件
      * @return
      * @throws EmptyFileException
      * @throws SizeBeyondException
      * @throws FormatNotMatchException
      * @throws IllegalArgumentException
      * @throws GroupRepeatException
-     * @throws GroupException
+     * @throws SqlActionWrongException
      */
-    Group createGroup(Group group, MultipartFile multipartFile) throws
-            EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException,GroupRepeatException, GroupException;
+    Group createGroup(int currentUserId, Group group, String rootPath, MultipartFile multipartFile) throws
+            EmptyFileException,SizeBeyondException,FormatNotMatchException,IllegalArgumentException,GroupRepeatException, SqlActionWrongException;
+
+    /**
+     * 同意用户创建社团的申请
+     * @param groupId
+     * @return
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean agreeCreateGroup(int groupId) throws
+            NewsException, SqlActionWrongException;
+
+    /**
+     * 不同意用户的创建社团申请
+     * @param groupId
+     * @return
+     * @throws NewsException
+     * @throws SqlActionWrongException
+     */
+    boolean disagreeCreateGroup(int groupId) throws
+            NewsException, SqlActionWrongException;
+
+
+    /**
+     * 随机改变团队的头像
+     * @param groupId
+     * @return
+     * @throws SqlActionWrongException
+     */
+    String randomChangeGroupIcon(int groupId) throws
+            SqlActionWrongException;
+
+    String changeGroupIcon(int groupId, MultipartFile multipartFile, String rootPath) throws
+            EmptyFileException, FormatNotMatchException, SizeBeyondException, SqlActionWrongException;
 
     /**
      *

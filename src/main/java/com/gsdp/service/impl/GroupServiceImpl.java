@@ -10,6 +10,7 @@ import com.gsdp.entity.Role;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.group.Member;
 import com.gsdp.entity.user.User;
+import com.gsdp.enums.group.GroupStatus;
 import com.gsdp.enums.news.NewsStatusInfo;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
@@ -18,6 +19,7 @@ import com.gsdp.exception.news.NewsException;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
 import com.gsdp.service.NewsService;
+import com.gsdp.util.DateUtil;
 import com.gsdp.util.GroupUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,7 +83,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean delGroup(int groupId) {
+    public boolean deleteGroup(int groupId) {
 
         int number = groupDao.deleteGroup(groupId);
 
@@ -96,17 +98,27 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public boolean updateGroup(Group group) {
+    public boolean changeGroupInfo(int groupId, String groupName, String groupContact, String groupAddress,
+                                   int groupType, String groupDec) throws
+    IllegalArgumentException, SqlActionWrongException {
 
-        int number = groupDao.updateGroup(group);
-
-        if (number == 1) {
-            logger.info("数据库更新组织成功");
-            return true;
-        } else {
-            logger.info("数据库更新组织数量:{}", number);
-            return false;
+        //判断用户输入的团队信息是否全， 如果不全则返回
+        if (!GroupUtil.checkGroupName(groupName) || !GroupUtil.checkGroupContact(groupContact) ||
+                !GroupUtil.checkGroupAddress(groupAddress) || !GroupUtil.checkGroupType(groupType) ||
+                !GroupUtil.checkGroupDec(groupDec)) {
+            throw new IllegalArgumentException("user input information is incorrect");
         }
+
+        Group group = new Group(groupId, groupName, groupDec, groupContact, groupAddress, groupType);
+        try {
+            if(1 == groupDao.updateGroup(group)) {
+                return true;
+            }
+        } catch (Exception e) {
+            logger.info("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
     }
 
     @Override
@@ -210,7 +222,7 @@ public class GroupServiceImpl implements GroupService {
                 throw new GroupNotExistException("group not exist");
             }
 
-            Member member = new Member(userId, groupId, applyReason, phone);
+            Member member = new Member(userId, groupId, applyReason, phone, 0, com.gsdp.enums.user.Role.ORDINARY_USER.getRoleId());
 
             if (1 == groupDao.addMember(member)) {
                 User user = userDao.queryUserMessageById(userId);
@@ -390,24 +402,20 @@ public class GroupServiceImpl implements GroupService {
         return groupList;
     }
 
-    /**
-     * @param group
-     * @param multipartFile
-     * @return
-     */
-    @Override
-    public Group createGroup(Group group, MultipartFile multipartFile) throws
-            EmptyFileException, SizeBeyondException, FormatNotMatchException, IllegalArgumentException, GroupRepeatException {
 
-        final String PATH = "D:/";
+    @Override
+    public Group createGroup(int currentUserId, Group group, String rootPath, MultipartFile multipartFile) throws
+            EmptyFileException, SizeBeyondException, FormatNotMatchException, IllegalArgumentException, GroupRepeatException, SqlActionWrongException{
+
+        final String PATH = rootPath + "groupEvidence/" + DateUtil.dateToString("yyyy-MM-dd");
         //限制上传的最大字节数,最大可以上传5m的东西。
         final long MAX_SIZE = 1024 * 1014 * 5;
-        final String REGEX = "jpg|jpeg|doc";
-
+        final String REGEX = "jpg|jpeg|doc|docx";
 
         //判断用户输入的团队信息是否全， 如果不全则返回
         if (!GroupUtil.checkGroupName(group.getGroupName()) || !GroupUtil.checkGroupContact(group.getGroupContact()) ||
-                !GroupUtil.checkGroupAddress(group.getGroupAddress()) || !GroupUtil.checkGroupType(group.getGroupType())) {
+                !GroupUtil.checkGroupAddress(group.getGroupAddress()) || !GroupUtil.checkGroupType(group.getGroupType()) ||
+                !GroupUtil.checkGroupDec(group.getGroupDec())) {
             throw new IllegalArgumentException("user input information is incorrect");
         }
 
@@ -434,7 +442,133 @@ public class GroupServiceImpl implements GroupService {
             throw e;
         } catch (Exception e) {
             logger.error("database update error", e);
-            throw new GroupException("database update error");
+            throw new SqlActionWrongException("database update error");
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public boolean agreeCreateGroup(int groupId) throws
+            NewsException, SqlActionWrongException {
+        try {
+            Group group = groupDao.queryGroupMessageWithOwner(groupId);
+
+            //如果该团队不存在，或者改团队不是申请状态，就不允许管理员做当前的操作
+            if(group == null || group.getGroupStatus() != GroupStatus.APPLYING.getState()) {
+                return false;
+            }
+
+            if(1 == groupDao.updateGroupStatus(groupId, GroupStatus.RUNNING.getState())) {
+                //构造当前法人的信息，并把其存入到member和admin表
+                Member member = new Member(group.getOwner(),groupId,"",group.getGroupContact(),1, com.gsdp.enums.user.Role.GROUP_OWNER.getRoleId());
+                if(1 == groupDao.addMember(member)) {
+                    if(1 == groupDao.addAdmin(group.getOwner(), groupId)) {
+                        //发消息
+                        String newsTitle = NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage();
+                        String newsContent = "尊敬的" + group.getGroupOwner().getUsername() +
+                                ",你的团队" + group.getGroupName() + "已通过审核!";
+                        if(newsService.sendMessage(newsTitle, newsContent, Arrays.asList(group.getOwner()))) {
+                            return true;
+                        } else {
+                            //如果这条消息发送失败，我们也认为失败
+                            throw new NewsException("send news error");
+                        }
+                    }
+                }
+            }
+
+        } catch (NewsException e) {
+            logger.error("send news error", e);
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean disagreeCreateGroup(int groupId) throws
+            NewsException, SqlActionWrongException {
+
+        try {
+            Group group = groupDao.queryGroupMessageWithOwner(groupId);
+
+            //如果该团队不存在，或者改团队不是申请状态，就不允许管理员做当前的操作
+            if(group == null || group.getGroupStatus() != GroupStatus.APPLYING.getState()) {
+                return false;
+            }
+
+            if(1 == groupDao.deleteGroup(groupId)) {
+                String newsTitle = NewsStatusInfo.SYSTEM_NEWS_TITLE.getMessage();
+                String newsContent = "尊敬的" + group.getGroupOwner().getUsername() +
+                        ",你的团队" + group.getGroupName() + "的申请未通过审核!";
+                if(newsService.sendMessage(newsTitle, newsContent, Arrays.asList(group.getOwner()))) {
+                    return true;
+                } else {
+                    //如果这条消息发送失败，我们也认为失败
+                    throw new NewsException("send news error");
+                }
+            }
+        } catch (NewsException e) {
+            logger.error("send message error", e);
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return false;
+    }
+
+    private String randomGetGroupIcon() {
+        //TODO  从团队头像库里面随机获取一张图片
+        return "image/GroupIcon/Star.jpg";
+    }
+
+    @Override
+    public String randomChangeGroupIcon(int groupId) throws
+            SqlActionWrongException {
+
+        String groupIcon = randomGetGroupIcon();
+
+        try {
+            if(1 == groupDao.updateGroupIcon(groupId, groupIcon)) {
+                return groupIcon;
+            }
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
+        }
+        return null;
+    }
+
+    @Override
+    public String changeGroupIcon(int groupId, MultipartFile multipartFile, String rootPath) throws
+            EmptyFileException, FormatNotMatchException, SizeBeyondException, SqlActionWrongException {
+
+        final String PATH = rootPath + "groupIcon/" + DateUtil.dateToString("yyyy-MM-dd");
+        final String REGEX = "jpg|jpeg|png|gif";
+        final long MAX_SIZE = 5 * 1024 * 1024;
+
+        try {
+            String groupIcon = commonService.upload(multipartFile, PATH, MAX_SIZE, REGEX);
+            if(null != groupIcon) {
+                groupIcon = groupIcon.substring(rootPath.length());
+                if(1 == groupDao.updateGroupIcon(groupId, groupIcon)) {
+                    return groupIcon;
+                }
+            }
+        } catch (EmptyFileException e) {
+            throw e;
+        } catch (FormatNotMatchException e) {
+            throw e;
+        } catch (SizeBeyondException e) {
+            throw e;
+        } catch (Exception e) {
+            logger.error("database update error", e);
+            throw new SqlActionWrongException("database update error");
         }
         return null;
     }
