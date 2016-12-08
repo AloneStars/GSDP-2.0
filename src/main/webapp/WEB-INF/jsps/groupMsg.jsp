@@ -57,19 +57,28 @@
                     </c:forEach>
 
                     <c:choose>
-                        <c:when test="${identity == 'owner'}">
-                            <div class="Intro">
-                                <input type="button" value="退出组织" onclick="alert('法人不能轻易退出组织,请慎重...');">
-                            </div>
-                        </c:when>
-                        <c:when test="${identity == 'member' or identity == 'admin'}">
-                            <div class="Intro">
-                                <input type="button" value="退出组织" onclick="alert('管理员/普通成员团退出组织');">
-                            </div>
+                        <c:when test="${sessionScope.get('user') != null}">
+                            <c:choose>
+                                <c:when test="${identity == 'owner'}">
+                                    <div class="Intro">
+                                        <input type="button" value="退出组织" onclick="alert('法人不能轻易退出组织,请慎重...');">
+                                    </div>
+                                </c:when>
+                                <c:when test="${identity == 'member' or identity == 'admin'}">
+                                    <div class="Intro">
+                                        <input type="button" value="退出组织" onclick="group.quitGroup();">
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="Intro">
+                                        <input type="button" value="申请加入" onclick="group.showJoinGroupDialog();">
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
                         </c:when>
                         <c:otherwise>
                             <div class="Intro">
-                                <input type="button" value="申请加入" onclick="group.showJoinGroupDialog();">
+                                <input type="button" value="申请加入" onclick="alert('请先进行登录操作');">
                             </div>
                         </c:otherwise>
                     </c:choose>

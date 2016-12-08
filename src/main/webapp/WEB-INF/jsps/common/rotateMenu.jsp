@@ -61,6 +61,18 @@
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
+            <%--成员申请管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                </a>
+            </div>
+            <%--创建团队--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                </a>
+            </div>
         </c:when>
         <c:when test="${identity == 'admin'}">
             <%--发布资源--%>
@@ -93,6 +105,18 @@
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
+            <%--成员申请管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                </a>
+            </div>
+            <%--创建团队--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                </a>
+            </div>
         </c:when>
         <c:when test="${identity == 'member'}">
             <%--发布资源--%>
@@ -114,14 +138,14 @@
                 </a>
             </div>
         </c:when>
-        <c:otherwise>
+        <c:when test="${identity == 'visitor'}">
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
                 </a>
             </div>
-        </c:otherwise>
+        </c:when>
     </c:choose>
 </div>
 

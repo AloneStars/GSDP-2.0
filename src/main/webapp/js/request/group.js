@@ -120,8 +120,7 @@ var group = {
             }
         }
     },
-
-
+    
     //返回当前节点前面指定nodeType类型的节点
     "getPreviousSibling" : function (node, nodeType) {
         var preNode = node.previousSibling;
@@ -545,11 +544,25 @@ var group = {
                 }
             }
         )
-    }
-
-
-
+    },
+    
     //TODO
+
+    "quitGroup" : function(groupId){
+        var groupId = $("#groupId").text();
+        $.post(group.url.quitGroup(),
+            {
+                "groupId" : groupId
+            },function (data) {
+                if(data.success) {
+                    alert(data.message)
+                    window.location.reload();
+                } else {
+                    alert(data.message);
+                }
+            }
+        )
+    }
 };
 
 
@@ -598,8 +611,7 @@ $(function () {
             $(this).next().html("请检查团队介绍的格式");
         }
     });
-
-
+    
     //实现用户选择文件的效果
     $("#group-creation-form").on("change", "#profile", function () {
         var value = $(this).val();

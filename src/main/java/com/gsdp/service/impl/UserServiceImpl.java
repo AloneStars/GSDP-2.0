@@ -261,6 +261,8 @@ public class UserServiceImpl implements UserService {
     public boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
             IllegalArgumentException, GroupNotExistException, SqlActionWrongException, NewsException {
 
+        System.out.println("userId:"+userId+"groupId:"+groupId);
+
         if (!(GroupUtil.checkGroupContact(phone) && GroupUtil.checkApplyReason(applyReason))) {
             throw new IllegalArgumentException("user input information is incorrect");
         }
@@ -298,6 +300,5 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
 
 }

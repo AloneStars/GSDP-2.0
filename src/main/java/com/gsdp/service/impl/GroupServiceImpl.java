@@ -474,7 +474,6 @@ public class GroupServiceImpl implements GroupService {
         return new GroupMemberWithCurrentUserRole(currentRole, groupMember);
     }
 
-
     @Override
     @Transactional
     public boolean agreeUserJoinGroup(int userId, int groupId) throws
