@@ -3,17 +3,13 @@ package com.gsdp.service.impl;
 import com.gsdp.dao.GroupDao;
 import com.gsdp.dao.UserDao;
 import com.gsdp.dto.group.MemberAddition;
-import com.gsdp.entity.group.Member;
 import com.gsdp.enums.news.NewsStatusInfo;
-import com.gsdp.enums.user.UserStatusInfo;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.*;
 import com.gsdp.entity.group.Group;
 import com.gsdp.entity.user.User;
-import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.news.NewsException;
-import com.gsdp.exception.news.ReceiverIsEmptyException;
 import com.gsdp.exception.user.*;
 import com.gsdp.service.CommonService;
 import com.gsdp.service.GroupService;
@@ -22,7 +18,6 @@ import com.gsdp.service.UserService;
 import com.gsdp.util.DateUtil;
 import com.gsdp.util.GroupUtil;
 import com.gsdp.util.UserUtil;
-import org.apache.ibatis.jdbc.SQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +55,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String randomChangeHeadPicture(int userId) throws UserException {
+    public String randomChangeHeadPicture(int userId) throws
+            UserException {
         /*
         1.从服务器的头像图片库中随机得到一个地址
         2.把这个地址赋值给当前用户
@@ -249,6 +245,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
             IllegalArgumentException, GroupNotExistException, SqlActionWrongException, NewsException {
 

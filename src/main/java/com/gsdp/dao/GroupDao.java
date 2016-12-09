@@ -150,7 +150,22 @@ public interface GroupDao {
 	 */
 	int updateGroup(Group group);
 
-	
+	/**
+	 * 修改一个团队的状态
+	 * @param groupId
+	 * @param status
+	 * @return
+	 */
+	int updateGroupStatus(@Param("groupId") int groupId, @Param("status") int status);
+
+	/**
+	 * 修改团队的头像
+	 * @param groupId
+	 * @param groupIcon
+	 * @return
+	 */
+	int updateGroupIcon(@Param("groupId") int groupId, @Param("groupIcon") String groupIcon);
+
 	/**
 	 * 获取组织信息（根据Id）
 	 * @param groupId
@@ -164,6 +179,12 @@ public interface GroupDao {
 	 * @return
 	 */
 	Group queryGroupMessageWithOwner(int groupId);
+
+	/**
+	 * 这个方法供app调用
+	 * @return
+	 */
+	List<Group> getAllGroupMessagesWithOwner();
 
 
 	/**

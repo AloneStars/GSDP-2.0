@@ -29,6 +29,12 @@ public class Member {
 
     public Member() {}
 
+    public Member(int userId, int groupId, String applyReason, String phone, int status, int roleId) {
+        this(userId, groupId, applyReason, phone);
+        this.status = status;
+        this.roleId = roleId;
+    }
+
     public Member(int userId, int groupId, String applyReason, String phone) {
         this.userId = userId;
         this.groupId = groupId;

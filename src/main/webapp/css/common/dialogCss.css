@@ -9,14 +9,16 @@
     font-size: 10px;
     font-family: "Micro YaHei";
 }
+/*这是所有弹出框的样式，因为我们弹出框的总体样式大体是一样的*/
 
-/*createActivity.jsp所特有的css*/
+
+/*发布活动所特有的css*/
 input.set-height {
     height: 34px;
 }
-/*createActivity.jsp所特有的css*/
+/*发布活动所特有的css*/
 
-/*createGroup.jsp所特有的css*/
+/*申请创建团队所特有的css*/
 .file {
     position: relative;
     display: inline-block;
@@ -47,25 +49,93 @@ input.set-height {
 .text-red {
     color : red;
 }
-/*createGroup.jsp所特有的css*/
+/*申请创建团队所特有的css*/
 
-/*groupApplyMemberManager.jsp所特有的css*/
-#group-apply-member-manager-table .operation {
-    width: 85px;
-}
-/*groupApplyMemberManager.jsp所特有的css*/
-
-/*groupMemberManager.jsp所特有的css*/
+/*获取团队成员所特有的css*/
 #group-member-manager-table td {
     line-height: 35px;
-    height:40px;
+    height:35px;
 }
 #group-member-manager-table td img {
     width:35px;
     height:35px;
     border-radius: 100%;
 }
-/*groupMemberManager.jsp所特有的css*/
+/*获取团队成员所特有的css*/
+
+/*获取团队申请成员所特有的css*/
+#group-apply-member-manager-table .operation {
+    width: 85px;
+}
+
+#group-apply-member-manager-table td {
+    height: 40px;
+    line-height: 40px;
+}
+/*获取团队申请成员所特有的css*/
+
+/*修改团队信息dialog特有的css*/
+.modify-group-icon {
+    position: relative;
+    width: 100%;
+    height: 150px;
+}
+
+.modify-group-icon img {
+    border: 1px solid #ccc;
+    position: absolute;
+    left: 20%;
+    height: 150px;
+    width: 150px;
+}
+.modify-picture-hover:hover {
+    background-color: #6cf;
+}
+.change-picture {
+    position: absolute;
+    width: 10%;
+    border:1px solid #ccc;
+    border-radius: 3px;
+    text-align: center;
+    right: 24%;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+}
+.upload-picture {
+    position: absolute;
+    bottom: 0px;
+    right: 24%;
+    border:1px solid #ccc;
+    border-radius: 3px;
+    width: 10%;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+.group-icon-file {
+    display:inline-block;
+    width:100%;
+    height:100%;
+    position:relative;
+    overflow:hidden;
+    text-align: center;
+}
+
+.group-icon-file input {
+    position:absolute;
+    right:0;
+    top:0;
+    font-size:100px;
+    opacity:0;
+}
+
+.group-icon-file:hover {
+    background: #6cf;
+    border-color: #78C3F3;
+    color: #004974;
+}
+/*修改团队信息dialog特有的css*/
 
 .create-activity-size {
     width: 700px;
@@ -110,7 +180,8 @@ input.set-height {
 }
 .group-member-manager-size {
     width: 800px;
-    min-height: 550px;
+    /*min-height: 550px;*/
+    min-height: 500px;
     border: none;
 }
 .publish-notice-size {
@@ -121,5 +192,10 @@ input.set-height {
 .publish-notice-size {
     width:400px;
     min-height:320px;
+    border:none;
+}
+.modify-group-info-size {
+    width: 650px;
+    min-height:620px;
     border:none;
 }

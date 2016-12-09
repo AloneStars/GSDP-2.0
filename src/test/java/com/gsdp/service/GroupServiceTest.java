@@ -67,13 +67,21 @@ public class GroupServiceTest {
     }
 
     @Test
-    public void delGroup() throws Exception {
+    public void deleteGroup() throws Exception {
 
     }
 
     @Test
-    public void updateGroup() throws Exception {
+    public void changeGroupInfo() throws Exception {
+        int groupId = 5;
+        String groupName = "动漫社";
+        String groupDec = "对方不想对你说话，并向你扔了一点人生经验,人生经验。";
+        String groupContact = "13811111111";
+        String groupAdress = "16A-310";
+        int groupType = 3;
 
+        boolean result = groupService.changeGroupInfo(groupId, groupName, groupContact, groupAdress, groupType, groupDec);
+        logger.info("result = " + result);
     }
 
     @Test
@@ -180,6 +188,33 @@ public class GroupServiceTest {
         int groupId = 3;
         boolean result = groupService.fireMember(currentUserId, userId, groupId);
         logger.error("result = " + result);
+    }
+
+    @Test
+    public void getAllGroupMessagesWithOwner() throws Exception {
+        List<Group> list = groupService.getAllGroupMessagesWithOwner();
+        logger.info("list = {}", list);
+    }
+
+    @Test
+    public void agreeCreateGroup() throws Exception {
+        int groupId = 7;
+        boolean result = groupService.agreeCreateGroup(groupId);
+        logger.info("result = " + result);
+    }
+
+    @Test
+    public void disagreeCreateGroup() throws Exception {
+        int groupId = 7;
+        boolean result = groupService.disagreeCreateGroup(groupId);
+        logger.info("result = " + result);
+    }
+
+    @Test
+    public void randomChangeGroupIcon() throws Exception {
+        int groupId = 3;
+        String groupIcon = groupService.randomChangeGroupIcon(groupId);
+        logger.info("groupIcon = " + groupIcon);
     }
 
 }

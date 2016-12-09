@@ -29,7 +29,7 @@
                     <button type="button" id="notice-submit" class="btn btn-primary">
                         确定
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default close-dialog" data-dismiss="modal">
                         取消
                     </button>
                 </div>

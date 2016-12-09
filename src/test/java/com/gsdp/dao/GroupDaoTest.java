@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.gsdp.entity.group.Group;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/spring-dao.xml")
@@ -62,8 +63,10 @@ public class GroupDaoTest {
 		int groupId = 4;
 		String applyReason = "我非常想加这个社团";
 		String phone = "13811111111";
+		int status = 0;
+		int roleId = 1;
 
-		int affectRows = groupDao.addMember(new Member(userId,groupId,applyReason,phone));
+		int affectRows = groupDao.addMember(new Member(userId,groupId,applyReason,phone,status,roleId));
 		logger.info("影响的行数:" + affectRows);
 	}
 	
@@ -211,6 +214,12 @@ public class GroupDaoTest {
 	}
 
 	@Test
+	public void getAllGroupMessagesWithOwner() {
+		List<Group> list = groupDao.getAllGroupMessagesWithOwner();
+		logger.info("list = {}", list);
+	}
+
+	@Test
 	public void getGroupListByOwner() {
 		int owner = 1;
 		List<Group> groupList = groupDao.getGroupListByOwner(owner);
@@ -222,5 +231,21 @@ public class GroupDaoTest {
 		int member = 1;
 		List<Group> groupList = groupDao.getGroupListByMember(member);
 		logger.info("groupList={}",groupList);
+	}
+
+	@Test
+	public void updateGroupStatus() throws Exception {
+		int groupId = 7;
+		int status = 1;
+		int affectRows = groupDao.updateGroupStatus(groupId, status);
+		logger.info("affectRows = {}", affectRows);
+	}
+
+	@Test
+	public void updateGroupIcon() throws Exception {
+		int groupId = 3;
+		String groupIcon = "image/GroupIcon/Star.jpg";
+		int affectRows = groupDao.updateGroupIcon(groupId, groupIcon);
+		logger.info("affectRows = " + affectRows);
 	}
 }

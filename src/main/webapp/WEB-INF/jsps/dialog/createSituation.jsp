@@ -35,7 +35,7 @@
                     <button type="button" class="btn btn-success" data-dismiss="modal" id="publish-situation-button">
                         发布
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default close-dialog" data-dismiss="modal">
                         取消
                     </button>
                 </div>

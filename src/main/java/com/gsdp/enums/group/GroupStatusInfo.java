@@ -13,6 +13,8 @@ public enum  GroupStatusInfo {
     OPERATION_SUCCESS(6, "操作成功"),
     GET_GROUP_MEMBER_SUCCESS(7, "获取团队用户信息成功"),
     OWNER_CHANGE_SUCCESS(8, "法人转变成功"),
+    CHANGE_GROUP_ICON_SUCCESS(9, "修改团队头像成功"),
+    CHANGE_GROUP_INFORMATION_SUCCESS(10, "修改团队信息成功"),
     GROUP_REPEAT(-1, "团队已存在"),
     CREATE_GROUP_FAIL(-2, "创建团队失败"),
     QUIT_GROUP_FAIL(-3, "退出团队失败"),
@@ -27,7 +29,9 @@ public enum  GroupStatusInfo {
     IS_NOT_GROUP_ADMIN(-12, "你不是团队的管理员"),
     HAS_BEEN_GROUP_OWNER(-13, "你已是团队法人"),
     NOT_HAS_PERMISSION(-14, "你无权进行这次操作"),
-    HAS_BEEN_GROUP_MEMBER(-15, "你已是团队成员")
+    HAS_BEEN_GROUP_MEMBER(-15, "你已是团队成员"),
+    CHANGE_GROUP_ICON_FAIL(-16, "修改团队头像失败"),
+    CHANGE_GROUP_INFORMATION_FAIL(-17, "修改团队信息失败")
     ;
 
     private int state;

@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ViolentStone
-  Date: 2016/11/9
-  Time: 14:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=utf-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="PathInner" id="PathMenu" style=" margin:250px auto;">
@@ -27,7 +20,7 @@
         <c:when test="${identity == 'owner'}">
             <%--组织信息管理--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="组织信息管理" onclick="alert('组织信息管理');">
+                <a class="link" href="javascript:void(0);" title="组织信息管理" onclick="group.showModifyGroupInfoDialog();">
                     <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/GroupMsg.png');"></span>
                 </a>
             </div>
@@ -61,8 +54,26 @@
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
+            <%--成员申请管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                </a>
+            </div>
+            <%--创建团队--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                </a>
+            </div>
         </c:when>
         <c:when test="${identity == 'admin'}">
+            <%--组织信息管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="组织信息管理" onclick="group.showModifyGroupInfoDialog();">
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/GroupMsg.png');"></span>
+                </a>
+            </div>
             <%--发布资源--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="发布资源" onclick="alert('发布资源');">
@@ -93,13 +104,25 @@
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
                 </a>
             </div>
+            <%--成员申请管理--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                </a>
+            </div>
+            <%--创建团队--%>
+            <div class="PathItem">
+                <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                </a>
+            </div>
         </c:when>
         <c:when test="${identity == 'member'}">
             <%--发布资源--%>
             <div class="PathItem">
-                    <a class="link" href="javascript:void(0);" title="发布资源" onclick="alert('发布资源');">
-                        <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Resource.png');"></span>
-                    </a>
+                <a class="link" href="javascript:void(0);" title="发布资源" onclick="alert('发布资源');">
+                    <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Resource.png');"></span>
+                </a>
             </div>
             <%--成员管理--%>
             <div class="PathItem">
@@ -114,14 +137,14 @@
                 </a>
             </div>
         </c:when>
-        <c:otherwise>
+        <c:when test="${identity == 'visitor'}">
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
                     <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
                 </a>
             </div>
-        </c:otherwise>
+        </c:when>
     </c:choose>
 </div>
 
@@ -137,5 +160,8 @@
 <%@ include file="../dialog/groupApplyMemberManager.jsp"%>
 <%--发布通知的模态框--%>
 <%@ include file="../dialog/publishNotice.jsp"%>
-<!--团队成员管理的模态框-->
+<%-- 团队成员管理的模态框 --%>
 <%@ include file="../dialog/groupMemberManager.jsp"%>
+<%--修改团队信息模态框--%>
+<%@ include file="../dialog/modifyGroupInfo.jsp"%>
+

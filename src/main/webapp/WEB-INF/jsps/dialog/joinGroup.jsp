@@ -38,7 +38,7 @@
                     <button type="button" class="btn btn-primary" onclick="user.applyJoinGroup();">
                         确定
                     </button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="group.closeJoinGroupDialog();">
+                    <button type="button" class="btn btn-default close-dialog" data-dismiss="modal" onclick="group.closeJoinGroupDialog();">
                         取消
                     </button>
                 </div>

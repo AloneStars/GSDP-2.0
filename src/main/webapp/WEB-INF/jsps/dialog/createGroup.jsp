@@ -3,7 +3,7 @@
 <div class="dialog dialog-shadow" id="create-group-dialog">
     <div class="modal-content create-group-size">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="group.closeCreateGroupDialog();">
                 ×
             </button>
             <h4 class="modal-title" id="group-modal">
@@ -105,7 +105,7 @@
                     <button type="button" class="btn btn-primary col-sm-2 col-sm-offset-4" id="submit-apply-group">
                         确定
                     </button>
-                    <button type="button" class="btn btn-default col-sm-2" data-dismiss="modal">
+                    <button type="button" class="btn btn-default col-sm-2 close-dialog" data-dismiss="modal" onclick="group.closeCreateGroupDialog();">
                         取消
                     </button>
                 </div>
