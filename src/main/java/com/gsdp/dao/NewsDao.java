@@ -40,7 +40,7 @@ public interface NewsDao {
 	 * @param newsId
 	 * @return
 	 */
-	int changeNewsStatue(@Param("statue") int statue, @Param("newsId") int newsId);
+	int changeNewsStatue(@Param("newsId") int newsId,@Param("statue") int statue);
 
 	/**
 	 * 获取该用户收到的所有消息
@@ -48,5 +48,12 @@ public interface NewsDao {
 	 * @return
      */
 	List<News> getNewsListByToAddress(int toAddress);
+
+	/**
+	 * 获取该用户未读消息的条数
+	 * @param toAddress
+	 * @return
+     */
+	int queryNoReadNews(int toAddress);
 
 }

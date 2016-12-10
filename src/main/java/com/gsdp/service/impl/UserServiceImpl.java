@@ -151,6 +151,7 @@ public class UserServiceImpl implements UserService {
             if (!password.equals(user.getPassword()))
                 throw new LoginMsgIncorrectException("邮箱或者密码不正确");
             else
+
                 return user;
         }
 

@@ -25,6 +25,10 @@ var user = {
 
         "applyJoinGroup" : function () {
             return "/gsdp/user/applyJoinGroup";
+        },
+
+        "changeNewsStatue":function(){
+            return "/gsdp/user/changeNewsStatue";
         }
     },
 
@@ -207,6 +211,22 @@ var user = {
         }
     },
 
+    //改变消息类型
+    "changeNewsStatue":function(newsId,event){
+        $.post(user.url.changeNewsStatue(),
+            {
+                "newsId" : newsId
+            }, function (data) {
+                if(data.success){
+                    alert(data.message);
+                    $(event.target).html("已读");
+                   event.target.onclick=null;
+                }else {
+                    alert(data.message);
+                }
+            });
+    },
+
     //显示修改密码模态框
     "showModifyPasswordDialog" : function () {
         dialog.showDialog(parseInt($(".modify-password-size").css("min-height")),
@@ -218,7 +238,9 @@ var user = {
         $("#modify-password-form div").removeClass("has-error has-success");
         $("div.err-info").html("");
         $("#modify-password-form")[0].reset();
-    }
+    },
+
+
 
 
 };

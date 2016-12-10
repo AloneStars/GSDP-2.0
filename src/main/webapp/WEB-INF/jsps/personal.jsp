@@ -130,15 +130,14 @@
                                             </div><!-- cd-timeline-img -->
 
                                             <div class="cd-timeline-content">
-                                                <div id="newsId" hidden>${news.newsId}</div>
                                                 <h2>${news.newsTitle}</h2>
                                                 <p>${news.newsContent}</p>
                                                 <c:choose>
                                                     <c:when test="${news.statue == 0}">
-                                                        <a href="javascript:void(0);" class="cd-read-more" target="_blank">未读</a>
+                                                        <a href="javascript:void(0);" class="cd-read-more" onclick="user.changeNewsStatue(${news.newsId},arguments[0]);">未读</a>
                                                     </c:when>
                                                     <c:otherwise>
-                                                        <a href="javascript:void(0);" class="cd-read-more" target="_blank">已读</a>
+                                                        <a href="javascript:void(0);" class="cd-read-more">已读</a>
                                                     </c:otherwise>
                                                 </c:choose>
                                                 <span class="cd-date">${news.sendTime}</span>
@@ -173,8 +172,8 @@
                                         </div><!-- cd-timeline-img -->
 
                                         <div class="cd-timeline-content">
-                                            <h2>${activity.activityTitle}</h2>
-                                            <p>${activity.activityContent}</p>
+                                            <h2>${activity.group.groupName}</h2>
+                                            <p>${activity.activityTitle}</p>
                                             <a href="${pageContext.request.contextPath}/activity/${activity.activityId}/detail" class="cd-read-more" target="_blank">阅读更多</a>
                                             <span class="cd-date">${activity.publishTime}</span>
                                         </div> <!-- cd-timeline-content -->
@@ -206,8 +205,8 @@
                                         </div><!-- cd-timeline-img -->
 
                                         <div class="cd-timeline-content">
-                                            <h2>${situation.situationTitle}</h2>
-                                            <p>${situation.situationContent}</p>
+                                            <h2>${situation.group.groupName}</h2>
+                                            <p>${situation.situationTitle}</p>
                                             <a href="${pageContext.request.contextPath}/situation/${situation.situationId}/detail" class="cd-read-more" target="_blank">阅读更多</a>
                                             <span class="cd-date">${situation.publishTime}</span>
                                         </div> <!-- cd-timeline-content -->

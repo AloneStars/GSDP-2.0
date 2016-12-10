@@ -17,16 +17,14 @@
 			 (#{news.newsTitle},#{news.newsContent},#{news.toAddress},#{news.sendTime})
 		 </foreach>
 	</insert>
-	
-	
+
 	<delete id="deleteNews">
 		delete from news
 		<where>
 			news_id = #{newsId};
 		</where>
 	</delete>
-	
-	
+
 	<update id="changeNewsStatue">
 		update news
 		<set>
@@ -43,6 +41,16 @@
 		<where>
 			toAddress = #{toAddress}
 			ORDER BY sendTime DESC;
+		</where>
+	</select>
+
+	<select id="queryNoReadNews" resultType="Integer">
+		select COUNT(news_id)
+		FROM `news`
+		<where>
+			toAddress = #{toAddress}
+			AND
+			statue = 0;
 		</where>
 	</select>
 

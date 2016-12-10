@@ -1,6 +1,8 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.user.News;
+import com.gsdp.exception.SqlActionWrongException;
+import com.gsdp.exception.news.NoNewsExistException;
 import com.gsdp.exception.news.ReceiverIsEmptyException;
 
 import java.util.List;
@@ -27,5 +29,20 @@ public interface NewsService {
      * @return
      */
     List<News> getNewsListByToAddress(int toAddress);
+
+    /**
+     * 改变消息状态
+     * @param newsId 消息Id
+     * @param statue 消息状态
+     * @return
+     */
+    boolean changeNewsStatue(int newsId,int statue) throws NoNewsExistException,SqlActionWrongException;
+
+    /**
+     * 获取该用户未读消息条数
+     * @param toAddress
+     * @return
+     */
+    int getNoReadNews(int toAddress);
 
 }

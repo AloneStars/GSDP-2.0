@@ -1,6 +1,8 @@
 package com.gsdp.interceptor;
 
 import com.gsdp.entity.user.User;
+import com.gsdp.service.NewsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +20,9 @@ import javax.servlet.http.HttpSession;
  *********************************************************/
 public class CheckLoginInterceptor implements HandlerInterceptor{
 
+    @Autowired
+    private NewsService newsService;
+
     @Override
     public boolean preHandle(HttpServletRequest Request, HttpServletResponse Response, Object o) throws Exception {
 
@@ -30,6 +35,7 @@ public class CheckLoginInterceptor implements HandlerInterceptor{
             return false;
         }
         else{
+            session.setAttribute("noReadNews",newsService.getNoReadNews(user.getUserId()));
             System.out.println("验证登录成功");
             return true;
         }

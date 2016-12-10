@@ -2,6 +2,8 @@ package com.gsdp.service.impl;
 
 import com.gsdp.dao.NewsDao;
 import com.gsdp.entity.user.News;
+import com.gsdp.exception.SqlActionWrongException;
+import com.gsdp.exception.news.NoNewsExistException;
 import com.gsdp.exception.news.ReceiverIsEmptyException;
 import com.gsdp.service.NewsService;
 import com.gsdp.util.DateUtil;
@@ -56,5 +58,29 @@ public class NewsServiceImpl implements NewsService {
     public List<News> getNewsListByToAddress(int toAddress) {
         List<News> newsList = newsDao.getNewsListByToAddress(toAddress);
         return newsList;
+    }
+
+    @Override
+    public boolean changeNewsStatue(int newsId, int statue) throws NoNewsExistException,SqlActionWrongException{
+
+        try {
+            int affectRows = newsDao.changeNewsStatue(newsId, statue);
+            if (affectRows == 1)
+                return true;
+            else
+                throw new NoNewsExistException("this news is not exist");
+        }catch (Exception e){
+            throw new SqlActionWrongException("database action wrong");
+        }
+
+    }
+
+    @Override
+    public int getNoReadNews(int toAddress) {
+
+        int number = newsDao.queryNoReadNews(toAddress);
+
+        return number;
+
     }
 }

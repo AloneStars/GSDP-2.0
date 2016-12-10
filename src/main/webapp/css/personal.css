@@ -157,32 +157,32 @@
 
 #groupHistory_container{
     margin:0 auto;
-    display: none;
+    /*display: none;*/
 }
 
 #activityHistory_container{
     margin:0 auto;
-    display: none;
+    /*display: none;*/
 }
 
 #situationHistory_container{
     margin:0 auto;
-    display: none;
+    /*display: none;*/
 }
 
 #resourceHistory_container{
     margin:0 auto;
-    display: none;
+   /* display: none;*/
 }
 
 #noticeHistory_container{
     margin:0 auto;
-    display: none;
+    /*display: none;*/
 }
 
 #newsHistory_container{
     margin:0 auto;
-    display: none;
+    /*display: none;*/
 }
 
 #createdGroup{

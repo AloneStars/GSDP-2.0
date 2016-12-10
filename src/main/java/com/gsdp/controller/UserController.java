@@ -7,6 +7,7 @@ import com.gsdp.email.Send;
 import com.gsdp.entity.user.User;
 import com.gsdp.enums.file.FileStatusInfo;
 import com.gsdp.enums.group.GroupStatusInfo;
+import com.gsdp.enums.news.NewsStatusInfo;
 import com.gsdp.enums.user.UserStatusInfo;
 import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.EmptyFileException;
@@ -15,7 +16,9 @@ import com.gsdp.exception.file.SizeBeyondException;
 import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.news.NewsException;
+import com.gsdp.exception.news.NoNewsExistException;
 import com.gsdp.exception.user.*;
+import com.gsdp.service.NewsService;
 import com.gsdp.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +38,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NewsService newsService;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -129,6 +135,7 @@ public class UserController {
 
         //将用户信息放入session中
         session.setAttribute("user",user);
+        session.setAttribute("noReadNews",newsService.getNoReadNews(user.getUserId()));
 
         return new JsonData(true,user,UserStatusInfo.USER_LOGIN_SUCCESS.getMessage());
 
@@ -177,9 +184,6 @@ public class UserController {
             return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_SUCCESS.getMessage());
         }else
             return new JsonData(true,UserStatusInfo.USER_SENDVERIFYCODE_FAILURE.getMessage());
-
-
-
 
     }
 
@@ -236,6 +240,29 @@ public class UserController {
             return new JsonData(false, BaseStatusInfo.SERVER_INTERNAL_ERROR.getMessage());
         } catch (NewsException e) {
             return new JsonData(false, GroupStatusInfo.APPLICATION_SUBMISSION_FAILED.getMessage());
+        }
+
+    }
+
+    /**
+     * 将消息改变为已读
+     * @param newsId
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/changeNewsStatue", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @ResponseBody
+    public JsonData applyJoinGroup(int newsId, HttpSession session) {
+
+        try{
+            if(newsService.changeNewsStatue(newsId,1))
+                return new JsonData(true, NewsStatusInfo.CHANGE_NEWS_STATUE_SUCCESS.getMessage());
+            else
+                return new JsonData(false, NewsStatusInfo.CHANGE_NEWS_STATUE_FAILURE.getMessage());
+        }catch (NoNewsExistException e){
+            return new JsonData(false, NewsStatusInfo.NEWS_IS_NOT_EXIST.getMessage());
+        }catch (SqlActionWrongException e){
+            return new JsonData(false, NewsStatusInfo.CHANGE_NEWS_STATUE_FAILURE.getMessage());
         }
 
     }
