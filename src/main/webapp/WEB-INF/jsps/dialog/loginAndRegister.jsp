@@ -103,7 +103,7 @@
                                         <div class="err-info"></div>
                                     </div>
                                     <div class="col-sm-3">
-                                        <button type="button" id="sendVerifyCode" class="btn btn-primary">发送邮件</button>
+                                        <button type="button" id="sendVerifyCode" class="btn btn-primary">发送验证码</button>
                                     </div>
                                 </div>
                             </div>

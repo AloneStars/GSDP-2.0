@@ -238,11 +238,7 @@ var user = {
         $("#modify-password-form div").removeClass("has-error has-success");
         $("div.err-info").html("");
         $("#modify-password-form")[0].reset();
-    },
-
-
-
-
+    }
 };
 
 $(function () {

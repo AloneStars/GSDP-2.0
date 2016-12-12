@@ -72,6 +72,7 @@ public class Send {
 				return  false;
 			}
 		}catch (Exception e){
+			e.printStackTrace();
 			throw new EmailSendException("send email failure");
 		}
 	}
