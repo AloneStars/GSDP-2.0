@@ -12,6 +12,34 @@
 		publishTime,permission,visitors
 	</sql>
 
+	<resultMap type="Activity" id="activityResultMap">
+		<id column="activity_id" property="activityId" jdbcType="INTEGER"/>
+		<result column="activity_title" property="activityTitle" jdbcType="VARCHAR"/>
+		<result column="activity_content" property="activityContent" jdbcType="VARCHAR"/>
+		<result column="beginTime" property="beginTime" jdbcType="DATE"/>
+		<result column="endTime" property="endTime" jdbcType="DATE"/>
+		<result column="activity_number" property="activityNumber" jdbcType="INTEGER"/>
+		<result column="activitier" property="activitier" jdbcType="INTEGER"/>
+		<result column="sponsor" property="sponsor" jdbcType="INTEGER"/>
+		<result column="activity_address" property="activityAddress" jdbcType="VARCHAR"/>
+		<result column="permission" property="permission" jdbcType="INTEGER"/>
+		<result column="publishTime" property="publishTime" jdbcType="DATE"/>
+		<result column="visitors" property="visitors" jdbcType="INTEGER"/>
+		<association property="group" javaType="Group">
+			<id column="group_id" property="groupId" jdbcType="INTEGER"/>
+			<result column="group_icon" property="groupIcon" jdbcType="VARCHAR"/>
+			<result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+			<result column="group_dec" property="groupDec" jdbcType="VARCHAR"/>
+			<result column="group_contact" property="groupContact" jdbcType="VARCHAR"/>
+			<result column="group_address" property="groupAddress" jdbcType="VARCHAR"/>
+			<result column="group_type" property="groupType" jdbcType="INTEGER"/>
+			<result column="owner" property="owner" jdbcType="INTEGER"/>
+			<result column="group_members" property="groupMembers" jdbcType="INTEGER"/>
+			<result column="group_status" property="groupStatus" jdbcType="INTEGER"/>
+			<result column="group_evidence" property="groupEvidence" jdbcType="VARCHAR"/>
+		</association>
+	</resultMap>
+
 	<select id="getAllActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>
@@ -108,6 +136,47 @@
 		</if>
 	</select>
 
+	<select id="getGeneralActivityMessageByActivitier" resultMap="activityResultMap">
+		SELECT
+		activity_id,
+		activity_title,
+		activity_content,
+		beginTime,
+		endTime,
+		activitier,
+		sponsor,
+		activity_number,
+		activity_address,
+		publishTime,
+		permission,
+		activity.visitors,
+
+		group_id,
+		group_icon,
+		group_name,
+		group_dec,
+		group_contact,
+		group_address,
+		group_type,
+		owner,
+		group_members,
+		group_status,
+		group_evidence
+		FROM `activity`
+		JOIN `group` ON sponsor = group_id
+		<if test="activitier != 0">
+			<where>
+				activitier = #{activitier}
+			</where>
+		</if>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
 	<select id="getOpenActivityMessage" resultType="Activity">
 		select
 		<include refid="columns"/>
@@ -116,6 +185,48 @@
 			permission = 1
 			<if test="sponsor != 0">
 				AND sponsor = #{sponsor}
+			</if>
+		</where>
+		<if test="order != null and !order.equals('')">
+			ORDER BY ${order} <if test="type">DESC</if>
+		</if>
+		<if test="limit != 0">
+			limit #{offset},#{limit}
+		</if>
+	</select>
+
+	<select id="getOpenActivityMessageByActivitier" resultMap="activityResultMap">
+		SELECT
+		activity_id,
+		activity_title,
+		activity_content,
+		beginTime,
+		endTime,
+		activitier,
+		sponsor,
+		activity_number,
+		activity_address,
+		publishTime,
+		permission,
+		activity.visitors,
+
+		group_id,
+		group_icon,
+		group_name,
+		group_dec,
+		group_contact,
+		group_address,
+		group_type,
+		owner,
+		group_members,
+		group_status,
+		group_evidence
+		FROM `activity`
+		JOIN `group` ON sponsor = group_id
+		<where>
+			permission = 1
+			<if test="activitier != 0">
+				AND activitier = #{activitier}
 			</if>
 		</where>
 		<if test="order != null and !order.equals('')">

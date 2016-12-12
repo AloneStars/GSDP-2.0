@@ -37,8 +37,16 @@ public class Activity {
 
 	//活动访问人数统计
 	private int visitors;
+
+	//存储主办方对象
+    private Group group;
 	
 	public Activity() {}
+
+	public Activity(int activityId, String activityTitle, String activityContent, String beginTime, String endTime, int activitier, int sponsor, int activityNumber, String activityAddress, String publishTime, int permission, int visitors,Group group) {
+		this(activityId,activityTitle,activityContent,beginTime,endTime,activitier,sponsor,activityNumber,activityAddress,publishTime,permission,visitors);
+		this.group = group;
+	}
 
 	public Activity(int activityId, String activityTitle, String activityContent, String beginTime, String endTime, int activitier, int sponsor, int activityNumber, String activityAddress, String publishTime, int permission, int visitors) {
 		this(activityTitle,activityContent,beginTime,endTime,activitier,sponsor,activityNumber,activityAddress,publishTime,permission,visitors);
@@ -160,24 +168,33 @@ public class Activity {
 		this.visitors = visitors;
 	}
 
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
 	//---------------------------------
 
 
 	@Override
 	public String toString() {
 		return "Activity{" +
-				"activityId=" + activityId +
+				"activitier=" + activitier +
+				", activityId=" + activityId +
 				", activityTitle='" + activityTitle + '\'' +
 				", activityContent='" + activityContent + '\'' +
 				", beginTime='" + beginTime + '\'' +
 				", endTime='" + endTime + '\'' +
-				", activitier=" + activitier +
 				", sponsor=" + sponsor +
 				", activityNumber=" + activityNumber +
 				", activityAddress='" + activityAddress + '\'' +
 				", publishTime='" + publishTime + '\'' +
 				", permission=" + permission +
 				", visitors=" + visitors +
+				", group=" + group +
 				'}';
 	}
 }

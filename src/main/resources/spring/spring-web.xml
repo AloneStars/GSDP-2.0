@@ -60,6 +60,7 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>
 			<mvc:mapping path="/group/**"/>
+			<mvc:mapping path="/personal/**"/>
 			<mvc:mapping path="/reply/creation"/>
 			<mvc:mapping path="/notice/creation"/>
 			<mvc:mapping path="/activity/creation"/>
@@ -70,11 +71,10 @@
 			<mvc:exclude-mapping path="/group/*/detail"/>
 			<mvc:exclude-mapping path="/group/modifyGroupInfo"/>
 			<mvc:exclude-mapping path="/group/app/**"/>
+			<mvc:exclude-mapping path="/group/*/detail*"/>
+
 			<bean class="com.gsdp.interceptor.CheckLoginInterceptor"/>
 		</mvc:interceptor>
-
-
-
 
 		<mvc:interceptor>
 			<mvc:mapping path="/group/member/**"/>

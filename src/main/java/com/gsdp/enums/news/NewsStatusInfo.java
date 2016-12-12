@@ -6,7 +6,9 @@ package com.gsdp.enums.news;
 public enum NewsStatusInfo {
 
     SYSTEM_NEWS_TITLE(1, "系统消息"),
-
+    NEWS_IS_NOT_EXIST(2,"消息不存在"),
+    CHANGE_NEWS_STATUE_SUCCESS(3,"更改消息状态成功"),
+    CHANGE_NEWS_STATUE_FAILURE(4,"更改消息状态失败")
     ;
 
     private int state;

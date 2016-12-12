@@ -56,7 +56,15 @@
                     <ul>
                         <c:forEach items="${situation.notices}" var="reply">
                             <li>
-                                <img src="${pageContext.request.contextPath}/${reply.user.headPicture}"/>
+                                <c:choose>
+                                    <c:when test="${sessionScope.get('user') != null}">
+                                        <a href="${pageContext.request.contextPath}/personal/${reply.user.userId}/detail"><img src="${pageContext.request.contextPath}/${reply.user.headPicture}"/></a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="javascript:alert('请先进行登陆操作...');"><img src="${pageContext.request.contextPath}/${reply.user.headPicture}"/></a>
+                                    </c:otherwise>
+                                </c:choose>
+
                                 <div class="comments-msg">
                                     <div class="commenter"><span><i>${reply.user.username}</i></span><span ><i>发布时间:${reply.replyTime}</i></span></div>
                                     <p>${reply.replyContent}</p>
@@ -71,10 +79,10 @@
                         <c:choose>
                             <c:when test="${sessionScope.get('user') != null}">
                                 <input id="replyMessage" class="message" type="text" placeholder="你想说点啥呢...(200字以内效果最佳)" autocomplete="off"/>
-                                <input id="reply" class="submit" type="button" value="发表"/>
+                                <input id="reply" class="submit" type="button" value="发表" />
                             </c:when>
                             <c:otherwise>
-                                <input id="replyMessage" class="message" type="text" placeholder="你想说点啥呢...(200字以内效果最佳)" autocomplete="off" disabled/>
+                                <input id="replyMessage" class="message" type="text" placeholder="你想说点啥呢...(200字以内效果最佳)" autocomplete="off" onclick="alert('请先进行登陆操作...');"/>
                                 <input id="reply" class="submit" type="button" value="发表" disabled/>
                             </c:otherwise>
                         </c:choose>

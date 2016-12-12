@@ -9,6 +9,27 @@
 		notice_id,notice_content,noticeTime,noticer,group_id
 	</sql>
 
+	<resultMap type="Notice" id="noticeResultMap">
+		<id column="notice_id" property="noticeId" jdbcType="INTEGER"/>
+		<result column="notice_content" property="noticeContent" jdbcType="VARCHAR"/>
+		<result column="noticeTime" property="noticeTime" jdbcType="DATE"/>
+		<result column="noticer" property="noticer" jdbcType="INTEGER"/>
+		<result column="notice.groupId" property="groupId" jdbcType="INTEGER"/>
+		<association property="group" javaType="Group">
+			<id column="group.groupId" property="groupId" jdbcType="INTEGER"/>
+			<result column="group_icon" property="groupIcon" jdbcType="VARCHAR"/>
+			<result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+			<result column="group_dec" property="groupDec" jdbcType="VARCHAR"/>
+			<result column="group_contact" property="groupContact" jdbcType="VARCHAR"/>
+			<result column="group_address" property="groupAddress" jdbcType="VARCHAR"/>
+			<result column="group_type" property="groupType" jdbcType="INTEGER"/>
+			<result column="owner" property="owner" jdbcType="INTEGER"/>
+			<result column="group_members" property="groupMembers" jdbcType="INTEGER"/>
+			<result column="group_status" property="groupStatus" jdbcType="INTEGER"/>
+			<result column="group_evidence" property="groupEvidence" jdbcType="VARCHAR"/>
+		</association>
+	</resultMap>
+
 	<insert id="addNoticeMessage" keyProperty="noticeId">
 		insert ignore notice(notice_content,noticeTime,noticer,group_id)
 		value(#{noticeContent},#{noticeTime},#{noticer},#{groupId});
@@ -24,12 +45,30 @@
 		</where>
 	</select>
 	
-	<select id="getNoticeListByNoticer" resultType="Notice">
+	<select id="getNoticeListByNoticer" resultMap="noticeResultMap">
 		select
-		<include refid="columns"/>
+		notice_id,
+		notice_content,
+		noticeTime,
+		noticer,
+		`notice`.group_id AS `notice.groupId`,
+
+		`group`.group_id AS `group.groupId`,
+		group_icon,
+		group_name,
+		group_dec,
+		group_contact,
+		group_address,
+		group_type,
+		owner,
+		group_members,
+		group_status,
+		group_evidence
 		from notice
+		JOIN `group` ON notice.group_id = `group`.group_id
 		<where>
-			noticer = #{noticer};
+			noticer = #{noticer}
+			ORDER BY noticeTime DESC;
 		</where>
 	</select>
 

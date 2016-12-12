@@ -147,6 +147,7 @@ public class UserServiceImpl implements UserService {
             if (!password.equals(user.getPassword()))
                 throw new LoginMsgIncorrectException("邮箱或者密码不正确");
             else
+
                 return user;
         }
 
@@ -245,9 +246,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getUserByUserId(int userId) {
+
+        User user = userDao.queryUserMessageById(userId);
+
+        return user;
+
+    }
+
+    @Override
     @Transactional
     public boolean applyJoinGroup(int userId, int groupId, String applyReason, String phone) throws
             IllegalArgumentException, GroupNotExistException, SqlActionWrongException, NewsException {
+
+        System.out.println("userId:"+userId+"groupId:"+groupId);
 
         if (!(GroupUtil.checkGroupContact(phone) && GroupUtil.checkApplyReason(applyReason))) {
             throw new IllegalArgumentException("user input information is incorrect");
@@ -286,6 +298,5 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
 
 }

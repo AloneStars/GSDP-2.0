@@ -64,7 +64,7 @@ public interface ActivityService {
 
     /**
      * 根据所给条件获取活动列表
-     * @param sponsor
+     * @param sponsor 活动主办方
      * @param offset
      * @param limit
      * @param order
@@ -74,8 +74,19 @@ public interface ActivityService {
     List<Activity> getGeneralActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
 
     /**
+     * 根据所给条件获取活动列表
+     * @param activitier 活动发送人
+     * @param offset
+     * @param limit
+     * @param order
+     * @param type
+     * @return
+     */
+    List<Activity> getGeneralActivityMessageByAcvitier(int activitier, int offset, int limit, String order, boolean type);
+
+    /**
      * 根据所给条件获取公开活动列表
-     * @param sponsor
+     * @param sponsor 活动主办方
      * @param offset
      * @param limit
      * @param order
@@ -84,6 +95,16 @@ public interface ActivityService {
      */
     List<Activity> getOpenActivityMessage(int sponsor, int offset, int limit, String order, boolean type);
 
+    /**
+     * 根据所给条件获取公开活动列表
+     * @param activitier 活动发布者
+     * @param offset
+     * @param limit
+     * @param order
+     * @param type
+     * @return
+     */
+    List<Activity> getOpenActivityMessageByActivitier(int activitier, int offset, int limit, String order, boolean type);
 
     /**
      * 浏览记录+1

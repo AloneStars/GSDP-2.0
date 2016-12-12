@@ -46,7 +46,7 @@ public class NewsDaoTest {
 	@Test
 	public void testChangeNewsStatue() {
 		int statue = 1;
-		int newsId = 2;
+		int newsId = 70;
 		int affectRows = newsDao.changeNewsStatue(statue, newsId);
 		logger.info("影响的行数:" + affectRows);
 	}
@@ -60,5 +60,14 @@ public class NewsDaoTest {
 		list.add(news2);
 		int affectRows = newsDao.batchAddNew(list);
 		logger.info("影响的行数:" + affectRows);
+	}
+
+	@Test
+	public void testQueryNoReadNews() {
+
+		int number = newsDao.queryNoReadNews(199);
+
+		logger.info("未读消息条数:" + number);
+
 	}
 }

@@ -222,7 +222,7 @@ public class GroupServiceImpl implements GroupService {
                 throw new GroupNotExistException("group not exist");
             }
 
-            Member member = new Member(userId, groupId, applyReason, phone, 0, com.gsdp.enums.user.Role.ORDINARY_USER.getRoleId());
+            Member member = new Member(userId, groupId, applyReason, phone);
 
             if (1 == groupDao.addMember(member)) {
                 User user = userDao.queryUserMessageById(userId);
@@ -387,7 +387,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getGroupListBySponsor(int sponsor) {
+    public List<Group> getGroupListByOwner(int sponsor) {
 
         List<Group> groupList = groupDao.getGroupListByOwner(sponsor);
 
@@ -619,7 +619,6 @@ public class GroupServiceImpl implements GroupService {
         GroupMember groupMember = getGroupMembersByStatus(groupId, status, currentPage, limit);
         return new GroupMemberWithCurrentUserRole(currentRole, groupMember);
     }
-
 
     @Override
     @Transactional

@@ -47,16 +47,16 @@ public class ActivityController {
         logger.info("获取所有活动列表");
         List<Activity> activitys = activityService.getAllOpenActivity();
 
+
         int showData = 3;
-
         int totalPage = 0;
-
         if(activitys.size()%showData == 0)
             totalPage = activitys.size()/showData;
         else
             totalPage = (activitys.size()/showData)+1;
 
         Pagination pagination = new Pagination(totalPage,1,showData);
+
 
         logger.info("获取分页活动列表");
         List<Activity> activityList = activityService.getOpenActivityMessage(0,(pagination.getCurrentPage()-1)*showData,pagination.getShowData(),null,true);

@@ -183,7 +183,7 @@ a:focus {
 .style ul li:hover {
 	position: relative;
 	top: 20px;
-	border: 2px dashed #fff;
+	border: 2px solid #fff;
 	border-radius: 100%;
 	box-shadow: 5px 5px 0px 0px inset orange;
 	transform: rotate(0deg);
@@ -278,32 +278,25 @@ a:focus {
 }
 
 .INFO {
-	width: 180px;
+	padding:5px;
 	height: 80px;
 	float: left;
-	border-right: 1px dashed #fff;
+}
+.INFO p{
+	height:auto !important;
+	line-height: normal !important;
+	margin:0px !important;
+	color:#fff;
+	font-size: 12px;
+	text-indent: 2em;
 }
 
-.Msg {
-	width: 50px;
-	height: 80px;
-	float: left;
-	padding: 5px;
+.INFO P a{
+	color:#000 !important;
 }
 
-.NOTICE {
-	width: 40px;
-	height: 32px;
-	text-align: center;
-	border: 1px solid #fff;
-}
-
-.NEWS {
-	margin-top: 5px;
-	width: 40px;
-	height: 32px;
-	text-align: center;
-	border: 1px solid #fff;
+.INFO P a:hover{
+	color:#f00 !important;
 }
 
 .Logout {

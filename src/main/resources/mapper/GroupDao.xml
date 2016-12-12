@@ -12,15 +12,13 @@
     <insert id="addAdmin">
     	insert ignore admin values(#{userId},#{groupId});
     </insert>
-    
-    
+
     <delete id="deleteAdmin">
     	delete from admin
     	<where>
     		user_id = #{userId} and group_id = #{groupId};
     	</where>
     </delete>
-
 
 	<select id="getGroupAdmin" resultType="int">
 		select user_id from admin
@@ -38,7 +36,6 @@
     		group_id = #{groupId};
     	</where>
     </update>
-
 
 	<select id="getGroupAllMemberNumbersByStatus" resultType="int">
 		select count(*) from member
@@ -90,7 +87,6 @@
 		</where>
 	</select>
 
-
 	<select id="getGroupMembersByStatus" resultType="Member">
 		select
 		m.user_id as "userId",
@@ -115,7 +111,6 @@
 			order by m.user_id limit ${offset},${limit};
 		</where>
 	</select>
-
 
     <select id="getGroupMembersMessageWithRoleByStatus" resultType="Member">
         select
@@ -146,8 +141,7 @@
             order by m.role_id desc limit ${offset},${limit};
         </where>
     </select>
-    
-    
+
     <insert id="addMember">
     	insert ignore member
     	values(#{userId},#{groupId},#{applyReason},#{phone},#{status},#{roleId});
@@ -179,21 +173,18 @@
 			group_id = #{groupId};
 		</where>
 	</update>
-    
-    
+
     <delete id="deleteMember">
     	delete from member
     	<where>
     		user_id = #{userId} and group_id = #{groupId};
     	</where>
     </delete>
-    
-    
+
     <insert id="addGroup" keyProperty="groupId">
     	insert ignore `group`(group_icon,group_name,group_dec,group_contact,group_address,group_type,owner,visitors,group_status,group_evidence)
     	values(#{groupIcon},#{groupName},#{groupDec},#{groupContact},#{groupAddress},#{groupType},#{owner},#{visitors},#{groupStatus},#{groupEvidence});
     </insert>
-
 
 	<select id="getRole" resultType="Role">
 		select
@@ -205,7 +196,6 @@
 			m.group_id = #{groupId} and m.user_id = #{userId};
 		</where>
 	</select>
-    
 
     <update id="updateGroup">
     	update `group`
@@ -252,7 +242,7 @@
 			group_id = #{groupId};
 		</where>
 	</update>
-    
+
     <select id="getGroupMessage" resultType="Group">
     	select
     	<include refid="columns"/>
@@ -322,8 +312,6 @@
 		on g.owner = u.user_id;
 	</select>
 
-
-    
     <!--简单来说#{} 解析的是占位符？可以防止SQL注入，
      比如打印出来的语句 select *　from table where id=?,
      然而${} 则是不能防止SQL注入,打印出来的语句
@@ -342,8 +330,7 @@
             limit #{offset},#{limited};
 		</if>
     </select>
-    
-    
+
     <select id="getAllGroupMessage" resultType="Group">
     	select
     	<include refid="columns"/>
@@ -372,8 +359,6 @@
 			group_id != #{groupId};
 		</where>
 	</select>
-
-
 
 	<!--注意我们在传入string类型参数的时候，我们在这里用参数名只能用_parameter
 	来才能获取，但是如果是int类型就不用，但是为了语义表达清楚，这里我们用@param来
@@ -411,15 +396,15 @@
 		g.group_members,
 		g.group_status,
 		g.group_evidence
-		FROM `group` AS g
-		JOIN  `member` AS  m
-		ON g.group_id = m.group_id
+		FROM `member` AS  m
+		LEFT JOIN  `group` AS g
+		ON m.group_id = g.group_id
 		<where>
 			user_id = #{userId}
 			AND
-			role_id = 2 OR role_id = 3
+			m.status = 1
 			AND
-			m.status = 1;
+			(role_id = 2 OR role_id = 3);
 		</where>
 	</select>
 

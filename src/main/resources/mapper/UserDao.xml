@@ -62,7 +62,6 @@
         </where>
     </select>
 
-
     <select id="queryUserByGroupId" resultMap="userResultMap">
         select
         u.user_id,
@@ -198,6 +197,15 @@
         FROM admin
         <where>
             user_id = #{userId} AND group_id = #{groupId};
+        </where>
+    </select>
+
+    <select id="qureyUserByUserId" resultType="User">
+        SELECT
+        <include refid="column"/>
+        FROM `user`
+        <where>
+            user_id = #{userId};
         </where>
     </select>
 

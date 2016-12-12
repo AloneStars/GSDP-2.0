@@ -95,6 +95,20 @@ public class ActivityDaoTest {
 	}
 
 	@Test
+	public void testGetGeneralActivityMessageByActivitier(){
+
+		List<Activity> activityList = activityDao.getGeneralActivityMessageByActivitier(1,0,0,"visitors",true);
+		logger.info("activityList={}",activityList);
+
+	}
+
+	@Test
+	public void testGetOpenActivityMessageByActivitier(){
+		List<Activity> activityList = activityDao.getOpenActivityMessageByActivitier(1,0,0,"visitors",true);
+		logger.info("activityList={}",activityList);
+	}
+
+	@Test
 	public void addActiityVisitors(){
 
 		int activityId = 2;
@@ -104,4 +118,5 @@ public class ActivityDaoTest {
 		logger.info("影响行数"+affectRows);
 
 	}
+
 }

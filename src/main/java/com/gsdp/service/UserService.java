@@ -123,4 +123,11 @@ public interface UserService {
      */
     List<User> getUserListByGroupId(int groupId);
 
+    /**
+     * 根据id获取用户信息
+     * @param userId
+     * @return
+     */
+    User getUserByUserId(int userId);
+
 }

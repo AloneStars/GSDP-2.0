@@ -64,7 +64,6 @@ public class Page {
 
 	/**
 	 * 设置当前的页码
-	 *
 	 * @param currentPage
 	 */
 	public void setCurrentPage(int currentPage) {
@@ -78,7 +77,6 @@ public class Page {
 	}
 
 	/**
-	 *
 	 * @param totalNotes
 	 * @param page
 	 * @param perPageDisplay

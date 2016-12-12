@@ -17,19 +17,22 @@
         </div>
     </div>
     <c:set var="user" value="${sessionScope.get('user')}"/>
+    <c:set var="noReadNews" value="${sessionScope.get('noReadNews')}"/>
     <c:choose>
         <c:when test="${user != null}">
             <div class="end">
                 <div class="user">
                     <div class="user_info">
-                        <div class="INFO"></div>
-                        <div class="Msg">
-                            <div class="NOTICE User_a">
-                                <a href="#">通知</a>
-                            </div>
-                            <div class="NEWS User_a">
-                                <a href="#">消息</a>
-                            </div>
+                        <div class="INFO">
+                            <p>亲爱的，${user.username}，欢迎您登陆我们的平台！</p>
+                            <c:choose>
+                                <c:when test="${noReadNews != 0}">
+                                    <P>您有${noReadNews}条最新消息，尚未阅读。<a href="${pageContext.request.contextPath}/personal/${user.userId}/detail">去看看？</a></P>
+                                </c:when>
+                                <c:otherwise>
+                                    <P>暂无最新消息可查，您可以先去看看别的。</P>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="UserMsg User_a">
@@ -40,7 +43,7 @@
                     </div>
                 </div>
                 <div class="HP" style="background:url('${pageContext.request.contextPath}/${user.headPicture}') no-repeat;">
-                    <a href="${pageContext.request.contextPath}/personal/msg" title="个人中心"></a>
+                    <a href="${pageContext.request.contextPath}/personal/${user.userId}/detail" title="个人中心"></a>
                 </div>
             </div>
         </c:when>

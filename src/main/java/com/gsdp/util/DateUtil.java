@@ -17,7 +17,7 @@ public class DateUtil {
 	     int year = cal.get(Calendar.YEAR);//获取年份
 	     int month=cal.get(Calendar.MONTH);//获取月份
 	     int day=cal.get(Calendar.DATE);//获取日
-	    /* int minute=cal.get(Calendar.MINUTE);//分
+	     /*int minute=cal.get(Calendar.MINUTE);//分
 	     int second=cal.get(Calendar.SECOND);//秒
 	     int WeekOfYear = cal.get(Calendar.DAY_OF_WEEK);//一周的第几天*/
 
@@ -40,7 +40,7 @@ public class DateUtil {
 
 	public static void main(String[] args) {
 
-		System.out.println(getDataString());
-        //System.out.println(dateToString("yyyy-MM-dd"));
+		//System.out.println(getDataString());
+        //System.out.println(dateToString("yyyy年MM月dd日"));
     }
 }

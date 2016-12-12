@@ -133,11 +133,25 @@ public interface GroupService {
     boolean changeOwner(int currentOwner, int userId, int groupId) throws
             NotInGroupException, HasBeenOwnerException, NewsException, SqlActionWrongException;
 
-    //获取除了该组织之后的所有组织列表
+    /**
+     * 获取除了该组织之后的所有组织列表
+     * @param groupId
+     * @return
+     */
     List<Group> getGroupListMessageExpGroup(int groupId);
 
-    List<Group> getGroupListBySponsor(int sponsor);
+    /**
+     * 获取该用户创建的所有组织
+     * @param owner
+     * @return
+     */
+    List<Group> getGroupListByOwner(int owner);
 
+    /**
+     * 获取该用户加入的所有组织
+     * @param member
+     * @return
+     */
     List<Group> getGroupListByMember(int member);
 
 
