@@ -118,7 +118,7 @@ var register = {
         if(register.checkPassword(password)){
             $("#register-password").next(".err-info").html("");
         }else{
-            $("#register-password").next(".err-info").html("请确认密码输入正确,不能包含中文或者空格的等字符");
+            $("#register-password").next(".err-info").html("密码长度为6-16位，且不能包含中文或者空格的等字符");
             return false;
         }
 
@@ -183,7 +183,31 @@ var register = {
                 alert("发生错误:"+jqXHR.status);
             }
         });
+    },
+
+    "sendMessage": function(){
+        var InterValObj; //timer变量，控制时间
+        var count = 30; //间隔函数，1秒执行
+        var curCount;//当前剩余秒数
+        curCount = count;
+        //设置button效果，开始计时
+        $("#sendVerifyCode").attr("disabled", "true");
+        $("#sendVerifyCode").html( + curCount + "秒再获取");
+        InterValObj = window.setInterval(SetRemainTime, 1000); //启动计时器，1秒执行一次
+        //timer处理函数
+        function SetRemainTime() {
+            if (curCount == 0) {
+                window.clearInterval(InterValObj);//停止计时器
+                $("#sendVerifyCode").removeAttr("disabled");//启用按钮
+                $("#sendVerifyCode").html("重新发送验证码");
+            }
+            else {
+                curCount--;
+                $("#sendVerifyCode").html( + curCount + "秒再获取");
+            }
+        }
     }
+
 }
 
 var logout ={
@@ -213,10 +237,12 @@ var logout ={
 
 $(function(){
 
-//保证登录和注册切换的时候dialog是放在中间的
+    $("#sendVerifyCode").removeAttr("disabled");//启用按钮
+
+    //保证登录和注册切换的时候dialog是放在中间的
     $("#login-register-modal li:eq(0)").on("click", function () {
         $(".login-register-dialog-size").css("min-height",240);
-        $("#login-register-dialog").css("min-height",240);
+        $("#login-register-dialog").css("min-height",240);$("#sendVerifyCode").removeAttr("disabled");//启用按钮
         dialog.reModify(parseInt($(".login-register-dialog-size").css("min-height")),
             $(".login-register-dialog-size").outerWidth());
     });
@@ -258,6 +284,7 @@ $(function(){
 
         if(login.checkEmail(email)){
             $("#register-email").next(".err-info").html("");
+            register.sendMessage();
             register.clickSendVerifyCode(email);
         }else{
             $("#register-email").next(".err-info").html("邮箱格式不正确");

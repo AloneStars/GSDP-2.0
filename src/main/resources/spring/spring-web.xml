@@ -66,6 +66,7 @@
 			<mvc:mapping path="/activity/creation"/>
 			<mvc:exclude-mapping path="/user/login"/>
 			<mvc:exclude-mapping path="/user/register"/>
+			<mvc:exclude-mapping path="/user/sendVerifyCode"/>
 			<mvc:exclude-mapping path="/group/list"/>
 			<mvc:exclude-mapping path="/group/*/list"/>
 			<mvc:exclude-mapping path="/group/*/detail*"/>
