@@ -61,4 +61,7 @@ public class BaseController {
 
     //显示406参数错误的页面
 
+
+    //显示405该方法不被支持的页面
+
 }

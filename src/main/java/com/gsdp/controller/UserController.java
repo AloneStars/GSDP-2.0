@@ -13,7 +13,6 @@ import com.gsdp.exception.SqlActionWrongException;
 import com.gsdp.exception.file.EmptyFileException;
 import com.gsdp.exception.file.FormatNotMatchException;
 import com.gsdp.exception.file.SizeBeyondException;
-import com.gsdp.exception.group.GroupException;
 import com.gsdp.exception.group.GroupNotExistException;
 import com.gsdp.exception.news.NewsException;
 import com.gsdp.exception.news.NoNewsExistException;
@@ -122,7 +121,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
     @ResponseBody
-    public JsonData login(String email,String password,HttpSession session){
+    public JsonData login(@RequestParam(value = "email", required = false) String email, @RequestParam(value = "password", required = false) String password,HttpSession session){
 
         User user = null;
         try {

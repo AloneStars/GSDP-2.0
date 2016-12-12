@@ -66,7 +66,7 @@
                                 </c:when>
                                 <c:when test="${identity == 'member' or identity == 'admin'}">
                                     <div class="Intro">
-                                        <input type="button" value="退出组织" onclick="group.quitGroup();">
+                                        <input type="button" value="退出组织" onclick="if(confirm('你确定要退出组织吗?')){group.quitGroup();}">
                                     </div>
                                 </c:when>
                                 <c:otherwise>
