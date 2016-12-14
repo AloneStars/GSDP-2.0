@@ -21,12 +21,12 @@ public class SituationUtil {
     }
 
     /**
-     * 限制用户输入的内容在[100,maximumWords]之间
+     * 限制用户输入的内容在[10,maximumWords]之间
      * @param situationContent
      * @return
      */
     public static boolean checkSituationContent(String situationContent) {
-        if(situationContent.length() >= 100 && situationContent.length() <= 2000) {
+        if(situationContent.length() >= 10 && situationContent.length() <= 2000) {
             return true;
         } else {
             return false;

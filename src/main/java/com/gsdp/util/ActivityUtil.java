@@ -29,16 +29,19 @@ public class ActivityUtil {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        Date today = new Date();
+        Date today = null;
         Date startDate = null;
 
         try {
+            today = sdf.parse(DateUtil.getDataString());
             startDate = sdf.parse(startTime);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
-        if(startDate== null || startDate.before(today))
+        System.out.println(startDate.before(today));
+
+        if(startDate == null || startDate.before(today))
             return false;
         else
             return true;
@@ -88,6 +91,10 @@ public class ActivityUtil {
         else
             return true;
 
+    }
+
+    public static void main(String[] args) {
+        System.out.println(checkStartTime("2016-12-13"));
     }
 
 }

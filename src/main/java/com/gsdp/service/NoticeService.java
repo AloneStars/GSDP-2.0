@@ -1,6 +1,7 @@
 package com.gsdp.service;
 
 import com.gsdp.entity.group.Notice;
+import com.gsdp.entity.user.User;
 import com.gsdp.exception.MessageSizeException;
 import com.gsdp.exception.SqlActionWrongException;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import java.util.List;
  *********************************************************/
 public interface NoticeService {
 
-    boolean addNoticeMessage(Notice notice) throws MessageSizeException,SqlActionWrongException;
+    boolean addNoticeMessage(Notice notice,User user) throws MessageSizeException,SqlActionWrongException;
 
     List<Notice> getNoticeMessage(int groupId);
 

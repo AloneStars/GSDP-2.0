@@ -31,8 +31,8 @@ var situation = {
         },
 
         "checkSituationContent" : function (situationContent) {
-            //限制用户输入的内容在[100,maximumWords]之间
-            if(situationContent.length >= 100 && situationContent.length <=
+            //限制用户输入的内容在[10,maximumWords]之间
+            if(situationContent.length >= 10 && situationContent.length <=
                 window.UEDITOR_CONFIG.maximumWords) {
                 return true;
             } else {
@@ -62,7 +62,8 @@ var situation = {
                     "groupId" : groupId
                 }, function (data) {
                     if(data.success) {
-                        location.href = situation.url.detailSituationMessage(data.data);
+                        alert(data.message);
+                        window.location.reload();
                     } else {
                         alert(data.message);
                     }

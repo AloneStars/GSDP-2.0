@@ -73,6 +73,10 @@
 			<mvc:exclude-mapping path="/group/modifyGroupInfo"/>
 			<mvc:exclude-mapping path="/group/app/**"/>
 			<mvc:exclude-mapping path="/group/*/detail*"/>
+			<mvc:exclude-mapping path="/group/superAdmin/agreeCreateGroup"/>
+			<mvc:exclude-mapping path="/group/superAdmin/disagreeCreateGroup"/>
+
+
 			<bean class="com.gsdp.interceptor.CheckLoginInterceptor"/>
 		</mvc:interceptor>
 

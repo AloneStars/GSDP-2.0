@@ -142,7 +142,7 @@
 						<span> <b class="content-title"><i>更多团体:</i></b><br>
 							<ul class="content-list">
                                 <c:forEach items="#{groupList}" var="group">
-                                    <li><a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" target="_blank">${group.groupName}</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/group/${group.groupId}/detail" <%--target="_blank"--%>>${group.groupName}</a></li>
                                 </c:forEach>
 							</ul>
 						</span>

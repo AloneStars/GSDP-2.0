@@ -26,7 +26,7 @@
                     <ul>
                         <c:forEach items="${moreActivityList}" var="moreActivity">
                             <li><nobr>
-                                <a href="${pageContext.request.contextPath}/activity/${moreActivity.activityId}/detail" target="_blank"><span class='title' title="${moreActivity.activityTitle}">${moreActivity.activityTitle}</span></a>
+                                <a href="${pageContext.request.contextPath}/activity/${moreActivity.activityId}/detail" <%--target="_blank"--%>><span class='title' title="${moreActivity.activityTitle}">${moreActivity.activityTitle}</span></a>
                             </nobr></li>
                         </c:forEach>
                     </ul>

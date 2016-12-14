@@ -38,7 +38,7 @@
             </div>
             <%--发布动态--%>
             <div class="PathItem">
-                <a class="link" href="javascript:void(0);" title="发布动态" onclick="situation.showCreateSituation();">
+                <a class="link" href="javascript:scrollTo(0,0);" title="发布动态" onclick="situation.showCreateSituation();">
                     <span class="item" style="background-image:url('${pageContext.request.contextPath}/image/menu/Situation.png');"></span>
                 </a>
             </div>
@@ -57,13 +57,13 @@
             <%--成员申请管理--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Apply.png');"></span>
                 </a>
             </div>
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/NewGroup.png');"></span>
                 </a>
             </div>
         </c:when>
@@ -107,13 +107,13 @@
             <%--成员申请管理--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="成员申请管理"  onclick="group.showGroupApplyMemberManager();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Member.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/Apply.png');"></span>
                 </a>
             </div>
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/NewGroup.png');"></span>
                 </a>
             </div>
         </c:when>
@@ -133,7 +133,7 @@
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/NewGroup.png');"></span>
                 </a>
             </div>
         </c:when>
@@ -141,7 +141,7 @@
             <%--创建团队--%>
             <div class="PathItem">
                 <a class="link" href="javascript:void(0);" title="创建团队" onclick="group.showCreateGroupDialog();">
-                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/moment_icn_address.png');"></span>
+                    <span class="item" style="background-image: url('${pageContext.request.contextPath}/image/menu/NewGroup.png');"></span>
                 </a>
             </div>
         </c:when>

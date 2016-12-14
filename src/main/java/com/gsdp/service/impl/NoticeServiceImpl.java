@@ -40,13 +40,14 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     @Transactional
-    public boolean addNoticeMessage(Notice notice) throws MessageSizeException,SqlActionWrongException{
+    public boolean addNoticeMessage(Notice notice,User user) throws MessageSizeException,SqlActionWrongException{
 
         int length = notice.getNoticeContent().length();
 
         if(length>=200 || length<=0){
             throw new MessageSizeException("message size is incorrect");
         }else {
+
             int affectRows = noticeDao.addNoticeMessage(notice);
 
             if (affectRows == 1){
@@ -56,11 +57,11 @@ public class NoticeServiceImpl implements NoticeService {
                 List<User> userList = userService.getUserListByGroupId(groupId);
                 Send send = new Send("/email.properties");
 
-                for (User user: userList) {
+                for (User admin: userList) {
 
-                     boolean success = send.email(user.getLoginEmail(),"本邮件为GSDP(校园团体风采展示平台)的组织通知邮件",
-                            "<h1>"+group.getGroupName()+"的管理员:"+user.getUsername()+"在"+DateUtil.getDataString()+"发布通知"
-                                    +"<br>通知类容如下:"+notice.getNoticeContent()+"<br>请注意查收通知</h1>");
+                     boolean success = send.email(admin.getLoginEmail(),"本邮件为GSDP(校园团体风采展示平台)的组织通知邮件",
+                            "<h2 style='color:#08c;'>"+group.getGroupName()+"的管理员: "+user.getUsername()+" 在"+DateUtil.getDataString()+"日 发布通知"
+                                    +"<br>通知类容如下:<br><p style='color:#000;text-indent:2em;'>"+notice.getNoticeContent()+"</p><br>请注意查收通知</h2>");
 
                     if(success)
                         continue;

@@ -222,7 +222,7 @@ public class GroupServiceImpl implements GroupService {
                 throw new GroupNotExistException("group not exist");
             }
 
-            Member member = new Member(userId, groupId, applyReason, phone);
+            Member member = new Member(userId, groupId, applyReason, phone,0, com.gsdp.enums.user.Role.ORDINARY_USER.getRoleId());
 
             if (1 == groupDao.addMember(member)) {
                 User user = userDao.queryUserMessageById(userId);

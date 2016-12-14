@@ -44,7 +44,7 @@ public class NoticeController {
         Notice notice = new Notice(noticeContent, DateUtil.getDataString(),user.getUserId(),groupId);
 
         try {
-            if(noticeService.addNoticeMessage(notice))
+            if(noticeService.addNoticeMessage(notice,user))
                 return new JsonData(true,NoticeStatusInfo.NOTICE_CREATE_SUCCESS.getMessage());
             else
                 return  new JsonData(false,NoticeStatusInfo.NOTICE_CREATE_FAILURE.getMessage());

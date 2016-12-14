@@ -197,6 +197,7 @@
 	width: 620px;
 	height: 200px;
 	padding: 30px;
+	overflow-y: auto;
 	float: left;
 }
 

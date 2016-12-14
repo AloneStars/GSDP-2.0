@@ -238,7 +238,7 @@ public class GroupController {
         }
     }
 
-    @RequestMapping(value = "/superAdmin/agreeCreateGroup", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/superAdmin/agreeCreateGroup", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData agreeCreateGroup(int groupId) {
         //这个方法只能为系统管理员调用，我们统一在拦截器里面把这个url拦截掉，
@@ -256,7 +256,7 @@ public class GroupController {
         }
     }
 
-    @RequestMapping(value = "/superAdmin/disagreeCreateGroup", method = RequestMethod.POST, produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/superAdmin/disagreeCreateGroup", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
     @ResponseBody
     public JsonData disagreeCreateGroup(int groupId) {
         try {

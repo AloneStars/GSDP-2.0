@@ -222,7 +222,6 @@
     	</where>
     </update>
 
-
 	<update id="updateGroupStatus">
 		update `group`
 		<set>
@@ -282,7 +281,6 @@
 			g.group_id = #{groupId};
 		</where>
 	</select>
-
 
 	<select id="getAllGroupMessagesWithOwner" resultType="Group">
 		select
